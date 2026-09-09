@@ -55,6 +55,25 @@ def _get_reader():
     return _reader
 
 
+def is_complete(dest):
+    """Is this cached page whole, or was it truncated mid-write?
+
+    Size alone is not enough. If the machine is shut down or the process is
+    killed while a page is being written, the partial file can easily clear the
+    size floor and would then be trusted forever. Every complete page ends with
+    </html>, so check that instead -- a truncated page fails and gets fetched
+    again on the next run.
+    """
+    if not dest.exists() or dest.stat().st_size <= MIN_BYTES:
+        return False
+    try:
+        with dest.open("rb") as fh:
+            fh.seek(-512, 2)
+            return b"</html>" in fh.read().lower()
+    except OSError:
+        return False
+
+
 def looks_blocked(html):
     if len(html) < MIN_BYTES:
         return f"suspiciously small ({len(html)} bytes)"
@@ -67,7 +86,7 @@ def looks_blocked(html):
 
 def fetch(url, dest, counter=None):
     """Download `url` to `dest` unless already present. Returns the HTML."""
-    if dest.exists() and dest.stat().st_size > MIN_BYTES:
+    if is_complete(dest):
         return dest.read_text(encoding="utf-8", errors="replace")
 
     if counter is not None and counter["n"] > 0:
@@ -164,14 +183,14 @@ def main():
           f"({sum(len(v) for v in links.values())} rows across seasons)")
 
     have = sum(1 for h in every
-               if (RAW / f"match_{h.split('/')[3]}.html").exists())
+               if is_complete(RAW / f"match_{h.split('/')[3]}.html"))
     print(f"{have} already cached, {len(every) - have} to fetch\n")
 
     print("=== phase 2: match reports ===", flush=True)
     for i, href in enumerate(every, 1):
         mid = href.split("/")[3]
         dest = RAW / f"match_{mid}.html"
-        if dest.exists() and dest.stat().st_size > MIN_BYTES:
+        if is_complete(dest):
             continue
         print(f"[{i}/{len(every)}] {mid}", flush=True)
         fetch(BASE + href, dest, counter)
