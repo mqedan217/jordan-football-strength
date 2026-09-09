@@ -53,8 +53,16 @@ mu_away = exp(atk_away - def_home)
 - This is Dixon–Coles (1997) with the time-decay term; the Bayesian version
   planned for later follows Baio & Blangiardo (2010). Cite both.
 
-Files: `src/data.py`, `src/baseline.py`, `src/trajectory.py`.
-Output: `outputs/jordan_strength_trace.csv`.
+Files live in `JordanData/`, not `src/`: `data.py`, `baseline.py`,
+`trajectory.py`, plus `uncertainty.py` (bootstrap), `tournament.py` (match
+importance), `importance.py` (the DiD), `fbref_fetch.py`, `fbref_parse.py`,
+`squad_features.py`.
+Outputs: `outputs/jordan_strength_trace.csv` (point estimates),
+`outputs/jordan_strength_ci.csv` (with intervals — prefer this one).
+
+Environment: `.venv` at the repo root, pinned in `requirements.txt`
+(numpy 2.5.3, pandas 3.0.5, scipy 1.18.1, soccerdata 1.9.1 for Part 2).
+`data/results.csv` is the cached 49k-row spine and is gitignored.
 
 ### The finding that motivates everything
 
@@ -72,14 +80,63 @@ Switzerland, Colombia. Raw results say collapse, opponent adjustment says peak.
 That divergence is the project's headline. It is also the argument for why the
 squad layer is worth building.
 
-### ⚠️ A result that must NOT be reused
+### ✅ The attack-vs-defence claim — recomputed, now supported
 
-An earlier attack-vs-defence decomposition (attack +0.53, defence −0.08,
-"the improvement is entirely attacking") was computed by averaging point
-estimates across two periods **with no standard errors at all**. With ~15
-matches/year that difference may not be distinguishable from zero. Do not
-carry this claim forward unless it is recomputed with uncertainty. It is
-currently unsupported.
+An earlier decomposition (attack +0.53, defence −0.08, "the improvement is
+entirely attacking") was computed by averaging point estimates across two
+periods **with no standard errors at all**, and was banned pending a proper
+recomputation. That condition has now been met (`JordanData/uncertainty.py`, 500
+paired bootstrap draws), using the exact additive split
+`strength = e^atk − e^−def`:
+
+| component | 2015→2026 | 95% CI | |
+|---|---|---|---|
+| attacking contribution | +0.744 | [+0.238, +1.212] | excludes 0 |
+| defensive contribution | −0.027 | [−0.255, +0.196] | includes 0 |
+| **attack minus defence** | **+0.771** | **[+0.229, +1.282]** | **excludes 0** |
+
+The third row is the test that matters — it compares two uncertain quantities
+rather than eyeballing two point estimates, which is what the original failed
+to do. Attack accounts for ~104% of the rise. **The claim may now be carried
+forward.** The magnitudes differ from the banned version because that used a
+different period and method; the conclusion survives.
+
+### ⚠️ A claim that must NOT be made
+
+**"2026 is Jordan's peak" is not supportable.** It is the highest point
+estimate, but not distinguishable from its neighbours:
+
+- 2026 vs 2023: +0.411, CI [−0.031, +0.867]
+- 2026 vs 2025: +0.225, CI [−0.116, +0.562]
+
+The defensible claim is the long-run rise (+0.717, CI [+0.203, +1.220]).
+Describe 2026 as "at the top of the range", never as the peak. The raw-GD
+divergence story is unaffected — that is about point estimates.
+
+### Tournament effects — tested, rejected as a model term
+
+Four variants (global friendly offset, + friendly-specific home advantage,
++ finals offset, and a per-team importance parameter) were tested on
+rolling-origin held-out log score. **All four rejected.** See
+`JordanData/tournament.py` and `outputs/tournament_comparison.csv`.
+
+The per-team version is the interesting failure. Jordan does show a
+competitive-match premium post-2022 (+1.09, CI [+0.27, +1.90]) that survives
+opponent adjustment and holds within opponent-strength bands. But:
+
+- the difference-in-differences vs pre-2022 is +0.86, CI [−0.06, +1.74] — and
+  it grows monotonically the later the split date is placed
+- across 161 teams the spread of that DiD has sd 0.735, while the average
+  within-team estimation noise is sd 0.758. **Between-team variation is
+  indistinguishable from zero** — no team is separable from any other on this
+  measure, so Jordan's 88th-percentile rank is an artefact
+- a single time-invariant per-team term would also smear a post-2022 behaviour
+  back across 2015, corrupting the baseline the whole project measures from
+
+Report it as a description of what happened in those 57 matches, tiered:
+*supported* (the post-2022 premium), *not established* (that it is a change),
+*ruled out* (that it is distinctive to Jordan). No further work on scorelines
+can settle this — the signal is below the noise floor of ~15 matches a year.
 
 ---
 
@@ -115,10 +172,38 @@ and GK `SoTA, Saves, Save%`.
 ### 🚨 Data trap: empty renders as 0
 
 Jordan won 7–0 and every `Ast` cell reads 0. Assists were not recorded in this
-era — they are missing, not zero. **Any column that is uniformly 0 across a
-match must be treated as missing until proven otherwise.** Write an explicit
-check: for each column, per season, compute the fraction of matches where the
-column is entirely 0. Anything at 100% is not collected.
+era — they are missing, not zero.
+
+**Apply this per season, never per match.** Verified against the 2026
+Austria–Jordan report: Jordan's `PK`, `PKatt`, `CrdY` and `CrdR` are all zero
+in that match because Jordan took no penalties and got no cards — those are
+true zeros. Applied per match the rule deletes real data. The per-season form
+is the one that works: for each column, the fraction of a season's matches
+where it is entirely 0; 100% means not collected. Implemented in
+`fbref_parse.coverage_audit`, written to `outputs/squad/coverage.csv`.
+
+### 🚨 Data trap: the event feed's trailing label lies
+
+Verified in the same report. FBref labels own goals *and* penalty goals with
+the same trailer as real substitutions:
+
+```
+76’    Yazan Al-Arab Own Goal          — Substitute
+90+12’ Marko Arnautović Penalty Kick   — Substitute
+81’    Saed Al-Rosan for Abdallah Nasib — Substitute
+```
+
+Classify on the text *before* the em dash. Keying on the trailer or the CSS
+class turns two goals into substitutions. Also: FBref files an own goal under
+the team that benefits, so `side` is the scoring team while `player` is the
+opponent who scored it.
+
+### 🚨 Never key players by name
+
+Arabic names get re-transliterated between seasons. Name-keying invents debuts
+and corrupts every continuity measure. Use FBref's 8-hex player id, extracted
+from the `/en/players/<id>/` hrefs — verified present on every row of both the
+lineup and stats tables.
 
 ### 🚨 Confound: FBref changed data provider
 
@@ -136,9 +221,32 @@ but it rules out using any advanced stat across the boundary.
 - xG: not available for AFC competitions
 - FBref launched June 2018 and backfilled; it warns totals may be incomplete
 
-**Open question:** the season-by-season history page
-(`/squads/3e22f0fa/history/`) lists every season FBref holds for Jordan. This
-has NOT been checked and determines the true start year. Check it first.
+**Open question — ANSWERED (2026-09-09).** The history page was fetched and
+parsed. FBref holds Jordan continuously for seasons **2014–2023, 2025, 2026**,
+totalling **165 distinct match reports**. Pre-2014 is sparse and unusable
+(2011, 2010, 2007, 2006, 2004, 2002, 2000 only). The squad layer can therefore
+cover both the 2015 baseline and the 2022 shift.
+
+Formation and opponent formation turn out to be available much further back
+than "recent seasons only" — the season fixtures table (`matchlogs_for`)
+carries Date, Comp, Round, Venue, Result, GF, GA, Opponent, Poss, Attendance,
+Captain, Formation, Opp Formation and Referee, so most match metadata comes
+from 12 season pages rather than 165 match reports.
+
+**Season labels are competition cycles, not calendar years.** There is no 2024
+season: the 2023 Asian Cup (played Jan–Feb 2024) files under season 2023, and
+the 2024–25 World Cup qualifiers file under season 2026. Key everything on
+match date, never on season label.
+
+**Coverage hole, and it is not random.** FBref tracks only World Cup, WCQ-AFC,
+AFC Asian Cup, AFC Asian Cup qualification and Friendlies for Jordan. It does
+not track Arab Cup (10), WAFF Championship (6), Palestine International
+Championship (4), King's Cup (2), Jordan International Tournament (2). **All
+24 are competitive; none are friendlies**, and Arab Cup and WAFF are exactly
+the rotation-heavy tournaments where a second-string XI is most likely — so
+squad turnover measured from FBref alone is biased downward. Use
+`data/results.csv` as the spine and carry a per-match coverage flag.
+Full extraction spec: `docs/squad_layer_spec.md`.
 
 ### Scraping
 
