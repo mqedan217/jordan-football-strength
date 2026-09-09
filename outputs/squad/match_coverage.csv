@@ -1,0 +1,489 @@
+date,opponent,tournament,venue,gf,ga,result,match_id,Comp,n_starters,has_fbref,has_xi,reason
+1963-01-06,Kuwait,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1963-03-31,Syria,Arab Cup,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+1963-04-02,Kuwait,Arab Cup,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+1963-04-04,Tunisia,Arab Cup,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+1963-04-06,Lebanon,Arab Cup,away,0,5,L,,,,False,False,competition not tracked by fbref
+1964-11-13,Lebanon,Arab Cup,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+1964-11-15,Kuwait,Arab Cup,away,0,2,L,,,,False,False,competition not tracked by fbref
+1964-11-16,Libya,Arab Cup,neutral,2,5,L,,,,False,False,competition not tracked by fbref
+1965-07-30,Iraq,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+1966-04-02,Iraq,Arab Cup,away,1,2,L,,,,False,False,competition not tracked by fbref
+1966-04-05,Lebanon,Arab Cup,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+1966-04-07,Bahrain,Arab Cup,neutral,5,1,W,,,,False,False,competition not tracked by fbref
+1966-04-08,Kuwait,Arab Cup,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+1971-12-11,Syria,AFC Asian Cup qualification,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+1971-12-13,Bahrain,AFC Asian Cup qualification,neutral,3,2,W,,,,False,False,competition not tracked by fbref
+1971-12-16,Sri Lanka,AFC Asian Cup qualification,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+1971-12-18,Iraq,AFC Asian Cup qualification,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+1971-12-21,Kuwait,AFC Asian Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+1971-12-24,Lebanon,AFC Asian Cup qualification,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+1974-09-29,Algeria,Kuneitra Cup,neutral,0,6,L,,,,False,False,competition not tracked by fbref
+1981-02-06,Iraq,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+1981-02-08,Iraq,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+1981-02-14,Oman,Friendly,away,1,0,W,,,,False,False,competition not tracked by fbref
+1981-02-16,Oman,Friendly,away,2,0,W,,,,False,False,competition not tracked by fbref
+1981-02-27,Bahrain,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+1981-03-11,Saudi Arabia,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1983-04-17,Sierra Leone,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1984-09-10,Hong Kong,AFC Asian Cup qualification,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+1984-09-15,China,AFC Asian Cup qualification,away,0,6,L,,,,False,False,competition not tracked by fbref
+1984-09-17,Qatar,AFC Asian Cup qualification,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+1984-09-20,Afghanistan,AFC Asian Cup qualification,neutral,6,1,W,,,,False,False,competition not tracked by fbref
+1985-03-15,Qatar,FIFA World Cup qualification,home,1,0,W,,,,False,False,competition not tracked by fbref
+1985-03-29,Iraq,FIFA World Cup qualification,home,2,3,L,,,,False,False,competition not tracked by fbref
+1985-04-03,Malta,Friendly,away,1,3,L,,,,False,False,competition not tracked by fbref
+1985-04-12,Qatar,FIFA World Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+1985-04-19,Iraq,FIFA World Cup qualification,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+1985-07-03,Saudi Arabia,Arab Cup,away,0,4,L,,,,False,False,competition not tracked by fbref
+1985-07-05,Qatar,Arab Cup,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+1985-10-18,Mexico,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+1987-03-25,Cyprus,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+1988-01-15,United Arab Emirates,Friendly,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+1988-01-18,United Arab Emirates,Friendly,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+1988-04-10,Pakistan,AFC Asian Cup qualification,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+1988-04-12,Kuwait,AFC Asian Cup qualification,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+1988-04-14,Malaysia,AFC Asian Cup qualification,away,0,0,D,,,,False,False,competition not tracked by fbref
+1988-04-16,Japan,AFC Asian Cup qualification,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+1988-07-08,Bahrain,Arab Cup,home,0,0,D,,,,False,False,competition not tracked by fbref
+1988-07-16,Syria,Arab Cup,home,2,0,W,,,,False,False,competition not tracked by fbref
+1988-07-19,Iraq,Arab Cup,home,0,3,L,,,,False,False,competition not tracked by fbref
+1988-07-21,Egypt,Arab Cup,home,0,2,L,,,,False,False,competition not tracked by fbref
+1988-11-17,United Arab Emirates,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1988-11-20,United Arab Emirates,Friendly,away,2,3,L,,,,False,False,competition not tracked by fbref
+1989-01-06,Qatar,FIFA World Cup qualification,away,0,1,L,,,,False,False,competition not tracked by fbref
+1989-01-13,Iraq,FIFA World Cup qualification,home,0,1,L,,,,False,False,competition not tracked by fbref
+1989-01-20,Oman,FIFA World Cup qualification,home,2,0,W,,,,False,False,competition not tracked by fbref
+1989-01-27,Qatar,FIFA World Cup qualification,home,1,1,D,,,,False,False,competition not tracked by fbref
+1989-02-03,Iraq,FIFA World Cup qualification,away,0,4,L,,,,False,False,competition not tracked by fbref
+1989-02-10,Oman,FIFA World Cup qualification,away,2,0,W,,,,False,False,competition not tracked by fbref
+1990-06-01,Iraq,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+1992-08-18,Sudan,Jordan International Tournament,home,3,0,W,,,,False,False,competition not tracked by fbref
+1992-08-20,Pakistan,Jordan International Tournament,home,2,0,W,,,,False,False,competition not tracked by fbref
+1992-08-22,Moldova,Jordan International Tournament,home,1,0,W,,,,False,False,competition not tracked by fbref
+1992-08-26,Congo,Jordan International Tournament,home,2,1,W,,,,False,False,competition not tracked by fbref
+1992-08-28,Iraq,Jordan International Tournament,home,2,0,W,,,,False,False,competition not tracked by fbref
+1992-09-08,Egypt,Arab Cup,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+1992-09-10,Kuwait,Arab Cup,neutral,1,4,L,,,,False,False,competition not tracked by fbref
+1993-03-02,Syria,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+1993-03-12,Qatar,Friendly,away,2,1,W,,,,False,False,competition not tracked by fbref
+1993-03-26,Lebanon,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+1993-05-22,Yemen,FIFA World Cup qualification,home,1,1,D,,,,False,False,competition not tracked by fbref
+1993-05-24,Iraq,FIFA World Cup qualification,home,1,1,D,,,,False,False,competition not tracked by fbref
+1993-05-26,China,FIFA World Cup qualification,home,0,3,L,,,,False,False,competition not tracked by fbref
+1993-05-30,Pakistan,FIFA World Cup qualification,home,3,1,W,,,,False,False,competition not tracked by fbref
+1993-06-12,Yemen,FIFA World Cup qualification,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+1993-06-14,Iraq,FIFA World Cup qualification,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+1993-06-16,China,FIFA World Cup qualification,away,1,4,L,,,,False,False,competition not tracked by fbref
+1993-06-20,Pakistan,FIFA World Cup qualification,neutral,5,0,W,,,,False,False,competition not tracked by fbref
+1993-10-26,United Arab Emirates,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1993-10-28,United Arab Emirates,Friendly,away,2,0,W,,,,False,False,competition not tracked by fbref
+1996-08-09,Pakistan,AFC Asian Cup qualification,home,4,0,W,,,,False,False,competition not tracked by fbref
+1996-08-13,Iraq,AFC Asian Cup qualification,home,0,1,L,,,,False,False,competition not tracked by fbref
+1997-02-02,Lebanon,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+1997-02-07,Lebanon,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+1997-02-09,Lebanon,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+1997-02-16,Iraq,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+1997-04-08,United Arab Emirates,FIFA World Cup qualification,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+1997-04-14,Bahrain,FIFA World Cup qualification,away,0,1,L,,,,False,False,competition not tracked by fbref
+1997-04-19,Bahrain,FIFA World Cup qualification,neutral,4,1,W,,,,False,False,competition not tracked by fbref
+1997-04-26,United Arab Emirates,FIFA World Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+1997-06-06,Palestine,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+1997-09-25,Libya,Friendly,away,1,1,D,,,,False,False,competition not tracked by fbref
+1998-07-20,Syria,Arab Cup qualification,neutral,0,3,L,,,,False,False,competition not tracked by fbref
+1998-07-23,Lebanon,Arab Cup qualification,away,2,0,W,,,,False,False,competition not tracked by fbref
+1998-07-26,Palestine,Arab Cup qualification,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+1998-09-24,Libya,Arab Cup,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+1998-09-26,Qatar,Arab Cup,away,0,2,L,,,,False,False,competition not tracked by fbref
+1999-06-18,Saudi Arabia,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+1999-06-22,Saudi Arabia,Friendly,away,0,2,L,,,,False,False,competition not tracked by fbref
+1999-06-28,Iraq,Friendly,home,0,1,L,,,,False,False,competition not tracked by fbref
+1999-06-30,Iraq,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+1999-07-16,Syria,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+1999-07-18,Syria,Friendly,home,4,0,W,,,,False,False,competition not tracked by fbref
+2000-02-23,Lebanon,Friendly,away,1,1,D,,,,False,False,competition not tracked by fbref
+2000-03-06,Syria,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2000-03-08,Lebanon,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2000-03-11,Bosnia and Herzegovina,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2000-03-13,Syria,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2000-03-15,Bosnia and Herzegovina,Friendly,home,1,2,L,,,,False,False,competition not tracked by fbref
+2000-03-17,Syria,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2000-03-25,Bahrain,Friendly,away,1,1,D,,,,False,False,competition not tracked by fbref
+2000-03-31,Kazakhstan,AFC Asian Cup qualification,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+2000-04-04,Palestine,AFC Asian Cup qualification,neutral,5,1,W,,,,False,False,competition not tracked by fbref
+2000-04-06,Pakistan,AFC Asian Cup qualification,neutral,5,0,W,,,,False,False,competition not tracked by fbref
+2000-04-08,Qatar,AFC Asian Cup qualification,away,2,2,D,,,,False,False,competition not tracked by fbref
+2000-05-13,Lebanon,Friendly,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2000-05-23,Kyrgyzstan,WAFF Championship,home,2,0,W,,,,False,False,competition not tracked by fbref
+2000-05-25,Iraq,WAFF Championship,home,0,0,D,,,,False,False,competition not tracked by fbref
+2000-05-27,Lebanon,WAFF Championship,home,0,0,D,,,,False,False,competition not tracked by fbref
+2000-05-31,Iran,WAFF Championship,home,0,1,L,,,,False,False,competition not tracked by fbref
+2000-06-02,Iraq,WAFF Championship,home,1,4,L,,,,False,False,competition not tracked by fbref
+2000-08-11,Bahrain,Friendly,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+2000-08-13,Syria,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+2000-10-02,Saudi Arabia,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2000-10-07,China,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2001-01-11,Romania,Millennium Cup,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2001-01-16,Hong Kong,Millennium Cup,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+2001-01-28,North Korea,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2001-01-30,North Korea,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+2001-02-28,Bulgaria,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+2001-03-07,Hungary,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2001-04-23,Turkmenistan,FIFA World Cup qualification,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+2001-04-25,Taiwan,FIFA World Cup qualification,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+2001-04-27,Uzbekistan,FIFA World Cup qualification,away,2,2,D,,,,False,False,competition not tracked by fbref
+2001-05-03,Taiwan,FIFA World Cup qualification,home,6,0,W,,,,False,False,competition not tracked by fbref
+2001-05-05,Turkmenistan,FIFA World Cup qualification,home,1,2,L,,,,False,False,competition not tracked by fbref
+2001-05-07,Uzbekistan,FIFA World Cup qualification,home,1,1,D,,,,False,False,competition not tracked by fbref
+2002-02-09,Malta,Malta International Tournament,away,1,2,L,,,,False,False,competition not tracked by fbref
+2002-02-11,Moldova,Malta International Tournament,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+2002-02-13,Lithuania,Malta International Tournament,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2002-08-17,Kenya,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2002-08-19,Sudan,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2002-08-30,Iran,WAFF Championship,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2002-09-01,Lebanon,WAFF Championship,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2002-09-05,Syria,WAFF Championship,away,2,1,W,,,,False,False,competition not tracked by fbref
+2002-09-07,Iraq,WAFF Championship,neutral,2,3,L,,,,False,False,competition not tracked by fbref
+2002-11-29,Malaysia,Friendly,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2002-11-30,Singapore,Friendly,neutral,3,1,W,,,,False,False,competition not tracked by fbref
+2002-12-07,Bahrain,Prime Minister's Cup,away,3,0,W,,,,False,False,competition not tracked by fbref
+2002-12-09,China,Prime Minister's Cup,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2002-12-12,Syria,Prime Minister's Cup,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2002-12-16,Palestine,Arab Cup,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2002-12-20,Sudan,Arab Cup,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+2002-12-23,Kuwait,Arab Cup,away,2,1,W,,,,False,False,competition not tracked by fbref
+2002-12-28,Bahrain,Arab Cup,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+2003-08-26,Iraq,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2003-09-05,Iran,AFC Asian Cup qualification,away,1,4,L,,,,False,False,competition not tracked by fbref
+2003-09-19,Syria,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2003-09-26,Iran,AFC Asian Cup qualification,home,3,2,W,,,,False,False,competition not tracked by fbref
+2003-10-08,Oman,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+2003-10-17,Lebanon,AFC Asian Cup qualification,home,1,0,W,,,,False,False,competition not tracked by fbref
+2003-11-12,Lebanon,AFC Asian Cup qualification,away,2,0,W,,,,False,False,competition not tracked by fbref
+2003-11-18,North Korea,AFC Asian Cup qualification,home,3,0,W,,,,False,False,competition not tracked by fbref
+2004-02-12,Indonesia,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2004-02-18,Laos,FIFA World Cup qualification,home,5,0,W,,,,False,False,competition not tracked by fbref
+2004-03-21,Bahrain,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2004-03-23,Bahrain,Friendly,away,2,0,W,,,,False,False,competition not tracked by fbref
+2004-03-31,Qatar,FIFA World Cup qualification,home,1,0,W,,,,False,False,competition not tracked by fbref
+2004-04-30,Libya,Friendly,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+2004-05-19,Cyprus,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2004-05-30,Algeria,Friendly,away,1,1,D,,,,False,False,competition not tracked by fbref
+2004-06-09,Iran,FIFA World Cup qualification,away,1,0,W,,,,False,False,competition not tracked by fbref
+2004-06-17,Palestine,WAFF Championship,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2004-06-21,Iraq,WAFF Championship,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+2004-06-23,Syria,WAFF Championship,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2004-06-25,Iraq,WAFF Championship,neutral,3,1,W,,,,False,False,competition not tracked by fbref
+2004-07-08,Thailand,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2004-07-19,South Korea,AFC Asian Cup,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2004-07-23,Kuwait,AFC Asian Cup,neutral,2,0,W,,,,False,False,competition not tracked by fbref
+2004-07-27,United Arab Emirates,AFC Asian Cup,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2004-07-31,Japan,AFC Asian Cup,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2004-08-18,Azerbaijan,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2004-08-31,Lebanon,Friendly,home,2,2,D,,,,False,False,competition not tracked by fbref
+2004-09-08,Iran,FIFA World Cup qualification,home,0,2,L,,,,False,False,competition not tracked by fbref
+2004-10-08,Thailand,Friendly,away,3,2,W,,,,False,False,competition not tracked by fbref
+2004-10-13,Laos,FIFA World Cup qualification,away,3,2,W,,,,False,False,competition not tracked by fbref
+2004-10-20,Ecuador,Friendly,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2004-10-22,Libya,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+2004-11-11,United Arab Emirates,Friendly,away,0,4,L,,,,False,False,competition not tracked by fbref
+2004-11-17,Qatar,FIFA World Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+2005-01-28,Norway,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2005-03-26,Cyprus,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+2005-06-08,Iraq,Friendly,home,0,1,L,,,,False,False,competition not tracked by fbref
+2005-08-17,Armenia,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2005-11-16,Georgia,Friendly,away,2,3,L,,,,False,False,competition not tracked by fbref
+2006-01-17,Ivory Coast,Friendly,neutral,0,2,L,,,,False,False,competition not tracked by fbref
+2006-01-23,Sweden,Friendly,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2006-02-01,Thailand,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2006-02-07,Kuwait,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+2006-02-14,Kazakhstan,Friendly,home,2,0,W,,,,False,False,competition not tracked by fbref
+2006-02-22,Pakistan,AFC Asian Cup qualification,home,3,0,W,,,,False,False,competition not tracked by fbref
+2006-03-01,Oman,AFC Asian Cup qualification,away,0,3,L,,,,False,False,competition not tracked by fbref
+2006-07-21,Iraq,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2006-07-30,Syria,Friendly,home,3,0,W,,,,False,False,competition not tracked by fbref
+2006-08-09,Iraq,Friendly,home,0,1,L,,,,False,False,competition not tracked by fbref
+2006-08-16,United Arab Emirates,AFC Asian Cup qualification,home,1,2,L,,,,False,False,competition not tracked by fbref
+2006-09-02,Bahrain,Friendly,away,2,0,W,,,,False,False,competition not tracked by fbref
+2006-09-06,United Arab Emirates,AFC Asian Cup qualification,away,0,0,D,,,,False,False,competition not tracked by fbref
+2006-10-06,Iran,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2006-10-11,Pakistan,AFC Asian Cup qualification,away,3,0,W,,,,False,False,competition not tracked by fbref
+2006-11-08,Saudi Arabia,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+2006-11-15,Oman,AFC Asian Cup qualification,home,3,0,W,,,,False,False,competition not tracked by fbref
+2007-06-08,Iraq,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2007-06-12,Iraq,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2007-06-18,Syria,WAFF Championship,home,0,1,L,,,,False,False,competition not tracked by fbref
+2007-06-20,Lebanon,WAFF Championship,home,3,0,W,,,,False,False,competition not tracked by fbref
+2007-06-22,Iran,WAFF Championship,home,0,1,L,,,,False,False,competition not tracked by fbref
+2007-09-07,Bahrain,Friendly,away,3,1,W,,,,False,False,competition not tracked by fbref
+2007-10-18,Kyrgyzstan,FIFA World Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+2007-10-28,Kyrgyzstan,FIFA World Cup qualification,home,2,0,W,,,,False,False,competition not tracked by fbref
+2007-12-11,Oman,Friendly,away,3,0,W,,,,False,False,competition not tracked by fbref
+2008-01-24,Iraq,Friendly,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2008-01-28,Lebanon,Friendly,home,4,1,W,,,,False,False,competition not tracked by fbref
+2008-01-31,Singapore,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2008-02-06,North Korea,FIFA World Cup qualification,home,0,1,L,,,,False,False,competition not tracked by fbref
+2008-03-16,Qatar,Friendly,away,1,2,L,,,,False,False,competition not tracked by fbref
+2008-03-22,Uzbekistan,Friendly,away,1,4,L,,,,False,False,competition not tracked by fbref
+2008-03-26,Turkmenistan,FIFA World Cup qualification,away,2,0,W,,,,False,False,competition not tracked by fbref
+2008-05-25,China,Friendly,away,0,2,L,,,,False,False,competition not tracked by fbref
+2008-05-31,South Korea,FIFA World Cup qualification,away,2,2,D,,,,False,False,competition not tracked by fbref
+2008-06-07,South Korea,FIFA World Cup qualification,home,0,1,L,,,,False,False,competition not tracked by fbref
+2008-06-14,North Korea,FIFA World Cup qualification,away,0,2,L,,,,False,False,competition not tracked by fbref
+2008-06-22,Turkmenistan,FIFA World Cup qualification,home,2,0,W,,,,False,False,competition not tracked by fbref
+2008-08-07,Syria,WAFF Championship,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2008-08-13,Qatar,WAFF Championship,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2008-08-15,Iran,WAFF Championship,away,1,2,L,,,,False,False,competition not tracked by fbref
+2008-09-05,South Korea,Friendly,away,0,1,L,,,,False,False,competition not tracked by fbref
+2008-10-26,Palestine,Friendly,away,1,1,D,,,,False,False,competition not tracked by fbref
+2008-12-21,China,Friendly,home,0,1,L,,,,False,False,competition not tracked by fbref
+2009-01-14,Thailand,AFC Asian Cup qualification,home,0,0,D,,,,False,False,competition not tracked by fbref
+2009-01-28,Singapore,AFC Asian Cup qualification,away,1,2,L,,,,False,False,competition not tracked by fbref
+2009-05-13,Zimbabwe,Friendly,home,2,0,W,,,,False,False,competition not tracked by fbref
+2009-05-27,Congo,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2009-06-03,Bahrain,Friendly,away,0,4,L,,,,False,False,competition not tracked by fbref
+2009-09-05,Malaysia,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2009-09-09,New Zealand,Friendly,home,1,3,L,,,,False,False,competition not tracked by fbref
+2009-10-10,Kuwait,Friendly,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+2009-10-14,United Arab Emirates,Friendly,away,1,3,L,,,,False,False,competition not tracked by fbref
+2009-11-14,Iran,AFC Asian Cup qualification,away,0,1,L,,,,False,False,competition not tracked by fbref
+2009-11-22,Iran,AFC Asian Cup qualification,home,1,0,W,,,,False,False,competition not tracked by fbref
+2009-12-30,China,Friendly,away,2,2,D,,,,False,False,competition not tracked by fbref
+2010-01-06,Thailand,AFC Asian Cup qualification,away,0,0,D,,,,False,False,competition not tracked by fbref
+2010-02-25,Azerbaijan,Friendly,home,0,2,L,,,,False,False,competition not tracked by fbref
+2010-03-03,Singapore,AFC Asian Cup qualification,home,2,1,W,,,,False,False,competition not tracked by fbref
+2010-09-16,Iraq,Friendly,home,4,1,W,,,,False,False,competition not tracked by fbref
+2010-09-19,Bahrain,Friendly,home,2,0,W,,,,False,False,competition not tracked by fbref
+2010-09-24,Syria,WAFF Championship,home,1,1,D,,,,False,False,competition not tracked by fbref
+2010-09-28,Kuwait,WAFF Championship,home,2,2,D,,,,False,False,competition not tracked by fbref
+2010-11-16,Cyprus,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2010-12-28,Bahrain,Friendly,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+2011-01-02,Uzbekistan,Friendly,neutral,2,2,D,,,,False,False,competition not tracked by fbref
+2011-01-09,Japan,AFC Asian Cup,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2011-01-13,Saudi Arabia,AFC Asian Cup,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2011-01-17,Syria,AFC Asian Cup,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+2011-01-21,Uzbekistan,AFC Asian Cup,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+2011-03-26,Kuwait,Friendly,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2011-03-29,North Korea,Friendly,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2011-07-05,Syria,Friendly,neutral,1,3,L,,,,False,False,competition not tracked by fbref
+2011-07-08,Yemen,Friendly,neutral,4,0,W,,,,False,False,competition not tracked by fbref
+2011-07-13,Saudi Arabia,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2011-07-16,Iraq,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2011-07-23,Nepal,FIFA World Cup qualification,home,9,0,W,ef15e895,WCQ,1.0,True,False,fbref report has no lineup
+2011-07-28,Nepal,FIFA World Cup qualification,away,1,1,D,b8900357,WCQ,11.0,True,True,
+2011-08-22,Tunisia,Friendly,home,3,3,D,,,,False,False,competition not tracked by fbref
+2011-08-27,Indonesia,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2011-09-02,Iraq,FIFA World Cup qualification,away,2,0,W,6c66c27b,WCQ,11.0,True,True,
+2011-09-06,China,FIFA World Cup qualification,home,2,1,W,c07170f2,WCQ,11.0,True,True,
+2011-10-06,Thailand,Friendly,away,0,0,D,,,,False,False,competition not tracked by fbref
+2011-10-11,Singapore,FIFA World Cup qualification,away,3,0,W,79f7f526,WCQ,11.0,True,True,
+2011-11-11,Singapore,FIFA World Cup qualification,home,2,0,W,d21e822f,WCQ,11.0,True,True,
+2011-11-15,Iraq,FIFA World Cup qualification,home,1,3,L,d135192d,WCQ,11.0,True,True,
+2012-02-23,Iran,Friendly,neutral,2,2,D,,,,False,False,competition not tracked by fbref
+2012-02-29,China,FIFA World Cup qualification,away,1,3,L,c5ce8a73,WCQ,11.0,True,True,
+2012-05-18,Lebanon,Friendly,away,2,1,W,,,,False,False,competition not tracked by fbref
+2012-05-26,Sierra Leone,Friendly,home,4,0,W,,,,False,False,competition not tracked by fbref
+2012-06-03,Iraq,FIFA World Cup qualification,home,1,1,D,0b0faca3,WCQ,11.0,True,True,
+2012-06-08,Japan,FIFA World Cup qualification,away,0,6,L,c3ff80eb,WCQ,11.0,True,True,
+2012-08-13,Uzbekistan,Friendly,home,0,1,L,,,,False,False,competition not tracked by fbref
+2012-08-15,Uzbekistan,Friendly,home,2,0,W,,,,False,False,competition not tracked by fbref
+2012-09-05,Iran,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2012-09-11,Australia,FIFA World Cup qualification,home,2,1,W,821eb9d2,WCQ,11.0,True,True,
+2012-10-16,Oman,FIFA World Cup qualification,away,1,2,L,09ebf31d,WCQ,11.0,True,True,
+2012-11-08,Bahrain,Friendly,away,0,3,L,,,,False,False,competition not tracked by fbref
+2012-11-14,Iraq,FIFA World Cup qualification,neutral,0,1,L,28c4b757,WCQ,11.0,True,True,
+2012-12-10,Iraq,WAFF Championship,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+2012-12-16,Syria,WAFF Championship,neutral,1,2,L,,,,False,False,competition not tracked by fbref
+2013-01-31,Indonesia,Friendly,home,5,0,W,,,,False,False,competition not tracked by fbref
+2013-02-06,Singapore,AFC Asian Cup qualification,home,4,0,W,9a4e7f4c,Asian Cup qual.,11.0,True,True,
+2013-03-21,Belarus,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2013-03-26,Japan,FIFA World Cup qualification,home,2,1,W,99a9e2be,WCQ,11.0,True,True,
+2013-05-27,Libya,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2013-06-11,Australia,FIFA World Cup qualification,away,0,4,L,5966e8b7,WCQ,11.0,True,True,
+2013-06-18,Oman,FIFA World Cup qualification,home,1,0,W,af0c6f51,WCQ,11.0,True,True,
+2013-08-09,Libya,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2013-08-15,Syria,AFC Asian Cup qualification,neutral,1,1,D,deafe2de,Asian Cup qual.,11.0,True,True,
+2013-09-06,Uzbekistan,FIFA World Cup qualification,home,1,1,D,7a79619b,WCQ,11.0,True,True,
+2013-09-10,Uzbekistan,FIFA World Cup qualification,away,1,1,D,3be10f98,WCQ,11.0,True,True,
+2013-10-09,Kuwait,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2013-10-15,Oman,AFC Asian Cup qualification,home,0,0,D,3899214d,Asian Cup qual.,11.0,True,True,
+2013-10-28,Nigeria,Friendly,home,1,0,W,,,,False,False,competition not tracked by fbref
+2013-11-06,Zambia,Friendly,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2013-11-13,Uruguay,FIFA World Cup qualification,home,0,5,L,,,,False,False,competition not tracked by fbref
+2013-11-20,Uruguay,FIFA World Cup qualification,away,0,0,D,,,,False,False,competition not tracked by fbref
+2013-12-26,Lebanon,WAFF Championship,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2014-01-01,Kuwait,WAFF Championship,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+2014-01-04,Bahrain,WAFF Championship,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2014-01-07,Qatar,WAFF Championship,away,0,2,L,,,,False,False,competition not tracked by fbref
+2014-01-31,Oman,AFC Asian Cup qualification,away,0,0,D,30f23f0d,Asian Cup qual.,11.0,True,True,
+2014-02-04,Singapore,AFC Asian Cup qualification,away,3,1,W,16a6d4aa,Asian Cup qual.,11.0,True,True,
+2014-03-05,Syria,AFC Asian Cup qualification,home,2,1,W,563df289,Asian Cup qual.,11.0,True,True,
+2014-05-10,Palestine,Palestine International Championship,away,0,1,L,,,,False,False,competition not tracked by fbref
+2014-05-14,Pakistan,Palestine International Championship,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2014-05-17,Sri Lanka,Palestine International Championship,neutral,4,0,W,,,,False,False,competition not tracked by fbref
+2014-05-20,Palestine,Palestine International Championship,away,0,1,L,,,,False,False,competition not tracked by fbref
+2014-06-06,Colombia,Friendly,neutral,0,3,L,,,,False,False,competition not tracked by fbref
+2014-09-04,Uzbekistan,Friendly,away,0,2,L,52f36630,Friendlies (M),11.0,True,True,
+2014-09-09,China,Friendly,away,1,1,D,d2ced4a6,Friendlies (M),1.0,True,False,fbref report has no lineup
+2014-10-10,Kuwait,Friendly,home,0,1,L,1d599265,Friendlies (M),11.0,True,True,
+2014-10-13,Kuwait,Friendly,home,1,1,D,2f64572e,Friendlies (M),1.0,True,False,fbref report has no lineup
+2014-11-14,South Korea,Friendly,home,0,1,L,dbadea03,Friendlies (M),1.0,True,False,fbref report has no lineup
+2014-11-18,Estonia,Friendly,away,0,1,L,7288d094,Friendlies (M),11.0,True,True,
+2014-12-21,Uzbekistan,Friendly,neutral,1,2,L,516dde36,Friendlies (M),11.0,True,True,
+2014-12-30,United Arab Emirates,Friendly,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+2015-01-04,Bahrain,Friendly,neutral,0,1,L,d89cf255,Friendlies (M),11.0,True,True,
+2015-01-12,Iraq,AFC Asian Cup,neutral,0,1,L,bb2b57e1,Asian Cup,11.0,True,True,
+2015-01-16,Palestine,AFC Asian Cup,neutral,5,1,W,891380cc,Asian Cup,11.0,True,True,
+2015-01-20,Japan,AFC Asian Cup,neutral,0,2,L,9c7ee1cc,Asian Cup,11.0,True,True,
+2015-03-26,Syria,Friendly,home,0,1,L,c177f38d,Friendlies (M),11.0,True,True,
+2015-03-30,Saudi Arabia,Friendly,away,1,2,L,4fa37058,Friendlies (M),11.0,True,True,
+2015-05-30,Lebanon,Friendly,home,0,0,D,70d9e710,Friendlies (M),11.0,True,True,
+2015-06-05,Kuwait,Friendly,neutral,2,2,D,3295401c,Friendlies (M),11.0,True,True,
+2015-06-11,Tajikistan,FIFA World Cup qualification,away,3,1,W,0d1d6c3d,WCQ,11.0,True,True,
+2015-06-16,Trinidad and Tobago,Friendly,home,3,0,W,adf18f90,Friendlies (M),11.0,True,True,
+2015-09-03,Kyrgyzstan,FIFA World Cup qualification,home,0,0,D,13e56ddc,WCQ,11.0,True,True,
+2015-09-08,Bangladesh,FIFA World Cup qualification,away,4,0,W,0bb36b1d,WCQ,11.0,True,True,
+2015-10-03,Iraq,Friendly,home,3,0,W,a5903e76,Friendlies (M),11.0,True,True,
+2015-10-08,Australia,FIFA World Cup qualification,home,2,0,W,930c4d21,WCQ,11.0,True,True,
+2015-10-13,Tajikistan,FIFA World Cup qualification,home,3,0,W,6c55bb96,WCQ,11.0,True,True,
+2015-11-11,Malta,Friendly,neutral,2,0,W,c08a6664,Friendlies (M),1.0,True,False,fbref report has no lineup
+2015-11-17,Kyrgyzstan,FIFA World Cup qualification,away,0,1,L,93aef3ed,WCQ,11.0,True,True,
+2016-01-27,Egypt,Friendly,away,1,0,W,903004b1,Friendlies (M),11.0,True,True,
+2016-03-24,Bangladesh,FIFA World Cup qualification,home,8,0,W,ba22f42b,WCQ,11.0,True,True,
+2016-03-29,Australia,FIFA World Cup qualification,away,1,5,L,4cbcdecd,WCQ,11.0,True,True,
+2016-06-03,United Arab Emirates,King's Cup,neutral,3,1,W,401f4eff,Friendlies (M),11.0,True,True,
+2016-06-05,Thailand,King's Cup,away,0,2,L,b5461d25,Friendlies (M),11.0,True,True,
+2016-08-18,Qatar,Friendly,neutral,2,3,L,773974cd,Friendlies (M),11.0,True,True,
+2016-08-31,Lebanon,Friendly,away,1,1,D,ee5be0bc,Friendlies (M),11.0,True,True,
+2016-09-04,Bahrain,Friendly,away,0,0,D,b18d1abc,Friendlies (M),11.0,True,True,
+2016-10-07,Oman,Friendly,away,1,1,D,37342899,Friendlies (M),11.0,True,True,
+2016-11-06,Iraq,Friendly,home,0,0,D,7c849196,Friendlies (M),11.0,True,True,
+2016-11-10,Uzbekistan,Friendly,away,0,1,L,12012f66,Friendlies (M),11.0,True,True,
+2016-11-15,Lebanon,Friendly,home,0,0,D,8b45cbc5,Friendlies (M),11.0,True,True,
+2017-01-25,Georgia,Friendly,neutral,1,0,W,01412142,Friendlies (M),11.0,True,True,
+2017-03-23,Hong Kong,Friendly,home,4,0,W,054be81e,Friendlies (M),11.0,True,True,
+2017-03-28,Cambodia,AFC Asian Cup qualification,home,7,0,W,bc1d8695,Asian Cup qual.,11.0,True,True,
+2017-06-01,Iraq,Friendly,away,0,1,L,2f4b4e2e,Friendlies (M),11.0,True,True,
+2017-06-07,Hong Kong,Friendly,away,0,0,D,23af4847,Friendlies (M),11.0,True,True,
+2017-06-13,Vietnam,AFC Asian Cup qualification,away,0,0,D,4d9cdc22,Asian Cup qual.,11.0,True,True,
+2017-08-29,Bahrain,Friendly,away,0,0,D,24b8af12,Friendlies (M),11.0,True,True,
+2017-09-05,Afghanistan,AFC Asian Cup qualification,home,4,1,W,f63199e1,Asian Cup qual.,11.0,True,True,
+2017-10-10,Afghanistan,AFC Asian Cup qualification,neutral,3,3,D,d46abcd0,Asian Cup qual.,11.0,True,True,
+2017-11-14,Cambodia,AFC Asian Cup qualification,away,1,0,W,48906499,Asian Cup qual.,11.0,True,True,
+2017-12-25,Libya,Friendly,home,1,1,D,d7c0b7a8,Friendlies (M),11.0,True,True,
+2018-01-11,Finland,Friendly,neutral,1,2,L,9bc6b904,Friendlies (M),11.0,True,True,
+2018-03-21,Kuwait,Friendly,home,1,0,W,03e0135c,Friendlies (M),11.0,True,True,
+2018-03-27,Vietnam,AFC Asian Cup qualification,home,1,1,D,533dd122,Asian Cup qual.,11.0,True,True,
+2018-05-20,Cyprus,Friendly,home,3,0,W,74deec89,Friendlies (M),11.0,True,True,
+2018-09-06,Lebanon,Friendly,home,0,1,L,4cc5ae99,Friendlies (M),11.0,True,True,
+2018-09-11,Oman,Friendly,home,0,0,D,1d7f563e,Friendlies (M),11.0,True,True,
+2018-10-10,Albania,Friendly,away,0,0,D,c45f5d01,Friendlies (M),11.0,True,True,
+2018-10-15,Croatia,Friendly,away,1,2,L,76796793,Friendlies (M),11.0,True,True,
+2018-11-17,India,Friendly,home,2,1,W,98af95d8,Friendlies (M),11.0,True,True,
+2018-11-20,Saudi Arabia,Friendly,home,1,1,D,d977a000,Friendlies (M),11.0,True,True,
+2018-12-20,Kyrgyzstan,Friendly,neutral,0,1,L,9e9a0d31,Friendlies (M),11.0,True,True,
+2018-12-23,Qatar,Friendly,away,0,2,L,23a3c76b,Friendlies (M),11.0,True,True,
+2018-12-28,China,Friendly,neutral,1,1,D,881b8b65,Friendlies (M),11.0,True,True,
+2019-01-06,Australia,AFC Asian Cup,neutral,1,0,W,afc5995a,Asian Cup,11.0,True,True,
+2019-01-10,Syria,AFC Asian Cup,neutral,2,0,W,ded87a97,Asian Cup,11.0,True,True,
+2019-01-15,Palestine,AFC Asian Cup,neutral,0,0,D,3f7f24c8,Asian Cup,11.0,True,True,
+2019-01-20,Vietnam,AFC Asian Cup,neutral,1,1,D,3e8e6991,Asian Cup,11.0,True,True,
+2019-06-06,Slovakia,Friendly,away,1,5,L,485eb6b9,Friendlies (M),11.0,True,True,
+2019-06-11,Indonesia,Friendly,home,4,1,W,5825185d,Friendlies (M),11.0,True,True,
+2019-08-04,Bahrain,WAFF Championship,neutral,0,1,L,,,,False,False,competition not tracked by fbref
+2019-08-07,Kuwait,WAFF Championship,neutral,1,1,D,,,,False,False,competition not tracked by fbref
+2019-08-10,Saudi Arabia,WAFF Championship,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2019-08-30,Malaysia,Friendly,away,1,0,W,f6acd60c,Friendlies (M),11.0,True,True,
+2019-09-05,Taiwan,FIFA World Cup qualification,away,2,1,W,6638b8a8,WCQ,11.0,True,True,
+2019-09-10,Paraguay,Friendly,home,2,4,L,67c32bc3,Friendlies (M),11.0,True,True,
+2019-10-05,Singapore,Friendly,home,0,0,D,9e983aa6,Friendlies (M),11.0,True,True,
+2019-10-10,Kuwait,FIFA World Cup qualification,home,0,0,D,d5931b5a,WCQ,11.0,True,True,
+2019-10-15,Nepal,FIFA World Cup qualification,home,3,0,W,2a9a0b3c,WCQ,11.0,True,True,
+2019-11-14,Australia,FIFA World Cup qualification,home,0,1,L,e1149553,WCQ,11.0,True,True,
+2019-11-19,Taiwan,FIFA World Cup qualification,home,5,0,W,b4752d89,WCQ,11.0,True,True,
+2020-11-12,Iraq,Friendly,neutral,0,0,D,d0bcc40d,Friendlies (M),11.0,True,True,
+2020-11-16,Syria,Friendly,neutral,1,0,W,f171897c,Friendlies (M),11.0,True,True,
+2021-02-01,Tajikistan,Friendly,neutral,2,0,W,1b93ff9d,Friendlies (M),11.0,True,True,
+2021-02-05,Tajikistan,Friendly,neutral,0,1,L,27872384,Friendlies (M),11.0,True,True,
+2021-02-15,Uzbekistan,Friendly,neutral,0,2,L,78d8c9ae,Friendlies (M),11.0,True,True,
+2021-03-20,Oman,Friendly,neutral,0,0,D,97cc6f6b,Friendlies (M),11.0,True,True,
+2021-03-24,Lebanon,Friendly,neutral,1,0,W,861c7a19,Friendlies (M),11.0,True,True,
+2021-03-30,Bahrain,Friendly,away,2,1,W,f2b9c77a,Friendlies (M),11.0,True,True,
+2021-05-24,United Arab Emirates,Friendly,away,1,5,L,f28fc7d8,Friendlies (M),11.0,True,True,
+2021-05-31,Vietnam,Friendly,neutral,1,1,D,a8886423,Friendlies (M),11.0,True,True,
+2021-06-07,Nepal,FIFA World Cup qualification,neutral,3,0,W,35ad239a,WCQ,11.0,True,True,
+2021-06-11,Kuwait,FIFA World Cup qualification,away,0,0,D,29a2bcc5,WCQ,11.0,True,True,
+2021-06-15,Australia,FIFA World Cup qualification,neutral,0,1,L,a9d1f322,WCQ,11.0,True,True,
+2021-09-04,Haiti,Friendly,neutral,0,2,L,3a5b6195,Friendlies (M),11.0,True,True,
+2021-09-07,Bahrain,Friendly,away,2,1,W,50e1a544,Friendlies (M),11.0,True,True,
+2021-10-06,Malaysia,Friendly,home,4,0,W,72a164a0,Friendlies (M),11.0,True,True,
+2021-10-12,Uzbekistan,Friendly,home,3,0,W,9b0e1e22,Friendlies (M),11.0,True,True,
+2021-11-10,Kosovo,Friendly,away,2,0,W,1125cf3a,Friendlies (M),11.0,True,True,
+2021-11-16,Belarus,Friendly,away,0,1,L,47b5523e,Friendlies (M),11.0,True,True,
+2021-12-01,Saudi Arabia,Arab Cup,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2021-12-04,Morocco,Arab Cup,neutral,0,4,L,,,,False,False,competition not tracked by fbref
+2021-12-07,Palestine,Arab Cup,neutral,5,1,W,,,,False,False,competition not tracked by fbref
+2021-12-11,Egypt,Arab Cup,neutral,1,3,L,,,,False,False,competition not tracked by fbref
+2022-01-28,New Zealand,Friendly,neutral,3,1,W,5d7b8576,Friendlies (M),11.0,True,True,
+2022-05-28,India,Friendly,neutral,2,0,W,5af41333,Friendlies (M),11.0,True,True,
+2022-06-01,Australia,Friendly,neutral,1,2,L,ff5d964a,Friendlies (M),11.0,True,True,
+2022-06-08,Nepal,AFC Asian Cup qualification,neutral,2,0,W,a7755abe,Asian Cup qual.,11.0,True,True,
+2022-06-11,Indonesia,AFC Asian Cup qualification,neutral,1,0,W,46a5e47e,Asian Cup qual.,11.0,True,True,
+2022-06-14,Kuwait,AFC Asian Cup qualification,away,3,0,W,a9b8cfc7,Asian Cup qual.,11.0,True,True,
+2022-09-23,Syria,Jordan International Tournament,home,2,0,W,,,,False,False,competition not tracked by fbref
+2022-09-26,Oman,Jordan International Tournament,home,1,0,W,,,,False,False,competition not tracked by fbref
+2022-11-17,Spain,Friendly,home,1,3,L,,,,False,False,competition not tracked by fbref
+2023-03-28,Philippines,Friendly,neutral,4,0,W,0691ca88,Friendlies (M),1.0,True,False,fbref report has no lineup
+2023-06-16,Serbia,Friendly,neutral,2,3,L,c4673266,Friendlies (M),11.0,True,True,
+2023-06-19,Jamaica,Friendly,neutral,2,1,W,15a5b9e6,Friendlies (M),1.0,True,False,fbref report has no lineup
+2023-09-07,Norway,Friendly,away,0,6,L,29f3e91c,Friendlies (M),11.0,True,True,
+2023-09-12,Azerbaijan,Friendly,away,1,2,L,1305d8f5,Friendlies (M),11.0,True,True,
+2023-11-16,Tajikistan,FIFA World Cup qualification,away,1,1,D,1250ff01,WCQ,11.0,True,True,
+2023-11-21,Saudi Arabia,FIFA World Cup qualification,home,0,2,L,c66c0269,WCQ,11.0,True,True,
+2024-01-05,Qatar,Friendly,away,2,1,W,,,,False,False,competition not tracked by fbref
+2024-01-09,Japan,Friendly,neutral,1,6,L,,,,False,False,competition not tracked by fbref
+2024-01-15,Malaysia,AFC Asian Cup,neutral,4,0,W,39f4cf51,Asian Cup,11.0,True,True,
+2024-01-20,South Korea,AFC Asian Cup,neutral,2,2,D,ccc3108d,Asian Cup,11.0,True,True,
+2024-01-25,Bahrain,AFC Asian Cup,neutral,0,1,L,5cd780f0,Asian Cup,11.0,True,True,
+2024-01-29,Iraq,AFC Asian Cup,neutral,3,2,W,bf8bf153,Asian Cup,11.0,True,True,
+2024-02-02,Tajikistan,AFC Asian Cup,neutral,1,0,W,668338ea,Asian Cup,11.0,True,True,
+2024-02-06,South Korea,AFC Asian Cup,neutral,2,0,W,31bdfbdb,Asian Cup,11.0,True,True,
+2024-02-10,Qatar,AFC Asian Cup,away,1,3,L,6d9230c5,Asian Cup,11.0,True,True,
+2024-03-21,Pakistan,FIFA World Cup qualification,away,3,0,W,0c0a6775,WCQ,11.0,True,True,
+2024-03-26,Pakistan,FIFA World Cup qualification,home,7,0,W,5d123dc9,WCQ,11.0,True,True,
+2024-06-06,Tajikistan,FIFA World Cup qualification,home,3,0,W,7efa0fb8,WCQ,11.0,True,True,
+2024-06-11,Saudi Arabia,FIFA World Cup qualification,away,2,1,W,f99487d7,WCQ,11.0,True,True,
+2024-07-27,North Korea,Friendly,home,0,0,D,,,,False,False,competition not tracked by fbref
+2024-08-29,North Korea,Friendly,home,2,1,W,,,,False,False,competition not tracked by fbref
+2024-09-05,Kuwait,FIFA World Cup qualification,home,1,1,D,ba5eab2d,WCQ,11.0,True,True,
+2024-09-10,Palestine,FIFA World Cup qualification,neutral,3,1,W,9e8c26b1,WCQ,11.0,True,True,
+2024-10-10,South Korea,FIFA World Cup qualification,home,0,2,L,aa794aa7,WCQ,11.0,True,True,
+2024-10-15,Oman,FIFA World Cup qualification,home,4,0,W,5f683c48,WCQ,11.0,True,True,
+2024-11-14,Iraq,FIFA World Cup qualification,away,0,0,D,67a25229,WCQ,11.0,True,True,
+2024-11-19,Kuwait,FIFA World Cup qualification,away,1,1,D,420712d4,WCQ,11.0,True,True,
+2025-01-22,Uzbekistan,Friendly,neutral,0,0,D,,,,False,False,competition not tracked by fbref
+2025-03-14,North Korea,Friendly,home,1,1,D,,,,False,False,competition not tracked by fbref
+2025-03-20,Palestine,FIFA World Cup qualification,home,3,1,W,a0d0b336,WCQ,11.0,True,True,
+2025-03-25,South Korea,FIFA World Cup qualification,away,1,1,D,cbfbb5e5,WCQ,11.0,True,True,
+2025-05-30,Saudi Arabia,Friendly,away,0,2,L,,,,False,False,competition not tracked by fbref
+2025-06-05,Oman,FIFA World Cup qualification,away,3,0,W,1c28d9c5,WCQ,11.0,True,True,
+2025-06-10,Iraq,FIFA World Cup qualification,home,0,1,L,316731a5,WCQ,11.0,True,True,
+2025-09-04,Russia,Friendly,away,0,0,D,6615ec5c,Friendlies (M),11.0,True,True,
+2025-09-09,Dominican Republic,Friendly,home,3,0,W,378b61aa,Friendlies (M),1.0,True,False,fbref report has no lineup
+2025-10-10,Bolivia,Friendly,neutral,0,1,L,17e56e25,Friendlies (M),11.0,True,True,
+2025-10-14,Albania,Friendly,away,2,4,L,bf9307f1,Friendlies (M),11.0,True,True,
+2025-11-14,Tunisia,Friendly,away,2,3,L,245693f0,Friendlies (M),11.0,True,True,
+2025-11-18,Mali,Friendly,neutral,2,3,L,b4fee6f4,Friendlies (M),1.0,True,False,fbref report has no lineup
+2025-12-03,United Arab Emirates,Arab Cup,neutral,2,1,W,,,,False,False,competition not tracked by fbref
+2025-12-06,Kuwait,Arab Cup,neutral,3,1,W,,,,False,False,competition not tracked by fbref
+2025-12-09,Egypt,Arab Cup,neutral,3,0,W,,,,False,False,competition not tracked by fbref
+2025-12-12,Iraq,Arab Cup,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2025-12-15,Saudi Arabia,Arab Cup,neutral,1,0,W,,,,False,False,competition not tracked by fbref
+2025-12-18,Morocco,Arab Cup,neutral,2,3,L,,,,False,False,competition not tracked by fbref
+2026-03-27,Costa Rica,Friendly,neutral,2,2,D,,,,False,False,competition not tracked by fbref
+2026-03-31,Nigeria,Friendly,neutral,2,2,D,,,,False,False,competition not tracked by fbref
+2026-05-31,Switzerland,Friendly,away,1,4,L,1e8a97eb,Friendlies (M),11.0,True,True,
+2026-06-07,Colombia,Friendly,neutral,0,2,L,7e02a5ea,Friendlies (M),11.0,True,True,
+2026-06-16,Austria,FIFA World Cup,neutral,1,3,L,140e19d9,World Cup,11.0,True,True,
+2026-06-22,Algeria,FIFA World Cup,neutral,1,2,L,eb19002c,World Cup,11.0,True,True,
+2026-06-27,Argentina,FIFA World Cup,neutral,1,3,L,5ec98037,World Cup,11.0,True,True,

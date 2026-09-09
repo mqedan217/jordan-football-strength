@@ -1,148 +1,217 @@
 season,column,n_matches,frac_matches_all_zero,verdict
-2014,Min,2,0.0,ok
-2014,Performance Ast,2,1.0,not_collected
-2014,Performance CrdR,2,1.0,not_collected
-2014,Performance CrdY,2,0.0,ok
-2014,Performance Crs,2,1.0,not_collected
-2014,Performance Fld,2,1.0,not_collected
-2014,Performance Fls,2,1.0,not_collected
-2014,Performance Gls,2,0.0,ok
-2014,Performance Int,2,1.0,not_collected
-2014,Performance OG,2,1.0,not_collected
-2014,Performance Off,2,1.0,not_collected
-2014,Performance PK,2,0.5,ok
-2014,Performance PKatt,2,0.5,ok
-2014,Performance PKcon,2,1.0,not_collected
-2014,Performance PKwon,2,1.0,not_collected
-2014,Performance Sh,2,1.0,not_collected
-2014,Performance SoT,2,1.0,not_collected
-2014,Performance TklW,2,1.0,not_collected
-2014,player_id,2,1.0,not_collected
-2014,role,2,1.0,not_collected
-2014,role_source,2,1.0,not_collected
-2016,Min,1,0.0,ok
-2016,Performance Ast,1,0.0,ok
-2016,Performance CrdR,1,1.0,not_collected
-2016,Performance CrdY,1,0.0,ok
-2016,Performance Crs,1,1.0,not_collected
-2016,Performance Fld,1,1.0,not_collected
-2016,Performance Fls,1,1.0,not_collected
-2016,Performance Gls,1,0.0,ok
-2016,Performance Int,1,1.0,not_collected
-2016,Performance OG,1,1.0,not_collected
-2016,Performance Off,1,1.0,not_collected
-2016,Performance PK,1,1.0,not_collected
-2016,Performance PKatt,1,1.0,not_collected
-2016,Performance PKcon,1,1.0,not_collected
-2016,Performance PKwon,1,1.0,not_collected
-2016,Performance Sh,1,1.0,not_collected
-2016,Performance SoT,1,1.0,not_collected
-2016,Performance TklW,1,1.0,not_collected
-2016,player_id,1,1.0,not_collected
-2016,role,1,1.0,not_collected
-2016,role_source,1,1.0,not_collected
-2017,Min,2,0.0,ok
-2017,Performance Ast,2,0.5,ok
-2017,Performance CrdR,2,1.0,not_collected
-2017,Performance CrdY,2,0.0,ok
-2017,Performance Crs,2,1.0,not_collected
-2017,Performance Fld,2,1.0,not_collected
-2017,Performance Fls,2,1.0,not_collected
-2017,Performance Gls,2,0.0,ok
-2017,Performance Int,2,1.0,not_collected
-2017,Performance OG,2,1.0,not_collected
-2017,Performance Off,2,1.0,not_collected
-2017,Performance PK,2,1.0,not_collected
-2017,Performance PKatt,2,1.0,not_collected
-2017,Performance PKcon,2,1.0,not_collected
-2017,Performance PKwon,2,1.0,not_collected
-2017,Performance Sh,2,1.0,not_collected
-2017,Performance SoT,2,1.0,not_collected
-2017,Performance TklW,2,1.0,not_collected
-2017,player_id,2,0.5,ok
-2017,role,2,1.0,not_collected
-2017,role_source,2,1.0,not_collected
-2018,Min,4,0.0,ok
-2018,Performance Ast,4,1.0,not_collected
-2018,Performance CrdR,4,1.0,not_collected
-2018,Performance CrdY,4,0.0,ok
-2018,Performance Crs,4,1.0,not_collected
-2018,Performance Fld,4,1.0,not_collected
-2018,Performance Fls,4,1.0,not_collected
-2018,Performance Gls,4,0.25,ok
-2018,Performance Int,4,1.0,not_collected
-2018,Performance OG,4,1.0,not_collected
-2018,Performance Off,4,1.0,not_collected
-2018,Performance PK,4,0.75,ok
-2018,Performance PKatt,4,0.75,ok
-2018,Performance PKcon,4,1.0,not_collected
-2018,Performance PKwon,4,1.0,not_collected
-2018,Performance Sh,4,1.0,not_collected
-2018,Performance SoT,4,1.0,not_collected
-2018,Performance TklW,4,1.0,not_collected
-2018,player_id,4,0.25,ok
-2018,role,4,1.0,not_collected
-2018,role_source,4,1.0,not_collected
-2021,Min,1,0.0,ok
-2021,Performance Ast,1,1.0,not_collected
-2021,Performance CrdR,1,0.0,ok
-2021,Performance CrdY,1,0.0,ok
-2021,Performance Crs,1,1.0,not_collected
-2021,Performance Fld,1,1.0,not_collected
-2021,Performance Fls,1,1.0,not_collected
-2021,Performance Gls,1,0.0,ok
-2021,Performance Int,1,1.0,not_collected
-2021,Performance OG,1,1.0,not_collected
-2021,Performance Off,1,1.0,not_collected
-2021,Performance PK,1,1.0,not_collected
-2021,Performance PKatt,1,1.0,not_collected
-2021,Performance PKcon,1,1.0,not_collected
-2021,Performance PKwon,1,1.0,not_collected
-2021,Performance Sh,1,1.0,not_collected
-2021,Performance SoT,1,1.0,not_collected
-2021,Performance TklW,1,1.0,not_collected
-2021,player_id,1,1.0,not_collected
-2021,role,1,1.0,not_collected
-2021,role_source,1,1.0,not_collected
-2023,Min,2,0.5,ok
-2023,Performance Ast,2,0.5,ok
-2023,Performance CrdR,2,1.0,not_collected
-2023,Performance CrdY,2,0.5,ok
-2023,Performance Crs,2,1.0,not_collected
-2023,Performance Fld,2,1.0,not_collected
-2023,Performance Fls,2,1.0,not_collected
-2023,Performance Gls,2,0.5,ok
-2023,Performance Int,2,1.0,not_collected
-2023,Performance OG,2,1.0,not_collected
-2023,Performance Off,2,1.0,not_collected
-2023,Performance PK,2,0.5,ok
-2023,Performance PKatt,2,0.5,ok
-2023,Performance PKcon,2,1.0,not_collected
-2023,Performance PKwon,2,1.0,not_collected
-2023,Performance Sh,2,1.0,not_collected
-2023,Performance SoT,2,1.0,not_collected
-2023,Performance TklW,2,1.0,not_collected
-2023,player_id,2,1.0,not_collected
-2023,role,2,1.0,not_collected
-2023,role_source,2,1.0,not_collected
-2026,Min,3,0.0,ok
-2026,Performance Ast,3,0.0,ok
-2026,Performance CrdR,3,1.0,not_collected
-2026,Performance CrdY,3,0.0,ok
-2026,Performance Crs,3,0.667,ok
-2026,Performance Fld,3,0.667,ok
-2026,Performance Fls,3,0.667,ok
-2026,Performance Gls,3,0.0,ok
-2026,Performance Int,3,0.667,ok
-2026,Performance OG,3,0.667,ok
-2026,Performance Off,3,0.667,ok
-2026,Performance PK,3,0.333,ok
-2026,Performance PKatt,3,0.333,ok
-2026,Performance PKcon,3,1.0,not_collected
-2026,Performance PKwon,3,1.0,not_collected
-2026,Performance Sh,3,0.667,ok
-2026,Performance SoT,3,0.667,ok
-2026,Performance TklW,3,0.667,ok
-2026,player_id,3,0.0,ok
-2026,role,3,1.0,not_collected
-2026,role_source,3,1.0,not_collected
+2014,Min,25,0.16,ok
+2014,Performance Ast,25,0.92,suspect
+2014,Performance CrdR,25,0.96,suspect
+2014,Performance CrdY,25,0.2,ok
+2014,Performance Crs,25,1.0,not_collected
+2014,Performance Fld,25,1.0,not_collected
+2014,Performance Fls,25,1.0,not_collected
+2014,Performance Gls,25,0.16,ok
+2014,Performance Int,25,1.0,not_collected
+2014,Performance OG,25,1.0,not_collected
+2014,Performance Off,25,1.0,not_collected
+2014,Performance PK,25,0.88,ok
+2014,Performance PKatt,25,0.88,ok
+2014,Performance PKcon,25,1.0,not_collected
+2014,Performance PKwon,25,1.0,not_collected
+2014,Performance Sh,25,1.0,not_collected
+2014,Performance SoT,25,1.0,not_collected
+2014,Performance TklW,25,1.0,not_collected
+2015,Min,17,0.0,ok
+2015,Performance Ast,17,0.706,ok
+2015,Performance CrdR,17,0.824,ok
+2015,Performance CrdY,17,0.294,ok
+2015,Performance Crs,17,1.0,not_collected
+2015,Performance Fld,17,1.0,not_collected
+2015,Performance Fls,17,1.0,not_collected
+2015,Performance Gls,17,0.235,ok
+2015,Performance Int,17,1.0,not_collected
+2015,Performance OG,17,0.882,ok
+2015,Performance Off,17,1.0,not_collected
+2015,Performance PK,17,0.882,ok
+2015,Performance PKatt,17,0.824,ok
+2015,Performance PKcon,17,1.0,not_collected
+2015,Performance PKwon,17,1.0,not_collected
+2015,Performance Sh,17,1.0,not_collected
+2015,Performance SoT,17,1.0,not_collected
+2015,Performance TklW,17,1.0,not_collected
+2016,Min,10,0.0,ok
+2016,Performance Ast,10,0.6,ok
+2016,Performance CrdR,10,0.9,ok
+2016,Performance CrdY,10,0.3,ok
+2016,Performance Crs,10,1.0,not_collected
+2016,Performance Fld,10,1.0,not_collected
+2016,Performance Fls,10,1.0,not_collected
+2016,Performance Gls,10,0.3,ok
+2016,Performance Int,10,1.0,not_collected
+2016,Performance OG,10,1.0,not_collected
+2016,Performance Off,10,1.0,not_collected
+2016,Performance PK,10,0.8,ok
+2016,Performance PKatt,10,0.7,ok
+2016,Performance PKcon,10,1.0,not_collected
+2016,Performance PKwon,10,1.0,not_collected
+2016,Performance Sh,10,1.0,not_collected
+2016,Performance SoT,10,1.0,not_collected
+2016,Performance TklW,10,1.0,not_collected
+2017,Min,6,0.0,ok
+2017,Performance Ast,6,0.667,ok
+2017,Performance CrdR,6,1.0,not_collected
+2017,Performance CrdY,6,0.167,ok
+2017,Performance Crs,6,1.0,not_collected
+2017,Performance Fld,6,1.0,not_collected
+2017,Performance Fls,6,1.0,not_collected
+2017,Performance Gls,6,0.333,ok
+2017,Performance Int,6,1.0,not_collected
+2017,Performance OG,6,1.0,not_collected
+2017,Performance Off,6,1.0,not_collected
+2017,Performance PK,6,0.833,ok
+2017,Performance PKatt,6,0.833,ok
+2017,Performance PKcon,6,1.0,not_collected
+2017,Performance PKwon,6,1.0,not_collected
+2017,Performance Sh,6,1.0,not_collected
+2017,Performance SoT,6,1.0,not_collected
+2017,Performance TklW,6,1.0,not_collected
+2018,Min,20,0.0,ok
+2018,Performance Ast,20,0.65,ok
+2018,Performance CrdR,20,0.95,suspect
+2018,Performance CrdY,20,0.05,ok
+2018,Performance Crs,20,1.0,not_collected
+2018,Performance Fld,20,1.0,not_collected
+2018,Performance Fls,20,1.0,not_collected
+2018,Performance Gls,20,0.15,ok
+2018,Performance Int,20,1.0,not_collected
+2018,Performance OG,20,1.0,not_collected
+2018,Performance Off,20,1.0,not_collected
+2018,Performance PK,20,0.85,ok
+2018,Performance PKatt,20,0.8,ok
+2018,Performance PKcon,20,1.0,not_collected
+2018,Performance PKwon,20,1.0,not_collected
+2018,Performance Sh,20,1.0,not_collected
+2018,Performance SoT,20,1.0,not_collected
+2018,Performance TklW,20,1.0,not_collected
+2019,Min,17,0.0,ok
+2019,Performance Ast,17,0.529,ok
+2019,Performance CrdR,17,1.0,not_collected
+2019,Performance CrdY,17,0.059,ok
+2019,Performance Crs,17,0.765,ok
+2019,Performance Fld,17,0.765,ok
+2019,Performance Fls,17,0.765,ok
+2019,Performance Gls,17,0.176,ok
+2019,Performance Int,17,0.765,ok
+2019,Performance OG,17,0.882,ok
+2019,Performance Off,17,0.765,ok
+2019,Performance PK,17,0.765,ok
+2019,Performance PKatt,17,0.765,ok
+2019,Performance PKcon,17,1.0,not_collected
+2019,Performance PKwon,17,1.0,not_collected
+2019,Performance Sh,17,0.765,ok
+2019,Performance SoT,17,0.765,ok
+2019,Performance TklW,17,0.765,ok
+2020,Min,2,0.0,ok
+2020,Performance Ast,2,0.5,ok
+2020,Performance CrdR,2,0.5,ok
+2020,Performance CrdY,2,0.5,ok
+2020,Performance Crs,2,1.0,not_collected
+2020,Performance Fld,2,1.0,not_collected
+2020,Performance Fls,2,1.0,not_collected
+2020,Performance Gls,2,0.5,ok
+2020,Performance Int,2,1.0,not_collected
+2020,Performance OG,2,1.0,not_collected
+2020,Performance Off,2,1.0,not_collected
+2020,Performance PK,2,1.0,not_collected
+2020,Performance PKatt,2,1.0,not_collected
+2020,Performance PKcon,2,1.0,not_collected
+2020,Performance PKwon,2,1.0,not_collected
+2020,Performance Sh,2,1.0,not_collected
+2020,Performance SoT,2,1.0,not_collected
+2020,Performance TklW,2,1.0,not_collected
+2021,Min,14,0.0,ok
+2021,Performance Ast,14,0.429,ok
+2021,Performance CrdR,14,0.857,ok
+2021,Performance CrdY,14,0.071,ok
+2021,Performance Crs,14,1.0,not_collected
+2021,Performance Fld,14,1.0,not_collected
+2021,Performance Fls,14,1.0,not_collected
+2021,Performance Gls,14,0.071,ok
+2021,Performance Int,14,1.0,not_collected
+2021,Performance OG,14,0.857,ok
+2021,Performance Off,14,1.0,not_collected
+2021,Performance PK,14,0.714,ok
+2021,Performance PKatt,14,0.643,ok
+2021,Performance PKcon,14,1.0,not_collected
+2021,Performance PKwon,14,1.0,not_collected
+2021,Performance Sh,14,1.0,not_collected
+2021,Performance SoT,14,1.0,not_collected
+2021,Performance TklW,14,1.0,not_collected
+2022,Min,11,0.0,ok
+2022,Performance Ast,11,0.273,ok
+2022,Performance CrdR,11,0.818,ok
+2022,Performance CrdY,11,0.0,ok
+2022,Performance Crs,11,1.0,not_collected
+2022,Performance Fld,11,1.0,not_collected
+2022,Performance Fls,11,1.0,not_collected
+2022,Performance Gls,11,0.182,ok
+2022,Performance Int,11,1.0,not_collected
+2022,Performance OG,11,1.0,not_collected
+2022,Performance Off,11,1.0,not_collected
+2022,Performance PK,11,0.727,ok
+2022,Performance PKatt,11,0.727,ok
+2022,Performance PKcon,11,1.0,not_collected
+2022,Performance PKwon,11,1.0,not_collected
+2022,Performance Sh,11,1.0,not_collected
+2022,Performance SoT,11,1.0,not_collected
+2022,Performance TklW,11,1.0,not_collected
+2023,Min,15,0.133,ok
+2023,Performance Ast,15,0.267,ok
+2023,Performance CrdR,15,0.933,suspect
+2023,Performance CrdY,15,0.2,ok
+2023,Performance Crs,15,0.533,ok
+2023,Performance Fld,15,0.533,ok
+2023,Performance Fls,15,0.533,ok
+2023,Performance Gls,15,0.2,ok
+2023,Performance Int,15,0.533,ok
+2023,Performance OG,15,0.867,ok
+2023,Performance Off,15,0.533,ok
+2023,Performance PK,15,0.667,ok
+2023,Performance PKatt,15,0.6,ok
+2023,Performance PKcon,15,1.0,not_collected
+2023,Performance PKwon,15,1.0,not_collected
+2023,Performance Sh,15,0.533,ok
+2023,Performance SoT,15,0.533,ok
+2023,Performance TklW,15,0.533,ok
+2025,Min,6,0.333,ok
+2025,Performance Ast,6,0.5,ok
+2025,Performance CrdR,6,0.833,ok
+2025,Performance CrdY,6,0.5,ok
+2025,Performance Crs,6,1.0,not_collected
+2025,Performance Fld,6,1.0,not_collected
+2025,Performance Fls,6,1.0,not_collected
+2025,Performance Gls,6,0.5,ok
+2025,Performance Int,6,1.0,not_collected
+2025,Performance OG,6,0.833,ok
+2025,Performance Off,6,1.0,not_collected
+2025,Performance PK,6,1.0,not_collected
+2025,Performance PKatt,6,1.0,not_collected
+2025,Performance PKcon,6,1.0,not_collected
+2025,Performance PKwon,6,1.0,not_collected
+2025,Performance Sh,6,1.0,not_collected
+2025,Performance SoT,6,1.0,not_collected
+2025,Performance TklW,6,1.0,not_collected
+2026,Min,21,0.0,ok
+2026,Performance Ast,21,0.048,ok
+2026,Performance CrdR,21,0.952,suspect
+2026,Performance CrdY,21,0.095,ok
+2026,Performance Crs,21,0.381,ok
+2026,Performance Fld,21,0.381,ok
+2026,Performance Fls,21,0.381,ok
+2026,Performance Gls,21,0.048,ok
+2026,Performance Int,21,0.381,ok
+2026,Performance OG,21,0.952,suspect
+2026,Performance Off,21,0.381,ok
+2026,Performance PK,21,0.619,ok
+2026,Performance PKatt,21,0.619,ok
+2026,Performance PKcon,21,1.0,not_collected
+2026,Performance PKwon,21,1.0,not_collected
+2026,Performance Sh,21,0.381,ok
+2026,Performance SoT,21,0.381,ok
+2026,Performance TklW,21,0.381,ok

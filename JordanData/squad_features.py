@@ -110,16 +110,18 @@ def per_match(matches, lineups, apps):
     return pd.DataFrame(rows)
 
 
-def align_to_trace(feat, trace_path=None, spine_path=None):
-    """Summarise the six months before each strength reference date."""
+def align_to_trace(feat, trace_path=None):
+    """Summarise the six months before each strength reference date.
+
+    The spine comes from results.csv via team_view, the same source
+    fbref_parse.spine_join uses -- not the stale jordan_matches.csv snapshot,
+    which disagrees and produced negative gap counts.
+    """
     trace_path = trace_path or ROOT / "outputs" / "jordan_strength_ci.csv"
     trace = pd.read_csv(trace_path, parse_dates=["date"])
 
-    spine = None
-    if spine_path is None:
-        spine_path = ROOT / "JordanData" / "jordan_matches.csv"
-    if Path(spine_path).exists():
-        spine = pd.read_csv(spine_path, parse_dates=["date"])
+    from data import load_results, team_view
+    spine = team_view(load_results(), TEAM)[["date"]]
 
     out = []
     for _, t in trace.iterrows():
@@ -128,10 +130,11 @@ def align_to_trace(feat, trace_path=None, spine_path=None):
         row = {"date": t.date, "strength": t.strength,
                "strength_lo": t.get("strength_lo"), "strength_hi": t.get("strength_hi"),
                "n_matches_fbref": len(w)}
-        if spine is not None:
-            n_spine = ((spine.date >= lo) & (spine.date < t.date)).sum()
-            row["n_matches_spine"] = int(n_spine)
-            row["n_matches_missing"] = int(n_spine) - len(w)
+        n_spine = int(((spine.date >= lo) & (spine.date < t.date)).sum())
+        row["n_matches_spine"] = n_spine
+        # Clipped at zero: FBref holds two 2019 friendlies the spine lacks, so
+        # a window can legitimately have more FBref matches than spine matches.
+        row["n_matches_missing"] = max(n_spine - len(w), 0)
         for col in ["turnover", "core_continuity", "age_mean", "age_sd",
                     "hhi_minutes", "n_players_used"]:
             row[col] = w[col].mean() if len(w) else np.nan

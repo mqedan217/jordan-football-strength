@@ -1,0 +1,91 @@
+competition,column,n_matches,frac_matches_all_zero,verdict
+Asian Cup,Min,14,0.0,ok
+Asian Cup,Performance Ast,14,0.214,ok
+Asian Cup,Performance CrdR,14,0.857,ok
+Asian Cup,Performance CrdY,14,0.0,ok
+Asian Cup,Performance Crs,14,0.214,ok
+Asian Cup,Performance Fld,14,0.214,ok
+Asian Cup,Performance Fls,14,0.214,ok
+Asian Cup,Performance Gls,14,0.143,ok
+Asian Cup,Performance Int,14,0.214,ok
+Asian Cup,Performance OG,14,0.857,ok
+Asian Cup,Performance Off,14,0.214,ok
+Asian Cup,Performance PK,14,0.786,ok
+Asian Cup,Performance PKatt,14,0.786,ok
+Asian Cup,Performance PKcon,14,1.0,not_collected
+Asian Cup,Performance PKwon,14,1.0,not_collected
+Asian Cup,Performance Sh,14,0.214,ok
+Asian Cup,Performance SoT,14,0.214,ok
+Asian Cup,Performance TklW,14,0.214,ok
+Asian Cup qual.,Min,15,0.0,ok
+Asian Cup qual.,Performance Ast,15,0.8,ok
+Asian Cup qual.,Performance CrdR,15,0.867,ok
+Asian Cup qual.,Performance CrdY,15,0.133,ok
+Asian Cup qual.,Performance Crs,15,1.0,not_collected
+Asian Cup qual.,Performance Fld,15,1.0,not_collected
+Asian Cup qual.,Performance Fls,15,1.0,not_collected
+Asian Cup qual.,Performance Gls,15,0.2,ok
+Asian Cup qual.,Performance Int,15,1.0,not_collected
+Asian Cup qual.,Performance OG,15,0.933,suspect
+Asian Cup qual.,Performance Off,15,1.0,not_collected
+Asian Cup qual.,Performance PK,15,0.733,ok
+Asian Cup qual.,Performance PKatt,15,0.667,ok
+Asian Cup qual.,Performance PKcon,15,1.0,not_collected
+Asian Cup qual.,Performance PKwon,15,1.0,not_collected
+Asian Cup qual.,Performance Sh,15,1.0,not_collected
+Asian Cup qual.,Performance SoT,15,1.0,not_collected
+Asian Cup qual.,Performance TklW,15,1.0,not_collected
+Friendlies (M),Min,82,0.085,ok
+Friendlies (M),Performance Ast,82,0.5,ok
+Friendlies (M),Performance CrdR,82,0.915,suspect
+Friendlies (M),Performance CrdY,82,0.256,ok
+Friendlies (M),Performance Crs,82,1.0,not_collected
+Friendlies (M),Performance Fld,82,1.0,not_collected
+Friendlies (M),Performance Fls,82,1.0,not_collected
+Friendlies (M),Performance Gls,82,0.244,ok
+Friendlies (M),Performance Int,82,1.0,not_collected
+Friendlies (M),Performance OG,82,0.927,suspect
+Friendlies (M),Performance Off,82,1.0,not_collected
+Friendlies (M),Performance PK,82,0.829,ok
+Friendlies (M),Performance PKatt,82,0.78,ok
+Friendlies (M),Performance PKcon,82,1.0,not_collected
+Friendlies (M),Performance PKwon,82,1.0,not_collected
+Friendlies (M),Performance Sh,82,1.0,not_collected
+Friendlies (M),Performance SoT,82,1.0,not_collected
+Friendlies (M),Performance TklW,82,1.0,not_collected
+WCQ,Min,50,0.02,ok
+WCQ,Performance Ast,50,0.58,ok
+WCQ,Performance CrdR,50,0.94,suspect
+WCQ,Performance CrdY,50,0.06,ok
+WCQ,Performance Crs,50,0.8,ok
+WCQ,Performance Fld,50,0.8,ok
+WCQ,Performance Fls,50,0.8,ok
+WCQ,Performance Gls,50,0.1,ok
+WCQ,Performance Int,50,0.8,ok
+WCQ,Performance OG,50,1.0,not_collected
+WCQ,Performance Off,50,0.8,ok
+WCQ,Performance PK,50,0.76,ok
+WCQ,Performance PKatt,50,0.76,ok
+WCQ,Performance PKcon,50,1.0,not_collected
+WCQ,Performance PKwon,50,1.0,not_collected
+WCQ,Performance Sh,50,0.8,ok
+WCQ,Performance SoT,50,0.8,ok
+WCQ,Performance TklW,50,0.8,ok
+World Cup,Min,3,0.0,ok
+World Cup,Performance Ast,3,0.0,ok
+World Cup,Performance CrdR,3,1.0,not_collected
+World Cup,Performance CrdY,3,0.0,ok
+World Cup,Performance Crs,3,0.0,ok
+World Cup,Performance Fld,3,0.0,ok
+World Cup,Performance Fls,3,0.0,ok
+World Cup,Performance Gls,3,0.0,ok
+World Cup,Performance Int,3,0.0,ok
+World Cup,Performance OG,3,0.667,ok
+World Cup,Performance Off,3,0.0,ok
+World Cup,Performance PK,3,0.333,ok
+World Cup,Performance PKatt,3,0.333,ok
+World Cup,Performance PKcon,3,1.0,not_collected
+World Cup,Performance PKwon,3,1.0,not_collected
+World Cup,Performance Sh,3,0.0,ok
+World Cup,Performance SoT,3,0.0,ok
+World Cup,Performance TklW,3,0.0,ok

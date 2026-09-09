@@ -316,21 +316,27 @@ def parse_match(path):
 
 
 # ------------------------------------------------------------------- coverage
-def coverage_audit(appearances, season_of):
-    """Per season per column: is this column ever actually populated?
+def coverage_audit(appearances, group_of, group_name="season"):
+    """Per group per column: is this column ever actually populated?
 
     CLAUDE.md's rule is that a uniformly-zero column is missing until proven
     otherwise. Applied per match that is far too aggressive -- a single game
-    legitimately has no red cards and no penalties. Applied per season it does
-    the intended job: a column that is zero or empty in EVERY match of a season
-    was not collected that season.
+    legitimately has no red cards and no penalties. Applied per group it does
+    the intended job: a column zero or empty in EVERY match of a season (or of
+    a competition) was not collected there.
+
+    Group by competition as well as season. Advanced stats for Jordan turn out
+    to track the competition, not the calendar -- they exist for Asian Cup and
+    World Cup matches and not for qualifiers or friendlies in any era -- so a
+    season-only audit reads as a confusing on/off pattern.
     """
     df = appearances.copy()
-    df["season"] = df.match_id.map(season_of)
-    skip = {"squad_id", "match_id", "season", "Player", "Nation", "Pos", "Age",
-            "age_years", "age_days", "#"}
+    df[group_name] = df.match_id.map(group_of)
+    df = df[df[group_name].notna()]
+    skip = {"squad_id", "match_id", group_name, "Player", "player_id", "Nation",
+            "Pos", "Age", "age_years", "age_days", "#", "role", "role_source"}
     rows = []
-    for season, g in df.groupby("season"):
+    for season, g in df.groupby(group_name):
         n_matches = g.match_id.nunique()
         for col in g.columns:
             if col in skip:
@@ -344,10 +350,59 @@ def coverage_audit(appearances, season_of):
                 frac = float(per_match.mean())
                 verdict = ("not_collected" if frac == 1.0
                            else "suspect" if frac > 0.9 else "ok")
-            rows.append({"season": season, "column": col, "n_matches": n_matches,
+            rows.append({group_name: season, "column": col,
+                         "n_matches": n_matches,
                          "frac_matches_all_zero": round(frac, 3),
                          "verdict": verdict})
-    return pd.DataFrame(rows).sort_values(["season", "column"])
+    return pd.DataFrame(rows).sort_values([group_name, "column"])
+
+
+def spine_join(fixtures, appearances):
+    """Every Jordan match in results.csv, with its FBref id or an explicit gap.
+
+    The spine is authoritative, not FBref. FBref does not track Arab Cup, WAFF
+    and several invitationals for Jordan, and all of those are competitive
+    fixtures -- exactly the rotation-heavy ones. Absorbing that silently would
+    understate turnover; this table keeps it countable.
+
+    Joined on date with one day of tolerance. Jordan plays at most one match a
+    day, and the two sources spell opponents differently ("kr Korea Republic"
+    vs "South Korea"), so date is the only reliable key -- but the sources
+    disagree by a day where a late kickoff crosses midnight in one timezone and
+    not the other (verified: Slovakia, spine 2019-06-06 vs FBref 2019-06-07).
+    An exact join turns that into a phantom coverage gap.
+
+    Returns (coverage, fbref_only). The second is not empty and matters: FBref
+    holds two Jordan friendlies from March 2019, against Syria and Iraq, that
+    the results dataset does not have at all. The spine is authoritative for
+    what to analyse, but it is not a superset.
+    """
+    from data import load_results, team_view
+    spine = team_view(load_results(), "Jordan")[
+        ["date", "opponent", "tournament", "venue", "gf", "ga", "result"]].copy()
+
+    fx = fixtures.dropna(subset=["match_id"]).copy()
+    fx["date"] = pd.to_datetime(fx["Date"], errors="coerce")
+    fx = fx.dropna(subset=["date"])
+    xi = (appearances[(appearances.squad_id == SQUAD)
+                      & (appearances.role == "starter")]
+          .groupby("match_id").size())
+    fx["n_starters"] = fx.match_id.map(xi).fillna(0).astype(int)
+
+    out = pd.merge_asof(
+        spine.sort_values("date"),
+        fx[["date", "match_id", "Comp", "n_starters"]].sort_values("date"),
+        on="date", direction="nearest", tolerance=pd.Timedelta(days=1))
+    out["has_fbref"] = out.match_id.notna()
+    out["has_xi"] = out.n_starters.eq(11)
+    out["reason"] = np.where(
+        out.has_xi, "",
+        np.where(out.has_fbref, "fbref report has no lineup",
+                 "competition not tracked by fbref"))
+
+    fbref_only = fx[~fx.match_id.isin(out.match_id.dropna())][
+        ["date", "Comp", "Opponent", "GF", "GA", "match_id"]].sort_values("date")
+    return out.sort_values("date"), fbref_only
 
 
 def build():
@@ -395,6 +450,28 @@ def build():
         bad = cov[cov.verdict != "ok"]
         print(f"coverage.csv      {len(cov)} rows, "
               f"{len(bad)} season/column pairs flagged")
+
+        comp_of = fixtures.set_index("match_id").Comp.to_dict()
+        covc = coverage_audit(appearances, comp_of, group_name="competition")
+        covc.to_csv(OUT / "coverage_by_competition.csv", index=False)
+        badc = covc[covc.verdict != "ok"]
+        print(f"coverage_by_competition.csv  {len(covc)} rows, "
+              f"{len(badc)} competition/column pairs flagged")
+    if len(appearances):
+        cm, fbref_only = spine_join(fixtures, appearances)
+        cm.to_csv(OUT / "match_coverage.csv", index=False)
+        fbref_only.to_csv(OUT / "fbref_not_in_spine.csv", index=False)
+        since = cm[cm.date >= "2015-01-01"]
+        print(f"\nmatch_coverage.csv  {len(cm)} spine matches; "
+              f"since 2015: {len(since)} matches, "
+              f"{int(since.has_xi.sum())} with a full XI "
+              f"({since.has_xi.mean() * 100:.0f}%)")
+        gaps = since[~since.has_xi].reason.value_counts()
+        for reason, n in gaps.items():
+            print(f"    {n:3d}  {reason}")
+        print(f"fbref_not_in_spine.csv  {len(fbref_only)} matches FBref has "
+              f"that results.csv does not")
+
     print(f"\nparsed {len(files)} match reports -> {OUT}")
 
 
