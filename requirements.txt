@@ -1,0 +1,7 @@
+# Part 1 — strength model. Pinned to what the trace in outputs/ was built with.
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+
+# Part 2 — squad layer (FBref). Not yet used; install when the scraper lands.
+# soccerdata==1.8.7

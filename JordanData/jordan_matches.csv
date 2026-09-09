@@ -1,0 +1,489 @@
+date,home_team,away_team,home_score,away_score,tournament,city,country,neutral,gf,ga,opponent,venue,gd,result
+1963-01-06,Kuwait,Jordan,2,1,Friendly,Kuwait City,Kuwait,False,1,2,Kuwait,away,-1,L
+1963-03-31,Syria,Jordan,4,0,Arab Cup,Beirut,Lebanon,True,0,4,Syria,neutral,-4,L
+1963-04-02,Kuwait,Jordan,4,0,Arab Cup,Beirut,Lebanon,True,0,4,Kuwait,neutral,-4,L
+1963-04-04,Jordan,Tunisia,0,4,Arab Cup,Beirut,Lebanon,True,0,4,Tunisia,neutral,-4,L
+1963-04-06,Lebanon,Jordan,5,0,Arab Cup,Beirut,Lebanon,False,0,5,Lebanon,away,-5,L
+1964-11-13,Jordan,Lebanon,0,0,Arab Cup,Kuwait City,Kuwait,True,0,0,Lebanon,neutral,0,D
+1964-11-15,Kuwait,Jordan,2,0,Arab Cup,Kuwait City,Kuwait,False,0,2,Kuwait,away,-2,L
+1964-11-16,Jordan,Libya,2,5,Arab Cup,Kuwait City,Kuwait,True,2,5,Libya,neutral,-3,L
+1965-07-30,Jordan,Iraq,0,0,Friendly,Amman,Jordan,False,0,0,Iraq,home,0,D
+1966-04-02,Iraq,Jordan,2,1,Arab Cup,Baghdad,Iraq,False,1,2,Iraq,away,-1,L
+1966-04-05,Jordan,Lebanon,1,2,Arab Cup,Baghdad,Iraq,True,1,2,Lebanon,neutral,-1,L
+1966-04-07,Bahrain,Jordan,1,5,Arab Cup,Baghdad,Iraq,True,5,1,Bahrain,neutral,4,W
+1966-04-08,Jordan,Kuwait,0,4,Arab Cup,Baghdad,Iraq,True,0,4,Kuwait,neutral,-4,L
+1971-12-11,Syria,Jordan,0,0,AFC Asian Cup qualification,Kuwait City,Kuwait,True,0,0,Syria,neutral,0,D
+1971-12-13,Jordan,Bahrain,3,2,AFC Asian Cup qualification,Kuwait City,Kuwait,True,3,2,Bahrain,neutral,1,W
+1971-12-16,Jordan,Sri Lanka,2,1,AFC Asian Cup qualification,Kuwait City,Kuwait,True,2,1,Sri Lanka,neutral,1,W
+1971-12-18,Iraq,Jordan,2,0,AFC Asian Cup qualification,Kuwait City,Kuwait,True,0,2,Iraq,neutral,-2,L
+1971-12-21,Kuwait,Jordan,2,0,AFC Asian Cup qualification,Kuwait City,Kuwait,False,0,2,Kuwait,away,-2,L
+1971-12-24,Lebanon,Jordan,2,0,AFC Asian Cup qualification,Kuwait City,Kuwait,True,0,2,Lebanon,neutral,-2,L
+1974-09-29,Algeria,Jordan,6,0,Kuneitra Cup,Damascus,Syria,True,0,6,Algeria,neutral,-6,L
+1981-02-06,Jordan,Iraq,0,2,Friendly,Amman,Jordan,False,0,2,Iraq,home,-2,L
+1981-02-08,Jordan,Iraq,0,2,Friendly,Amman,Jordan,False,0,2,Iraq,home,-2,L
+1981-02-14,Oman,Jordan,0,1,Friendly,Muscat,Oman,False,1,0,Oman,away,1,W
+1981-02-16,Oman,Jordan,0,2,Friendly,Muscat,Oman,False,2,0,Oman,away,2,W
+1981-02-27,Bahrain,Jordan,1,0,Friendly,Manama,Bahrain,False,0,1,Bahrain,away,-1,L
+1981-03-11,Saudi Arabia,Jordan,2,1,Friendly,Riyadh,Saudi Arabia,False,1,2,Saudi Arabia,away,-1,L
+1983-04-17,Sierra Leone,Jordan,2,1,Friendly,Freetown,Sierra Leone,False,1,2,Sierra Leone,away,-1,L
+1984-09-10,Jordan,Hong Kong,1,1,AFC Asian Cup qualification,Guangzhou,China,True,1,1,Hong Kong,neutral,0,D
+1984-09-15,China,Jordan,6,0,AFC Asian Cup qualification,Guangzhou,China,False,0,6,China,away,-6,L
+1984-09-17,Qatar,Jordan,2,0,AFC Asian Cup qualification,Guangzhou,China,True,0,2,Qatar,neutral,-2,L
+1984-09-20,Jordan,Afghanistan,6,1,AFC Asian Cup qualification,Guangzhou,China,True,6,1,Afghanistan,neutral,5,W
+1985-03-15,Jordan,Qatar,1,0,FIFA World Cup qualification,Amman,Jordan,False,1,0,Qatar,home,1,W
+1985-03-29,Jordan,Iraq,2,3,FIFA World Cup qualification,Amman,Jordan,False,2,3,Iraq,home,-1,L
+1985-04-03,Malta,Jordan,3,1,Friendly,Attard,Malta,False,1,3,Malta,away,-2,L
+1985-04-12,Qatar,Jordan,2,0,FIFA World Cup qualification,Doha,Qatar,False,0,2,Qatar,away,-2,L
+1985-04-19,Iraq,Jordan,2,0,FIFA World Cup qualification,Kuwait City,Kuwait,True,0,2,Iraq,neutral,-2,L
+1985-07-03,Saudi Arabia,Jordan,4,0,Arab Cup,Taif,Saudi Arabia,False,0,4,Saudi Arabia,away,-4,L
+1985-07-05,Jordan,Qatar,0,2,Arab Cup,Taif,Saudi Arabia,True,0,2,Qatar,neutral,-2,L
+1985-10-18,Jordan,Mexico,0,0,Friendly,Amman,Jordan,False,0,0,Mexico,home,0,D
+1987-03-25,Jordan,Cyprus,2,1,Friendly,Amman,Jordan,False,2,1,Cyprus,home,1,W
+1988-01-15,Jordan,United Arab Emirates,0,1,Friendly,Manama,Bahrain,True,0,1,United Arab Emirates,neutral,-1,L
+1988-01-18,Jordan,United Arab Emirates,2,0,Friendly,Manama,Bahrain,True,2,0,United Arab Emirates,neutral,2,W
+1988-04-10,Jordan,Pakistan,1,0,AFC Asian Cup qualification,Kuala Lumpur,Malaysia,True,1,0,Pakistan,neutral,1,W
+1988-04-12,Kuwait,Jordan,0,0,AFC Asian Cup qualification,Kuala Lumpur,Malaysia,True,0,0,Kuwait,neutral,0,D
+1988-04-14,Malaysia,Jordan,0,0,AFC Asian Cup qualification,Kuala Lumpur,Malaysia,False,0,0,Malaysia,away,0,D
+1988-04-16,Japan,Jordan,1,1,AFC Asian Cup qualification,Kuala Lumpur,Malaysia,True,1,1,Japan,neutral,0,D
+1988-07-08,Jordan,Bahrain,0,0,Arab Cup,Amman,Jordan,False,0,0,Bahrain,home,0,D
+1988-07-16,Jordan,Syria,2,0,Arab Cup,Amman,Jordan,False,2,0,Syria,home,2,W
+1988-07-19,Jordan,Iraq,0,3,Arab Cup,Amman,Jordan,False,0,3,Iraq,home,-3,L
+1988-07-21,Jordan,Egypt,0,2,Arab Cup,Amman,Jordan,False,0,2,Egypt,home,-2,L
+1988-11-17,United Arab Emirates,Jordan,2,1,Friendly,Sharjah,United Arab Emirates,False,1,2,United Arab Emirates,away,-1,L
+1988-11-20,United Arab Emirates,Jordan,3,2,Friendly,Dubai,United Arab Emirates,False,2,3,United Arab Emirates,away,-1,L
+1989-01-06,Qatar,Jordan,1,0,FIFA World Cup qualification,Doha,Qatar,False,0,1,Qatar,away,-1,L
+1989-01-13,Jordan,Iraq,0,1,FIFA World Cup qualification,Amman,Jordan,False,0,1,Iraq,home,-1,L
+1989-01-20,Jordan,Oman,2,0,FIFA World Cup qualification,Amman,Jordan,False,2,0,Oman,home,2,W
+1989-01-27,Jordan,Qatar,1,1,FIFA World Cup qualification,Amman,Jordan,False,1,1,Qatar,home,0,D
+1989-02-03,Iraq,Jordan,4,0,FIFA World Cup qualification,Baghdad,Iraq,False,0,4,Iraq,away,-4,L
+1989-02-10,Oman,Jordan,0,2,FIFA World Cup qualification,Muscat,Oman,False,2,0,Oman,away,2,W
+1990-06-01,Jordan,Iraq,0,2,Friendly,Amman,Jordan,False,0,2,Iraq,home,-2,L
+1992-08-18,Jordan,Sudan,3,0,Jordan International Tournament,Amman,Jordan,False,3,0,Sudan,home,3,W
+1992-08-20,Jordan,Pakistan,2,0,Jordan International Tournament,Amman,Jordan,False,2,0,Pakistan,home,2,W
+1992-08-22,Jordan,Moldova,1,0,Jordan International Tournament,Amman,Jordan,False,1,0,Moldova,home,1,W
+1992-08-26,Jordan,Congo,2,1,Jordan International Tournament,Amman,Jordan,False,2,1,Congo,home,1,W
+1992-08-28,Jordan,Iraq,2,0,Jordan International Tournament,Amman,Jordan,False,2,0,Iraq,home,2,W
+1992-09-08,Egypt,Jordan,1,1,Arab Cup,Aleppo,Syria,True,1,1,Egypt,neutral,0,D
+1992-09-10,Kuwait,Jordan,4,1,Arab Cup,Aleppo,Syria,True,1,4,Kuwait,neutral,-3,L
+1993-03-02,Jordan,Syria,1,1,Friendly,Irbid,Jordan,False,1,1,Syria,home,0,D
+1993-03-12,Qatar,Jordan,1,2,Friendly,Doha,Qatar,False,2,1,Qatar,away,1,W
+1993-03-26,Lebanon,Jordan,1,0,Friendly,Beirut,Lebanon,False,0,1,Lebanon,away,-1,L
+1993-05-22,Jordan,Yemen,1,1,FIFA World Cup qualification,Irbid,Jordan,False,1,1,Yemen,home,0,D
+1993-05-24,Jordan,Iraq,1,1,FIFA World Cup qualification,Irbid,Jordan,False,1,1,Iraq,home,0,D
+1993-05-26,Jordan,China,0,3,FIFA World Cup qualification,Irbid,Jordan,False,0,3,China,home,-3,L
+1993-05-30,Jordan,Pakistan,3,1,FIFA World Cup qualification,Irbid,Jordan,False,3,1,Pakistan,home,2,W
+1993-06-12,Yemen,Jordan,1,1,FIFA World Cup qualification,Chengdu,China,True,1,1,Yemen,neutral,0,D
+1993-06-14,Iraq,Jordan,4,0,FIFA World Cup qualification,Chengdu,China,True,0,4,Iraq,neutral,-4,L
+1993-06-16,China,Jordan,4,1,FIFA World Cup qualification,Chengdu,China,False,1,4,China,away,-3,L
+1993-06-20,Pakistan,Jordan,0,5,FIFA World Cup qualification,Chengdu,China,True,5,0,Pakistan,neutral,5,W
+1993-10-26,United Arab Emirates,Jordan,2,1,Friendly,Al Ain,United Arab Emirates,False,1,2,United Arab Emirates,away,-1,L
+1993-10-28,United Arab Emirates,Jordan,0,2,Friendly,Al Ain,United Arab Emirates,False,2,0,United Arab Emirates,away,2,W
+1996-08-09,Jordan,Pakistan,4,0,AFC Asian Cup qualification,Amman,Jordan,False,4,0,Pakistan,home,4,W
+1996-08-13,Jordan,Iraq,0,1,AFC Asian Cup qualification,Amman,Jordan,False,0,1,Iraq,home,-1,L
+1997-02-02,Lebanon,Jordan,1,0,Friendly,Beirut,Lebanon,False,0,1,Lebanon,away,-1,L
+1997-02-07,Jordan,Lebanon,0,0,Friendly,Amman,Jordan,False,0,0,Lebanon,home,0,D
+1997-02-09,Lebanon,Jordan,0,0,Friendly,Beirut,Lebanon,False,0,0,Lebanon,away,0,D
+1997-02-16,Iraq,Jordan,1,0,Friendly,Baghdad,Iraq,False,0,1,Iraq,away,-1,L
+1997-04-08,Jordan,United Arab Emirates,0,0,FIFA World Cup qualification,Manama,Bahrain,True,0,0,United Arab Emirates,neutral,0,D
+1997-04-14,Bahrain,Jordan,1,0,FIFA World Cup qualification,Manama,Bahrain,False,0,1,Bahrain,away,-1,L
+1997-04-19,Jordan,Bahrain,4,1,FIFA World Cup qualification,Sharjah,United Arab Emirates,True,4,1,Bahrain,neutral,3,W
+1997-04-26,United Arab Emirates,Jordan,2,0,FIFA World Cup qualification,Sharjah,United Arab Emirates,False,0,2,United Arab Emirates,away,-2,L
+1997-06-06,Palestine,Jordan,0,0,Friendly,Jericho,Palestine,False,0,0,Palestine,away,0,D
+1997-09-25,Libya,Jordan,1,1,Friendly,Tripoli,Libya,False,1,1,Libya,away,0,D
+1998-07-20,Syria,Jordan,3,0,Arab Cup qualification,Beirut,Lebanon,True,0,3,Syria,neutral,-3,L
+1998-07-23,Lebanon,Jordan,0,2,Arab Cup qualification,Beirut,Lebanon,False,2,0,Lebanon,away,2,W
+1998-07-26,Jordan,Palestine,1,1,Arab Cup qualification,Beirut,Lebanon,True,1,1,Palestine,neutral,0,D
+1998-09-24,Libya,Jordan,1,2,Arab Cup,Doha,Qatar,True,2,1,Libya,neutral,1,W
+1998-09-26,Qatar,Jordan,2,0,Arab Cup,Doha,Qatar,False,0,2,Qatar,away,-2,L
+1999-06-18,Saudi Arabia,Jordan,2,1,Friendly,Riyadh,Saudi Arabia,False,1,2,Saudi Arabia,away,-1,L
+1999-06-22,Saudi Arabia,Jordan,2,0,Friendly,Riyadh,Saudi Arabia,False,0,2,Saudi Arabia,away,-2,L
+1999-06-28,Jordan,Iraq,0,1,Friendly,Amman,Jordan,False,0,1,Iraq,home,-1,L
+1999-06-30,Jordan,Iraq,1,1,Friendly,Amman,Jordan,False,1,1,Iraq,home,0,D
+1999-07-16,Jordan,Syria,1,0,Friendly,Amman,Jordan,False,1,0,Syria,home,1,W
+1999-07-18,Jordan,Syria,4,0,Friendly,Amman,Jordan,False,4,0,Syria,home,4,W
+2000-02-23,Lebanon,Jordan,1,1,Friendly,Tripoli,Lebanon,False,1,1,Lebanon,away,0,D
+2000-03-06,Syria,Jordan,0,0,Friendly,Damascus,Syria,False,0,0,Syria,away,0,D
+2000-03-08,Jordan,Lebanon,1,1,Friendly,Amman,Jordan,False,1,1,Lebanon,home,0,D
+2000-03-11,Jordan,Bosnia and Herzegovina,0,0,Friendly,Zarqa,Jordan,False,0,0,Bosnia and Herzegovina,home,0,D
+2000-03-13,Jordan,Syria,0,0,Friendly,Amman,Jordan,False,0,0,Syria,home,0,D
+2000-03-15,Jordan,Bosnia and Herzegovina,1,2,Friendly,Zarqa,Jordan,False,1,2,Bosnia and Herzegovina,home,-1,L
+2000-03-17,Jordan,Syria,0,0,Friendly,Amman,Jordan,False,0,0,Syria,home,0,D
+2000-03-25,Bahrain,Jordan,1,1,Friendly,Manama,Bahrain,False,1,1,Bahrain,away,0,D
+2000-03-31,Jordan,Kazakhstan,0,1,AFC Asian Cup qualification,Doha,Qatar,True,0,1,Kazakhstan,neutral,-1,L
+2000-04-04,Palestine,Jordan,1,5,AFC Asian Cup qualification,Doha,Qatar,True,5,1,Palestine,neutral,4,W
+2000-04-06,Pakistan,Jordan,0,5,AFC Asian Cup qualification,Doha,Qatar,True,5,0,Pakistan,neutral,5,W
+2000-04-08,Qatar,Jordan,2,2,AFC Asian Cup qualification,Doha,Qatar,False,2,2,Qatar,away,0,D
+2000-05-13,Jordan,Lebanon,1,1,Friendly,Limassol,Cyprus,True,1,1,Lebanon,neutral,0,D
+2000-05-23,Jordan,Kyrgyzstan,2,0,WAFF Championship,Amman,Jordan,False,2,0,Kyrgyzstan,home,2,W
+2000-05-25,Jordan,Iraq,0,0,WAFF Championship,Amman,Jordan,False,0,0,Iraq,home,0,D
+2000-05-27,Jordan,Lebanon,0,0,WAFF Championship,Amman,Jordan,False,0,0,Lebanon,home,0,D
+2000-05-31,Jordan,Iran,0,1,WAFF Championship,Amman,Jordan,False,0,1,Iran,home,-1,L
+2000-06-02,Jordan,Iraq,1,4,WAFF Championship,Amman,Jordan,False,1,4,Iraq,home,-3,L
+2000-08-11,Bahrain,Jordan,0,2,Friendly,Latakia,Syria,True,2,0,Bahrain,neutral,2,W
+2000-08-13,Syria,Jordan,1,0,Friendly,Latakia,Syria,False,0,1,Syria,away,-1,L
+2000-10-02,Jordan,Saudi Arabia,1,0,Friendly,Amman,Jordan,False,1,0,Saudi Arabia,home,1,W
+2000-10-07,Jordan,China,1,1,Friendly,Amman,Jordan,False,1,1,China,home,0,D
+2001-01-11,Romania,Jordan,0,1,Millennium Cup,Margao,India,True,1,0,Romania,neutral,1,W
+2001-01-16,Hong Kong,Jordan,0,2,Millennium Cup,Margao,India,True,2,0,Hong Kong,neutral,2,W
+2001-01-28,Jordan,North Korea,1,0,Friendly,Zarqa,Jordan,False,1,0,North Korea,home,1,W
+2001-01-30,Jordan,North Korea,0,2,Friendly,Zarqa,Jordan,False,0,2,North Korea,home,-2,L
+2001-02-28,Jordan,Bulgaria,0,2,Friendly,Amman,Jordan,False,0,2,Bulgaria,home,-2,L
+2001-03-07,Jordan,Hungary,1,1,Friendly,Amman,Jordan,False,1,1,Hungary,home,0,D
+2001-04-23,Turkmenistan,Jordan,2,0,FIFA World Cup qualification,Tashkent,Uzbekistan,True,0,2,Turkmenistan,neutral,-2,L
+2001-04-25,Taiwan,Jordan,0,2,FIFA World Cup qualification,Tashkent,Uzbekistan,True,2,0,Taiwan,neutral,2,W
+2001-04-27,Uzbekistan,Jordan,2,2,FIFA World Cup qualification,Tashkent,Uzbekistan,False,2,2,Uzbekistan,away,0,D
+2001-05-03,Jordan,Taiwan,6,0,FIFA World Cup qualification,Amman,Jordan,False,6,0,Taiwan,home,6,W
+2001-05-05,Jordan,Turkmenistan,1,2,FIFA World Cup qualification,Amman,Jordan,False,1,2,Turkmenistan,home,-1,L
+2001-05-07,Jordan,Uzbekistan,1,1,FIFA World Cup qualification,Amman,Jordan,False,1,1,Uzbekistan,home,0,D
+2002-02-09,Malta,Jordan,2,1,Malta International Tournament,Attard,Malta,False,1,2,Malta,away,-1,L
+2002-02-11,Moldova,Jordan,2,0,Malta International Tournament,Attard,Malta,True,0,2,Moldova,neutral,-2,L
+2002-02-13,Lithuania,Jordan,0,3,Malta International Tournament,Attard,Malta,True,3,0,Lithuania,neutral,3,W
+2002-08-17,Jordan,Kenya,1,1,Friendly,Amman,Jordan,False,1,1,Kenya,home,0,D
+2002-08-19,Jordan,Sudan,0,0,Friendly,Amman,Jordan,False,0,0,Sudan,home,0,D
+2002-08-30,Jordan,Iran,1,0,WAFF Championship,Damascus,Syria,True,1,0,Iran,neutral,1,W
+2002-09-01,Lebanon,Jordan,0,1,WAFF Championship,Damascus,Syria,True,1,0,Lebanon,neutral,1,W
+2002-09-05,Syria,Jordan,1,2,WAFF Championship,Damascus,Syria,False,2,1,Syria,away,1,W
+2002-09-07,Jordan,Iraq,2,3,WAFF Championship,Damascus,Syria,True,2,3,Iraq,neutral,-1,L
+2002-11-29,Jordan,Malaysia,1,0,Friendly,Abu Dhabi,United Arab Emirates,True,1,0,Malaysia,neutral,1,W
+2002-11-30,Jordan,Singapore,3,1,Friendly,Abu Dhabi,United Arab Emirates,True,3,1,Singapore,neutral,2,W
+2002-12-07,Bahrain,Jordan,0,3,Prime Minister's Cup,Riffa,Bahrain,False,3,0,Bahrain,away,3,W
+2002-12-09,China,Jordan,0,0,Prime Minister's Cup,Riffa,Bahrain,True,0,0,China,neutral,0,D
+2002-12-12,Jordan,Syria,3,0,Prime Minister's Cup,Riffa,Bahrain,True,3,0,Syria,neutral,3,W
+2002-12-16,Palestine,Jordan,1,1,Arab Cup,Kuwait City,Kuwait,True,1,1,Palestine,neutral,0,D
+2002-12-20,Jordan,Sudan,2,1,Arab Cup,Kuwait City,Kuwait,True,2,1,Sudan,neutral,1,W
+2002-12-23,Kuwait,Jordan,1,2,Arab Cup,Kuwait City,Kuwait,False,2,1,Kuwait,away,1,W
+2002-12-28,Jordan,Bahrain,1,2,Arab Cup,Kuwait City,Kuwait,True,1,2,Bahrain,neutral,-1,L
+2003-08-26,Jordan,Iraq,2,1,Friendly,Amman,Jordan,False,2,1,Iraq,home,1,W
+2003-09-05,Iran,Jordan,4,1,AFC Asian Cup qualification,Tehran,Iran,False,1,4,Iran,away,-3,L
+2003-09-19,Jordan,Syria,0,0,Friendly,Amman,Jordan,False,0,0,Syria,home,0,D
+2003-09-26,Jordan,Iran,3,2,AFC Asian Cup qualification,Amman,Jordan,False,3,2,Iran,home,1,W
+2003-10-08,Oman,Jordan,2,1,Friendly,Muscat,Oman,False,1,2,Oman,away,-1,L
+2003-10-17,Jordan,Lebanon,1,0,AFC Asian Cup qualification,Amman,Jordan,False,1,0,Lebanon,home,1,W
+2003-11-12,Lebanon,Jordan,0,2,AFC Asian Cup qualification,Beirut,Lebanon,False,2,0,Lebanon,away,2,W
+2003-11-18,Jordan,North Korea,3,0,AFC Asian Cup qualification,Amman,Jordan,False,3,0,North Korea,home,3,W
+2004-02-12,Jordan,Indonesia,2,1,Friendly,Amman,Jordan,False,2,1,Indonesia,home,1,W
+2004-02-18,Jordan,Laos,5,0,FIFA World Cup qualification,Amman,Jordan,False,5,0,Laos,home,5,W
+2004-03-21,Bahrain,Jordan,0,0,Friendly,Muharraq,Bahrain,False,0,0,Bahrain,away,0,D
+2004-03-23,Bahrain,Jordan,0,2,Friendly,Muharraq,Bahrain,False,2,0,Bahrain,away,2,W
+2004-03-31,Jordan,Qatar,1,0,FIFA World Cup qualification,Amman,Jordan,False,1,0,Qatar,home,1,W
+2004-04-30,Libya,Jordan,1,0,Friendly,Lagos,Nigeria,True,0,1,Libya,neutral,-1,L
+2004-05-19,Cyprus,Jordan,0,0,Friendly,Nicosia,Cyprus,False,0,0,Cyprus,away,0,D
+2004-05-30,Algeria,Jordan,1,1,Friendly,Annaba,Algeria,False,1,1,Algeria,away,0,D
+2004-06-09,Iran,Jordan,0,1,FIFA World Cup qualification,Tehran,Iran,False,1,0,Iran,away,1,W
+2004-06-17,Palestine,Jordan,1,1,WAFF Championship,Tehran,Iran,True,1,1,Palestine,neutral,0,D
+2004-06-21,Jordan,Iraq,2,0,WAFF Championship,Tehran,Iran,True,2,0,Iraq,neutral,2,W
+2004-06-23,Jordan,Syria,1,1,WAFF Championship,Tehran,Iran,True,1,1,Syria,neutral,0,D
+2004-06-25,Iraq,Jordan,1,3,WAFF Championship,Tehran,Iran,True,3,1,Iraq,neutral,2,W
+2004-07-08,Thailand,Jordan,0,0,Friendly,Bangkok,Thailand,False,0,0,Thailand,away,0,D
+2004-07-19,South Korea,Jordan,0,0,AFC Asian Cup,Jinan,China,True,0,0,South Korea,neutral,0,D
+2004-07-23,Jordan,Kuwait,2,0,AFC Asian Cup,Jinan,China,True,2,0,Kuwait,neutral,2,W
+2004-07-27,Jordan,United Arab Emirates,0,0,AFC Asian Cup,Beijing,China,True,0,0,United Arab Emirates,neutral,0,D
+2004-07-31,Japan,Jordan,1,1,AFC Asian Cup,Chongqing,China,True,1,1,Japan,neutral,0,D
+2004-08-18,Jordan,Azerbaijan,1,1,Friendly,Amman,Jordan,False,1,1,Azerbaijan,home,0,D
+2004-08-31,Jordan,Lebanon,2,2,Friendly,Amman,Jordan,False,2,2,Lebanon,home,0,D
+2004-09-08,Jordan,Iran,0,2,FIFA World Cup qualification,Amman,Jordan,False,0,2,Iran,home,-2,L
+2004-10-08,Thailand,Jordan,2,3,Friendly,Bangkok,Thailand,False,3,2,Thailand,away,1,W
+2004-10-13,Laos,Jordan,2,3,FIFA World Cup qualification,Vientiane,Laos,False,3,2,Laos,away,1,W
+2004-10-20,Ecuador,Jordan,0,3,Friendly,Tripoli,Libya,True,3,0,Ecuador,neutral,3,W
+2004-10-22,Libya,Jordan,1,0,Friendly,Tripoli,Libya,False,0,1,Libya,away,-1,L
+2004-11-11,United Arab Emirates,Jordan,4,0,Friendly,Abu Dhabi,United Arab Emirates,False,0,4,United Arab Emirates,away,-4,L
+2004-11-17,Qatar,Jordan,2,0,FIFA World Cup qualification,Doha,Qatar,False,0,2,Qatar,away,-2,L
+2005-01-28,Jordan,Norway,0,0,Friendly,Amman,Jordan,False,0,0,Norway,home,0,D
+2005-03-26,Cyprus,Jordan,2,1,Friendly,Larnaca,Cyprus,False,1,2,Cyprus,away,-1,L
+2005-06-08,Jordan,Iraq,0,1,Friendly,Amman,Jordan,False,0,1,Iraq,home,-1,L
+2005-08-17,Jordan,Armenia,0,0,Friendly,Amman,Jordan,False,0,0,Armenia,home,0,D
+2005-11-16,Georgia,Jordan,3,2,Friendly,Tbilisi,Georgia,False,2,3,Georgia,away,-1,L
+2006-01-17,Ivory Coast,Jordan,2,0,Friendly,Abu Dhabi,United Arab Emirates,True,0,2,Ivory Coast,neutral,-2,L
+2006-01-23,Jordan,Sweden,0,0,Friendly,Abu Dhabi,United Arab Emirates,True,0,0,Sweden,neutral,0,D
+2006-02-01,Thailand,Jordan,0,0,Friendly,Ayutthaya,Thailand,False,0,0,Thailand,away,0,D
+2006-02-07,Kuwait,Jordan,2,1,Friendly,Kuwait City,Kuwait,False,1,2,Kuwait,away,-1,L
+2006-02-14,Jordan,Kazakhstan,2,0,Friendly,Amman,Jordan,False,2,0,Kazakhstan,home,2,W
+2006-02-22,Jordan,Pakistan,3,0,AFC Asian Cup qualification,Amman,Jordan,False,3,0,Pakistan,home,3,W
+2006-03-01,Oman,Jordan,3,0,AFC Asian Cup qualification,Muscat,Oman,False,0,3,Oman,away,-3,L
+2006-07-21,Jordan,Iraq,2,1,Friendly,Amman,Jordan,False,2,1,Iraq,home,1,W
+2006-07-30,Jordan,Syria,3,0,Friendly,Amman,Jordan,False,3,0,Syria,home,3,W
+2006-08-09,Jordan,Iraq,0,1,Friendly,Amman,Jordan,False,0,1,Iraq,home,-1,L
+2006-08-16,Jordan,United Arab Emirates,1,2,AFC Asian Cup qualification,Amman,Jordan,False,1,2,United Arab Emirates,home,-1,L
+2006-09-02,Bahrain,Jordan,0,2,Friendly,Manama,Bahrain,False,2,0,Bahrain,away,2,W
+2006-09-06,United Arab Emirates,Jordan,0,0,AFC Asian Cup qualification,Sharjah,United Arab Emirates,False,0,0,United Arab Emirates,away,0,D
+2006-10-06,Jordan,Iran,0,0,Friendly,Amman,Jordan,False,0,0,Iran,home,0,D
+2006-10-11,Pakistan,Jordan,0,3,AFC Asian Cup qualification,Lahore,Pakistan,False,3,0,Pakistan,away,3,W
+2006-11-08,Saudi Arabia,Jordan,2,1,Friendly,Riyadh,Saudi Arabia,False,1,2,Saudi Arabia,away,-1,L
+2006-11-15,Jordan,Oman,3,0,AFC Asian Cup qualification,Amman,Jordan,False,3,0,Oman,home,3,W
+2007-06-08,Jordan,Iraq,1,1,Friendly,Amman,Jordan,False,1,1,Iraq,home,0,D
+2007-06-12,Jordan,Iraq,0,0,Friendly,Amman,Jordan,False,0,0,Iraq,home,0,D
+2007-06-18,Jordan,Syria,0,1,WAFF Championship,Amman,Jordan,False,0,1,Syria,home,-1,L
+2007-06-20,Jordan,Lebanon,3,0,WAFF Championship,Amman,Jordan,False,3,0,Lebanon,home,3,W
+2007-06-22,Jordan,Iran,0,1,WAFF Championship,Amman,Jordan,False,0,1,Iran,home,-1,L
+2007-09-07,Bahrain,Jordan,1,3,Friendly,Muharraq,Bahrain,False,3,1,Bahrain,away,2,W
+2007-10-18,Kyrgyzstan,Jordan,2,0,FIFA World Cup qualification,Bishkek,Kyrgyzstan,False,0,2,Kyrgyzstan,away,-2,L
+2007-10-28,Jordan,Kyrgyzstan,2,0,FIFA World Cup qualification,Amman,Jordan,False,2,0,Kyrgyzstan,home,2,W
+2007-12-11,Oman,Jordan,0,3,Friendly,Muscat,Oman,False,3,0,Oman,away,3,W
+2008-01-24,Iraq,Jordan,1,1,Friendly,Dubai,United Arab Emirates,True,1,1,Iraq,neutral,0,D
+2008-01-28,Jordan,Lebanon,4,1,Friendly,Amman,Jordan,False,4,1,Lebanon,home,3,W
+2008-01-31,Jordan,Singapore,2,1,Friendly,Zarqa,Jordan,False,2,1,Singapore,home,1,W
+2008-02-06,Jordan,North Korea,0,1,FIFA World Cup qualification,Amman,Jordan,False,0,1,North Korea,home,-1,L
+2008-03-16,Qatar,Jordan,2,1,Friendly,Doha,Qatar,False,1,2,Qatar,away,-1,L
+2008-03-22,Uzbekistan,Jordan,4,1,Friendly,Tashkent,Uzbekistan,False,1,4,Uzbekistan,away,-3,L
+2008-03-26,Turkmenistan,Jordan,0,2,FIFA World Cup qualification,Ashgabat,Turkmenistan,False,2,0,Turkmenistan,away,2,W
+2008-05-25,China,Jordan,2,0,Friendly,Kunshan,China,False,0,2,China,away,-2,L
+2008-05-31,South Korea,Jordan,2,2,FIFA World Cup qualification,Seoul,South Korea,False,2,2,South Korea,away,0,D
+2008-06-07,Jordan,South Korea,0,1,FIFA World Cup qualification,Amman,Jordan,False,0,1,South Korea,home,-1,L
+2008-06-14,North Korea,Jordan,2,0,FIFA World Cup qualification,Pyongyang,North Korea,False,0,2,North Korea,away,-2,L
+2008-06-22,Jordan,Turkmenistan,2,0,FIFA World Cup qualification,Amman,Jordan,False,2,0,Turkmenistan,home,2,W
+2008-08-07,Syria,Jordan,0,0,WAFF Championship,Tehran,Iran,True,0,0,Syria,neutral,0,D
+2008-08-13,Jordan,Qatar,3,0,WAFF Championship,Tehran,Iran,True,3,0,Qatar,neutral,3,W
+2008-08-15,Iran,Jordan,2,1,WAFF Championship,Tehran,Iran,False,1,2,Iran,away,-1,L
+2008-09-05,South Korea,Jordan,1,0,Friendly,Seoul,South Korea,False,0,1,South Korea,away,-1,L
+2008-10-26,Palestine,Jordan,1,1,Friendly,Al-Ram,Palestine,False,1,1,Palestine,away,0,D
+2008-12-21,Jordan,China,0,1,Friendly,Amman,Jordan,False,0,1,China,home,-1,L
+2009-01-14,Jordan,Thailand,0,0,AFC Asian Cup qualification,Amman,Jordan,False,0,0,Thailand,home,0,D
+2009-01-28,Singapore,Jordan,2,1,AFC Asian Cup qualification,Singapore,Singapore,False,1,2,Singapore,away,-1,L
+2009-05-13,Jordan,Zimbabwe,2,0,Friendly,Amman,Jordan,False,2,0,Zimbabwe,home,2,W
+2009-05-27,Jordan,Congo,1,1,Friendly,Amman,Jordan,False,1,1,Congo,home,0,D
+2009-06-03,Bahrain,Jordan,4,0,Friendly,Riffa,Bahrain,False,0,4,Bahrain,away,-4,L
+2009-09-05,Jordan,Malaysia,0,0,Friendly,Amman,Jordan,False,0,0,Malaysia,home,0,D
+2009-09-09,Jordan,New Zealand,1,3,Friendly,Amman,Jordan,False,1,3,New Zealand,home,-2,L
+2009-10-10,Kuwait,Jordan,2,1,Friendly,Cairo,Egypt,True,1,2,Kuwait,neutral,-1,L
+2009-10-14,United Arab Emirates,Jordan,3,1,Friendly,Dubai,United Arab Emirates,False,1,3,United Arab Emirates,away,-2,L
+2009-11-14,Iran,Jordan,1,0,AFC Asian Cup qualification,Tehran,Iran,False,0,1,Iran,away,-1,L
+2009-11-22,Jordan,Iran,1,0,AFC Asian Cup qualification,Amman,Jordan,False,1,0,Iran,home,1,W
+2009-12-30,China,Jordan,2,2,Friendly,Jiangyin,China,False,2,2,China,away,0,D
+2010-01-06,Thailand,Jordan,0,0,AFC Asian Cup qualification,Bangkok,Thailand,False,0,0,Thailand,away,0,D
+2010-02-25,Jordan,Azerbaijan,0,2,Friendly,Amman,Jordan,False,0,2,Azerbaijan,home,-2,L
+2010-03-03,Jordan,Singapore,2,1,AFC Asian Cup qualification,Amman,Jordan,False,2,1,Singapore,home,1,W
+2010-09-16,Jordan,Iraq,4,1,Friendly,Amman,Jordan,False,4,1,Iraq,home,3,W
+2010-09-19,Jordan,Bahrain,2,0,Friendly,Zarqa,Jordan,False,2,0,Bahrain,home,2,W
+2010-09-24,Jordan,Syria,1,1,WAFF Championship,Amman,Jordan,False,1,1,Syria,home,0,D
+2010-09-28,Jordan,Kuwait,2,2,WAFF Championship,Amman,Jordan,False,2,2,Kuwait,home,0,D
+2010-11-16,Jordan,Cyprus,0,0,Friendly,Amman,Jordan,False,0,0,Cyprus,home,0,D
+2010-12-28,Bahrain,Jordan,2,1,Friendly,Dubai,United Arab Emirates,True,1,2,Bahrain,neutral,-1,L
+2011-01-02,Jordan,Uzbekistan,2,2,Friendly,Dubai,United Arab Emirates,True,2,2,Uzbekistan,neutral,0,D
+2011-01-09,Japan,Jordan,1,1,AFC Asian Cup,Doha,Qatar,True,1,1,Japan,neutral,0,D
+2011-01-13,Jordan,Saudi Arabia,1,0,AFC Asian Cup,Al Rayyan,Qatar,True,1,0,Saudi Arabia,neutral,1,W
+2011-01-17,Jordan,Syria,2,1,AFC Asian Cup,Doha,Qatar,True,2,1,Syria,neutral,1,W
+2011-01-21,Uzbekistan,Jordan,2,1,AFC Asian Cup,Doha,Qatar,True,1,2,Uzbekistan,neutral,-1,L
+2011-03-26,Jordan,Kuwait,1,1,Friendly,Sharjah,United Arab Emirates,True,1,1,Kuwait,neutral,0,D
+2011-03-29,Jordan,North Korea,1,1,Friendly,Sharjah,United Arab Emirates,True,1,1,North Korea,neutral,0,D
+2011-07-05,Jordan,Syria,1,3,Friendly,Istanbul,Turkey,True,1,3,Syria,neutral,-2,L
+2011-07-08,Jordan,Yemen,4,0,Friendly,Istanbul,Turkey,True,4,0,Yemen,neutral,4,W
+2011-07-13,Jordan,Saudi Arabia,1,1,Friendly,Amman,Jordan,False,1,1,Saudi Arabia,home,0,D
+2011-07-16,Jordan,Iraq,1,1,Friendly,Amman,Jordan,False,1,1,Iraq,home,0,D
+2011-07-23,Jordan,Nepal,9,0,FIFA World Cup qualification,Amman,Jordan,False,9,0,Nepal,home,9,W
+2011-07-28,Nepal,Jordan,1,1,FIFA World Cup qualification,Kathmandu,Nepal,False,1,1,Nepal,away,0,D
+2011-08-22,Jordan,Tunisia,3,3,Friendly,Amman,Jordan,False,3,3,Tunisia,home,0,D
+2011-08-27,Jordan,Indonesia,1,0,Friendly,Amman,Jordan,False,1,0,Indonesia,home,1,W
+2011-09-02,Iraq,Jordan,0,2,FIFA World Cup qualification,Erbil,Iraq,False,2,0,Iraq,away,2,W
+2011-09-06,Jordan,China,2,1,FIFA World Cup qualification,Amman,Jordan,False,2,1,China,home,1,W
+2011-10-06,Thailand,Jordan,0,0,Friendly,Bangkok,Thailand,False,0,0,Thailand,away,0,D
+2011-10-11,Singapore,Jordan,0,3,FIFA World Cup qualification,Singapore,Singapore,False,3,0,Singapore,away,3,W
+2011-11-11,Jordan,Singapore,2,0,FIFA World Cup qualification,Amman,Jordan,False,2,0,Singapore,home,2,W
+2011-11-15,Jordan,Iraq,1,3,FIFA World Cup qualification,Amman,Jordan,False,1,3,Iraq,home,-2,L
+2012-02-23,Iran,Jordan,2,2,Friendly,Dubai,United Arab Emirates,True,2,2,Iran,neutral,0,D
+2012-02-29,China,Jordan,3,1,FIFA World Cup qualification,Guangzhou,China,False,1,3,China,away,-2,L
+2012-05-18,Lebanon,Jordan,1,2,Friendly,Sidon,Lebanon,False,2,1,Lebanon,away,1,W
+2012-05-26,Jordan,Sierra Leone,4,0,Friendly,Amman,Jordan,False,4,0,Sierra Leone,home,4,W
+2012-06-03,Jordan,Iraq,1,1,FIFA World Cup qualification,Amman,Jordan,False,1,1,Iraq,home,0,D
+2012-06-08,Japan,Jordan,6,0,FIFA World Cup qualification,Saitama,Japan,False,0,6,Japan,away,-6,L
+2012-08-13,Jordan,Uzbekistan,0,1,Friendly,Amman,Jordan,False,0,1,Uzbekistan,home,-1,L
+2012-08-15,Jordan,Uzbekistan,2,0,Friendly,Amman,Jordan,False,2,0,Uzbekistan,home,2,W
+2012-09-05,Jordan,Iran,0,0,Friendly,Amman,Jordan,False,0,0,Iran,home,0,D
+2012-09-11,Jordan,Australia,2,1,FIFA World Cup qualification,Amman,Jordan,False,2,1,Australia,home,1,W
+2012-10-16,Oman,Jordan,2,1,FIFA World Cup qualification,Muscat,Oman,False,1,2,Oman,away,-1,L
+2012-11-08,Bahrain,Jordan,3,0,Friendly,Arad,Bahrain,False,0,3,Bahrain,away,-3,L
+2012-11-14,Iraq,Jordan,1,0,FIFA World Cup qualification,Doha,Qatar,True,0,1,Iraq,neutral,-1,L
+2012-12-10,Iraq,Jordan,1,0,WAFF Championship,Al Farwaniyah,Kuwait,True,0,1,Iraq,neutral,-1,L
+2012-12-16,Syria,Jordan,2,1,WAFF Championship,Kuwait City,Kuwait,True,1,2,Syria,neutral,-1,L
+2013-01-31,Jordan,Indonesia,5,0,Friendly,Amman,Jordan,False,5,0,Indonesia,home,5,W
+2013-02-06,Jordan,Singapore,4,0,AFC Asian Cup qualification,Amman,Jordan,False,4,0,Singapore,home,4,W
+2013-03-21,Jordan,Belarus,1,0,Friendly,Amman,Jordan,False,1,0,Belarus,home,1,W
+2013-03-26,Jordan,Japan,2,1,FIFA World Cup qualification,Amman,Jordan,False,2,1,Japan,home,1,W
+2013-05-27,Jordan,Libya,1,0,Friendly,Amman,Jordan,False,1,0,Libya,home,1,W
+2013-06-11,Australia,Jordan,4,0,FIFA World Cup qualification,Melbourne,Australia,False,0,4,Australia,away,-4,L
+2013-06-18,Jordan,Oman,1,0,FIFA World Cup qualification,Amman,Jordan,False,1,0,Oman,home,1,W
+2013-08-09,Jordan,Libya,2,1,Friendly,Amman,Jordan,False,2,1,Libya,home,1,W
+2013-08-15,Syria,Jordan,1,1,AFC Asian Cup qualification,Tehran,Iran,True,1,1,Syria,neutral,0,D
+2013-09-06,Jordan,Uzbekistan,1,1,FIFA World Cup qualification,Amman,Jordan,False,1,1,Uzbekistan,home,0,D
+2013-09-10,Uzbekistan,Jordan,1,1,FIFA World Cup qualification,Tashkent,Uzbekistan,False,1,1,Uzbekistan,away,0,D
+2013-10-09,Jordan,Kuwait,1,1,Friendly,Amman,Jordan,False,1,1,Kuwait,home,0,D
+2013-10-15,Jordan,Oman,0,0,AFC Asian Cup qualification,Amman,Jordan,False,0,0,Oman,home,0,D
+2013-10-28,Jordan,Nigeria,1,0,Friendly,Amman,Jordan,False,1,0,Nigeria,home,1,W
+2013-11-06,Jordan,Zambia,1,0,Friendly,Al Wakrah,Qatar,True,1,0,Zambia,neutral,1,W
+2013-11-13,Jordan,Uruguay,0,5,FIFA World Cup qualification,Amman,Jordan,False,0,5,Uruguay,home,-5,L
+2013-11-20,Uruguay,Jordan,0,0,FIFA World Cup qualification,Montevideo,Uruguay,False,0,0,Uruguay,away,0,D
+2013-12-26,Jordan,Lebanon,0,0,WAFF Championship,Doha,Qatar,True,0,0,Lebanon,neutral,0,D
+2014-01-01,Kuwait,Jordan,1,2,WAFF Championship,Doha,Qatar,True,2,1,Kuwait,neutral,1,W
+2014-01-04,Bahrain,Jordan,0,1,WAFF Championship,Doha,Qatar,True,1,0,Bahrain,neutral,1,W
+2014-01-07,Qatar,Jordan,2,0,WAFF Championship,Doha,Qatar,False,0,2,Qatar,away,-2,L
+2014-01-31,Oman,Jordan,0,0,AFC Asian Cup qualification,Muscat,Oman,False,0,0,Oman,away,0,D
+2014-02-04,Singapore,Jordan,1,3,AFC Asian Cup qualification,Singapore,Singapore,False,3,1,Singapore,away,2,W
+2014-03-05,Jordan,Syria,2,1,AFC Asian Cup qualification,Amman,Jordan,False,2,1,Syria,home,1,W
+2014-05-10,Palestine,Jordan,1,0,Palestine International Championship,Hebron,Palestine,False,0,1,Palestine,away,-1,L
+2014-05-14,Jordan,Pakistan,1,0,Palestine International Championship,Nablus,Palestine,True,1,0,Pakistan,neutral,1,W
+2014-05-17,Sri Lanka,Jordan,0,4,Palestine International Championship,Al-Ram,Palestine,True,4,0,Sri Lanka,neutral,4,W
+2014-05-20,Palestine,Jordan,1,0,Palestine International Championship,Hebron,Palestine,False,0,1,Palestine,away,-1,L
+2014-06-06,Colombia,Jordan,3,0,Friendly,Buenos Aires,Argentina,True,0,3,Colombia,neutral,-3,L
+2014-09-04,Uzbekistan,Jordan,2,0,Friendly,Tashkent,Uzbekistan,False,0,2,Uzbekistan,away,-2,L
+2014-09-09,China,Jordan,1,1,Friendly,Harbin,China,False,1,1,China,away,0,D
+2014-10-10,Jordan,Kuwait,0,1,Friendly,Amman,Jordan,False,0,1,Kuwait,home,-1,L
+2014-10-13,Jordan,Kuwait,1,1,Friendly,Amman,Jordan,False,1,1,Kuwait,home,0,D
+2014-11-14,Jordan,South Korea,0,1,Friendly,Amman,Jordan,False,0,1,South Korea,home,-1,L
+2014-11-18,Estonia,Jordan,1,0,Friendly,Tallinn,Estonia,False,0,1,Estonia,away,-1,L
+2014-12-21,Uzbekistan,Jordan,2,1,Friendly,Dubai,United Arab Emirates,True,1,2,Uzbekistan,neutral,-1,L
+2014-12-30,United Arab Emirates,Jordan,1,0,Friendly,Robina,Australia,True,0,1,United Arab Emirates,neutral,-1,L
+2015-01-04,Bahrain,Jordan,1,0,Friendly,Ballarat,Australia,True,0,1,Bahrain,neutral,-1,L
+2015-01-12,Jordan,Iraq,0,1,AFC Asian Cup,Brisbane,Australia,True,0,1,Iraq,neutral,-1,L
+2015-01-16,Palestine,Jordan,1,5,AFC Asian Cup,Melbourne,Australia,True,5,1,Palestine,neutral,4,W
+2015-01-20,Japan,Jordan,2,0,AFC Asian Cup,Melbourne,Australia,True,0,2,Japan,neutral,-2,L
+2015-03-26,Jordan,Syria,0,1,Friendly,Amman,Jordan,False,0,1,Syria,home,-1,L
+2015-03-30,Saudi Arabia,Jordan,2,1,Friendly,Dammam,Saudi Arabia,False,1,2,Saudi Arabia,away,-1,L
+2015-05-30,Jordan,Lebanon,0,0,Friendly,Irbid,Jordan,False,0,0,Lebanon,home,0,D
+2015-06-05,Jordan,Kuwait,2,2,Friendly,Istanbul,Turkey,True,2,2,Kuwait,neutral,0,D
+2015-06-11,Tajikistan,Jordan,1,3,FIFA World Cup qualification,Dushanbe,Tajikistan,False,3,1,Tajikistan,away,2,W
+2015-06-16,Jordan,Trinidad and Tobago,3,0,Friendly,Irbid,Jordan,False,3,0,Trinidad and Tobago,home,3,W
+2015-09-03,Jordan,Kyrgyzstan,0,0,FIFA World Cup qualification,Irbid,Jordan,False,0,0,Kyrgyzstan,home,0,D
+2015-09-08,Bangladesh,Jordan,0,4,FIFA World Cup qualification,Dhaka,Bangladesh,False,4,0,Bangladesh,away,4,W
+2015-10-03,Jordan,Iraq,3,0,Friendly,Amman,Jordan,False,3,0,Iraq,home,3,W
+2015-10-08,Jordan,Australia,2,0,FIFA World Cup qualification,Amman,Jordan,False,2,0,Australia,home,2,W
+2015-10-13,Jordan,Tajikistan,3,0,FIFA World Cup qualification,Irbid,Jordan,False,3,0,Tajikistan,home,3,W
+2015-11-11,Jordan,Malta,2,0,Friendly,Istanbul,Turkey,True,2,0,Malta,neutral,2,W
+2015-11-17,Kyrgyzstan,Jordan,1,0,FIFA World Cup qualification,Bishkek,Kyrgyzstan,False,0,1,Kyrgyzstan,away,-1,L
+2016-01-27,Egypt,Jordan,0,1,Friendly,Aswan,Egypt,False,1,0,Egypt,away,1,W
+2016-03-24,Jordan,Bangladesh,8,0,FIFA World Cup qualification,Amman,Jordan,False,8,0,Bangladesh,home,8,W
+2016-03-29,Australia,Jordan,5,1,FIFA World Cup qualification,Sydney,Australia,False,1,5,Australia,away,-4,L
+2016-06-03,United Arab Emirates,Jordan,1,3,King's Cup,Bangkok,Thailand,True,3,1,United Arab Emirates,neutral,2,W
+2016-06-05,Thailand,Jordan,2,0,King's Cup,Bangkok,Thailand,False,0,2,Thailand,away,-2,L
+2016-08-18,Jordan,Qatar,2,3,Friendly,Lucerne,Switzerland,True,2,3,Qatar,neutral,-1,L
+2016-08-31,Lebanon,Jordan,1,1,Friendly,Beirut,Lebanon,False,1,1,Lebanon,away,0,D
+2016-09-04,Bahrain,Jordan,0,0,Friendly,Isa Town,Bahrain,False,0,0,Bahrain,away,0,D
+2016-10-07,Oman,Jordan,1,1,Friendly,Muscat,Oman,False,1,1,Oman,away,0,D
+2016-11-06,Jordan,Iraq,0,0,Friendly,Amman,Jordan,False,0,0,Iraq,home,0,D
+2016-11-10,Uzbekistan,Jordan,1,0,Friendly,Tashkent,Uzbekistan,False,0,1,Uzbekistan,away,-1,L
+2016-11-15,Jordan,Lebanon,0,0,Friendly,Amman,Jordan,False,0,0,Lebanon,home,0,D
+2017-01-25,Jordan,Georgia,1,0,Friendly,Dubai,United Arab Emirates,True,1,0,Georgia,neutral,1,W
+2017-03-23,Jordan,Hong Kong,4,0,Friendly,Amman,Jordan,False,4,0,Hong Kong,home,4,W
+2017-03-28,Jordan,Cambodia,7,0,AFC Asian Cup qualification,Amman,Jordan,False,7,0,Cambodia,home,7,W
+2017-06-01,Iraq,Jordan,1,0,Friendly,Basra,Iraq,False,0,1,Iraq,away,-1,L
+2017-06-07,Hong Kong,Jordan,0,0,Friendly,Kowloon,Hong Kong,False,0,0,Hong Kong,away,0,D
+2017-06-13,Vietnam,Jordan,0,0,AFC Asian Cup qualification,Ho Chi Minh City,Vietnam,False,0,0,Vietnam,away,0,D
+2017-08-29,Bahrain,Jordan,0,0,Friendly,Isa Town,Bahrain,False,0,0,Bahrain,away,0,D
+2017-09-05,Jordan,Afghanistan,4,1,AFC Asian Cup qualification,Amman,Jordan,False,4,1,Afghanistan,home,3,W
+2017-10-10,Afghanistan,Jordan,3,3,AFC Asian Cup qualification,Dushanbe,Tajikistan,True,3,3,Afghanistan,neutral,0,D
+2017-11-14,Cambodia,Jordan,0,1,AFC Asian Cup qualification,Phnom Penh,Cambodia,False,1,0,Cambodia,away,1,W
+2017-12-25,Jordan,Libya,1,1,Friendly,Amman,Jordan,False,1,1,Libya,home,0,D
+2018-01-11,Jordan,Finland,1,2,Friendly,Abu Dhabi,United Arab Emirates,True,1,2,Finland,neutral,-1,L
+2018-03-21,Jordan,Kuwait,1,0,Friendly,Amman,Jordan,False,1,0,Kuwait,home,1,W
+2018-03-27,Jordan,Vietnam,1,1,AFC Asian Cup qualification,Amman,Jordan,False,1,1,Vietnam,home,0,D
+2018-05-20,Jordan,Cyprus,3,0,Friendly,Amman,Jordan,False,3,0,Cyprus,home,3,W
+2018-09-06,Jordan,Lebanon,0,1,Friendly,Amman,Jordan,False,0,1,Lebanon,home,-1,L
+2018-09-11,Jordan,Oman,0,0,Friendly,Amman,Jordan,False,0,0,Oman,home,0,D
+2018-10-10,Albania,Jordan,0,0,Friendly,Elbasan,Albania,False,0,0,Albania,away,0,D
+2018-10-15,Croatia,Jordan,2,1,Friendly,Rijeka,Croatia,False,1,2,Croatia,away,-1,L
+2018-11-17,Jordan,India,2,1,Friendly,Amman,Jordan,False,2,1,India,home,1,W
+2018-11-20,Jordan,Saudi Arabia,1,1,Friendly,Amman,Jordan,False,1,1,Saudi Arabia,home,0,D
+2018-12-20,Jordan,Kyrgyzstan,0,1,Friendly,Doha,Qatar,True,0,1,Kyrgyzstan,neutral,-1,L
+2018-12-23,Qatar,Jordan,2,0,Friendly,Doha,Qatar,False,0,2,Qatar,away,-2,L
+2018-12-28,China,Jordan,1,1,Friendly,Doha,Qatar,True,1,1,China,neutral,0,D
+2019-01-06,Australia,Jordan,0,1,AFC Asian Cup,Al Ain,United Arab Emirates,True,1,0,Australia,neutral,1,W
+2019-01-10,Jordan,Syria,2,0,AFC Asian Cup,Al Ain,United Arab Emirates,True,2,0,Syria,neutral,2,W
+2019-01-15,Palestine,Jordan,0,0,AFC Asian Cup,Abu Dhabi,United Arab Emirates,True,0,0,Palestine,neutral,0,D
+2019-01-20,Jordan,Vietnam,1,1,AFC Asian Cup,Dubai,United Arab Emirates,True,1,1,Vietnam,neutral,0,D
+2019-06-06,Slovakia,Jordan,5,1,Friendly,Trnava,Slovakia,False,1,5,Slovakia,away,-4,L
+2019-06-11,Jordan,Indonesia,4,1,Friendly,Amman,Jordan,False,4,1,Indonesia,home,3,W
+2019-08-04,Jordan,Bahrain,0,1,WAFF Championship,Erbil,Iraq,True,0,1,Bahrain,neutral,-1,L
+2019-08-07,Kuwait,Jordan,1,1,WAFF Championship,Erbil,Iraq,True,1,1,Kuwait,neutral,0,D
+2019-08-10,Jordan,Saudi Arabia,3,0,WAFF Championship,Erbil,Iraq,True,3,0,Saudi Arabia,neutral,3,W
+2019-08-30,Malaysia,Jordan,0,1,Friendly,Kuala Lumpur,Malaysia,False,1,0,Malaysia,away,1,W
+2019-09-05,Taiwan,Jordan,1,2,FIFA World Cup qualification,Taipei,Taiwan,False,2,1,Taiwan,away,1,W
+2019-09-10,Jordan,Paraguay,2,4,Friendly,Amman,Jordan,False,2,4,Paraguay,home,-2,L
+2019-10-05,Jordan,Singapore,0,0,Friendly,Amman,Jordan,False,0,0,Singapore,home,0,D
+2019-10-10,Jordan,Kuwait,0,0,FIFA World Cup qualification,Amman,Jordan,False,0,0,Kuwait,home,0,D
+2019-10-15,Jordan,Nepal,3,0,FIFA World Cup qualification,Amman,Jordan,False,3,0,Nepal,home,3,W
+2019-11-14,Jordan,Australia,0,1,FIFA World Cup qualification,Amman,Jordan,False,0,1,Australia,home,-1,L
+2019-11-19,Jordan,Taiwan,5,0,FIFA World Cup qualification,Amman,Jordan,False,5,0,Taiwan,home,5,W
+2020-11-12,Jordan,Iraq,0,0,Friendly,Dubai,United Arab Emirates,True,0,0,Iraq,neutral,0,D
+2020-11-16,Jordan,Syria,1,0,Friendly,Sharjah,United Arab Emirates,True,1,0,Syria,neutral,1,W
+2021-02-01,Jordan,Tajikistan,2,0,Friendly,Dubai,United Arab Emirates,True,2,0,Tajikistan,neutral,2,W
+2021-02-05,Jordan,Tajikistan,0,1,Friendly,Dubai,United Arab Emirates,True,0,1,Tajikistan,neutral,-1,L
+2021-02-15,Jordan,Uzbekistan,0,2,Friendly,Dubai,United Arab Emirates,True,0,2,Uzbekistan,neutral,-2,L
+2021-03-20,Oman,Jordan,0,0,Friendly,Dubai,United Arab Emirates,True,0,0,Oman,neutral,0,D
+2021-03-24,Jordan,Lebanon,1,0,Friendly,Dubai,United Arab Emirates,True,1,0,Lebanon,neutral,1,W
+2021-03-30,Bahrain,Jordan,1,2,Friendly,Riffa,Bahrain,False,2,1,Bahrain,away,1,W
+2021-05-24,United Arab Emirates,Jordan,5,1,Friendly,Dubai,United Arab Emirates,False,1,5,United Arab Emirates,away,-4,L
+2021-05-31,Jordan,Vietnam,1,1,Friendly,Sharjah,United Arab Emirates,True,1,1,Vietnam,neutral,0,D
+2021-06-07,Nepal,Jordan,0,3,FIFA World Cup qualification,Kuwait City,Kuwait,True,3,0,Nepal,neutral,3,W
+2021-06-11,Kuwait,Jordan,0,0,FIFA World Cup qualification,Kuwait City,Kuwait,False,0,0,Kuwait,away,0,D
+2021-06-15,Australia,Jordan,1,0,FIFA World Cup qualification,Kuwait City,Kuwait,True,0,1,Australia,neutral,-1,L
+2021-09-04,Haiti,Jordan,2,0,Friendly,Riffa,Bahrain,True,0,2,Haiti,neutral,-2,L
+2021-09-07,Bahrain,Jordan,1,2,Friendly,Riffa,Bahrain,False,2,1,Bahrain,away,1,W
+2021-10-06,Jordan,Malaysia,4,0,Friendly,Amman,Jordan,False,4,0,Malaysia,home,4,W
+2021-10-12,Jordan,Uzbekistan,3,0,Friendly,Amman,Jordan,False,3,0,Uzbekistan,home,3,W
+2021-11-10,Kosovo,Jordan,0,2,Friendly,Pristina,Kosovo,False,2,0,Kosovo,away,2,W
+2021-11-16,Belarus,Jordan,1,0,Friendly,Minsk,Belarus,False,0,1,Belarus,away,-1,L
+2021-12-01,Saudi Arabia,Jordan,0,1,Arab Cup,Al Rayyan,Qatar,True,1,0,Saudi Arabia,neutral,1,W
+2021-12-04,Jordan,Morocco,0,4,Arab Cup,Al Rayyan,Qatar,True,0,4,Morocco,neutral,-4,L
+2021-12-07,Jordan,Palestine,5,1,Arab Cup,Doha,Qatar,True,5,1,Palestine,neutral,4,W
+2021-12-11,Egypt,Jordan,3,1,Arab Cup,Al Wakrah,Qatar,True,1,3,Egypt,neutral,-2,L
+2022-01-28,Jordan,New Zealand,3,1,Friendly,Abu Dhabi,United Arab Emirates,True,3,1,New Zealand,neutral,2,W
+2022-05-28,India,Jordan,0,2,Friendly,Doha,Qatar,True,2,0,India,neutral,2,W
+2022-06-01,Australia,Jordan,2,1,Friendly,Al Wakrah,Qatar,True,1,2,Australia,neutral,-1,L
+2022-06-08,Jordan,Nepal,2,0,AFC Asian Cup qualification,Kuwait City,Kuwait,True,2,0,Nepal,neutral,2,W
+2022-06-11,Indonesia,Jordan,0,1,AFC Asian Cup qualification,Kuwait City,Kuwait,True,1,0,Indonesia,neutral,1,W
+2022-06-14,Kuwait,Jordan,0,3,AFC Asian Cup qualification,Kuwait City,Kuwait,False,3,0,Kuwait,away,3,W
+2022-09-23,Jordan,Syria,2,0,Jordan International Tournament,Amman,Jordan,False,2,0,Syria,home,2,W
+2022-09-26,Jordan,Oman,1,0,Jordan International Tournament,Amman,Jordan,False,1,0,Oman,home,1,W
+2022-11-17,Jordan,Spain,1,3,Friendly,Amman,Jordan,False,1,3,Spain,home,-2,L
+2023-03-28,Jordan,Philippines,4,0,Friendly,Al Wakrah,Qatar,True,4,0,Philippines,neutral,4,W
+2023-06-16,Serbia,Jordan,3,2,Friendly,Vienna,Austria,True,2,3,Serbia,neutral,-1,L
+2023-06-19,Jamaica,Jordan,1,2,Friendly,Wiener Neustadt,Austria,True,2,1,Jamaica,neutral,1,W
+2023-09-07,Norway,Jordan,6,0,Friendly,Oslo,Norway,False,0,6,Norway,away,-6,L
+2023-09-12,Azerbaijan,Jordan,2,1,Friendly,Baku,Azerbaijan,False,1,2,Azerbaijan,away,-1,L
+2023-11-16,Tajikistan,Jordan,1,1,FIFA World Cup qualification,Dushanbe,Tajikistan,False,1,1,Tajikistan,away,0,D
+2023-11-21,Jordan,Saudi Arabia,0,2,FIFA World Cup qualification,Amman,Jordan,False,0,2,Saudi Arabia,home,-2,L
+2024-01-05,Qatar,Jordan,1,2,Friendly,Al Rayyan,Qatar,False,2,1,Qatar,away,1,W
+2024-01-09,Japan,Jordan,6,1,Friendly,Doha,Qatar,True,1,6,Japan,neutral,-5,L
+2024-01-15,Malaysia,Jordan,0,4,AFC Asian Cup,Al Wakrah,Qatar,True,4,0,Malaysia,neutral,4,W
+2024-01-20,Jordan,South Korea,2,2,AFC Asian Cup,Doha,Qatar,True,2,2,South Korea,neutral,0,D
+2024-01-25,Jordan,Bahrain,0,1,AFC Asian Cup,Al Rayyan,Qatar,True,0,1,Bahrain,neutral,-1,L
+2024-01-29,Iraq,Jordan,2,3,AFC Asian Cup,Al Rayyan,Qatar,True,3,2,Iraq,neutral,1,W
+2024-02-02,Tajikistan,Jordan,0,1,AFC Asian Cup,Al Rayyan,Qatar,True,1,0,Tajikistan,neutral,1,W
+2024-02-06,Jordan,South Korea,2,0,AFC Asian Cup,Al Rayyan,Qatar,True,2,0,South Korea,neutral,2,W
+2024-02-10,Qatar,Jordan,3,1,AFC Asian Cup,Lusail,Qatar,False,1,3,Qatar,away,-2,L
+2024-03-21,Pakistan,Jordan,0,3,FIFA World Cup qualification,Islamabad,Pakistan,False,3,0,Pakistan,away,3,W
+2024-03-26,Jordan,Pakistan,7,0,FIFA World Cup qualification,Amman,Jordan,False,7,0,Pakistan,home,7,W
+2024-06-06,Jordan,Tajikistan,3,0,FIFA World Cup qualification,Amman,Jordan,False,3,0,Tajikistan,home,3,W
+2024-06-11,Saudi Arabia,Jordan,1,2,FIFA World Cup qualification,Riyadh,Saudi Arabia,False,2,1,Saudi Arabia,away,1,W
+2024-07-27,Jordan,North Korea,0,0,Friendly,Amman,Jordan,False,0,0,North Korea,home,0,D
+2024-08-29,Jordan,North Korea,2,1,Friendly,Amman,Jordan,False,2,1,North Korea,home,1,W
+2024-09-05,Jordan,Kuwait,1,1,FIFA World Cup qualification,Amman,Jordan,False,1,1,Kuwait,home,0,D
+2024-09-10,Palestine,Jordan,1,3,FIFA World Cup qualification,Kuala Lumpur,Malaysia,True,3,1,Palestine,neutral,2,W
+2024-10-10,Jordan,South Korea,0,2,FIFA World Cup qualification,Amman,Jordan,False,0,2,South Korea,home,-2,L
+2024-10-15,Jordan,Oman,4,0,FIFA World Cup qualification,Amman,Jordan,False,4,0,Oman,home,4,W
+2024-11-14,Iraq,Jordan,0,0,FIFA World Cup qualification,Basra,Iraq,False,0,0,Iraq,away,0,D
+2024-11-19,Kuwait,Jordan,1,1,FIFA World Cup qualification,Kuwait City,Kuwait,False,1,1,Kuwait,away,0,D
+2025-01-22,Uzbekistan,Jordan,0,0,Friendly,Doha,Qatar,True,0,0,Uzbekistan,neutral,0,D
+2025-03-14,Jordan,North Korea,1,1,Friendly,Amman,Jordan,False,1,1,North Korea,home,0,D
+2025-03-20,Jordan,Palestine,3,1,FIFA World Cup qualification,Amman,Jordan,False,3,1,Palestine,home,2,W
+2025-03-25,South Korea,Jordan,1,1,FIFA World Cup qualification,Suwon,South Korea,False,1,1,South Korea,away,0,D
+2025-05-30,Saudi Arabia,Jordan,2,0,Friendly,Dammam,Saudi Arabia,False,0,2,Saudi Arabia,away,-2,L
+2025-06-05,Oman,Jordan,0,3,FIFA World Cup qualification,Muscat,Oman,False,3,0,Oman,away,3,W
+2025-06-10,Jordan,Iraq,0,1,FIFA World Cup qualification,Amman,Jordan,False,0,1,Iraq,home,-1,L
+2025-09-04,Russia,Jordan,0,0,Friendly,Moscow,Russia,False,0,0,Russia,away,0,D
+2025-09-09,Jordan,Dominican Republic,3,0,Friendly,Amman,Jordan,False,3,0,Dominican Republic,home,3,W
+2025-10-10,Jordan,Bolivia,0,1,Friendly,Istanbul,Turkey,True,0,1,Bolivia,neutral,-1,L
+2025-10-14,Albania,Jordan,4,2,Friendly,Tirana,Albania,False,2,4,Albania,away,-2,L
+2025-11-14,Tunisia,Jordan,3,2,Friendly,Radès,Tunisia,False,2,3,Tunisia,away,-1,L
+2025-11-18,Mali,Jordan,3,2,Friendly,Radès,Tunisia,True,2,3,Mali,neutral,-1,L
+2025-12-03,Jordan,United Arab Emirates,2,1,Arab Cup,Al Khor,Qatar,True,2,1,United Arab Emirates,neutral,1,W
+2025-12-06,Kuwait,Jordan,1,3,Arab Cup,Al Rayyan,Qatar,True,3,1,Kuwait,neutral,2,W
+2025-12-09,Egypt,Jordan,0,3,Arab Cup,Al Khor,Qatar,True,3,0,Egypt,neutral,3,W
+2025-12-12,Jordan,Iraq,1,0,Arab Cup,Al Rayyan,Qatar,True,1,0,Iraq,neutral,1,W
+2025-12-15,Saudi Arabia,Jordan,0,1,Arab Cup,Al Khor,Qatar,True,1,0,Saudi Arabia,neutral,1,W
+2025-12-18,Jordan,Morocco,2,3,Arab Cup,Lusail,Qatar,True,2,3,Morocco,neutral,-1,L
+2026-03-27,Costa Rica,Jordan,2,2,Friendly,Antalya,Turkey,True,2,2,Costa Rica,neutral,0,D
+2026-03-31,Jordan,Nigeria,2,2,Friendly,Antalya,Turkey,True,2,2,Nigeria,neutral,0,D
+2026-05-31,Switzerland,Jordan,4,1,Friendly,St. Gallen,Switzerland,False,1,4,Switzerland,away,-3,L
+2026-06-07,Jordan,Colombia,0,2,Friendly,San Diego,United States,True,0,2,Colombia,neutral,-2,L
+2026-06-16,Austria,Jordan,3,1,FIFA World Cup,Santa Clara,United States,True,1,3,Austria,neutral,-2,L
+2026-06-22,Jordan,Algeria,1,2,FIFA World Cup,Santa Clara,United States,True,1,2,Algeria,neutral,-1,L
+2026-06-27,Jordan,Argentina,1,3,FIFA World Cup,Arlington,United States,True,1,3,Argentina,neutral,-2,L
