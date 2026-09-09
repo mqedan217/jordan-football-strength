@@ -1,0 +1,426 @@
+squad_id,Player,#,Pos,Age,Min,Performance Gls,Performance Ast,Performance PK,Performance PKatt,Performance Sh,Performance SoT,Performance CrdY,Performance CrdR,Performance Fls,Performance Fld,Performance Off,Performance Crs,Performance TklW,Performance Int,Performance OG,Performance PKwon,Performance PKcon,player_id,age_years,age_days,match_id,role,role_source
+3e22f0fa,Hamza Al-Dardour,20.0,FW,25-258,69.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,25.0,258.0,01412142,starter,events
+3e22f0fa,Ahmed Samir,10.0,MF,25-304,21.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29daf0f6,25.0,304.0,01412142,sub,events
+3e22f0fa,Baha' Faisal,9.0,FW,21-240,78.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cc648ab2,21.0,240.0,01412142,starter,events
+3e22f0fa,Tha'er Bawab,11.0,"FW,MF",31-330,12.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5a22fd0f,31.0,330.0,01412142,sub,events
+3e22f0fa,Musa Al-Taamari,,LW,19-229,68.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,19.0,229.0,01412142,starter,events
+3e22f0fa,Yazan Thalji,16.0,FW,22-144,22.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,47dd6dd9,22.0,144.0,01412142,sub,events
+3e22f0fa,Munther Abu Amarah,7.0,RW,24-276,60.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,24.0,276.0,01412142,starter,events
+3e22f0fa,Yousef Al-Rawashdeh,23.0,"FW,MF",26-317,30.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a68ce921,26.0,317.0,01412142,sub,events
+3e22f0fa,Rajaei Ayed,14.0,DM,23-184,88.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,23.0,184.0,01412142,starter,events
+3e22f0fa,Amer Abuhudieab,28.0,DF,23-170,2.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5af78e7e,23.0,170.0,01412142,sub,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,DM,30-020,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,30.0,20.0,01412142,starter,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,LB,29-148,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,e14dbf7c,29.0,148.0,01412142,starter,events
+3e22f0fa,Ibrahim Al Zawahreh,17.0,CB,28-008,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,0ecea007,28.0,8.0,01412142,starter,events
+3e22f0fa,Tareq Khattab,3.0,CB,24-264,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0c333a06,24.0,264.0,01412142,starter,events
+3e22f0fa,Yaser Al Rawashdeh,15.0,RB,26-279,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,51e3487a,26.0,279.0,01412142,starter,events
+3e22f0fa,Amer Shafi,1.0,GK,34-346,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,34.0,346.0,01412142,starter,events
+7158b127,Vladimir Dvalishvili,9.0,FW,30-280,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,b707c904,30.0,280.0,01412142,starter,events
+7158b127,Budu Zivzivadze,11.0,FW,22-321,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e3a72b89,22.0,321.0,01412142,starter,events
+7158b127,Bachana Arabuli,10.0,FW,23-020,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b7391a19,23.0,20.0,01412142,sub,events
+7158b127,Beka Tugushi,14.0,LW,28-001,81.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,40ed19b5,28.0,1.0,01412142,starter,events
+7158b127,Oleg Mamasakhlisi,6.0,DF,21-061,9.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e8453d90,21.0,61.0,01412142,sub,events
+7158b127,Saba Lobzhanidze,8.0,RW,22-038,78.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,84d6ce13,22.0,38.0,01412142,starter,events
+7158b127,Giorgi Kimadze,20.0,DF,24-349,12.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5daf6891,24.0,349.0,01412142,sub,events
+7158b127,Otar Kiteishvili,13.0,CM,20-305,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fc9b373e,20.0,305.0,01412142,starter,events
+7158b127,Temuri Shonia,19.0,CM,26-242,84.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,b3b1240c,26.0,242.0,01412142,starter,events
+7158b127,Giorgi Kharaishvili,17.0,"FW,MF",20-180,6.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8e62da21,20.0,180.0,01412142,sub,events
+7158b127,Lasha Shergelashvili,16.0,LB,25-008,87.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1d8229af,25.0,8.0,01412142,starter,events
+7158b127,Giorgi Ganugrava,7.0,"DF,MF",28-339,3.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,88e26b3c,28.0,339.0,01412142,sub,events
+7158b127,Jemal Tabidze,4.0,CB,20-313,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f2999055,20.0,313.0,01412142,starter,events
+7158b127,Davit Khocholava,5.0,CB,23-352,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,862fa9fb,23.0,352.0,01412142,starter,events
+7158b127,Ucha Lobjanidze,2.0,RB,29-337,62.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e5f660e7,29.0,337.0,01412142,starter,events
+7158b127,Tornike Grigalashvili,3.0,DF,23-363,28.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29ff4b64,23.0,363.0,01412142,sub,events
+7158b127,Omar Migineishvili,12.0,GK,32-237,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e3eac74d,32.0,237.0,01412142,starter,events
+3e22f0fa,Baha' Faisal,9.0,FW,22-295,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,cc648ab2,22.0,295.0,03e0135c,starter,events
+3e22f0fa,Yaseen Al Bakheet,11.0,FW,30-051,75.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cbe3e3d3,30.0,51.0,03e0135c,starter,events
+3e22f0fa,Yazan Thalji,16.0,FW,23-199,15.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,47dd6dd9,23.0,199.0,03e0135c,sub,events
+3e22f0fa,Yousef Al-Rawashdeh,23.0,FW,28-007,71.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a68ce921,28.0,7.0,03e0135c,starter,events
+3e22f0fa,Munther Abu Amarah,7.0,"FW,MF",25-331,19.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,25.0,331.0,03e0135c,sub,events
+3e22f0fa,Angelos Chanti,18.0,CM,28-195,62.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1cd1f37b,28.0,195.0,03e0135c,starter,events
+3e22f0fa,Khalil Bani Attiah,13.0,"DF,MF",26-286,28.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fca5d458,26.0,286.0,03e0135c,sub,events
+3e22f0fa,Ahmed Samir,10.0,CM,26-359,82.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29daf0f6,26.0,359.0,03e0135c,starter,events
+3e22f0fa,Mussab Al-Laham,8.0,FW,26-305,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1fba0207,26.0,305.0,03e0135c,sub,events
+3e22f0fa,Obieda Al Samrieh,15.0,DM,26-032,82.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3aa3891f,26.0,32.0,03e0135c,starter,events
+3e22f0fa,Rajaei Ayed,17.0,MF,24-239,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,24.0,239.0,03e0135c,sub,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,LB,30-203,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,30.0,203.0,03e0135c,starter,events
+3e22f0fa,Yazan Al-Arab,5.0,CB,22-049,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,32878a09,22.0,49.0,03e0135c,starter,events
+3e22f0fa,Anas Bani Yaseen,19.0,CB,29-112,83.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0cb21e4a,29.0,112.0,03e0135c,starter,events
+3e22f0fa,Ahmad Al Sughair,14.0,DF,26-175,7.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b62dc2fa,26.0,175.0,03e0135c,sub,events
+3e22f0fa,Ihsan Haddad,6.0,RB,24-044,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,85660a5d,24.0,44.0,03e0135c,starter,events
+3e22f0fa,Ahmed Abdel-Sattar,1.0,GK,33-258,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,2e95b10e,33.0,258.0,03e0135c,starter,events
+064dedda,Faisal Al-Azemi,9.0,FW,25-057,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b775f87a,25.0,57.0,03e0135c,starter,events
+064dedda,Faisal Zayid,8.0,FW,26-163,64.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a782a242,26.0,163.0,03e0135c,starter,events
+064dedda,Meshal Fawaz,16.0,MF,19-292,26.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f74403a5,19.0,292.0,03e0135c,sub,events
+064dedda,Bader Tareq,20.0,LW,20-333,85.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b0d67969,20.0,333.0,03e0135c,starter,events
+064dedda,Shaheen Al Khamees,21.0,FW,24-255,5.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,73688e29,24.0,255.0,03e0135c,sub,events
+064dedda,Yaqoub Al Tararwa,18.0,RW,24-014,69.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c1fbfcb1,24.0,14.0,03e0135c,starter,events
+064dedda,Naser Al Farag,10.0,FW,27-178,21.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fc1d5bf6,27.0,178.0,03e0135c,sub,events
+064dedda,Talal Al Fadhel,7.0,CM,27-222,57.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7dee6ae7,27.0,222.0,03e0135c,starter,events
+064dedda,Redha Hani,4.0,MF,21-145,33.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,87bb0a16,21.0,145.0,03e0135c,sub,events
+064dedda,Fahad Al Ansari,11.0,CM,31-024,73.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,907d3e49,31.0,24.0,03e0135c,starter,events
+064dedda,Mohammed Khaleel,12.0,MF,23-018,17.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,25e1ba1d,23.0,18.0,03e0135c,sub,events
+064dedda,Sami Al Sanea,2.0,LB,25-071,82.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,15ba7a6a,25.0,71.0,03e0135c,starter,events
+064dedda,Ali Ateeq,15.0,DF,23-291,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,165ca057,23.0,291.0,03e0135c,sub,events
+064dedda,Fahed Al Hajri,5.0,CB,26-131,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7597083c,26.0,131.0,03e0135c,starter,events
+064dedda,Fahad Hammoud,13.0,CB,27-169,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a61f59e1,27.0,169.0,03e0135c,starter,events
+064dedda,Khaled Al Qahtani,6.0,RB,33-033,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d7485ee8,33.0,33.0,03e0135c,starter,events
+064dedda,Sulaiman Abdulghafoor,23.0,GK,27-023,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,104fd331,27.0,23.0,03e0135c,starter,events
+3e22f0fa,Hamza Al-Dardour,2.0,FW,25-315,74.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,25.0,315.0,054be81e,starter,events
+3e22f0fa,Abdullah Al-Attar,24.0,"DF,FW",24-170,16.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,be11fc57,24.0,170.0,054be81e,sub,events
+3e22f0fa,Odai Al-Saify,11.0,FW,30-301,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,caabea12,30.0,301.0,054be81e,starter,events
+3e22f0fa,Musa Al-Taamari,16.0,"FW,MF",19-286,45.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,19.0,286.0,054be81e,sub,events
+3e22f0fa,Yaseen Al Bakheet,8.0,LW,29-053,66.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cbe3e3d3,29.0,53.0,054be81e,starter,events
+3e22f0fa,Baha' Faisal,18.0,FW,21-297,24.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cc648ab2,21.0,297.0,054be81e,sub,events
+3e22f0fa,Munther Abu Amarah,9.0,RW,24-333,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,24.0,333.0,054be81e,starter,events
+3e22f0fa,Tha'er Bawab,20.0,"FW,MF",32-022,45.0,1.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5a22fd0f,32.0,22.0,054be81e,sub,events
+3e22f0fa,Khalil Bani Attiah,7.0,DM,25-288,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fca5d458,25.0,288.0,054be81e,starter,events
+3e22f0fa,Baha' Abdel-Rahman,10.0,DM,30-077,76.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,30.0,77.0,054be81e,starter,events
+3e22f0fa,Ahmed Samir,15.0,MF,25-361,14.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29daf0f6,25.0,361.0,054be81e,sub,events
+3e22f0fa,Mohammad Al Dumeiri,5.0,LB,29-205,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,29.0,205.0,054be81e,starter,events
+3e22f0fa,Ibrahim Al Zawahreh,3.0,CB,28-065,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ecea007,28.0,65.0,054be81e,starter,events
+3e22f0fa,Tareq Khattab,6.0,CB,24-321,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0c333a06,24.0,321.0,054be81e,starter,events
+3e22f0fa,Yaser Al Rawashdeh,4.0,RB,26-336,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,51e3487a,26.0,336.0,054be81e,starter,events
+3e22f0fa,Amer Shafi,1.0,GK,35-037,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,35.0,37.0,054be81e,starter,events
+3e22f0fa,Moataz Yaseen,22.0,GK,34-140,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,08d2ca80,34.0,140.0,054be81e,sub,events
+0f5b0845,Sandro,8.0,FW,30-013,77.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,93ef9e5a,30.0,13.0,054be81e,starter,events
+0f5b0845,Wong Wai,9.0,MF,24-187,13.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c2241405,24.0,187.0,054be81e,sub,events
+0f5b0845,Jaimes McKee,14.0,AM,29-343,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,275aaf99,29.0,343.0,054be81e,starter,events
+0f5b0845,Lo Kong Wai,7.0,"FW,MF",24-277,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,38a74553,24.0,277.0,054be81e,sub,events
+0f5b0845,Li Ngai Hoi,23.0,AM,22-159,64.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,96eb51fb,22.0,159.0,054be81e,starter,events
+0f5b0845,Ju Yingzhi,10.0,MF,29-242,26.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ac845b3f,29.0,242.0,054be81e,sub,events
+0f5b0845,Jack Sealy,2.0,AM,29-323,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,c68aba86,29.0,323.0,054be81e,starter,events
+0f5b0845,Huang Yang,15.0,DM,33-155,62.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,36601525,33.0,155.0,054be81e,starter,events
+0f5b0845,Roberto,21.0,"DF,MF",33-299,28.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c0162067,33.0,299.0,054be81e,sub,events
+0f5b0845,Lee Ka Yiu,17.0,DM,24-347,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,be5acef7,24.0,347.0,054be81e,starter,events
+0f5b0845,Wong Tsz Ho,20.0,LB,23-016,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,32e39e56,23.0,16.0,054be81e,starter,events
+0f5b0845,Hélio,5.0,CB,31-051,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,4a9b2a19,31.0,51.0,054be81e,starter,events
+0f5b0845,Lee Chi Ho,22.0,DF,34-127,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9d20efc1,34.0,127.0,054be81e,sub,events
+0f5b0845,Tan Chun Lok,16.0,CB,21-067,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,71e7864f,21.0,67.0,054be81e,starter,events
+0f5b0845,Jean-Jacques Kilama,4.0,RB,31-161,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,166ff3bd,31.0,161.0,054be81e,starter,events
+0f5b0845,Festus Baise,13.0,DF,36-346,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d15d214d,36.0,346.0,054be81e,sub,events
+0f5b0845,Wang Zhenpeng,19.0,GK,32-322,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c838f416,32.0,322.0,054be81e,starter,events
+3e22f0fa,0 Player,,,,,,,,,,,,,,,,,,,,,,,,,0691ca88,starter,assumed_all_start
+3678ac61,0 Player,,,,,,,,,,,,,,,,,,,,,,,,,0691ca88,starter,assumed_all_start
+3e22f0fa,Hassan Abdel-Fattah,18.0,"FW,MF",30-025,83.0,1.0,,1.0,1.0,,,0.0,0.0,,,,,,,0.0,,,5ddc0a42,30.0,25.0,09ebf31d,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,21-122,7.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,21.0,122.0,09ebf31d,sub,events
+3e22f0fa,Shadi Abu Hash'hash,15.0,"DF,MF",31-235,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,406657fb,31.0,235.0,09ebf31d,starter,events
+3e22f0fa,Anas Bani Yaseen,19.0,DF,23-287,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0cb21e4a,23.0,287.0,09ebf31d,starter,events
+3e22f0fa,Amer Deeb,7.0,MF,32-220,90.0,1.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9df7d471,32.0,220.0,09ebf31d,starter,events
+3e22f0fa,Mohammad Al Dumeiri,4.0,DF,25-012,45.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,25.0,12.0,09ebf31d,starter,events
+3e22f0fa,Saeed Murjan,6.0,"DF,MF",22-214,45.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,12848d0c,22.0,214.0,09ebf31d,sub,events
+3e22f0fa,Basem Fathi,16.0,DF,30-041,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,6d37f698,30.0,41.0,09ebf31d,starter,events
+3e22f0fa,Abdulelah Al Hanahneh,5.0,FW,28-069,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,913e9e23,28.0,69.0,09ebf31d,starter,events
+3e22f0fa,Ahmad Hayel,10.0,FW,28-317,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6eda4c6f,28.0,317.0,09ebf31d,starter,events
+3e22f0fa,Mohammad Mustafa,8.0,DF,22-318,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,4cfec33b,22.0,318.0,09ebf31d,starter,events
+3e22f0fa,Odai Al-Saify,9.0,"FW,MF",26-108,73.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,caabea12,26.0,108.0,09ebf31d,starter,events
+3e22f0fa,Anas Hijah,23.0,MF,25-080,17.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c377db82,25.0,80.0,09ebf31d,sub,events
+3e22f0fa,Amer Shafi,1.0,GK,30-210,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,daba9f12,30.0,210.0,09ebf31d,starter,events
+b90bf4f9,Mark Bresciano,23.0,MF,32-213,45.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cb20f13a,32.0,213.0,09ebf31d,starter,events
+b90bf4f9,Mile Jedinak,15.0,MF,28-039,45.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,22fd2214,28.0,39.0,09ebf31d,sub,events
+b90bf4f9,Alex Brosque,20.0,"FW,MF",28-335,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0cbc6f32,28.0,335.0,09ebf31d,starter,events
+b90bf4f9,Tim Cahill,4.0,"FW,MF",32-280,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e5a2dfc2,32.0,280.0,09ebf31d,starter,events
+b90bf4f9,David Carney,11.0,"DF,MF",28-286,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f3041886,28.0,286.0,09ebf31d,starter,events
+b90bf4f9,Brett Holman,14.0,"FW,MF",28-168,73.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,4f0d1bbe,28.0,168.0,09ebf31d,starter,events
+b90bf4f9,Archie Thompson,7.0,"FW,MF",33-324,17.0,1.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,03eb4aef,33.0,324.0,09ebf31d,sub,events
+b90bf4f9,Robbie Kruse,10.0,"FW,MF",23-342,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9571ca99,23.0,342.0,09ebf31d,starter,events
+b90bf4f9,Matt McKay,17.0,"DF,MF",29-244,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,044587de,29.0,244.0,09ebf31d,starter,events
+b90bf4f9,Lucas Neill,2.0,DF,34-186,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b6cf046f,34.0,186.0,09ebf31d,starter,events
+b90bf4f9,Saša Ognenovski,6.0,DF,33-161,13.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,086c5645,33.0,161.0,09ebf31d,starter,events
+b90bf4f9,Matthew Spiranovic,22.0,"DF,MF",24-076,77.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,faa88ff6,24.0,76.0,09ebf31d,sub,events
+b90bf4f9,Mark Schwarzer,1.0,GK,39-341,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,da409c6f,39.0,341.0,09ebf31d,starter,events
+b90bf4f9,Luke Wilkshire,8.0,"DF,FW",30-345,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,c74d1bd3,30.0,345.0,09ebf31d,starter,events
+77e8077f,Zeng Cheng,1.0,GK,25-052,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,54bc90e7,25.0,52.0,0b0faca3,starter,events
+77e8077f,Yu Hanchao,16.0,MF,25-004,89.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fc336f9c,25.0,4.0,0b0faca3,starter,events
+77e8077f,Yu Hai,21.0,"DF,FW",24-270,1.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fd426b96,24.0,270.0,0b0faca3,sub,events
+77e8077f,Liu Jianye,13.0,"DF,MF",24-257,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,05e2de1a,24.0,257.0,0b0faca3,starter,events
+77e8077f,Hao Junmin,8.0,"FW,MF",24-342,90.0,2.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ed496e79,24.0,342.0,0b0faca3,starter,events
+77e8077f,Gao Lin,18.0,"FW,MF",26-015,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d1158d8,26.0,15.0,0b0faca3,starter,events
+77e8077f,Zhang Linpeng,5.0,DF,22-296,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5de9ed5d,22.0,296.0,0b0faca3,starter,events
+77e8077f,Lü Peng,23.0,MF,22-124,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5283960a,22.0,124.0,0b0faca3,starter,events
+77e8077f,Zhao Peng,4.0,DF,28-254,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,cd1d9fd4,28.0,254.0,0b0faca3,starter,events
+77e8077f,Qin Sheng,6.0,"DF,MF",25-119,85.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,a079cd12,25.0,119.0,0b0faca3,starter,events
+77e8077f,Liu Jian,17.0,"DF,MF",27-193,5.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fc626f1b,27.0,193.0,0b0faca3,sub,events
+77e8077f,Chen Tao,20.0,"FW,MF",26-355,76.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,6a006890,26.0,355.0,0b0faca3,starter,events
+77e8077f,Yu Dabao,11.0,"DF,FW",23-317,14.0,1.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,baafdf34,23.0,317.0,0b0faca3,sub,events
+77e8077f,Sun Xiang,3.0,DF,30-045,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d80384f4,30.0,45.0,0b0faca3,starter,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,MF,25-055,73.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,25.0,55.0,0b0faca3,starter,events
+3e22f0fa,Saeed Murjan,6.0,"DF,MF",22-019,17.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,12848d0c,22.0,19.0,0b0faca3,sub,events
+3e22f0fa,Shadi Abu Hash'hash,15.0,"DF,MF",31-040,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,406657fb,31.0,40.0,0b0faca3,starter,events
+3e22f0fa,Shareef Adnan,19.0,"DF,MF",28-039,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,5e7f8283,28.0,39.0,0b0faca3,starter,events
+3e22f0fa,Khalil Bani Attiah,13.0,"DF,MF",20-266,65.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,fca5d458,20.0,266.0,0b0faca3,starter,events
+3e22f0fa,Suleiman Al-Salman,3.0,DF,25-228,25.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d91d9392,25.0,228.0,0b0faca3,sub,events
+3e22f0fa,Abdallah Deeb,14.0,"FW,MF",24-356,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f3cd4263,24.0,356.0,0b0faca3,starter,events
+3e22f0fa,Amer Deeb,7.0,MF,32-025,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9df7d471,32.0,25.0,0b0faca3,starter,events
+3e22f0fa,Basem Fathi,16.0,DF,29-212,90.0,1.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6d37f698,29.0,212.0,0b0faca3,starter,events
+3e22f0fa,Ahmad Hayel,10.0,FW,28-122,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6eda4c6f,28.0,122.0,0b0faca3,starter,events
+3e22f0fa,Mohammad Monir,2.0,DF,29-318,90.0,0.0,,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,344da96c,29.0,318.0,0b0faca3,starter,events
+3e22f0fa,Ra'ed Al-Nawateer,11.0,"FW,MF",23-300,84.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,edb50aa0,23.0,300.0,0b0faca3,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,20-293,6.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,20.0,293.0,0b0faca3,sub,events
+3e22f0fa,Amer Shafi,1.0,GK,30-015,90.0,0.0,,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,30.0,15.0,0b0faca3,starter,events
+73ccbede,Topu Barman,3.0,DF,20-262,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,531f2619,20.0,262.0,0bb36b1d,starter,events
+73ccbede,Jamal Bhuyan,6.0,MF,25-151,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,48ad137a,25.0,151.0,0bb36b1d,starter,events
+73ccbede,Jahid Hasan Ameli,9.0,FW,27-257,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3a46bdba,27.0,257.0,0bb36b1d,starter,events
+73ccbede,Mamunul Islam,8.0,MF,26-270,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c31c9030,26.0,270.0,0bb36b1d,starter,events
+73ccbede,Nasirul Islam Nasir,12.0,DF,26-338,49.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,15175a51,26.0,338.0,0bb36b1d,starter,events
+73ccbede,Md Rayhan Hasan,15.0,DF,20-363,41.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b9520492,20.0,363.0,0bb36b1d,sub,events
+73ccbede,Monaem Khan Raju,13.0,MF,25-063,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,21cd3844,25.0,63.0,0bb36b1d,starter,events
+73ccbede,Yeasin Khan,4.0,DF,20-357,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,1ed958bb,20.0,357.0,0bb36b1d,starter,events
+73ccbede,Russel Mahmud Liton,22.0,GK,20-282,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b0f8499b,20.0,282.0,0bb36b1d,starter,events
+73ccbede,Yeamin Munna,5.0,DF,24-037,82.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,bd19ad7b,24.0,37.0,0bb36b1d,starter,events
+73ccbede,Ashraful Islam Rana,2.0,GK,27-130,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7c541475,27.0,130.0,0bb36b1d,sub,events
+73ccbede,Atiqur Rahman Meshu,14.0,DF,27-013,74.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,9e851536,27.0,13.0,0bb36b1d,starter,events
+73ccbede,Md Sahidul Alam Sohel,19.0,GK,23-130,16.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,2ea501d4,23.0,130.0,0bb36b1d,sub,events
+73ccbede,Jewel Rana,18.0,MF,19-257,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a1b398be,19.0,257.0,0bb36b1d,starter,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,MF,28-246,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,28.0,246.0,0bb36b1d,starter,events
+3e22f0fa,Munther Abu Amarah,7.0,"FW,MF",23-137,90.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,23.0,137.0,0bb36b1d,starter,events
+3e22f0fa,Rajaei Ayed,16.0,MF,22-045,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,22.0,45.0,0bb36b1d,starter,events
+3e22f0fa,Yaseen Al Bakheet,13.0,MF,27-222,70.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cbe3e3d3,27.0,222.0,0bb36b1d,starter,events
+3e22f0fa,Yousef Al-Rawashdeh,23.0,"FW,MF",25-178,20.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a68ce921,25.0,178.0,0bb36b1d,sub,events
+3e22f0fa,Anas Bani Yaseen,19.0,DF,26-283,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,0cb21e4a,26.0,283.0,0bb36b1d,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,24-119,75.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,24.0,119.0,0bb36b1d,starter,events
+3e22f0fa,Rakan Al-Khalidi,9.0,FW,26-322,15.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d9c696ab,26.0,322.0,0bb36b1d,sub,events
+3e22f0fa,Abdallah Deeb,14.0,"FW,MF",28-182,83.0,2.0,0.0,1.0,1.0,,,0.0,0.0,,,,,,,0.0,,,f3cd4263,28.0,182.0,0bb36b1d,starter,events
+3e22f0fa,Mahmoud Al-Mardi,15.0,"FW,MF",21-337,7.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1eedc1ea,21.0,337.0,0bb36b1d,sub,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,DF,28-009,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,28.0,9.0,0bb36b1d,starter,events
+3e22f0fa,Amer Shafi,1.0,GK,33-206,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,33.0,206.0,0bb36b1d,starter,events
+3e22f0fa,Oday Zahran,11.0,DF,24-222,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,08e9b276,24.0,222.0,0bb36b1d,starter,events
+3e22f0fa,Ibrahim Al Zawahreh,17.0,DF,26-234,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ecea007,26.0,234.0,0bb36b1d,starter,events
+73d4afb1,Curtis Jemmett-Hutson,11.0,FW,29-220,78.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,39520a39,29.0,220.0,0c0a6775,starter,events
+73d4afb1,Waleed Khan,10.0,FW,19-104,12.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,8f2182a9,19.0,104.0,0c0a6775,sub,events
+73d4afb1,Fareed Ullah,13.0,FW,23-080,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,badd4ab1,23.0,80.0,0c0a6775,starter,events
+73d4afb1,Shayak Dost,17.0,LW,21-325,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,394371ec,21.0,325.0,0c0a6775,starter,events
+73d4afb1,Imran Kayani,9.0,FW,22-088,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c10b186b,22.0,88.0,0c0a6775,sub,events
+73d4afb1,Abdul Samad,19.0,RW,21-024,61.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1c5b8dc5,21.0,24.0,0c0a6775,starter,events
+73d4afb1,Harun Hamid,18.0,MF,20-132,29.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,aab49e14,20.0,132.0,0c0a6775,sub,events
+73d4afb1,Rahis Nabi,8.0,CM,24-341,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8c4873d4,24.0,341.0,0c0a6775,starter,events
+73d4afb1,Alamgir Ghazi,21.0,CM,22-317,78.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,494688f8,22.0,317.0,0c0a6775,starter,events
+73d4afb1,Ali Uzair,7.0,MF,24-202,12.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,eb35e1f7,24.0,202.0,0c0a6775,sub,events
+73d4afb1,Muhammad Sadam,14.0,LB,19-049,78.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ce09a194,19.0,49.0,0c0a6775,starter,events
+73d4afb1,Muhammad Sohail,12.0,DF,22-199,12.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,64cff947,22.0,199.0,0c0a6775,sub,events
+73d4afb1,Abdullah Iqbal,4.0,CB,21-238,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,67141182,21.0,238.0,0c0a6775,starter,events
+73d4afb1,Easah Suliman,5.0,CB,26-055,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9b07031d,26.0,55.0,0c0a6775,starter,events
+73d4afb1,Umar Rao,2.0,RB,27-181,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a5492da9,27.0,181.0,0c0a6775,starter,events
+73d4afb1,Yousuf Butt,1.0,GK,34-155,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e48a266c,34.0,155.0,0c0a6775,starter,events
+3e22f0fa,Yazan Al-Naimat,11.0,FW,24-291,90.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1703917d,24.0,291.0,0c0a6775,starter,events
+3e22f0fa,Ali Olwan,9.0,FW,23-361,90.0,1.0,0.0,1.0,1.0,,,0.0,0.0,,,,,,,0.0,,,33c1d68d,23.0,361.0,0c0a6775,starter,events
+3e22f0fa,Musa Al-Taamari,10.0,FW,26-285,90.0,2.0,0.0,0.0,1.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,26.0,285.0,0c0a6775,starter,events
+3e22f0fa,Mahmoud Al-Mardi,13.0,LM,30-167,82.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1eedc1ea,30.0,167.0,0c0a6775,starter,events
+3e22f0fa,Saleh Rateb,18.0,MF,29-094,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,71e1eb84,29.0,94.0,0c0a6775,sub,events
+3e22f0fa,Noor Al Rawabdeh,8.0,CM,27-026,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3bb06c86,27.0,26.0,0c0a6775,starter,events
+3e22f0fa,Nizar Al Rashdan,21.0,CM,24-364,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,feaa0ffd,24.0,364.0,0c0a6775,starter,events
+3e22f0fa,Ihsan Haddad,23.0,RM,30-045,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,85660a5d,30.0,45.0,0c0a6775,starter,events
+3e22f0fa,Salem Al-Ajalin,17.0,CB,36-032,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d5ce4f95,36.0,32.0,0c0a6775,starter,events
+3e22f0fa,Yazan Al-Arab,5.0,CB,28-050,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,32878a09,28.0,50.0,0c0a6775,starter,events
+3e22f0fa,Bara' Marei,4.0,CB,29-343,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7a885681,29.0,343.0,0c0a6775,starter,events
+3e22f0fa,Yazeed Abulaila,1.0,GK,31-073,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d11fc17,31.0,73.0,0c0a6775,starter,events
+1ee23a61,Siyovush Asrorov,12.0,DF,22-325,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,55f714b4,22.0,325.0,0d1d6c3d,starter,events
+1ee23a61,Nuriddin Davronov,8.0,"DF,FW",24-146,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,b88afb7b,24.0,146.0,0d1d6c3d,starter,events
+1ee23a61,Manuchekhr Dzhalilov,21.0,"FW,MF",24-257,90.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6b892bfa,24.0,257.0,0d1d6c3d,starter,events
+1ee23a61,Davron Ergashev,6.0,DF,27-084,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,b1254100,27.0,84.0,0d1d6c3d,starter,events
+1ee23a61,Fatkhullo Fatkhuloev,18.0,MF,25-079,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,aca889bb,25.0,79.0,0d1d6c3d,starter,events
+1ee23a61,Khurshed Makhmudov,10.0,MF,32-307,72.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1ccb7359,32.0,307.0,0d1d6c3d,starter,events
+1ee23a61,Farkhod Tokhirov,11.0,FW,25-013,18.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,195718ae,25.0,13.0,0d1d6c3d,sub,events
+1ee23a61,Ibrahim Rabimov,7.0,MF,27-312,37.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3af8c9ee,27.0,312.0,0d1d6c3d,starter,events
+1ee23a61,Akhtam Khamrakulov,15.0,FW,27-132,53.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,68f57236,27.0,132.0,0d1d6c3d,sub,events
+1ee23a61,Eraj Rajabov,4.0,DF,24-214,82.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,843a878a,24.0,214.0,0d1d6c3d,starter,events
+1ee23a61,Çahongir Džalilov,20.0,MF,25-255,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0062ac50,25.0,255.0,0d1d6c3d,sub,events
+1ee23a61,Alisher Tuychiev,1.0,GK,39-100,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a8012aa8,39.0,100.0,0d1d6c3d,starter,events
+1ee23a61,Dilshod Vasiev,17.0,"FW,MF",27-119,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,df833129,27.0,119.0,0d1d6c3d,starter,events
+1ee23a61,Farkhod Vosiyev,23.0,DF,25-058,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b536c9c8,25.0,58.0,0d1d6c3d,starter,events
+3e22f0fa,Hassan Abdel-Fattah,18.0,"FW,MF",32-298,90.0,3.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5ddc0a42,32.0,298.0,0d1d6c3d,starter,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,MF,28-157,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,28.0,157.0,0d1d6c3d,starter,events
+3e22f0fa,Munther Abu Amarah,7.0,"FW,MF",23-048,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,628776ef,23.0,48.0,0d1d6c3d,starter,events
+3e22f0fa,Anas Bani Yaseen,19.0,DF,26-194,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0cb21e4a,26.0,194.0,0d1d6c3d,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,24-030,73.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,24.0,30.0,0d1d6c3d,starter,events
+3e22f0fa,Odai Al-Saify,8.0,"FW,MF",29-016,17.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,caabea12,29.0,16.0,0d1d6c3d,sub,events
+3e22f0fa,Abdallah Deeb,14.0,"FW,MF",28-093,69.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f3cd4263,28.0,93.0,0d1d6c3d,starter,events
+3e22f0fa,Adnan Adous,10.0,MF,27-258,21.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,562b1312,27.0,258.0,0d1d6c3d,sub,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,DF,27-285,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,27.0,285.0,0d1d6c3d,starter,events
+3e22f0fa,Ahmed Samir,13.0,MF,24-076,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29daf0f6,24.0,76.0,0d1d6c3d,starter,events
+3e22f0fa,Amer Shafi,1.0,GK,33-117,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,33.0,117.0,0d1d6c3d,starter,events
+3e22f0fa,Oday Zahran,11.0,DF,24-133,88.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,08e9b276,24.0,133.0,0d1d6c3d,starter,events
+3e22f0fa,Yousef Al-Rawashdeh,23.0,"FW,MF",25-089,2.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a68ce921,25.0,89.0,0d1d6c3d,sub,events
+3e22f0fa,Ibrahim Al Zawahreh,17.0,DF,26-145,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ecea007,26.0,145.0,0d1d6c3d,starter,events
+b2629e33,Milot Rashica,7.0,FW,25-135,61.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6c6a3300,25.0,135.0,1125cf3a,starter,events
+b2629e33,Astrit Seljmani,11.0,FW,24-059,29.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,830a34ec,24.0,59.0,1125cf3a,sub,events
+b2629e33,Vedat Muriqi,18.0,FW,27-200,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0cadc46d,27.0,200.0,1125cf3a,starter,events
+b2629e33,Valon Berisha,14.0,AM,28-276,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d5575935,28.0,276.0,1125cf3a,starter,events
+b2629e33,Besar Halimi,8.0,AM,26-333,45.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,1399eb56,26.0,333.0,1125cf3a,starter,events
+b2629e33,Lirim Kastrati,2.0,DF,22-281,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,735f0e61,22.0,281.0,1125cf3a,sub,events
+b2629e33,Fidan Aliti,3.0,DM,28-038,55.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5c46e908,28.0,38.0,1125cf3a,starter,events
+b2629e33,Florian Loshaj,17.0,MF,25-089,35.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d52e1dc,25.0,89.0,1125cf3a,sub,events
+b2629e33,Herolind Shala,5.0,DM,29-282,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,efe260a3,29.0,282.0,1125cf3a,starter,events
+b2629e33,Mërgim Vojvoda,15.0,DM,26-282,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,be2706c0,26.0,282.0,1125cf3a,starter,events
+b2629e33,Betim Fazliji,6.0,CB,22-199,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a59123ef,22.0,199.0,1125cf3a,starter,events
+b2629e33,Mirlind Kryeziu,4.0,CB,24-288,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1ac58ba6,24.0,288.0,1125cf3a,starter,events
+b2629e33,Edon Zhegrova,22.0,MF,22-224,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,34a88e3e,22.0,224.0,1125cf3a,sub,events
+b2629e33,Amir Rrahmani,13.0,CB,27-259,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,4b3e1a38,27.0,259.0,1125cf3a,starter,events
+b2629e33,Arijanet Muric,12.0,GK,23-003,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,99aa1a84,23.0,3.0,1125cf3a,starter,events
+3e22f0fa,Baha' Faisal,9.0,FW,26-164,72.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cc648ab2,26.0,164.0,1125cf3a,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,30-182,18.0,1.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,e025f7b3,30.0,182.0,1125cf3a,sub,events
+3e22f0fa,Ali Olwan,15.0,FW,21-229,58.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,33c1d68d,21.0,229.0,1125cf3a,starter,events
+3e22f0fa,Musa Al-Taamari,10.0,"FW,MF",24-153,32.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,24.0,153.0,1125cf3a,sub,events
+3e22f0fa,Mahmoud Al-Mardi,13.0,LW,28-035,72.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1eedc1ea,28.0,35.0,1125cf3a,starter,events
+3e22f0fa,Ahmad Israiwah,7.0,FW,27-291,18.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,44d89876,27.0,291.0,1125cf3a,sub,events
+3e22f0fa,Ahmad Tha'er,14.0,RW,24-222,58.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7c02bd32,24.0,222.0,1125cf3a,starter,events
+3e22f0fa,Odai Al-Saify,8.0,"FW,MF",35-168,32.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,caabea12,35.0,168.0,1125cf3a,sub,events
+3e22f0fa,Noor Al Rawabdeh,18.0,CM,24-259,89.0,0.0,0.0,0.0,0.0,,,2.0,1.0,,,,,,,0.0,,,3bb06c86,24.0,259.0,1125cf3a,starter,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,CM,34-309,83.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,34.0,309.0,1125cf3a,starter,events
+3e22f0fa,Rajaei Ayed,17.0,MF,28-108,7.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,28.0,108.0,1125cf3a,sub,events
+3e22f0fa,Mohammad Abu Hasheesh,2.0,LB,26-185,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,72c2fa7a,26.0,185.0,1125cf3a,starter,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,CB,34-072,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,34.0,72.0,1125cf3a,starter,events
+3e22f0fa,Abdallah Nasib,19.0,CB,27-258,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,aaab3072,27.0,258.0,1125cf3a,starter,events
+3e22f0fa,Ihsan Haddad,23.0,RB,27-278,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,85660a5d,27.0,278.0,1125cf3a,starter,events
+3e22f0fa,Yazeed Abulaila,1.0,GK,28-306,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d11fc17,28.0,306.0,1125cf3a,starter,events
+cd389e75,Igor Sergeev,11.0,FW,23-194,90.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8df41977,23.0,194.0,12012f66,starter,events
+cd389e75,Eldor Shomurodov,23.0,AM,21-134,58.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,57469b2d,21.0,134.0,12012f66,starter,events
+cd389e75,Jaloliddin Masharipov,6.0,"FW,MF",23-070,32.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e309042b,23.0,70.0,12012f66,sub,events
+cd389e75,Server Djeparov,8.0,AM,34-038,45.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,c6c1cd79,34.0,38.0,12012f66,starter,events
+cd389e75,Alexander Geynrikh,15.0,"FW,MF",32-035,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c362317d,32.0,35.0,12012f66,sub,events
+cd389e75,Otabek Shukurov,18.0,AM,20-141,63.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,62032a56,20.0,141.0,12012f66,starter,events
+cd389e75,Javokhir Sokhibov,14.0,MF,21-254,27.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ee3014d3,21.0,254.0,12012f66,sub,events
+cd389e75,Vadim Afonin,17.0,DM,29-042,71.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,0a88f0cd,29.0,42.0,12012f66,starter,events
+cd389e75,Azizbek Haydarov,7.0,MF,31-125,19.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,6901471b,31.0,125.0,12012f66,sub,events
+cd389e75,Odil Ahmedov,9.0,DM,28-351,45.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,31f0643a,28.0,351.0,12012f66,starter,events
+cd389e75,Sardor Rashidov,10.0,"FW,MF",25-149,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b7fd7f51,25.0,149.0,12012f66,sub,events
+cd389e75,Vitaliy Denisov,19.0,LB,29-261,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,003d7410,29.0,261.0,12012f66,starter,events
+cd389e75,Stanislav Andreev,16.0,MF,28-188,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a1852d14,28.0,188.0,12012f66,sub,events
+cd389e75,Anzur Ismailov,5.0,CB,31-203,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,4907833c,31.0,203.0,12012f66,starter,events
+cd389e75,Egor Krimets,2.0,CB,24-288,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,714d8393,24.0,288.0,12012f66,starter,events
+cd389e75,Davron Khashimov,13.0,RB,23-352,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9d5f2c54,23.0,352.0,12012f66,starter,events
+cd389e75,Alexander Lobanov,21.0,GK,30-311,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,007e6deb,30.0,311.0,12012f66,starter,events
+3e22f0fa,Yousef Al-Rawashdeh,23.0,FW,26-241,71.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a68ce921,26.0,241.0,12012f66,starter,events
+3e22f0fa,Yazan Thalji,16.0,FW,22-068,19.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,47dd6dd9,22.0,68.0,12012f66,sub,events
+3e22f0fa,Ahmed Samir,10.0,FW,25-228,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,29daf0f6,25.0,228.0,12012f66,starter,events
+3e22f0fa,Yaseen Al Bakheet,13.0,LW,28-286,77.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,cbe3e3d3,28.0,286.0,12012f66,starter,events
+3e22f0fa,Musa Al-Taamari,,"FW,MF",19-153,13.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,19.0,153.0,12012f66,sub,events
+3e22f0fa,Munther Abu Amarah,7.0,RW,24-200,81.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,24.0,200.0,12012f66,starter,events
+3e22f0fa,Abdallah Deeb,14.0,"FW,MF",29-245,9.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f3cd4263,29.0,245.0,12012f66,sub,events
+3e22f0fa,Rajaei Ayed,15.0,CM,23-108,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,23.0,108.0,12012f66,starter,events
+3e22f0fa,Saeed Murjan,6.0,CM,26-274,67.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,12848d0c,26.0,274.0,12012f66,starter,events
+3e22f0fa,Mahmoud Al-Mardi,11.0,"FW,MF",23-035,23.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,1eedc1ea,23.0,35.0,12012f66,sub,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,LB,29-072,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,29.0,72.0,12012f66,starter,events
+3e22f0fa,Ibrahim Al Zawahreh,17.0,CB,27-298,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ecea007,27.0,298.0,12012f66,starter,events
+3e22f0fa,Tareq Khattab,3.0,CB,24-188,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0c333a06,24.0,188.0,12012f66,starter,events
+3e22f0fa,Yaser Al Rawashdeh,4.0,RB,26-203,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,51e3487a,26.0,203.0,12012f66,starter,events
+3e22f0fa,Moataz Yaseen,22.0,GK,34-007,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,08d2ca80,34.0,7.0,12012f66,starter,events
+1ee23a61,Rustam Soirov,9.0,FW,21-065,73.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d682b96,21.0,65.0,1250ff01,starter,events
+1ee23a61,Şahrom Samiev,22.0,FW,22-281,17.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8d12b0df,22.0,281.0,1250ff01,sub,events
+1ee23a61,Ehson Panjshanbe,17.0,AM,24-188,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,59a80518,24.0,188.0,1250ff01,starter,events
+1ee23a61,Alisher Dzhalilov,10.0,AM,30-079,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ed92fab1,30.0,79.0,1250ff01,starter,events
+1ee23a61,Amadoni Kamolov,13.0,AM,20-304,89.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0787a5f1,20.0,304.0,1250ff01,starter,events
+1ee23a61,Şervonī Mabatşoev,15.0,FW,22-347,1.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d8c34fe7,22.0,347.0,1250ff01,sub,events
+1ee23a61,Amirbek Juraboev,8.0,DM,27-217,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d15bb564,27.0,217.0,1250ff01,starter,events
+1ee23a61,Parvizdzhon Umarbayev,7.0,DM,29-015,90.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b759ff82,29.0,15.0,1250ff01,starter,events
+1ee23a61,Ahtam Nazarov,19.0,LB,31-048,77.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b9007bf6,31.0,48.0,1250ff01,starter,events
+1ee23a61,Tabrezi Davlatmir,3.0,DF,25-163,13.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8b33f86c,25.0,163.0,1250ff01,sub,events
+1ee23a61,Zoir Juraboev,2.0,CB,25-061,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a7204fcb,25.0,61.0,1250ff01,starter,events
+1ee23a61,Vahdat Hanonov,6.0,CB,23-114,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,56653417,23.0,114.0,1250ff01,starter,events
+1ee23a61,Manucehr Safarov,5.0,RB,22-169,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d02c4dc9,22.0,169.0,1250ff01,starter,events
+1ee23a61,Rustam Âtimov,1.0,GK,25-126,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e64cef9d,25.0,126.0,1250ff01,starter,events
+3e22f0fa,Yazan Al-Naimat,11.0,FW,24-165,90.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1703917d,24.0,165.0,1250ff01,starter,events
+3e22f0fa,Ali Olwan,9.0,FW,23-235,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,33c1d68d,23.0,235.0,1250ff01,starter,events
+3e22f0fa,Musa Al-Taamari,10.0,FW,26-159,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f15f8b2b,26.0,159.0,1250ff01,starter,events
+3e22f0fa,Noor Al Rawabdeh,8.0,CM,26-265,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3bb06c86,26.0,265.0,1250ff01,starter,events
+3e22f0fa,Nizar Al Rashdan,19.0,CM,24-238,89.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,feaa0ffd,24.0,238.0,1250ff01,starter,events
+3e22f0fa,Saleh Rateb,18.0,MF,28-333,1.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,71e1eb84,28.0,333.0,1250ff01,sub,events
+3e22f0fa,Rajaei Ayed,14.0,DM,30-114,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,30.0,114.0,1250ff01,starter,events
+3e22f0fa,Mohammad Abu Hasheesh,2.0,LB,28-191,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,72c2fa7a,28.0,191.0,1250ff01,starter,events
+3e22f0fa,Salem Al-Ajalin,17.0,CB,35-271,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d5ce4f95,35.0,271.0,1250ff01,starter,events
+3e22f0fa,Abdallah Nasib,3.0,CB,29-264,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,aaab3072,29.0,264.0,1250ff01,starter,events
+3e22f0fa,Ihsan Haddad,23.0,RB,29-284,90.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,85660a5d,29.0,284.0,1250ff01,starter,events
+3e22f0fa,Yazeed Abulaila,1.0,GK,30-312,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d11fc17,30.0,312.0,1250ff01,starter,events
+d08da289,Musa Qurbanlı,22.0,FW,21-152,66.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9c2e7413,21.0,152.0,1305d8f5,starter,events
+d08da289,Renat Dadaşov,9.0,FW,24-118,24.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,06dc2511,24.0,118.0,1305d8f5,sub,events
+d08da289,Ozan Kökcü,11.0,FW,25-025,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c3dcf059,25.0,25.0,1305d8f5,starter,events
+d08da289,Rüstəm Əhmədzadə,18.0,FW,22-261,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,267d5ab0,22.0,261.0,1305d8f5,sub,events
+d08da289,Mahir Emreli,10.0,FW,26-073,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,7be09c86,26.0,73.0,1305d8f5,starter,events
+d08da289,Emin Mahmudov,8.0,CM,31-138,82.0,1.0,0.0,1.0,1.0,,,0.0,0.0,,,,,,,0.0,,,1245de2c,31.0,138.0,1305d8f5,starter,events
+d08da289,Rahil Məmmədov,15.0,DF,27-292,8.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ff497879,27.0,292.0,1305d8f5,sub,events
+d08da289,Aleksei Isayev,20.0,CM,27-307,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d52b2a9f,27.0,307.0,1305d8f5,starter,events
+d08da289,Elvin Camalov,16.0,MF,28-220,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,55f26947,28.0,220.0,1305d8f5,sub,events
+d08da289,Joshgun Diniyev,7.0,DM,27-364,66.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5cef5a64,27.0,364.0,1305d8f5,starter,events
+d08da289,Emil Səfərov,13.0,FW,20-317,24.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b72a0aef,20.0,317.0,1305d8f5,sub,events
+d08da289,Elvin Cafarguliyev,3.0,LB,22-321,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,235a646b,22.0,321.0,1305d8f5,starter,events
+d08da289,Toral Bayramov,17.0,"DF,MF",22-201,45.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,a74ea18d,22.0,201.0,1305d8f5,sub,events
+d08da289,Anton Krivotsyuk,5.0,CB,25-015,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,2e755dfe,25.0,15.0,1305d8f5,starter,events
+d08da289,Bəhlul Mustafazadə,4.0,CB,26-197,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,808035bd,26.0,197.0,1305d8f5,starter,events
+d08da289,Qismət Alıyev,21.0,RB,26-323,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,463b8240,26.0,323.0,1305d8f5,starter,events
+d08da289,Shakhruddin Magomedaliyev,12.0,GK,29-092,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,595ccab1,29.0,92.0,1305d8f5,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,32-123,67.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,e025f7b3,32.0,123.0,1305d8f5,starter,events
+3e22f0fa,Yazan Al-Naimat,11.0,FW,24-100,23.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1703917d,24.0,100.0,1305d8f5,sub,events
+3e22f0fa,Mahmoud Al-Mardi,13.0,AM,29-341,85.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1eedc1ea,29.0,341.0,1305d8f5,starter,events
+3e22f0fa,Mahmoud Shawkat,15.0,MF,28-115,5.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,d2a16796,28.0,115.0,1305d8f5,sub,events
+3e22f0fa,Ali Olwan,9.0,AM,23-170,90.0,0.0,1.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,33c1d68d,23.0,170.0,1305d8f5,starter,events
+3e22f0fa,Anas Al Awadat,7.0,AM,25-106,67.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,8eaf6c90,25.0,106.0,1305d8f5,starter,events
+3e22f0fa,Saleh Rateb,18.0,MF,28-268,23.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,71e1eb84,28.0,268.0,1305d8f5,sub,events
+3e22f0fa,Nizar Al Rashdan,14.0,DM,24-173,85.0,1.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,feaa0ffd,24.0,173.0,1305d8f5,starter,events
+3e22f0fa,Obieda Al Samrieh,6.0,MF,31-207,5.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3aa3891f,31.0,207.0,1305d8f5,sub,events
+3e22f0fa,Rajaei Ayed,17.0,DM,30-049,67.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b71e02c7,30.0,49.0,1305d8f5,starter,events
+3e22f0fa,Noor Al Rawabdeh,8.0,MF,26-200,23.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,3bb06c86,26.0,200.0,1305d8f5,sub,events
+3e22f0fa,Mustafa Kamal,21.0,LB,28-212,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,39b06f91,28.0,212.0,1305d8f5,starter,events
+3e22f0fa,Yazan Al-Arab,5.0,CB,27-224,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,32878a09,27.0,224.0,1305d8f5,starter,events
+3e22f0fa,Abdallah Nasib,3.0,CB,29-199,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,aaab3072,29.0,199.0,1305d8f5,starter,events
+3e22f0fa,Ihsan Haddad,23.0,RB,29-219,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,85660a5d,29.0,219.0,1305d8f5,starter,events
+3e22f0fa,Yazeed Abulaila,1.0,GK,30-247,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5d11fc17,30.0,247.0,1305d8f5,starter,events
+3e22f0fa,Hassan Abdel-Fattah,18.0,"FW,MF",33-017,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5ddc0a42,33.0,17.0,13e56ddc,starter,events
+3e22f0fa,Baha' Abdel-Rahman,4.0,MF,28-241,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,c248bc9e,28.0,241.0,13e56ddc,starter,events
+3e22f0fa,Munther Abu Amarah,7.0,"FW,MF",23-132,75.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,628776ef,23.0,132.0,13e56ddc,starter,events
+3e22f0fa,Yaseen Al Bakheet,9.0,MF,27-217,15.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,cbe3e3d3,27.0,217.0,13e56ddc,sub,events
+3e22f0fa,Anas Bani Yaseen,19.0,DF,26-278,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,0cb21e4a,26.0,278.0,13e56ddc,starter,events
+3e22f0fa,Hamza Al-Dardour,20.0,FW,24-114,61.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e025f7b3,24.0,114.0,13e56ddc,starter,events
+3e22f0fa,Tha'er Bawab,10.0,"FW,MF",30-186,29.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5a22fd0f,30.0,186.0,13e56ddc,sub,events
+3e22f0fa,Mohammad Al Dumeiri,21.0,DF,28-004,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,e14dbf7c,28.0,4.0,13e56ddc,starter,events
+3e22f0fa,Mahmoud Al-Mardi,15.0,"FW,MF",21-332,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1eedc1ea,21.0,332.0,13e56ddc,starter,events
+3e22f0fa,Odai Al-Saify,8.0,"FW,MF",29-100,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,caabea12,29.0,100.0,13e56ddc,starter,events
+3e22f0fa,Abdallah Deeb,14.0,"FW,MF",28-177,45.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,f3cd4263,28.0,177.0,13e56ddc,sub,events
+3e22f0fa,Amer Shafi,1.0,GK,33-201,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,daba9f12,33.0,201.0,13e56ddc,starter,events
+3e22f0fa,Oday Zahran,11.0,DF,24-217,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,08e9b276,24.0,217.0,13e56ddc,starter,events
+3e22f0fa,Ibrahim Al Zawahreh,17.0,DF,26-229,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ecea007,26.0,229.0,13e56ddc,starter,events
+81792d72,Azamat Baimatov,7.0,DF,25-274,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,9e795408,25.0,274.0,13e56ddc,starter,events
+81792d72,Edgar Bernhardt,23.0,MF,29-157,86.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,981f74bf,29.0,157.0,13e56ddc,starter,events
+81792d72,Pavel Sidorenko,14.0,MF,28-161,4.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,1e13951a,28.0,161.0,13e56ddc,sub,events
+81792d72,Bahtiyar Duyşobekov,20.0,DF,20-092,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,77be2a4e,20.0,92.0,13e56ddc,starter,events
+81792d72,Valery Kichin,2.0,DF,22-326,90.0,0.0,0.0,0.0,0.0,,,1.0,0.0,,,,,,,0.0,,,a1a205f7,22.0,326.0,13e56ddc,starter,events
+81792d72,Vitalij Lux,19.0,FW,26-188,62.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,b8a4da4e,26.0,188.0,13e56ddc,starter,events
+81792d72,Ildar Amirov,17.0,FW,27-329,28.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,5bf2460e,27.0,329.0,13e56ddc,sub,events
+81792d72,Viktor Maier,6.0,FW,25-110,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,359e78f3,25.0,110.0,13e56ddc,starter,events
+81792d72,Pavel Matyash,1.0,GK,28-054,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0ad487a1,28.0,54.0,13e56ddc,starter,events
+81792d72,Mirlan Murzaev,10.0,FW,25-158,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,72173d0e,25.0,158.0,13e56ddc,starter,events
+81792d72,Farhat Musabekov,21.0,MF,21-243,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,2adaa7dd,21.0,243.0,13e56ddc,starter,events
+81792d72,Daniel Tagoe,4.0,MF,29-184,90.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,ad54d13a,29.0,184.0,13e56ddc,starter,events
+81792d72,Anton Zemlyanuhin,22.0,FW,26-266,56.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,0f276463,26.0,266.0,13e56ddc,starter,events
+81792d72,Vadim Harçenko,18.0,MF,31-098,34.0,0.0,0.0,0.0,0.0,,,0.0,0.0,,,,,,,0.0,,,dbf0f201,31.0,98.0,13e56ddc,sub,events
+d5121f10,Saša Kalajdžić,14.0,FW,28-344,45.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,1.0,2.0,0.0,0.0,0.0,0.0,0.0,,,15f24fe7,28.0,344.0,140e19d9,starter,events
+d5121f10,Marko Arnautović,7.0,"FW,MF",37-058,45.0,1.0,0.0,1.0,1.0,2.0,2.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,,,00459419,37.0,58.0,140e19d9,sub,events
+d5121f10,Marcel Sabitzer,9.0,AM,32-091,90.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,10.0,0.0,3.0,0.0,,,e280527c,32.0,91.0,140e19d9,starter,events
+d5121f10,Konrad Laimer,20.0,AM,29-020,90.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,3.0,0.0,2.0,1.0,1.0,1.0,0.0,,,c1b7847c,29.0,20.0,140e19d9,starter,events
+d5121f10,Romano Schmid,18.0,AM,26-140,82.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,0.0,,,220ace7e,26.0,140.0,140e19d9,starter,events
+d5121f10,Patrick Wimmer,21.0,"FW,MF",25-017,8.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,,,cb11b429,25.0,17.0,140e19d9,sub,events
+d5121f10,Xaver Schlager,4.0,DM,28-261,58.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,1.0,3.0,0.0,,,8f056768,28.0,261.0,140e19d9,starter,events
+d5121f10,Carney Chukwuemeka,17.0,MF,22-239,32.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,,,b2f9c73e,22.0,239.0,140e19d9,sub,events
+d5121f10,Nicolas Seiwald,6.0,DM,25-043,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,2.0,1.0,0.0,,,28c6e925,25.0,43.0,140e19d9,starter,events
+d5121f10,Phillipp Mwene,16.0,LB,32-138,58.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,3.0,0.0,0.0,0.0,,,2ff76adc,32.0,138.0,140e19d9,starter,events
+d5121f10,Paul Wanner,24.0,MF,20-175,32.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,cb64672e,20.0,175.0,140e19d9,sub,events
+d5121f10,David Alaba,8.0,CB,33-357,58.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,,,05439de2,33.0,357.0,140e19d9,starter,events
+d5121f10,Kevin Danso,3.0,"DF,MF",27-270,32.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,,,6e33125f,27.0,270.0,140e19d9,sub,events
+d5121f10,Philipp Lienhart,15.0,CB,29-340,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,,,302527b2,29.0,340.0,140e19d9,starter,events
+d5121f10,Stefan Posch,5.0,RB,29-033,90.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,3.0,1.0,0.0,0.0,1.0,3.0,0.0,,,7f609bfc,29.0,33.0,140e19d9,starter,events
+d5121f10,Alexander Schlager,1.0,GK,30-135,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,6fe5c35b,30.0,135.0,140e19d9,starter,events
+3e22f0fa,Musa Al-Taamari,10.0,FW,29-006,87.0,0.0,0.0,0.0,0.0,4.0,1.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,,,f15f8b2b,29.0,6.0,140e19d9,starter,events
+3e22f0fa,Mohammad Al-Dawud,25.0,"FW,MF",34-065,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,e645c3fc,34.0,65.0,140e19d9,sub,events
+3e22f0fa,Ali Olwan,9.0,LM,26-082,90.0,1.0,0.0,0.0,0.0,4.0,2.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0,1.0,0.0,,,33c1d68d,26.0,82.0,140e19d9,starter,events
+3e22f0fa,Noor Al Rawabdeh,8.0,CM,29-112,90.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,,,3bb06c86,29.0,112.0,140e19d9,starter,events
+3e22f0fa,Nizar Al Rashdan,21.0,CM,27-085,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,1.0,0.0,0.0,2.0,0.0,0.0,,,feaa0ffd,27.0,85.0,140e19d9,starter,events
+3e22f0fa,Odeh Al-Fakhouri,11.0,RM,20-206,88.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,2.0,0.0,1.0,1.0,1.0,0.0,,,30591ae5,20.0,206.0,140e19d9,starter,events
+3e22f0fa,Ali Azaizeh,24.0,MF,22-064,2.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,3a46ac67,22.0,64.0,140e19d9,sub,events
+3e22f0fa,Mohannad Abu Taha,20.0,LB,23-134,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,5.0,0.0,0.0,0.0,,,5c4bac6c,23.0,134.0,140e19d9,starter,events
+3e22f0fa,Mo Abualnadi,16.0,CB,25-128,71.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,4bff62e4,25.0,128.0,140e19d9,starter,events
+3e22f0fa,Salim Obaid,17.0,DF,34-150,19.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,,,f494bf5f,34.0,150.0,140e19d9,sub,events
+3e22f0fa,Yazan Al-Arab,5.0,CB,30-136,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,1.0,,,32878a09,30.0,136.0,140e19d9,starter,events
+3e22f0fa,Abdallah Nasib,3.0,CB,32-111,80.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,5.0,0.0,,,aaab3072,32.0,111.0,140e19d9,starter,events
+3e22f0fa,Saed Al-Rosan,19.0,DF,29-135,10.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,f3115445,29.0,135.0,140e19d9,sub,events
+3e22f0fa,Ihsan Haddad,23.0,RB,32-131,80.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,5.0,0.0,0.0,0.0,,,85660a5d,32.0,131.0,140e19d9,starter,events
+3e22f0fa,Mahmoud Al-Mardi,13.0,"FW,MF",32-253,10.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,0.0,,,1eedc1ea,32.0,253.0,140e19d9,sub,events
+3e22f0fa,Yazeed Abulaila,1.0,GK,33-159,90.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,,,5d11fc17,33.0,159.0,140e19d9,starter,events

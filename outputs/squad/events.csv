@@ -1,0 +1,200 @@
+minute,minute_stoppage,side,type,player,player_2,score_home,score_away,raw,match_id
+10,0,away,yellow,Davit Khocholava,,0,0,10’ 0:0 Davit Khocholava — Yellow Card,01412142
+38,0,away,yellow,Temuri Shonia,,0,0,38’ 0:0 Temuri Shonia — Yellow Card,01412142
+43,0,home,goal,Hamza Al-Dardour,,1,0,43’ 1:0 Hamza Al-Dardour — Goal 1:0,01412142
+46,0,away,sub,Bachana Arabuli,Budu Zivzivadze,1,0,46’ 1:0 Bachana Arabuli for Budu Zivzivadze — Substitute,01412142
+61,0,home,sub,Yousef Al-Rawashdeh,Munther Abu Amarah,1,0,61’ 1:0 Yousef Al-Rawashdeh for Munther Abu Amarah — Substitute,01412142
+63,0,away,sub,Tornike Grigalashvili,Ucha Lobjanidze,1,0,63’ 1:0 Tornike Grigalashvili for Ucha Lobjanidze — Substitute,01412142
+69,0,home,sub,Yazan Thalji,Musa Al-Taamari,1,0,69’ 1:0 Yazan Thalji for Musa Al-Taamari — Substitute,01412142
+70,0,home,sub,Ahmed Samir,Hamza Al-Dardour,1,0,70’ 1:0 Ahmed Samir for Hamza Al-Dardour — Substitute,01412142
+77,0,home,yellow,Mohammad Al Dumeiri,,1,0,77’ 1:0 Mohammad Al Dumeiri — Yellow Card,01412142
+79,0,home,sub,Tha'er Bawab,Baha' Faisal,1,0,79’ 1:0 Tha'er Bawab for Baha' Faisal — Substitute,01412142
+79,0,away,sub,Giorgi Kimadze,Saba Lobzhanidze,1,0,79’ 1:0 Giorgi Kimadze for Saba Lobzhanidze — Substitute,01412142
+81,0,home,yellow,Ibrahim Al Zawahreh,,1,0,81’ 1:0 Ibrahim Al Zawahreh — Yellow Card,01412142
+82,0,away,sub,Oleg Mamasakhlisi,Beka Tugushi,1,0,82’ 1:0 Oleg Mamasakhlisi for Beka Tugushi — Substitute,01412142
+83,0,away,yellow,Vladimir Dvalishvili,,1,0,83’ 1:0 Vladimir Dvalishvili — Yellow Card,01412142
+85,0,away,sub,Giorgi Kharaishvili,Temuri Shonia,1,0,85’ 1:0 Giorgi Kharaishvili for Temuri Shonia — Substitute,01412142
+88,0,away,sub,Giorgi Ganugrava,Lasha Shergelashvili,1,0,88’ 1:0 Giorgi Ganugrava for Lasha Shergelashvili — Substitute,01412142
+89,0,home,sub,Amer Abuhudieab,Rajaei Ayed,1,0,89’ 1:0 Amer Abuhudieab for Rajaei Ayed — Substitute,01412142
+28,0,home,goal,Anas Bani Yaseen,,1,0,28’ 1:0 Anas Bani Yaseen — Goal 1:0,03e0135c
+48,0,away,yellow,Sami Al Sanea,,1,0,48’ 1:0 Sami Al Sanea — Yellow Card,03e0135c
+58,0,home,yellow,Ihsan Haddad,,1,0,58’ 1:0 Ihsan Haddad — Yellow Card,03e0135c
+58,0,away,sub,Redha Hani,Talal Al Fadhel,1,0,58’ 1:0 Redha Hani for Talal Al Fadhel — Substitute,03e0135c
+61,0,home,yellow,Baha' Faisal,,1,0,61’ 1:0 Baha' Faisal — Yellow Card,03e0135c
+63,0,home,sub,Khalil Bani Attiah,Angelos Chanti,1,0,63’ 1:0 Khalil Bani Attiah for Angelos Chanti — Substitute,03e0135c
+65,0,away,sub,Meshal Fawaz,Faisal Zayid,1,0,65’ 1:0 Meshal Fawaz for Faisal Zayid — Substitute,03e0135c
+70,0,away,sub,Naser Al Farag,Yaqoub Al Tararwa,1,0,70’ 1:0 Naser Al Farag for Yaqoub Al Tararwa — Substitute,03e0135c
+72,0,home,sub,Munther Abu Amarah,Yousef Al-Rawashdeh,1,0,72’ 1:0 Munther Abu Amarah for Yousef Al-Rawashdeh — Substitute,03e0135c
+74,0,away,sub,Mohammed Khaleel,Fahad Al Ansari,1,0,74’ 1:0 Mohammed Khaleel for Fahad Al Ansari — Substitute,03e0135c
+76,0,home,sub,Yazan Thalji,Yaseen Al Bakheet,1,0,76’ 1:0 Yazan Thalji for Yaseen Al Bakheet — Substitute,03e0135c
+83,0,home,sub,Rajaei Ayed,Obieda Al Samrieh,1,0,83’ 1:0 Rajaei Ayed for Obieda Al Samrieh — Substitute,03e0135c
+83,0,home,sub,Mussab Al-Laham,Ahmed Samir,1,0,83’ 1:0 Mussab Al-Laham for Ahmed Samir — Substitute,03e0135c
+83,0,away,sub,Ali Ateeq,Sami Al Sanea,1,0,83’ 1:0 Ali Ateeq for Sami Al Sanea — Substitute,03e0135c
+84,0,home,sub,Ahmad Al Sughair,Anas Bani Yaseen,1,0,84’ 1:0 Ahmad Al Sughair for Anas Bani Yaseen — Substitute,03e0135c
+86,0,away,sub,Shaheen Al Khamees,Bader Tareq,1,0,86’ 1:0 Shaheen Al Khamees for Bader Tareq — Substitute,03e0135c
+90,5,away,yellow,Mohammed Khaleel,,1,0,90+5’ 1:0 Mohammed Khaleel — Yellow Card,03e0135c
+12,0,home,goal,Yaseen Al Bakheet,,1,0,12’ 1:0 Yaseen Al Bakheet — Goal 1:0,054be81e
+35,0,away,yellow,Jack Sealy,,1,0,35’ 1:0 Jack Sealy — Yellow Card,054be81e
+44,0,home,goal,Hamza Al-Dardour,,2,0,44’ 2:0 Hamza Al-Dardour — Goal 2:0,054be81e
+46,0,home,sub,Moataz Yaseen,Amer Shafi,2,0,46’ 2:0 Moataz Yaseen for Amer Shafi — Substitute,054be81e
+46,0,home,sub,Tha'er Bawab,Munther Abu Amarah,2,0,46’ 2:0 Tha'er Bawab for Munther Abu Amarah — Substitute,054be81e
+46,0,home,sub,Musa Al-Taamari,Odai Al-Saify,2,0,46’ 2:0 Musa Al-Taamari for Odai Al-Saify — Substitute,054be81e
+46,0,away,sub,Festus Baise,Jean-Jacques Kilama,2,0,46’ 2:0 Festus Baise for Jean-Jacques Kilama — Substitute,054be81e
+46,0,away,sub,Lee Chi Ho,Hélio,2,0,46’ 2:0 Lee Chi Ho for Hélio — Substitute,054be81e
+46,0,away,sub,Lo Kong Wai,Jaimes McKee,2,0,46’ 2:0 Lo Kong Wai for Jaimes McKee — Substitute,054be81e
+62,0,home,goal,Musa Al-Taamari,Tha'er Bawab,3,0,62’ 3:0 Musa Al-Taamari Assist: Tha'er Bawab — Goal 3:0,054be81e
+63,0,away,sub,Roberto,Huang Yang,3,0,63’ 3:0 Roberto for Huang Yang — Substitute,054be81e
+65,0,away,sub,Ju Yingzhi,Li Ngai Hoi,3,0,65’ 3:0 Ju Yingzhi for Li Ngai Hoi — Substitute,054be81e
+67,0,home,sub,Baha' Faisal,Yaseen Al Bakheet,3,0,67’ 3:0 Baha' Faisal for Yaseen Al Bakheet — Substitute,054be81e
+75,0,home,sub,Abdullah Al-Attar,Hamza Al-Dardour,3,0,75’ 3:0 Abdullah Al-Attar for Hamza Al-Dardour — Substitute,054be81e
+77,0,home,sub,Ahmed Samir,Baha' Abdel-Rahman,3,0,77’ 3:0 Ahmed Samir for Baha' Abdel-Rahman — Substitute,054be81e
+78,0,away,sub,Wong Wai,Sandro,3,0,78’ 3:0 Wong Wai for Sandro — Substitute,054be81e
+84,0,home,goal,Tha'er Bawab,Abdullah Al-Attar,4,0,84’ 4:0 Tha'er Bawab Assist: Abdullah Al-Attar — Goal 4:0,054be81e
+14,0,away,sub,Matthew Spiranovic,Saša Ognenovski,0,0,14’ 0:0 Matthew Spiranovic for Saša Ognenovski — Substitute,09ebf31d
+38,0,away,yellow,Luke Wilkshire,,0,0,38’ 0:0 Luke Wilkshire — Yellow Card,09ebf31d
+46,0,home,sub,Saeed Murjan,Mohammad Al Dumeiri,0,0,46’ 0:0 Saeed Murjan for Mohammad Al Dumeiri — Substitute,09ebf31d
+46,0,away,sub,Mile Jedinak,Mark Bresciano,0,0,46’ 0:0 Mile Jedinak for Mark Bresciano — Substitute,09ebf31d
+50,0,home,penalty_goal,Hassan Abdel-Fattah,,1,0,50’ 1:0 Hassan Abdel-Fattah Penalty Kick — Substitute,09ebf31d
+54,0,home,yellow,Amer Shafi,,1,0,54’ 1:0 Amer Shafi — Yellow Card,09ebf31d
+73,0,home,goal,Amer Deeb,,2,0,73’ 2:0 Amer Deeb — Goal 2:0,09ebf31d
+74,0,home,sub,Anas Hijah,Odai Al-Saify,2,0,74’ 2:0 Anas Hijah for Odai Al-Saify — Substitute,09ebf31d
+74,0,away,sub,Archie Thompson,Brett Holman,2,0,74’ 2:0 Archie Thompson for Brett Holman — Substitute,09ebf31d
+84,0,home,sub,Hamza Al-Dardour,Hassan Abdel-Fattah,2,0,84’ 2:0 Hamza Al-Dardour for Hassan Abdel-Fattah — Substitute,09ebf31d
+86,0,away,goal,Archie Thompson,,2,1,86’ 2:1 Archie Thompson — Goal 2:1,09ebf31d
+90,4,home,yellow,Basem Fathi,,2,1,90+4’ 2:1 Basem Fathi — Yellow Card,09ebf31d
+7,0,away,yellow,Mohammad Monir,,0,0,7’ 0:0 Mohammad Monir — Yellow Card,0b0faca3
+8,0,home,yellow,Chen Tao,,0,0,8’ 0:0 Chen Tao — Yellow Card,0b0faca3
+43,0,home,goal,Hao Junmin,,1,0,43’ 1:0 Hao Junmin — Goal 1:0,0b0faca3
+50,0,home,yellow,Qin Sheng,,1,0,50’ 1:0 Qin Sheng — Yellow Card,0b0faca3
+59,0,home,yellow,Zhao Peng,,1,0,59’ 1:0 Zhao Peng — Yellow Card,0b0faca3
+66,0,away,sub,Suleiman Al-Salman,Khalil Bani Attiah,1,0,66’ 1:0 Suleiman Al-Salman for Khalil Bani Attiah — Substitute,0b0faca3
+69,0,home,goal,Hao Junmin,,2,0,69’ 2:0 Hao Junmin — Goal 2:0,0b0faca3
+74,0,away,sub,Saeed Murjan,Baha' Abdel-Rahman,2,0,74’ 2:0 Saeed Murjan for Baha' Abdel-Rahman — Substitute,0b0faca3
+77,0,home,sub,Yu Dabao,Chen Tao,2,0,77’ 2:0 Yu Dabao for Chen Tao — Substitute,0b0faca3
+80,0,away,yellow,Shareef Adnan,,2,0,80’ 2:0 Shareef Adnan — Yellow Card,0b0faca3
+85,0,away,goal,Basem Fathi,,2,1,85’ 2:1 Basem Fathi — Goal 2:1,0b0faca3
+85,0,away,sub,Hamza Al-Dardour,Ra'ed Al-Nawateer,2,1,85’ 2:1 Hamza Al-Dardour for Ra'ed Al-Nawateer — Substitute,0b0faca3
+86,0,home,sub,Liu Jian,Qin Sheng,2,1,86’ 2:1 Liu Jian for Qin Sheng — Substitute,0b0faca3
+88,0,home,goal,Yu Dabao,,3,1,88’ 3:1 Yu Dabao — Goal 3:1,0b0faca3
+90,0,home,sub,Yu Hai,Yu Hanchao,3,1,90’ 3:1 Yu Hai for Yu Hanchao — Substitute,0b0faca3
+13,0,home,yellow,Atiqur Rahman Meshu,,0,0,13’ 0:0 Atiqur Rahman Meshu — Yellow Card,0bb36b1d
+14,0,away,penalty_goal,Abdallah Deeb,,0,1,14’ 0:1 Abdallah Deeb Penalty Kick — Yellow Card,0bb36b1d
+30,0,away,yellow,Anas Bani Yaseen,,0,1,30’ 0:1 Anas Bani Yaseen — Yellow Card,0bb36b1d
+33,0,away,goal,Munther Abu Amarah,,0,2,33’ 0:2 Munther Abu Amarah — Goal 0:2,0bb36b1d
+50,0,home,sub,Md Rayhan Hasan,Nasirul Islam Nasir,0,2,50’ 0:2 Md Rayhan Hasan for Nasirul Islam Nasir — Substitute,0bb36b1d
+56,0,away,goal,Abdallah Deeb,,0,3,56’ 0:3 Abdallah Deeb — Goal 0:3,0bb36b1d
+58,0,away,goal,Yaseen Al Bakheet,,0,4,58’ 0:4 Yaseen Al Bakheet — Goal 0:4,0bb36b1d
+58,0,home,yellow,Monaem Khan Raju,,0,4,58’ 0:4 Monaem Khan Raju — Yellow Card,0bb36b1d
+71,0,away,sub,Yousef Al-Rawashdeh,Yaseen Al Bakheet,0,4,71’ 0:4 Yousef Al-Rawashdeh for Yaseen Al Bakheet — Substitute,0bb36b1d
+75,0,home,sub,Md Sahidul Alam Sohel,Atiqur Rahman Meshu,0,4,75’ 0:4 Md Sahidul Alam Sohel for Atiqur Rahman Meshu — Substitute,0bb36b1d
+76,0,away,sub,Rakan Al-Khalidi,Hamza Al-Dardour,0,4,76’ 0:4 Rakan Al-Khalidi for Hamza Al-Dardour — Substitute,0bb36b1d
+80,0,home,yellow,Yeasin Khan,,0,4,80’ 0:4 Yeasin Khan — Yellow Card,0bb36b1d
+83,0,home,sub,Ashraful Islam Rana,Yeamin Munna,0,4,83’ 0:4 Ashraful Islam Rana for Yeamin Munna — Substitute,0bb36b1d
+84,0,away,sub,Mahmoud Al-Mardi,Abdallah Deeb,0,4,84’ 0:4 Mahmoud Al-Mardi for Abdallah Deeb — Substitute,0bb36b1d
+2,0,away,goal,Musa Al-Taamari,Mahmoud Al-Mardi,0,1,2’ 0:1 Musa Al-Taamari Assist: Mahmoud Al-Mardi — Goal 0:1,0c0a6775
+9,0,away,penalty_goal,Ali Olwan,,0,2,9’ 0:2 Ali Olwan Penalty Kick — Goal,0c0a6775
+41,0,home,yellow,Curtis Jemmett-Hutson,,0,2,41’ 0:2 Curtis Jemmett-Hutson — Yellow Card,0c0a6775
+46,0,home,sub,Imran Kayani,Shayak Dost,0,2,46’ 0:2 Imran Kayani for Shayak Dost — Substitute,0c0a6775
+62,0,home,sub,Harun Hamid,Abdul Samad,0,2,62’ 0:2 Harun Hamid for Abdul Samad — Substitute,0c0a6775
+79,0,home,sub,Waleed Khan,Curtis Jemmett-Hutson,0,2,79’ 0:2 Waleed Khan for Curtis Jemmett-Hutson — Substitute,0c0a6775
+79,0,home,sub,Ali Uzair,Alamgir Ghazi,0,2,79’ 0:2 Ali Uzair for Alamgir Ghazi — Substitute,0c0a6775
+79,0,home,sub,Muhammad Sohail,Muhammad Sadam,0,2,79’ 0:2 Muhammad Sohail for Muhammad Sadam — Substitute,0c0a6775
+81,0,home,yellow,Abdullah Iqbal,,0,2,81’ 0:2 Abdullah Iqbal — Yellow Card,0c0a6775
+82,0,away,yellow,Musa Al-Taamari Penalty saved by Yousuf Butt,,0,2,82’ 0:2 Musa Al-Taamari Penalty saved by Yousuf Butt — Yellow Card,0c0a6775
+83,0,away,sub,Saleh Rateb,Mahmoud Al-Mardi,0,2,83’ 0:2 Saleh Rateb for Mahmoud Al-Mardi — Substitute,0c0a6775
+84,0,away,yellow,Nizar Al Rashdan,,0,2,84’ 0:2 Nizar Al Rashdan — Yellow Card,0c0a6775
+86,0,away,goal,Musa Al-Taamari,Yazan Al-Naimat,0,3,86’ 0:3 Musa Al-Taamari Assist: Yazan Al-Naimat — Goal 0:3,0c0a6775
+90,5,home,yellow,Waleed Khan,,0,3,90+5’ 0:3 Waleed Khan — Yellow Card,0c0a6775
+28,0,away,goal,Hassan Abdel-Fattah,,0,1,28’ 0:1 Hassan Abdel-Fattah — Goal 0:1,0d1d6c3d
+38,0,home,sub,Akhtam Khamrakulov,Ibrahim Rabimov,0,1,38’ 0:1 Akhtam Khamrakulov for Ibrahim Rabimov — Substitute,0d1d6c3d
+64,0,away,goal,Hassan Abdel-Fattah,,0,2,64’ 0:2 Hassan Abdel-Fattah — Goal 0:2,0d1d6c3d
+66,0,home,goal,Manuchekhr Dzhalilov,,1,2,66’ 1:2 Manuchekhr Dzhalilov — Goal 1:2,0d1d6c3d
+70,0,away,sub,Adnan Adous,Abdallah Deeb,1,2,70’ 1:2 Adnan Adous for Abdallah Deeb — Substitute,0d1d6c3d
+73,0,home,sub,Farkhod Tokhirov,Khurshed Makhmudov,1,2,73’ 1:2 Farkhod Tokhirov for Khurshed Makhmudov — Substitute,0d1d6c3d
+74,0,away,sub,Odai Al-Saify,Hamza Al-Dardour,1,2,74’ 1:2 Odai Al-Saify for Hamza Al-Dardour — Substitute,0d1d6c3d
+78,0,home,yellow,Nuriddin Davronov,,1,2,78’ 1:2 Nuriddin Davronov — Yellow Card,0d1d6c3d
+80,0,away,yellow,Munther Abu Amarah,,1,2,80’ 1:2 Munther Abu Amarah — Yellow Card,0d1d6c3d
+81,0,away,yellow,Oday Zahran,,1,2,81’ 1:2 Oday Zahran — Yellow Card,0d1d6c3d
+83,0,home,sub,Çahongir Džalilov,Eraj Rajabov,1,2,83’ 1:2 Çahongir Džalilov for Eraj Rajabov — Substitute,0d1d6c3d
+88,0,away,goal,Hassan Abdel-Fattah,,1,3,88’ 1:3 Hassan Abdel-Fattah — Goal 1:3,0d1d6c3d
+89,0,away,sub,Yousef Al-Rawashdeh,Oday Zahran,1,3,89’ 1:3 Yousef Al-Rawashdeh for Oday Zahran — Substitute,0d1d6c3d
+90,1,home,yellow,Davron Ergashev,,1,3,90+1’ 1:3 Davron Ergashev — Yellow Card,0d1d6c3d
+18,0,away,goal,Baha' Faisal,,0,1,18’ 0:1 Baha' Faisal — Goal 0:1,1125cf3a
+38,0,home,yellow,Besar Halimi,,0,1,38’ 0:1 Besar Halimi — Yellow Card,1125cf3a
+41,0,away,yellow,Noor Al Rawabdeh,,0,1,41’ 0:1 Noor Al Rawabdeh — Yellow Card,1125cf3a
+46,0,home,sub,Edon Zhegrova,Mirlind Kryeziu,0,1,46’ 0:1 Edon Zhegrova for Mirlind Kryeziu — Substitute,1125cf3a
+46,0,home,sub,Lirim Kastrati,Besar Halimi,0,1,46’ 0:1 Lirim Kastrati for Besar Halimi — Substitute,1125cf3a
+56,0,home,sub,Florian Loshaj,Fidan Aliti,0,1,56’ 0:1 Florian Loshaj for Fidan Aliti — Substitute,1125cf3a
+59,0,away,sub,Odai Al-Saify,Ahmad Tha'er,0,1,59’ 0:1 Odai Al-Saify for Ahmad Tha'er — Substitute,1125cf3a
+59,0,away,sub,Musa Al-Taamari,Ali Olwan,0,1,59’ 0:1 Musa Al-Taamari for Ali Olwan — Substitute,1125cf3a
+62,0,home,sub,Astrit Seljmani,Milot Rashica,0,1,62’ 0:1 Astrit Seljmani for Milot Rashica — Substitute,1125cf3a
+73,0,away,sub,Ahmad Israiwah,Mahmoud Al-Mardi,0,1,73’ 0:1 Ahmad Israiwah for Mahmoud Al-Mardi — Substitute,1125cf3a
+73,0,away,sub,Hamza Al-Dardour,Baha' Faisal,0,1,73’ 0:1 Hamza Al-Dardour for Baha' Faisal — Substitute,1125cf3a
+76,0,away,yellow,Hamza Al-Dardour,,0,1,76’ 0:1 Hamza Al-Dardour — Yellow Card,1125cf3a
+77,0,home,yellow,Amir Rrahmani,,0,1,77’ 0:1 Amir Rrahmani — Yellow Card,1125cf3a
+84,0,away,sub,Rajaei Ayed,Baha' Abdel-Rahman,0,1,84’ 0:1 Rajaei Ayed for Baha' Abdel-Rahman — Substitute,1125cf3a
+85,0,away,goal,Hamza Al-Dardour,,0,2,85’ 0:2 Hamza Al-Dardour — Goal 0:2,1125cf3a
+90,1,away,second_yellow,Noor Al Rawabdeh,,0,2,90+1’ 0:2 Noor Al Rawabdeh — Second Yellow Card,1125cf3a
+23,0,home,yellow,Vadim Afonin,,0,0,23’ 0:0 Vadim Afonin — Yellow Card,12012f66
+33,0,away,yellow,Yaseen Al Bakheet,,0,0,33’ 0:0 Yaseen Al Bakheet — Yellow Card,12012f66
+44,0,home,yellow,Server Djeparov,,0,0,44’ 0:0 Server Djeparov — Yellow Card,12012f66
+45,0,home,goal,Igor Sergeev,Odil Ahmedov,1,0,45’ 1:0 Igor Sergeev Assist: Odil Ahmedov — Goal 1:0,12012f66
+46,0,home,sub,Alexander Geynrikh,Server Djeparov,1,0,46’ 1:0 Alexander Geynrikh for Server Djeparov — Substitute,12012f66
+46,0,home,sub,Stanislav Andreev,Vitaliy Denisov,1,0,46’ 1:0 Stanislav Andreev for Vitaliy Denisov — Substitute,12012f66
+46,0,home,sub,Sardor Rashidov,Odil Ahmedov,1,0,46’ 1:0 Sardor Rashidov for Odil Ahmedov — Substitute,12012f66
+59,0,home,sub,Jaloliddin Masharipov,Eldor Shomurodov,1,0,59’ 1:0 Jaloliddin Masharipov for Eldor Shomurodov — Substitute,12012f66
+64,0,home,sub,Javokhir Sokhibov,Otabek Shukurov,1,0,64’ 1:0 Javokhir Sokhibov for Otabek Shukurov — Substitute,12012f66
+68,0,away,sub,Mahmoud Al-Mardi,Saeed Murjan,1,0,68’ 1:0 Mahmoud Al-Mardi for Saeed Murjan — Substitute,12012f66
+72,0,away,sub,Yazan Thalji,Yousef Al-Rawashdeh,1,0,72’ 1:0 Yazan Thalji for Yousef Al-Rawashdeh — Substitute,12012f66
+72,0,home,sub,Azizbek Haydarov,Vadim Afonin,1,0,72’ 1:0 Azizbek Haydarov for Vadim Afonin — Substitute,12012f66
+78,0,away,sub,Musa Al-Taamari,Yaseen Al Bakheet,1,0,78’ 1:0 Musa Al-Taamari for Yaseen Al Bakheet — Substitute,12012f66
+82,0,away,sub,Abdallah Deeb,Munther Abu Amarah,1,0,82’ 1:0 Abdallah Deeb for Munther Abu Amarah — Substitute,12012f66
+83,0,home,yellow,Anzur Ismailov,,1,0,83’ 1:0 Anzur Ismailov — Yellow Card,12012f66
+86,0,away,yellow,Mahmoud Al-Mardi,,1,0,86’ 1:0 Mahmoud Al-Mardi — Yellow Card,12012f66
+17,0,away,yellow,Abdallah Nasib,,0,0,17’ 0:0 Abdallah Nasib — Yellow Card,1250ff01
+33,0,away,yellow,Mohammad Abu Hasheesh,,0,0,33’ 0:0 Mohammad Abu Hasheesh — Yellow Card,1250ff01
+74,0,home,sub,Şahrom Samiev,Rustam Soirov,0,0,74’ 0:0 Şahrom Samiev for Rustam Soirov — Substitute,1250ff01
+78,0,home,sub,Tabrezi Davlatmir,Ahtam Nazarov,0,0,78’ 0:0 Tabrezi Davlatmir for Ahtam Nazarov — Substitute,1250ff01
+89,0,home,goal,Şahrom Samiev,Parvizdzhon Umarbayev,1,0,89’ 1:0 Şahrom Samiev Assist: Parvizdzhon Umarbayev — Goal 1:0,1250ff01
+90,1,away,sub,Saleh Rateb,Nizar Al Rashdan,1,0,90+1’ 1:0 Saleh Rateb for Nizar Al Rashdan — Substitute,1250ff01
+90,3,home,sub,Şervonī Mabatşoev,Amadoni Kamolov,1,0,90+3’ 1:0 Şervonī Mabatşoev for Amadoni Kamolov — Substitute,1250ff01
+90,3,away,goal,Yazan Al-Naimat,Ihsan Haddad,1,1,90+3’ 1:1 Yazan Al-Naimat Assist: Ihsan Haddad — Goal 1:1,1250ff01
+19,0,away,yellow,Mustafa Kamal,,0,0,19’ 0:0 Mustafa Kamal — Yellow Card,1305d8f5
+45,1,home,penalty_goal,Emin Mahmudov,,1,0,45+1’ 1:0 Emin Mahmudov Penalty Kick — Yellow Card,1305d8f5
+46,0,home,sub,Rüstəm Əhmədzadə,Ozan Kökcü,1,0,46’ 1:0 Rüstəm Əhmədzadə for Ozan Kökcü — Substitute,1305d8f5
+46,0,home,sub,Toral Bayramov,Elvin Cafarguliyev,1,0,46’ 1:0 Toral Bayramov for Elvin Cafarguliyev — Substitute,1305d8f5
+46,0,home,sub,Elvin Camalov,Aleksei Isayev,1,0,46’ 1:0 Elvin Camalov for Aleksei Isayev — Substitute,1305d8f5
+57,0,away,goal,Nizar Al Rashdan,Ali Olwan,1,1,57’ 1:1 Nizar Al Rashdan Assist: Ali Olwan — Goal 1:1,1305d8f5
+65,0,away,yellow,Hamza Al-Dardour,,1,1,65’ 1:1 Hamza Al-Dardour — Yellow Card,1305d8f5
+67,0,home,sub,Emil Səfərov,Joshgun Diniyev,1,1,67’ 1:1 Emil Səfərov for Joshgun Diniyev — Substitute,1305d8f5
+67,0,home,sub,Renat Dadaşov,Musa Qurbanlı,1,1,67’ 1:1 Renat Dadaşov for Musa Qurbanlı — Substitute,1305d8f5
+68,0,away,sub,Saleh Rateb,Anas Al Awadat,1,1,68’ 1:1 Saleh Rateb for Anas Al Awadat — Substitute,1305d8f5
+68,0,away,sub,Noor Al Rawabdeh,Rajaei Ayed,1,1,68’ 1:1 Noor Al Rawabdeh for Rajaei Ayed — Substitute,1305d8f5
+68,0,away,sub,Yazan Al-Naimat,Hamza Al-Dardour,1,1,68’ 1:1 Yazan Al-Naimat for Hamza Al-Dardour — Substitute,1305d8f5
+79,0,home,goal,Renat Dadaşov,Toral Bayramov,2,1,79’ 2:1 Renat Dadaşov Assist: Toral Bayramov — Goal 2:1,1305d8f5
+83,0,home,sub,Rahil Məmmədov,Emin Mahmudov,2,1,83’ 2:1 Rahil Məmmədov for Emin Mahmudov — Substitute,1305d8f5
+86,0,away,sub,Obieda Al Samrieh,Nizar Al Rashdan,2,1,86’ 2:1 Obieda Al Samrieh for Nizar Al Rashdan — Substitute,1305d8f5
+86,0,away,sub,Mahmoud Shawkat,Mahmoud Al-Mardi,2,1,86’ 2:1 Mahmoud Shawkat for Mahmoud Al-Mardi — Substitute,1305d8f5
+46,0,home,sub,Abdallah Deeb,Odai Al-Saify,0,0,46’ 0:0 Abdallah Deeb for Odai Al-Saify — Substitute,13e56ddc
+54,0,away,yellow,Valery Kichin,,0,0,54’ 0:0 Valery Kichin — Yellow Card,13e56ddc
+57,0,away,sub,Vadim Harçenko,Anton Zemlyanuhin,0,0,57’ 0:0 Vadim Harçenko for Anton Zemlyanuhin — Substitute,13e56ddc
+62,0,home,sub,Tha'er Bawab,Hamza Al-Dardour,0,0,62’ 0:0 Tha'er Bawab for Hamza Al-Dardour — Substitute,13e56ddc
+63,0,away,sub,Ildar Amirov,Vitalij Lux,0,0,63’ 0:0 Ildar Amirov for Vitalij Lux — Substitute,13e56ddc
+76,0,home,sub,Yaseen Al Bakheet,Munther Abu Amarah,0,0,76’ 0:0 Yaseen Al Bakheet for Munther Abu Amarah — Substitute,13e56ddc
+87,0,away,sub,Pavel Sidorenko,Edgar Bernhardt,0,0,87’ 0:0 Pavel Sidorenko for Edgar Bernhardt — Substitute,13e56ddc
+90,2,home,yellow,Anas Bani Yaseen,,0,0,90+2’ 0:0 Anas Bani Yaseen — Yellow Card,13e56ddc
+21,0,home,goal,Romano Schmid,Xaver Schlager,1,0,21’ 1:0 Romano Schmid Assist: Xaver Schlager — Goal 1:0,140e19d9
+46,0,home,sub,Marko Arnautović,Saša Kalajdžić,1,0,46’ 1:0 Marko Arnautović for Saša Kalajdžić — Substitute,140e19d9
+50,0,away,goal,Ali Olwan,Noor Al Rawabdeh,1,1,50’ 1:1 Ali Olwan Assist: Noor Al Rawabdeh — Goal 1:1,140e19d9
+59,0,home,sub,Paul Wanner,Phillipp Mwene,1,1,59’ 1:1 Paul Wanner for Phillipp Mwene — Substitute,140e19d9
+59,0,home,sub,Carney Chukwuemeka,Xaver Schlager,1,1,59’ 1:1 Carney Chukwuemeka for Xaver Schlager — Substitute,140e19d9
+59,0,home,sub,Kevin Danso,David Alaba,1,1,59’ 1:1 Kevin Danso for David Alaba — Substitute,140e19d9
+72,0,away,sub,Salim Obaid,Mo Abualnadi,1,1,72’ 1:1 Salim Obaid for Mo Abualnadi — Substitute,140e19d9
+76,0,home,own_goal,Yazan Al-Arab,,2,1,76’ 2:1 Yazan Al-Arab Own Goal — Substitute,140e19d9
+77,0,home,yellow,Marcel Sabitzer,,2,1,77’ 2:1 Marcel Sabitzer — Yellow Card,140e19d9
+81,0,away,sub,Saed Al-Rosan,Abdallah Nasib,2,1,81’ 2:1 Saed Al-Rosan for Abdallah Nasib — Substitute,140e19d9
+81,0,away,sub,Mahmoud Al-Mardi,Ihsan Haddad,2,1,81’ 2:1 Mahmoud Al-Mardi for Ihsan Haddad — Substitute,140e19d9
+83,0,home,sub,Patrick Wimmer,Romano Schmid,2,1,83’ 2:1 Patrick Wimmer for Romano Schmid — Substitute,140e19d9
+88,0,away,sub,Mohammad Al-Dawud,Musa Al-Taamari,2,1,88’ 2:1 Mohammad Al-Dawud for Musa Al-Taamari — Substitute,140e19d9
+89,0,away,sub,Ali Azaizeh,Odeh Al-Fakhouri,2,1,89’ 2:1 Ali Azaizeh for Odeh Al-Fakhouri — Substitute,140e19d9
+90,12,home,penalty_goal,Marko Arnautović,,3,1,90+12’ 3:1 Marko Arnautović Penalty Kick — Substitute,140e19d9

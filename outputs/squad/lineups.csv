@@ -1,0 +1,411 @@
+team,formation,shirt_no,player,player_id,role,match_id
+Jordan,4-2-3-1,1.0,Amer Shafi,daba9f12,starter,01412142
+Jordan,4-2-3-1,,Musa Al-Taamari,f15f8b2b,starter,01412142
+Jordan,4-2-3-1,3.0,Tareq Khattab,0c333a06,starter,01412142
+Jordan,4-2-3-1,4.0,Baha' Abdel-Rahman,c248bc9e,starter,01412142
+Jordan,4-2-3-1,7.0,Munther Abu Amarah,628776ef,starter,01412142
+Jordan,4-2-3-1,9.0,Baha' Faisal,cc648ab2,starter,01412142
+Jordan,4-2-3-1,14.0,Rajaei Ayed,b71e02c7,starter,01412142
+Jordan,4-2-3-1,15.0,Yaser Al Rawashdeh,51e3487a,starter,01412142
+Jordan,4-2-3-1,17.0,Ibrahim Al Zawahreh,0ecea007,starter,01412142
+Jordan,4-2-3-1,20.0,Hamza Al-Dardour,e025f7b3,starter,01412142
+Jordan,4-2-3-1,21.0,Mohammad Al Dumeiri,e14dbf7c,starter,01412142
+Jordan,4-2-3-1,12.0,Ahmed Abdel-Sattar,2e95b10e,bench,01412142
+Jordan,4-2-3-1,22.0,Moataz Yaseen,08d2ca80,bench,01412142
+Jordan,4-2-3-1,2.0,Feras Shelbaieh,b32d323c,bench,01412142
+Jordan,4-2-3-1,5.0,Ihsan Haddad,85660a5d,bench,01412142
+Jordan,4-2-3-1,6.0,Saeed Murjan,12848d0c,bench,01412142
+Jordan,4-2-3-1,10.0,Ahmed Samir,29daf0f6,bench,01412142
+Jordan,4-2-3-1,11.0,Tha'er Bawab,5a22fd0f,bench,01412142
+Jordan,4-2-3-1,13.0,Mahmoud Al-Mardi,1eedc1ea,bench,01412142
+Jordan,4-2-3-1,16.0,Yazan Thalji,47dd6dd9,bench,01412142
+Jordan,4-2-3-1,18.0,Ibrahim Daldoum,30db72bc,bench,01412142
+Jordan,4-2-3-1,19.0,Mohannad Khairullah,92301327,bench,01412142
+Jordan,4-2-3-1,23.0,Yousef Al-Rawashdeh,a68ce921,bench,01412142
+Jordan,4-2-3-1,28.0,Amer Abuhudieab,5af78e7e,bench,01412142
+Jordan,4-2-3-1,29.0,Mohammad Zureiqat,7beddf2f,bench,01412142
+Georgia,4-2-2-2,12.0,Omar Migineishvili,e3eac74d,starter,01412142
+Georgia,4-2-2-2,2.0,Ucha Lobjanidze,e5f660e7,starter,01412142
+Georgia,4-2-2-2,4.0,Jemal Tabidze,f2999055,starter,01412142
+Georgia,4-2-2-2,5.0,Davit Khocholava,862fa9fb,starter,01412142
+Georgia,4-2-2-2,8.0,Saba Lobzhanidze,84d6ce13,starter,01412142
+Georgia,4-2-2-2,9.0,Vladimir Dvalishvili,b707c904,starter,01412142
+Georgia,4-2-2-2,11.0,Budu Zivzivadze,e3a72b89,starter,01412142
+Georgia,4-2-2-2,13.0,Otar Kiteishvili,fc9b373e,starter,01412142
+Georgia,4-2-2-2,14.0,Beka Tugushi,40ed19b5,starter,01412142
+Georgia,4-2-2-2,16.0,Lasha Shergelashvili,1d8229af,starter,01412142
+Georgia,4-2-2-2,19.0,Temuri Shonia,b3b1240c,starter,01412142
+Georgia,4-2-2-2,1.0,Roin Kvaskhvadze,0cb888bf,bench,01412142
+Georgia,4-2-2-2,23.0,Oto Goshadze,b64608ea,bench,01412142
+Georgia,4-2-2-2,3.0,Tornike Grigalashvili,29ff4b64,bench,01412142
+Georgia,4-2-2-2,6.0,Oleg Mamasakhlisi,e8453d90,bench,01412142
+Georgia,4-2-2-2,7.0,Giorgi Ganugrava,88e26b3c,bench,01412142
+Georgia,4-2-2-2,10.0,Bachana Arabuli,b7391a19,bench,01412142
+Georgia,4-2-2-2,17.0,Giorgi Kharaishvili,8e62da21,bench,01412142
+Georgia,4-2-2-2,18.0,Giorgi Rekhviashvili,21781e11,bench,01412142
+Georgia,4-2-2-2,20.0,Giorgi Kimadze,5daf6891,bench,01412142
+Georgia,4-2-2-2,21.0,Lasha Parunashvili,7db9c489,bench,01412142
+Georgia,4-2-2-2,22.0,Giorgi Papunashvili,95fa6d08,bench,01412142
+Jordan,4-1-4-1,1.0,Ahmed Abdel-Sattar,2e95b10e,starter,03e0135c
+Jordan,4-1-4-1,5.0,Yazan Al-Arab,32878a09,starter,03e0135c
+Jordan,4-1-4-1,6.0,Ihsan Haddad,85660a5d,starter,03e0135c
+Jordan,4-1-4-1,9.0,Baha' Faisal,cc648ab2,starter,03e0135c
+Jordan,4-1-4-1,10.0,Ahmed Samir,29daf0f6,starter,03e0135c
+Jordan,4-1-4-1,11.0,Yaseen Al Bakheet,cbe3e3d3,starter,03e0135c
+Jordan,4-1-4-1,15.0,Obieda Al Samrieh,3aa3891f,starter,03e0135c
+Jordan,4-1-4-1,18.0,Angelos Chanti,1cd1f37b,starter,03e0135c
+Jordan,4-1-4-1,19.0,Anas Bani Yaseen,0cb21e4a,starter,03e0135c
+Jordan,4-1-4-1,21.0,Mohammad Al Dumeiri,e14dbf7c,starter,03e0135c
+Jordan,4-1-4-1,23.0,Yousef Al-Rawashdeh,a68ce921,starter,03e0135c
+Jordan,4-1-4-1,12.0,Yazeed Abulaila,5d11fc17,bench,03e0135c
+Jordan,4-1-4-1,22.0,Abdullah Al-Zubi,244d0d79,bench,03e0135c
+Jordan,4-1-4-1,2.0,Omar Manasrah,bb0732a1,bench,03e0135c
+Jordan,4-1-4-1,3.0,Tareq Khattab,0c333a06,bench,03e0135c
+Jordan,4-1-4-1,4.0,Jonathan Tamimi,bdd2c16c,bench,03e0135c
+Jordan,4-1-4-1,7.0,Munther Abu Amarah,628776ef,bench,03e0135c
+Jordan,4-1-4-1,8.0,Mussab Al-Laham,1fba0207,bench,03e0135c
+Jordan,4-1-4-1,13.0,Khalil Bani Attiah,fca5d458,bench,03e0135c
+Jordan,4-1-4-1,14.0,Ahmad Al Sughair,b62dc2fa,bench,03e0135c
+Jordan,4-1-4-1,16.0,Yazan Thalji,47dd6dd9,bench,03e0135c
+Jordan,4-1-4-1,17.0,Rajaei Ayed,b71e02c7,bench,03e0135c
+Jordan,4-1-4-1,20.0,Abdullah Al-Attar,be11fc57,bench,03e0135c
+Kuwait,4-2-2-2,23.0,Sulaiman Abdulghafoor,104fd331,starter,03e0135c
+Kuwait,4-2-2-2,2.0,Sami Al Sanea,15ba7a6a,starter,03e0135c
+Kuwait,4-2-2-2,5.0,Fahed Al Hajri,7597083c,starter,03e0135c
+Kuwait,4-2-2-2,6.0,Khaled Al Qahtani,d7485ee8,starter,03e0135c
+Kuwait,4-2-2-2,7.0,Talal Al Fadhel,7dee6ae7,starter,03e0135c
+Kuwait,4-2-2-2,8.0,Faisal Zayid,a782a242,starter,03e0135c
+Kuwait,4-2-2-2,9.0,Faisal Al-Azemi,b775f87a,starter,03e0135c
+Kuwait,4-2-2-2,11.0,Fahad Al Ansari,907d3e49,starter,03e0135c
+Kuwait,4-2-2-2,13.0,Fahad Hammoud,a61f59e1,starter,03e0135c
+Kuwait,4-2-2-2,18.0,Yaqoub Al Tararwa,c1fbfcb1,starter,03e0135c
+Kuwait,4-2-2-2,20.0,Bader Tareq,b0d67969,starter,03e0135c
+Kuwait,4-2-2-2,22.0,Hameed Al-Qallaf,85cbbed6,bench,03e0135c
+Kuwait,4-2-2-2,3.0,Ahmed Al-Dhefiri,a8f84b59,bench,03e0135c
+Kuwait,4-2-2-2,4.0,Redha Hani,87bb0a16,bench,03e0135c
+Kuwait,4-2-2-2,10.0,Naser Al Farag,fc1d5bf6,bench,03e0135c
+Kuwait,4-2-2-2,12.0,Mohammed Khaleel,25e1ba1d,bench,03e0135c
+Kuwait,4-2-2-2,14.0,Dhary Saeed,6716a6d2,bench,03e0135c
+Kuwait,4-2-2-2,15.0,Ali Ateeq,165ca057,bench,03e0135c
+Kuwait,4-2-2-2,16.0,Meshal Fawaz,f74403a5,bench,03e0135c
+Kuwait,4-2-2-2,17.0,Humood Ayed,8530ab53,bench,03e0135c
+Kuwait,4-2-2-2,19.0,Sultan Al Enezi,84ccc9ee,bench,03e0135c
+Kuwait,4-2-2-2,21.0,Shaheen Al Khamees,73688e29,bench,03e0135c
+Jordan,4-2-3-1,1.0,Amer Shafi,daba9f12,starter,054be81e
+Jordan,4-2-3-1,2.0,Hamza Al-Dardour,e025f7b3,starter,054be81e
+Jordan,4-2-3-1,3.0,Ibrahim Al Zawahreh,0ecea007,starter,054be81e
+Jordan,4-2-3-1,4.0,Yaser Al Rawashdeh,51e3487a,starter,054be81e
+Jordan,4-2-3-1,5.0,Mohammad Al Dumeiri,e14dbf7c,starter,054be81e
+Jordan,4-2-3-1,6.0,Tareq Khattab,0c333a06,starter,054be81e
+Jordan,4-2-3-1,7.0,Khalil Bani Attiah,fca5d458,starter,054be81e
+Jordan,4-2-3-1,8.0,Yaseen Al Bakheet,cbe3e3d3,starter,054be81e
+Jordan,4-2-3-1,9.0,Munther Abu Amarah,628776ef,starter,054be81e
+Jordan,4-2-3-1,10.0,Baha' Abdel-Rahman,c248bc9e,starter,054be81e
+Jordan,4-2-3-1,11.0,Odai Al-Saify,caabea12,starter,054be81e
+Jordan,4-2-3-1,12.0,Yazeed Abulaila,5d11fc17,bench,054be81e
+Jordan,4-2-3-1,22.0,Moataz Yaseen,08d2ca80,bench,054be81e
+Jordan,4-2-3-1,13.0,Feras Shelbaieh,b32d323c,bench,054be81e
+Jordan,4-2-3-1,14.0,Zaid Jaber,9b26df73,bench,054be81e
+Jordan,4-2-3-1,15.0,Ahmed Samir,29daf0f6,bench,054be81e
+Jordan,4-2-3-1,16.0,Musa Al-Taamari,f15f8b2b,bench,054be81e
+Jordan,4-2-3-1,17.0,Ibrahim Daldoum,30db72bc,bench,054be81e
+Jordan,4-2-3-1,18.0,Baha' Faisal,cc648ab2,bench,054be81e
+Jordan,4-2-3-1,19.0,Rajaei Ayed,b71e02c7,bench,054be81e
+Jordan,4-2-3-1,20.0,Tha'er Bawab,5a22fd0f,bench,054be81e
+Jordan,4-2-3-1,21.0,Amer Abuhudieab,5af78e7e,bench,054be81e
+Jordan,4-2-3-1,23.0,Mahmoud Al-Mardi,1eedc1ea,bench,054be81e
+Jordan,4-2-3-1,24.0,Abdullah Al-Attar,be11fc57,bench,054be81e
+Hong Kong,4-2-3-1,19.0,Wang Zhenpeng,c838f416,starter,054be81e
+Hong Kong,4-2-3-1,2.0,Jack Sealy,c68aba86,starter,054be81e
+Hong Kong,4-2-3-1,4.0,Jean-Jacques Kilama,166ff3bd,starter,054be81e
+Hong Kong,4-2-3-1,5.0,Hélio,4a9b2a19,starter,054be81e
+Hong Kong,4-2-3-1,8.0,Sandro,93ef9e5a,starter,054be81e
+Hong Kong,4-2-3-1,14.0,Jaimes McKee,275aaf99,starter,054be81e
+Hong Kong,4-2-3-1,15.0,Huang Yang,36601525,starter,054be81e
+Hong Kong,4-2-3-1,16.0,Tan Chun Lok,71e7864f,starter,054be81e
+Hong Kong,4-2-3-1,17.0,Lee Ka Yiu,be5acef7,starter,054be81e
+Hong Kong,4-2-3-1,20.0,Wong Tsz Ho,32e39e56,starter,054be81e
+Hong Kong,4-2-3-1,23.0,Li Ngai Hoi,96eb51fb,starter,054be81e
+Hong Kong,4-2-3-1,7.0,Lo Kong Wai,38a74553,bench,054be81e
+Hong Kong,4-2-3-1,9.0,Wong Wai,c2241405,bench,054be81e
+Hong Kong,4-2-3-1,10.0,Ju Yingzhi,ac845b3f,bench,054be81e
+Hong Kong,4-2-3-1,13.0,Festus Baise,d15d214d,bench,054be81e
+Hong Kong,4-2-3-1,21.0,Roberto,c0162067,bench,054be81e
+Hong Kong,4-2-3-1,22.0,Lee Chi Ho,9d20efc1,bench,054be81e
+Pakistan,4-2-2-2,1.0,Yousuf Butt,e48a266c,starter,0c0a6775
+Pakistan,4-2-2-2,2.0,Umar Rao,a5492da9,starter,0c0a6775
+Pakistan,4-2-2-2,4.0,Abdullah Iqbal,67141182,starter,0c0a6775
+Pakistan,4-2-2-2,5.0,Easah Suliman,9b07031d,starter,0c0a6775
+Pakistan,4-2-2-2,8.0,Rahis Nabi,8c4873d4,starter,0c0a6775
+Pakistan,4-2-2-2,11.0,Curtis Jemmett-Hutson,39520a39,starter,0c0a6775
+Pakistan,4-2-2-2,13.0,Fareed Ullah,badd4ab1,starter,0c0a6775
+Pakistan,4-2-2-2,14.0,Muhammad Sadam,ce09a194,starter,0c0a6775
+Pakistan,4-2-2-2,17.0,Shayak Dost,394371ec,starter,0c0a6775
+Pakistan,4-2-2-2,19.0,Abdul Samad,1c5b8dc5,starter,0c0a6775
+Pakistan,4-2-2-2,21.0,Alamgir Ghazi,494688f8,starter,0c0a6775
+Pakistan,4-2-2-2,20.0,Saqib Hanif,b57520b5,bench,0c0a6775
+Pakistan,4-2-2-2,22.0,Hassan Ali,01258c43,bench,0c0a6775
+Pakistan,4-2-2-2,3.0,Haseeb Khan,4015b8c3,bench,0c0a6775
+Pakistan,4-2-2-2,7.0,Ali Uzair,eb35e1f7,bench,0c0a6775
+Pakistan,4-2-2-2,9.0,Imran Kayani,c10b186b,bench,0c0a6775
+Pakistan,4-2-2-2,10.0,Waleed Khan,8f2182a9,bench,0c0a6775
+Pakistan,4-2-2-2,12.0,Muhammad Sohail,64cff947,bench,0c0a6775
+Pakistan,4-2-2-2,15.0,Mamoon Moosa,3eafc2b2,bench,0c0a6775
+Pakistan,4-2-2-2,16.0,Rajab Ali,67eca1ac,bench,0c0a6775
+Pakistan,4-2-2-2,18.0,Harun Hamid,aab49e14,bench,0c0a6775
+Jordan,3-4-3,1.0,Yazeed Abulaila,5d11fc17,starter,0c0a6775
+Jordan,3-4-3,4.0,Bara' Marei,7a885681,starter,0c0a6775
+Jordan,3-4-3,5.0,Yazan Al-Arab,32878a09,starter,0c0a6775
+Jordan,3-4-3,8.0,Noor Al Rawabdeh,3bb06c86,starter,0c0a6775
+Jordan,3-4-3,9.0,Ali Olwan,33c1d68d,starter,0c0a6775
+Jordan,3-4-3,10.0,Musa Al-Taamari,f15f8b2b,starter,0c0a6775
+Jordan,3-4-3,11.0,Yazan Al-Naimat,1703917d,starter,0c0a6775
+Jordan,3-4-3,13.0,Mahmoud Al-Mardi,1eedc1ea,starter,0c0a6775
+Jordan,3-4-3,17.0,Salem Al-Ajalin,d5ce4f95,starter,0c0a6775
+Jordan,3-4-3,21.0,Nizar Al Rashdan,feaa0ffd,starter,0c0a6775
+Jordan,3-4-3,23.0,Ihsan Haddad,85660a5d,starter,0c0a6775
+Jordan,3-4-3,12.0,Abdallah Al-Fakhouri,a152685a,bench,0c0a6775
+Jordan,3-4-3,22.0,Ahmad Juaidi,df29e7aa,bench,0c0a6775
+Jordan,3-4-3,2.0,Saed Al-Rosan,f3115445,bench,0c0a6775
+Jordan,3-4-3,3.0,Mahmoud Shawkat,d2a16796,bench,0c0a6775
+Jordan,3-4-3,6.0,Sisa,81f13e7b,bench,0c0a6775
+Jordan,3-4-3,7.0,Sharara,67e2aed8,bench,0c0a6775
+Jordan,3-4-3,14.0,Rajaei Ayed,b71e02c7,bench,0c0a6775
+Jordan,3-4-3,15.0,Ibrahim Sadeh,4bdf95b2,bench,0c0a6775
+Jordan,3-4-3,16.0,Feras Shelbaieh,b32d323c,bench,0c0a6775
+Jordan,3-4-3,18.0,Saleh Rateb,71e1eb84,bench,0c0a6775
+Jordan,3-4-3,19.0,Anas Bani Yaseen,0cb21e4a,bench,0c0a6775
+Jordan,3-4-3,20.0,Mohammad Aburiziq,fc3da3ea,bench,0c0a6775
+Kosovo,3-3-2-2,12.0,Arijanet Muric,99aa1a84,starter,1125cf3a
+Kosovo,3-3-2-2,3.0,Fidan Aliti,5c46e908,starter,1125cf3a
+Kosovo,3-3-2-2,4.0,Mirlind Kryeziu,1ac58ba6,starter,1125cf3a
+Kosovo,3-3-2-2,5.0,Herolind Shala,efe260a3,starter,1125cf3a
+Kosovo,3-3-2-2,6.0,Betim Fazliji,a59123ef,starter,1125cf3a
+Kosovo,3-3-2-2,7.0,Milot Rashica,6c6a3300,starter,1125cf3a
+Kosovo,3-3-2-2,8.0,Besar Halimi,1399eb56,starter,1125cf3a
+Kosovo,3-3-2-2,13.0,Amir Rrahmani,4b3e1a38,starter,1125cf3a
+Kosovo,3-3-2-2,14.0,Valon Berisha,d5575935,starter,1125cf3a
+Kosovo,3-3-2-2,15.0,Mërgim Vojvoda,be2706c0,starter,1125cf3a
+Kosovo,3-3-2-2,18.0,Vedat Muriqi,0cadc46d,starter,1125cf3a
+Kosovo,3-3-2-2,1.0,Samir Ujkani,96640846,bench,1125cf3a
+Kosovo,3-3-2-2,16.0,Visar Bekaj,9fd732cc,bench,1125cf3a
+Kosovo,3-3-2-2,2.0,Lirim Kastrati,735f0e61,bench,1125cf3a
+Kosovo,3-3-2-2,11.0,Astrit Seljmani,830a34ec,bench,1125cf3a
+Kosovo,3-3-2-2,17.0,Florian Loshaj,5d52e1dc,bench,1125cf3a
+Kosovo,3-3-2-2,19.0,David Domgjoni,d9dff9f0,bench,1125cf3a
+Kosovo,3-3-2-2,20.0,Toni Domgjoni,ead51916,bench,1125cf3a
+Kosovo,3-3-2-2,21.0,Blendi Idrizi,58450270,bench,1125cf3a
+Kosovo,3-3-2-2,22.0,Edon Zhegrova,34a88e3e,bench,1125cf3a
+Jordan,4-2-2-2,1.0,Yazeed Abulaila,5d11fc17,starter,1125cf3a
+Jordan,4-2-2-2,2.0,Mohammad Abu Hasheesh,72c2fa7a,starter,1125cf3a
+Jordan,4-2-2-2,4.0,Baha' Abdel-Rahman,c248bc9e,starter,1125cf3a
+Jordan,4-2-2-2,9.0,Baha' Faisal,cc648ab2,starter,1125cf3a
+Jordan,4-2-2-2,13.0,Mahmoud Al-Mardi,1eedc1ea,starter,1125cf3a
+Jordan,4-2-2-2,14.0,Ahmad Tha'er,7c02bd32,starter,1125cf3a
+Jordan,4-2-2-2,15.0,Ali Olwan,33c1d68d,starter,1125cf3a
+Jordan,4-2-2-2,18.0,Noor Al Rawabdeh,3bb06c86,starter,1125cf3a
+Jordan,4-2-2-2,19.0,Abdallah Nasib,aaab3072,starter,1125cf3a
+Jordan,4-2-2-2,21.0,Mohammad Al Dumeiri,e14dbf7c,starter,1125cf3a
+Jordan,4-2-2-2,23.0,Ihsan Haddad,85660a5d,starter,1125cf3a
+Jordan,4-2-2-2,12.0,Malek Shalabiya,8e3264e4,bench,1125cf3a
+Jordan,4-2-2-2,22.0,Moataz Yaseen,08d2ca80,bench,1125cf3a
+Jordan,4-2-2-2,3.0,Mohannad Khairullah,92301327,bench,1125cf3a
+Jordan,4-2-2-2,5.0,Ibrahim Sadeh,4bdf95b2,bench,1125cf3a
+Jordan,4-2-2-2,6.0,Hadi Al Hourani,081174cb,bench,1125cf3a
+Jordan,4-2-2-2,7.0,Ahmad Israiwah,44d89876,bench,1125cf3a
+Jordan,4-2-2-2,8.0,Odai Al-Saify,caabea12,bench,1125cf3a
+Jordan,4-2-2-2,10.0,Musa Al-Taamari,f15f8b2b,bench,1125cf3a
+Jordan,4-2-2-2,11.0,Yaseen Al Bakheet,cbe3e3d3,bench,1125cf3a
+Jordan,4-2-2-2,16.0,Yazan Al-Naimat,1703917d,bench,1125cf3a
+Jordan,4-2-2-2,17.0,Rajaei Ayed,b71e02c7,bench,1125cf3a
+Jordan,4-2-2-2,20.0,Hamza Al-Dardour,e025f7b3,bench,1125cf3a
+Uzbekistan,4-2-3-1,21.0,Alexander Lobanov,007e6deb,starter,12012f66
+Uzbekistan,4-2-3-1,2.0,Egor Krimets,714d8393,starter,12012f66
+Uzbekistan,4-2-3-1,5.0,Anzur Ismailov,4907833c,starter,12012f66
+Uzbekistan,4-2-3-1,8.0,Server Djeparov,c6c1cd79,starter,12012f66
+Uzbekistan,4-2-3-1,9.0,Odil Ahmedov,31f0643a,starter,12012f66
+Uzbekistan,4-2-3-1,11.0,Igor Sergeev,8df41977,starter,12012f66
+Uzbekistan,4-2-3-1,13.0,Davron Khashimov,9d5f2c54,starter,12012f66
+Uzbekistan,4-2-3-1,17.0,Vadim Afonin,0a88f0cd,starter,12012f66
+Uzbekistan,4-2-3-1,18.0,Otabek Shukurov,62032a56,starter,12012f66
+Uzbekistan,4-2-3-1,19.0,Vitaliy Denisov,003d7410,starter,12012f66
+Uzbekistan,4-2-3-1,23.0,Eldor Shomurodov,57469b2d,starter,12012f66
+Uzbekistan,4-2-3-1,1.0,Eldorbek Suyunov,2a760d00,bench,12012f66
+Uzbekistan,4-2-3-1,12.0,Ignatiy Nesterov,282fe401,bench,12012f66
+Uzbekistan,4-2-3-1,3.0,Salamat Quttiboyev,d58ab906,bench,12012f66
+Uzbekistan,4-2-3-1,6.0,Jaloliddin Masharipov,e309042b,bench,12012f66
+Uzbekistan,4-2-3-1,7.0,Azizbek Haydarov,6901471b,bench,12012f66
+Uzbekistan,4-2-3-1,10.0,Sardor Rashidov,b7fd7f51,bench,12012f66
+Uzbekistan,4-2-3-1,14.0,Javokhir Sokhibov,ee3014d3,bench,12012f66
+Uzbekistan,4-2-3-1,15.0,Alexander Geynrikh,c362317d,bench,12012f66
+Uzbekistan,4-2-3-1,16.0,Stanislav Andreev,a1852d14,bench,12012f66
+Uzbekistan,4-2-3-1,20.0,Islom Tukhtakhodjaev,07eafd1c,bench,12012f66
+Uzbekistan,4-2-3-1,22.0,Jamshid Iskanderov,3b8abe7c,bench,12012f66
+Jordan,4-2-2-2,22.0,Moataz Yaseen,08d2ca80,starter,12012f66
+Jordan,4-2-2-2,3.0,Tareq Khattab,0c333a06,starter,12012f66
+Jordan,4-2-2-2,4.0,Yaser Al Rawashdeh,51e3487a,starter,12012f66
+Jordan,4-2-2-2,6.0,Saeed Murjan,12848d0c,starter,12012f66
+Jordan,4-2-2-2,7.0,Munther Abu Amarah,628776ef,starter,12012f66
+Jordan,4-2-2-2,10.0,Ahmed Samir,29daf0f6,starter,12012f66
+Jordan,4-2-2-2,13.0,Yaseen Al Bakheet,cbe3e3d3,starter,12012f66
+Jordan,4-2-2-2,15.0,Rajaei Ayed,b71e02c7,starter,12012f66
+Jordan,4-2-2-2,17.0,Ibrahim Al Zawahreh,0ecea007,starter,12012f66
+Jordan,4-2-2-2,21.0,Mohammad Al Dumeiri,e14dbf7c,starter,12012f66
+Jordan,4-2-2-2,23.0,Yousef Al-Rawashdeh,a68ce921,starter,12012f66
+Jordan,4-2-2-2,1.0,Yazeed Abulaila,5d11fc17,bench,12012f66
+Jordan,4-2-2-2,12.0,Abdullah Al-Zubi,244d0d79,bench,12012f66
+Jordan,4-2-2-2,,Musa Al-Taamari,f15f8b2b,bench,12012f66
+Jordan,4-2-2-2,2.0,Baha' Faisal,cc648ab2,bench,12012f66
+Jordan,4-2-2-2,5.0,Mohannad Khairullah,92301327,bench,12012f66
+Jordan,4-2-2-2,9.0,Feras Shelbaieh,b32d323c,bench,12012f66
+Jordan,4-2-2-2,11.0,Mahmoud Al-Mardi,1eedc1ea,bench,12012f66
+Jordan,4-2-2-2,14.0,Abdallah Deeb,f3cd4263,bench,12012f66
+Jordan,4-2-2-2,16.0,Yazan Thalji,47dd6dd9,bench,12012f66
+Jordan,4-2-2-2,18.0,Ahmad Elias,94b703f8,bench,12012f66
+Jordan,4-2-2-2,19.0,Qusai Al Ja'afreh,d7062149,bench,12012f66
+Jordan,4-2-2-2,20.0,Khaled Al-Dardour,5222673a,bench,12012f66
+Tajikistan,4-2-3-1,1.0,Rustam Âtimov,e64cef9d,starter,1250ff01
+Tajikistan,4-2-3-1,2.0,Zoir Juraboev,a7204fcb,starter,1250ff01
+Tajikistan,4-2-3-1,5.0,Manucehr Safarov,d02c4dc9,starter,1250ff01
+Tajikistan,4-2-3-1,6.0,Vahdat Hanonov,56653417,starter,1250ff01
+Tajikistan,4-2-3-1,7.0,Parvizdzhon Umarbayev,b759ff82,starter,1250ff01
+Tajikistan,4-2-3-1,8.0,Amirbek Juraboev,d15bb564,starter,1250ff01
+Tajikistan,4-2-3-1,9.0,Rustam Soirov,5d682b96,starter,1250ff01
+Tajikistan,4-2-3-1,10.0,Alisher Dzhalilov,ed92fab1,starter,1250ff01
+Tajikistan,4-2-3-1,13.0,Amadoni Kamolov,0787a5f1,starter,1250ff01
+Tajikistan,4-2-3-1,17.0,Ehson Panjshanbe,59a80518,starter,1250ff01
+Tajikistan,4-2-3-1,19.0,Ahtam Nazarov,b9007bf6,starter,1250ff01
+Tajikistan,4-2-3-1,16.0,Dalerçon Barotov,e236b325,bench,1250ff01
+Tajikistan,4-2-3-1,23.0,Muhriddin Hasanov,a604fe55,bench,1250ff01
+Tajikistan,4-2-3-1,3.0,Tabrezi Davlatmir,8b33f86c,bench,1250ff01
+Tajikistan,4-2-3-1,4.0,Holmurod Nazarov,c6dd992e,bench,1250ff01
+Tajikistan,4-2-3-1,11.0,Muhammadjoni Hasan,64805b96,bench,1250ff01
+Tajikistan,4-2-3-1,12.0,Sodiķçon Ķurbonov,8a97f1e1,bench,1250ff01
+Tajikistan,4-2-3-1,14.0,Aliçoni Burizod,817cf6c5,bench,1250ff01
+Tajikistan,4-2-3-1,15.0,Şervonī Mabatşoev,d8c34fe7,bench,1250ff01
+Tajikistan,4-2-3-1,18.0,Ruslan Hajloev,44f2292e,bench,1250ff01
+Tajikistan,4-2-3-1,20.0,Nuriddin Hamrokulov,fedc85fd,bench,1250ff01
+Tajikistan,4-2-3-1,21.0,Vajsiddin Safarov,343659d6,bench,1250ff01
+Tajikistan,4-2-3-1,22.0,Şahrom Samiev,8d12b0df,bench,1250ff01
+Jordan,4-1-4-1,1.0,Yazeed Abulaila,5d11fc17,starter,1250ff01
+Jordan,4-1-4-1,2.0,Mohammad Abu Hasheesh,72c2fa7a,starter,1250ff01
+Jordan,4-1-4-1,3.0,Abdallah Nasib,aaab3072,starter,1250ff01
+Jordan,4-1-4-1,8.0,Noor Al Rawabdeh,3bb06c86,starter,1250ff01
+Jordan,4-1-4-1,9.0,Ali Olwan,33c1d68d,starter,1250ff01
+Jordan,4-1-4-1,10.0,Musa Al-Taamari,f15f8b2b,starter,1250ff01
+Jordan,4-1-4-1,11.0,Yazan Al-Naimat,1703917d,starter,1250ff01
+Jordan,4-1-4-1,14.0,Rajaei Ayed,b71e02c7,starter,1250ff01
+Jordan,4-1-4-1,17.0,Salem Al-Ajalin,d5ce4f95,starter,1250ff01
+Jordan,4-1-4-1,19.0,Nizar Al Rashdan,feaa0ffd,starter,1250ff01
+Jordan,4-1-4-1,23.0,Ihsan Haddad,85660a5d,starter,1250ff01
+Jordan,4-1-4-1,12.0,Abdullah Al-Zubi,244d0d79,bench,1250ff01
+Jordan,4-1-4-1,22.0,Ahmad Juaidi,df29e7aa,bench,1250ff01
+Jordan,4-1-4-1,4.0,Bara' Marei,7a885681,bench,1250ff01
+Jordan,4-1-4-1,5.0,Yazan Al-Arab,32878a09,bench,1250ff01
+Jordan,4-1-4-1,6.0,Obieda Al Samrieh,3aa3891f,bench,1250ff01
+Jordan,4-1-4-1,7.0,Anas Al Awadat,8eaf6c90,bench,1250ff01
+Jordan,4-1-4-1,13.0,Mohannad Abu Taha,5c4bac6c,bench,1250ff01
+Jordan,4-1-4-1,15.0,Mahmoud Shawkat,d2a16796,bench,1250ff01
+Jordan,4-1-4-1,16.0,Feras Shelbaieh,b32d323c,bench,1250ff01
+Jordan,4-1-4-1,18.0,Saleh Rateb,71e1eb84,bench,1250ff01
+Jordan,4-1-4-1,20.0,Amin Al Shanaineh,ea47b13d,bench,1250ff01
+Jordan,4-1-4-1,21.0,Mustafa Kamal,39b06f91,bench,1250ff01
+Azerbaijan,4-1-4-1,12.0,Shakhruddin Magomedaliyev,595ccab1,starter,1305d8f5
+Azerbaijan,4-1-4-1,3.0,Elvin Cafarguliyev,235a646b,starter,1305d8f5
+Azerbaijan,4-1-4-1,4.0,Bəhlul Mustafazadə,808035bd,starter,1305d8f5
+Azerbaijan,4-1-4-1,5.0,Anton Krivotsyuk,2e755dfe,starter,1305d8f5
+Azerbaijan,4-1-4-1,7.0,Joshgun Diniyev,5cef5a64,starter,1305d8f5
+Azerbaijan,4-1-4-1,8.0,Emin Mahmudov,1245de2c,starter,1305d8f5
+Azerbaijan,4-1-4-1,10.0,Mahir Emreli,7be09c86,starter,1305d8f5
+Azerbaijan,4-1-4-1,11.0,Ozan Kökcü,c3dcf059,starter,1305d8f5
+Azerbaijan,4-1-4-1,20.0,Aleksei Isayev,d52b2a9f,starter,1305d8f5
+Azerbaijan,4-1-4-1,21.0,Qismət Alıyev,463b8240,starter,1305d8f5
+Azerbaijan,4-1-4-1,22.0,Musa Qurbanlı,9c2e7413,starter,1305d8f5
+Azerbaijan,4-1-4-1,1.0,Salahat Aghayev,c2757bc9,bench,1305d8f5
+Azerbaijan,4-1-4-1,23.0,Yusif İmanov,07473124,bench,1305d8f5
+Azerbaijan,4-1-4-1,2.0,Amin Səydiyev,ab6784eb,bench,1305d8f5
+Azerbaijan,4-1-4-1,6.0,Bekhtiyar Hasanalizade,27c764ad,bench,1305d8f5
+Azerbaijan,4-1-4-1,9.0,Renat Dadaşov,06dc2511,bench,1305d8f5
+Azerbaijan,4-1-4-1,13.0,Emil Səfərov,b72a0aef,bench,1305d8f5
+Azerbaijan,4-1-4-1,14.0,Elvin Bədəlov,90afb49e,bench,1305d8f5
+Azerbaijan,4-1-4-1,15.0,Rahil Məmmədov,ff497879,bench,1305d8f5
+Azerbaijan,4-1-4-1,16.0,Elvin Camalov,55f26947,bench,1305d8f5
+Azerbaijan,4-1-4-1,17.0,Toral Bayramov,a74ea18d,bench,1305d8f5
+Azerbaijan,4-1-4-1,18.0,Rüstəm Əhmədzadə,267d5ab0,bench,1305d8f5
+Azerbaijan,4-1-4-1,19.0,Filip Ozobić,a8f41212,bench,1305d8f5
+Azerbaijan,4-1-4-1,24.0,Yusif Nəbiyev,cd096a1c,bench,1305d8f5
+Jordan,4-2-3-1,1.0,Yazeed Abulaila,5d11fc17,starter,1305d8f5
+Jordan,4-2-3-1,3.0,Abdallah Nasib,aaab3072,starter,1305d8f5
+Jordan,4-2-3-1,5.0,Yazan Al-Arab,32878a09,starter,1305d8f5
+Jordan,4-2-3-1,7.0,Anas Al Awadat,8eaf6c90,starter,1305d8f5
+Jordan,4-2-3-1,9.0,Ali Olwan,33c1d68d,starter,1305d8f5
+Jordan,4-2-3-1,13.0,Mahmoud Al-Mardi,1eedc1ea,starter,1305d8f5
+Jordan,4-2-3-1,14.0,Nizar Al Rashdan,feaa0ffd,starter,1305d8f5
+Jordan,4-2-3-1,17.0,Rajaei Ayed,b71e02c7,starter,1305d8f5
+Jordan,4-2-3-1,20.0,Hamza Al-Dardour,e025f7b3,starter,1305d8f5
+Jordan,4-2-3-1,21.0,Mustafa Kamal,39b06f91,starter,1305d8f5
+Jordan,4-2-3-1,23.0,Ihsan Haddad,85660a5d,starter,1305d8f5
+Jordan,4-2-3-1,12.0,Abdullah Al-Zubi,244d0d79,bench,1305d8f5
+Jordan,4-2-3-1,22.0,Mohammad Al Amwasi,80b635fd,bench,1305d8f5
+Jordan,4-2-3-1,2.0,Mohammad Abu Hasheesh,72c2fa7a,bench,1305d8f5
+Jordan,4-2-3-1,4.0,Mohannad Khairullah,92301327,bench,1305d8f5
+Jordan,4-2-3-1,6.0,Obieda Al Samrieh,3aa3891f,bench,1305d8f5
+Jordan,4-2-3-1,8.0,Noor Al Rawabdeh,3bb06c86,bench,1305d8f5
+Jordan,4-2-3-1,10.0,Musa Al-Taamari,f15f8b2b,bench,1305d8f5
+Jordan,4-2-3-1,11.0,Yazan Al-Naimat,1703917d,bench,1305d8f5
+Jordan,4-2-3-1,15.0,Mahmoud Shawkat,d2a16796,bench,1305d8f5
+Jordan,4-2-3-1,16.0,Feras Shelbaieh,b32d323c,bench,1305d8f5
+Jordan,4-2-3-1,18.0,Saleh Rateb,71e1eb84,bench,1305d8f5
+Jordan,4-2-3-1,19.0,Yousef Abu Al Jazar,6655ec55,bench,1305d8f5
+Austria,4-2-3-1,1.0,Alexander Schlager,6fe5c35b,starter,140e19d9
+Austria,4-2-3-1,4.0,Xaver Schlager,8f056768,starter,140e19d9
+Austria,4-2-3-1,5.0,Stefan Posch,7f609bfc,starter,140e19d9
+Austria,4-2-3-1,6.0,Nicolas Seiwald,28c6e925,starter,140e19d9
+Austria,4-2-3-1,8.0,David Alaba,05439de2,starter,140e19d9
+Austria,4-2-3-1,9.0,Marcel Sabitzer,e280527c,starter,140e19d9
+Austria,4-2-3-1,14.0,Saša Kalajdžić,15f24fe7,starter,140e19d9
+Austria,4-2-3-1,15.0,Philipp Lienhart,302527b2,starter,140e19d9
+Austria,4-2-3-1,16.0,Phillipp Mwene,2ff76adc,starter,140e19d9
+Austria,4-2-3-1,18.0,Romano Schmid,220ace7e,starter,140e19d9
+Austria,4-2-3-1,20.0,Konrad Laimer,c1b7847c,starter,140e19d9
+Austria,4-2-3-1,12.0,Florian Wiegele,67db5f7f,bench,140e19d9
+Austria,4-2-3-1,13.0,Patrick Pentz,0810b6df,bench,140e19d9
+Austria,4-2-3-1,2.0,David Affengruber,4b00cd47,bench,140e19d9
+Austria,4-2-3-1,3.0,Kevin Danso,6e33125f,bench,140e19d9
+Austria,4-2-3-1,7.0,Marko Arnautović,00459419,bench,140e19d9
+Austria,4-2-3-1,10.0,Florian Grillitsch,ffbbc83b,bench,140e19d9
+Austria,4-2-3-1,11.0,Michael Gregoritsch,8e235926,bench,140e19d9
+Austria,4-2-3-1,17.0,Carney Chukwuemeka,b2f9c73e,bench,140e19d9
+Austria,4-2-3-1,19.0,Dejan Ljubičić,c455a2b2,bench,140e19d9
+Austria,4-2-3-1,21.0,Patrick Wimmer,cb11b429,bench,140e19d9
+Austria,4-2-3-1,22.0,Alexander Prass,6637e6a7,bench,140e19d9
+Austria,4-2-3-1,23.0,Marco Friedl,f86ad3f5,bench,140e19d9
+Austria,4-2-3-1,24.0,Paul Wanner,cb64672e,bench,140e19d9
+Austria,4-2-3-1,25.0,Michael Svoboda,8abd174d,bench,140e19d9
+Austria,4-2-3-1,26.0,Alessandro Schöpf,106bca06,bench,140e19d9
+Jordan,5-4-1,1.0,Yazeed Abulaila,5d11fc17,starter,140e19d9
+Jordan,5-4-1,3.0,Abdallah Nasib,aaab3072,starter,140e19d9
+Jordan,5-4-1,5.0,Yazan Al-Arab,32878a09,starter,140e19d9
+Jordan,5-4-1,8.0,Noor Al Rawabdeh,3bb06c86,starter,140e19d9
+Jordan,5-4-1,9.0,Ali Olwan,33c1d68d,starter,140e19d9
+Jordan,5-4-1,10.0,Musa Al-Taamari,f15f8b2b,starter,140e19d9
+Jordan,5-4-1,11.0,Odeh Al-Fakhouri,30591ae5,starter,140e19d9
+Jordan,5-4-1,16.0,Mo Abualnadi,4bff62e4,starter,140e19d9
+Jordan,5-4-1,20.0,Mohannad Abu Taha,5c4bac6c,starter,140e19d9
+Jordan,5-4-1,21.0,Nizar Al Rashdan,feaa0ffd,starter,140e19d9
+Jordan,5-4-1,23.0,Ihsan Haddad,85660a5d,starter,140e19d9
+Jordan,5-4-1,12.0,Nour Bani Attiah,b06f02f9,bench,140e19d9
+Jordan,5-4-1,22.0,Abdallah Al-Fakhouri,a152685a,bench,140e19d9
+Jordan,5-4-1,2.0,Mohammad Abu Hasheesh,72c2fa7a,bench,140e19d9
+Jordan,5-4-1,4.0,Husam Abu Dahab,300aaeb6,bench,140e19d9
+Jordan,5-4-1,6.0,Amer Jamous,32d4f1e1,bench,140e19d9
+Jordan,5-4-1,7.0,Sharara,67e2aed8,bench,140e19d9
+Jordan,5-4-1,13.0,Mahmoud Al-Mardi,1eedc1ea,bench,140e19d9
+Jordan,5-4-1,14.0,Rajaei Ayed,b71e02c7,bench,140e19d9
+Jordan,5-4-1,15.0,Ibrahim Sadeh,4bdf95b2,bench,140e19d9
+Jordan,5-4-1,17.0,Salim Obaid,f494bf5f,bench,140e19d9
+Jordan,5-4-1,18.0,Mohammad Taha,4f1daaf3,bench,140e19d9
+Jordan,5-4-1,19.0,Saed Al-Rosan,f3115445,bench,140e19d9
+Jordan,5-4-1,24.0,Ali Azaizeh,3a46ac67,bench,140e19d9
+Jordan,5-4-1,25.0,Mohammad Al-Dawud,e645c3fc,bench,140e19d9
+Jordan,5-4-1,26.0,Anas Badawi,3f4b7442,bench,140e19d9

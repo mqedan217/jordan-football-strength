@@ -52,12 +52,17 @@ def _load():
 
 
 def per_match(matches, lineups, apps):
+    """Per-match measures, keyed on appearances rather than lineup tables.
+
+    Lineup tables only exist on match reports from roughly 2017 onward. Keying
+    on them would silently drop 2012-2016 -- the baseline the whole comparison
+    runs from. `fbref_parse` derives starter/sub from the appearance list minus
+    whoever the event feed says came on, which holds in every era.
+    """
     dates = matches.set_index("match_id").date.to_dict()
     comp = matches.set_index("match_id").Comp.to_dict() if "Comp" in matches else {}
-
-    mine = lineups[lineups.team == TEAM].copy()
-    mine["date"] = mine.match_id.map(dates)
-    mine = mine[mine.date.notna()].sort_values("date")
+    formation = ({} if "Formation" not in matches
+                 else matches.set_index("match_id").Formation.to_dict())
 
     ap = apps[apps.squad_id == SQUAD_ID].copy()
     ap["date"] = ap.match_id.map(dates)
@@ -66,9 +71,9 @@ def per_match(matches, lineups, apps):
     ap["age"] = (pd.to_numeric(ap.get("age_years"), errors="coerce")
                  + pd.to_numeric(ap.get("age_days"), errors="coerce") / 365.25)
 
-    order = mine[["match_id", "date"]].drop_duplicates().sort_values("date")
+    order = ap[["match_id", "date"]].drop_duplicates().sort_values("date")
     xi = {m: set(g.loc[g.role == "starter", "player_id"].dropna())
-          for m, g in mine.groupby("match_id")}
+          for m, g in ap.groupby("match_id")}
 
     seen = set()
     rows, history = [], []
@@ -93,6 +98,7 @@ def per_match(matches, lineups, apps):
 
         rows.append({
             "match_id": mid, "date": date, "comp": comp.get(mid),
+            "formation": formation.get(mid),
             "n_starters": len(today), "turnover": turnover,
             "core_continuity": continuity, "n_debuts": debuts,
             "age_mean": ages.mean() if len(ages) else np.nan,

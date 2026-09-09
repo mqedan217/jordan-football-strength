@@ -64,6 +64,13 @@ def read(table):
 PLAYER_HREF = re.compile(r"^/en/players/([0-9a-f]{8})/")
 
 
+def clean(s):
+    """FBref pads names with non-breaking spaces; they break every join."""
+    if not isinstance(s, str):
+        return s
+    return re.sub(r"\s+", " ", s.replace("\xa0", " ")).strip()
+
+
 def player_id(tr):
     """FBref's stable player id from a row, or None.
 
@@ -154,10 +161,11 @@ def _lineups(tables):
                 continue
             if FORMATION_RE.match(" ".join(cells).strip()):
                 continue
-            if len(cells) >= 2 and cells[0].isdigit():
-                rows.append({"team": team, "formation": formation,
-                             "shirt_no": int(cells[0]), "player": cells[1],
-                             "player_id": player_id(tr),
+            pid = player_id(tr)
+            if len(cells) >= 2 and pid:
+                rows.append({"team": clean(team), "formation": formation,
+                             "shirt_no": int(cells[0]) if cells[0].isdigit() else None,
+                             "player": clean(cells[1]), "player_id": pid,
                              "role": "bench" if on_bench else "starter"})
     return pd.DataFrame(rows)
 
@@ -239,7 +247,7 @@ def parse_match(path):
     mid = re.search(r"match_([0-9a-f]{8})", path.name).group(1)
     soup, tables = all_tables(html)
 
-    meta = {"match_id": mid, **_scorebox(soup)}
+    meta = {"match_id": mid, **{k: clean(v) for k, v in _scorebox(soup).items()}}
 
     apps = []
     for t in tables:
@@ -281,6 +289,28 @@ def parse_match(path):
     events = _events(soup)
     if len(events):
         events["match_id"] = mid
+
+    # Starter/substitute, derived rather than read off the lineup tables.
+    # Match reports before ~2017 carry no lineup tables at all, so keying
+    # features on those would silently drop the entire baseline period. The
+    # appearance list contains only players who actually played, and the event
+    # feed names everyone who came on, so the difference is the starting XI.
+    # Names are safe to match here because both come from the same page.
+    if len(appearances):
+        came_on = set()
+        if len(events):
+            came_on = {clean(p) for p in
+                       events.loc[events.type == "sub", "player"].dropna()}
+        appearances["Player"] = appearances["Player"].map(clean)
+        appearances["role"] = np.where(
+            appearances["Player"].isin(came_on), "sub", "starter")
+        appearances["role_source"] = "events" if came_on else "assumed_all_start"
+
+    for frame, cols in ((appearances, ["Player"]), (keeper, ["Player"]),
+                        (events, ["player", "player_2"])):
+        for c in cols:
+            if len(frame) and c in frame.columns:
+                frame[c] = frame[c].map(clean)
 
     return meta, appearances, keeper, lineups, events
 
