@@ -1,22 +1,22 @@
 season,column,n_matches,frac_matches_all_zero,verdict
-2014,Min,25,0.16,ok
-2014,Performance Ast,25,0.92,suspect
-2014,Performance CrdR,25,0.96,suspect
-2014,Performance CrdY,25,0.2,ok
-2014,Performance Crs,25,1.0,not_collected
-2014,Performance Fld,25,1.0,not_collected
-2014,Performance Fls,25,1.0,not_collected
-2014,Performance Gls,25,0.16,ok
-2014,Performance Int,25,1.0,not_collected
-2014,Performance OG,25,1.0,not_collected
-2014,Performance Off,25,1.0,not_collected
-2014,Performance PK,25,0.88,ok
-2014,Performance PKatt,25,0.88,ok
-2014,Performance PKcon,25,1.0,not_collected
-2014,Performance PKwon,25,1.0,not_collected
-2014,Performance Sh,25,1.0,not_collected
-2014,Performance SoT,25,1.0,not_collected
-2014,Performance TklW,25,1.0,not_collected
+2014,Min,26,0.154,ok
+2014,Performance Ast,26,0.885,ok
+2014,Performance CrdR,26,0.962,suspect
+2014,Performance CrdY,26,0.192,ok
+2014,Performance Crs,26,1.0,not_collected
+2014,Performance Fld,26,1.0,not_collected
+2014,Performance Fls,26,1.0,not_collected
+2014,Performance Gls,26,0.154,ok
+2014,Performance Int,26,1.0,not_collected
+2014,Performance OG,26,1.0,not_collected
+2014,Performance Off,26,1.0,not_collected
+2014,Performance PK,26,0.846,ok
+2014,Performance PKatt,26,0.846,ok
+2014,Performance PKcon,26,1.0,not_collected
+2014,Performance PKwon,26,1.0,not_collected
+2014,Performance Sh,26,1.0,not_collected
+2014,Performance SoT,26,1.0,not_collected
+2014,Performance TklW,26,1.0,not_collected
 2015,Min,17,0.0,ok
 2015,Performance Ast,17,0.706,ok
 2015,Performance CrdR,17,0.824,ok

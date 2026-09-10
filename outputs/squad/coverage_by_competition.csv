@@ -35,32 +35,32 @@ Asian Cup qual.,Performance PKwon,15,1.0,not_collected
 Asian Cup qual.,Performance Sh,15,1.0,not_collected
 Asian Cup qual.,Performance SoT,15,1.0,not_collected
 Asian Cup qual.,Performance TklW,15,1.0,not_collected
-Friendlies (M),Min,82,0.085,ok
-Friendlies (M),Performance Ast,82,0.5,ok
-Friendlies (M),Performance CrdR,82,0.915,suspect
-Friendlies (M),Performance CrdY,82,0.256,ok
-Friendlies (M),Performance Crs,82,1.0,not_collected
-Friendlies (M),Performance Fld,82,1.0,not_collected
-Friendlies (M),Performance Fls,82,1.0,not_collected
-Friendlies (M),Performance Gls,82,0.244,ok
-Friendlies (M),Performance Int,82,1.0,not_collected
-Friendlies (M),Performance OG,82,0.927,suspect
-Friendlies (M),Performance Off,82,1.0,not_collected
-Friendlies (M),Performance PK,82,0.829,ok
-Friendlies (M),Performance PKatt,82,0.78,ok
-Friendlies (M),Performance PKcon,82,1.0,not_collected
-Friendlies (M),Performance PKwon,82,1.0,not_collected
-Friendlies (M),Performance Sh,82,1.0,not_collected
-Friendlies (M),Performance SoT,82,1.0,not_collected
-Friendlies (M),Performance TklW,82,1.0,not_collected
-WCQ,Min,50,0.02,ok
+Friendlies (M),Min,83,0.096,ok
+Friendlies (M),Performance Ast,83,0.494,ok
+Friendlies (M),Performance CrdR,83,0.916,suspect
+Friendlies (M),Performance CrdY,83,0.265,ok
+Friendlies (M),Performance Crs,83,1.0,not_collected
+Friendlies (M),Performance Fld,83,1.0,not_collected
+Friendlies (M),Performance Fls,83,1.0,not_collected
+Friendlies (M),Performance Gls,83,0.253,ok
+Friendlies (M),Performance Int,83,1.0,not_collected
+Friendlies (M),Performance OG,83,0.928,suspect
+Friendlies (M),Performance Off,83,1.0,not_collected
+Friendlies (M),Performance PK,83,0.819,ok
+Friendlies (M),Performance PKatt,83,0.771,ok
+Friendlies (M),Performance PKcon,83,1.0,not_collected
+Friendlies (M),Performance PKwon,83,1.0,not_collected
+Friendlies (M),Performance Sh,83,1.0,not_collected
+Friendlies (M),Performance SoT,83,1.0,not_collected
+Friendlies (M),Performance TklW,83,1.0,not_collected
+WCQ,Min,50,0.0,ok
 WCQ,Performance Ast,50,0.58,ok
 WCQ,Performance CrdR,50,0.94,suspect
-WCQ,Performance CrdY,50,0.06,ok
+WCQ,Performance CrdY,50,0.04,ok
 WCQ,Performance Crs,50,0.8,ok
 WCQ,Performance Fld,50,0.8,ok
 WCQ,Performance Fls,50,0.8,ok
-WCQ,Performance Gls,50,0.1,ok
+WCQ,Performance Gls,50,0.08,ok
 WCQ,Performance Int,50,0.8,ok
 WCQ,Performance OG,50,1.0,not_collected
 WCQ,Performance Off,50,0.8,ok

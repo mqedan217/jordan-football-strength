@@ -91,24 +91,54 @@ def body_rows(table):
 
 
 # --------------------------------------------------------------- season pages
+# The fixtures table's own column names, so rows are built from their cells
+# rather than from a positional pairing of two independently-built lists.
+STAT_COLS = {
+    "date": "Date", "start_time": "Time", "comp": "Comp", "round": "Round",
+    "dayofweek": "Day", "venue": "Venue", "result": "Result",
+    "goals_for": "GF", "goals_against": "GA", "opponent": "Opponent",
+    "possession": "Poss", "attendance": "Attendance", "captain": "Captain",
+    "formation": "Formation", "opp_formation": "Opp Formation",
+    "referee": "Referee", "notes": "Notes",
+}
+
+
 def parse_season(path):
-    """Fixtures table from one season page, plus its match ids."""
+    """Fixtures table from one season page, each row carrying its own match id.
+
+    Built cell by cell from `data-stat` attributes rather than by zipping
+    read_html output against a separately collected list of links. Those two
+    sequences are NOT guaranteed to align: FBref emits fixture rows with an
+    empty date cell, read_html keeps them, and any filter on Date then drops a
+    row from one sequence but not the other -- which silently shifts every
+    subsequent match id by one and attaches each match report to the wrong
+    fixture. That is a real defect this parser shipped with, caught by checking
+    fixture dates against the dates in the match-report URLs.
+    """
     html = path.read_text(encoding="utf-8", errors="replace")
     season = int(re.search(r"season_(\d{4})", path.name).group(1))
     _, tables = all_tables(html)
     for t in tables:
         if not str(t.get("id", "")).startswith("matchlogs"):
             continue
-        df = read(t)
-        ids = []
-        for tr in t.find_all("tr"):
-            a = tr.find("a", href=re.compile(r"^/en/matches/[0-9a-f]{8}/"))
-            if tr.find(["td", "th"]) and tr.find("td"):
-                ids.append(a["href"].split("/")[3] if a else None)
-        df = df[df.Date.notna() & (df.Date != "Date")].copy()
-        df["match_id"] = (ids + [None] * len(df))[:len(df)]
-        df["season_label"] = season
-        return df
+        tb = t.find("tbody")
+        if tb is None:
+            continue
+        rows = []
+        for tr in tb.find_all("tr", recursive=False):
+            if "thead" in (tr.get("class") or []):
+                continue
+            row = {}
+            for cell in tr.find_all(["th", "td"]):
+                stat = cell.get("data-stat")
+                if stat in STAT_COLS:
+                    row[STAT_COLS[stat]] = clean(cell.get_text(" ", strip=True)) or None
+            link = tr.find("a", href=re.compile(r"^/en/matches/[0-9a-f]{8}/"))
+            row["match_id"] = link["href"].split("/")[3] if link else None
+            row["season_label"] = season
+            if row.get("Date") or row["match_id"]:
+                rows.append(row)
+        return pd.DataFrame(rows)
     return pd.DataFrame()
 
 
