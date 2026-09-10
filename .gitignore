@@ -13,3 +13,6 @@ cache/
 downloaded_files/
 **/downloaded_files/
 *.lock
+
+# notebook checkpoints
+.ipynb_checkpoints/

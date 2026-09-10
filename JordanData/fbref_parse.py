@@ -395,10 +395,20 @@ def spine_join(fixtures, appearances):
         on="date", direction="nearest", tolerance=pd.Timedelta(days=1))
     out["has_fbref"] = out.match_id.notna()
     out["has_xi"] = out.n_starters.eq(11)
-    out["reason"] = np.where(
-        out.has_xi, "",
-        np.where(out.has_fbref, "fbref report has no lineup",
-                 "competition not tracked by fbref"))
+    # Three distinct failures, not two. FBref tracks Friendlies, WCQ, both Asian
+    # Cup competitions and the World Cup for Jordan; a missing friendly is a hole
+    # in a covered competition, which is a different problem from Arab Cup being
+    # absent wholesale. Collapsing them hides that ten friendlies are simply
+    # missing from FBref's fixture list.
+    tracked = out.tournament.isin([
+        "Friendly", "FIFA World Cup qualification", "FIFA World Cup",
+        "AFC Asian Cup", "AFC Asian Cup qualification"])
+    out["reason"] = np.select(
+        [out.has_xi,
+         out.has_fbref,
+         ~out.has_fbref & tracked],
+        ["", "fbref report has no lineup", "match absent from fbref"],
+        default="competition not tracked by fbref")
 
     fbref_only = fx[~fx.match_id.isin(out.match_id.dropna())][
         ["date", "Comp", "Opponent", "GF", "GA", "match_id"]].sort_values("date")

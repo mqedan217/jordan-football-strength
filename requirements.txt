@@ -3,5 +3,10 @@ numpy==2.5.3
 pandas==3.0.5
 scipy==1.18.1
 
-# Part 2 — squad layer (FBref). Not yet used; install when the scraper lands.
-# soccerdata==1.8.7
+# Part 2 — squad layer. Drives a headless browser; FBref blocks plain clients.
+soccerdata==1.9.1
+
+# Part 3 — notebooks and figures.
+jupyterlab==4.6.3
+ipykernel==7.3.0
+matplotlib==3.11.1

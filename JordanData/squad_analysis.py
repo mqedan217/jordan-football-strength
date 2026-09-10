@@ -64,11 +64,19 @@ def prepost(feat, split=SPLIT, n_boot=4000, seed=SEED):
             draws[i] = a.mean() - b_.mean() if len(a) and len(b_) else np.nan
         ok = draws[~np.isnan(draws)]
         lo, hi = np.percentile(ok, [2.5, 97.5])
+        # Standardised by the pre-period spread. These measures are in
+        # incommensurable units -- years, an HHI, a 0-1 share -- so a raw
+        # difference cannot be compared across rows or plotted on one axis
+        # without the largest unit swamping the rest.
+        sd_pre = sub.loc[~sub.post, col].std(ddof=1)
+        scale = sd_pre if sd_pre and np.isfinite(sd_pre) else np.nan
         rows.append({
             "feature": col,
             "pre": sub.loc[~sub.post, col].mean(),
             "post": sub.loc[sub.post, col].mean(),
             "diff": obs, "lo": lo, "hi": hi,
+            "sd_pre": sd_pre,
+            "diff_sd": obs / scale, "lo_sd": lo / scale, "hi_sd": hi / scale,
             "crosses_zero": bool(lo * hi <= 0),
             "n_pre": int((~sub.post).sum()), "n_post": int(sub.post.sum()),
         })
