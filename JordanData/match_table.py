@@ -27,6 +27,7 @@ and `expected_ga` are what the model would have predicted on the morning of the
 game, which is what makes "goals above expectation" meaningful.
 """
 
+import json
 import re
 from pathlib import Path
 
@@ -60,6 +61,30 @@ def coarse_position(p):
         if part in COARSE:
             return COARSE[part]
     return None
+
+
+def _as_json(group):
+    """A squad list as a JSON array of player objects.
+
+    Carries the player id as well as the name, so the field can be joined back
+    to appearances without re-deriving identity from a name -- names are not a
+    safe key here. `appearances_combined.csv` remains authoritative; this is a
+    self-contained copy for reading a match without a join.
+    """
+    out = []
+    for _, r in group.iterrows():
+        entry = {"id": r.get("player_id"), "name": r.get("Player"),
+                 "pos": r.get("grp"), "min": r.get("minutes")}
+        no = r.get("#")
+        if pd.notna(no):
+            entry["no"] = int(no)
+        if pd.notna(r.get("age")):
+            entry["age"] = round(float(r["age"]), 1)
+        out.append({k: (None if pd.isna(v) else
+                        (int(v) if isinstance(v, float) and k == "min" and
+                         float(v).is_integer() else v))
+                    for k, v in entry.items()})
+    return json.dumps(out, ensure_ascii=False)
 
 
 def _pick(name):
@@ -132,9 +157,8 @@ def build_match_table():
         "age_mean": g.age.mean(),
         "age_sd": g.age.std(ddof=1),
         "n_subs_used": subs.groupby("match_id").size(),
-        "starting_xi": g.Player.apply(lambda s: ", ".join(s.dropna().astype(str))),
-        "subs_used": subs.groupby("match_id").Player.apply(
-            lambda s: ", ".join(s.dropna().astype(str))),
+        "starting_xi": g.apply(_as_json, include_groups=False),
+        "subs_used": subs.groupby("match_id").apply(_as_json, include_groups=False),
         "captain_played": g.apply(
             lambda d: ", ".join(d.loc[d.get("is_captain", False) == True, "Player"])
             if "is_captain" in d else "", include_groups=False),
