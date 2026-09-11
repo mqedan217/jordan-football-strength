@@ -35,8 +35,23 @@ os.environ.setdefault("SOCCERDATA_DIR", str(CACHE))
 import pandas as pd  # noqa: E402
 from bs4 import BeautifulSoup, Comment  # noqa: E402
 
-SQUAD = "3e22f0fa"
 BASE = "https://fbref.com"
+
+# FBref squad ids. Jordan is the subject; the rest are the placebo comparison
+# CLAUDE.md requires -- if every comparable AFC side shows the same pattern over
+# the same years, there is no Jordan effect to explain. Ids for Iraq, Syria,
+# Oman, Bahrain and Palestine were recovered from Jordan's own cached match
+# reports at zero request cost; each maps to exactly one opponent name.
+SQUADS = {
+    "Jordan": "3e22f0fa",
+    "Iraq": "ec843efd",
+    "Syria": "fd89d6e1",
+    "Oman": "bc41b1df",
+    "Bahrain": "393a75f3",
+    "Palestine": "50a8540d",
+    "United Arab Emirates": "78cdba77",
+}
+SQUAD = SQUADS["Jordan"]
 DELAY = (12.0, 25.0)        # seconds between requests
 REST_EVERY = 20             # pages
 REST_FOR = (60.0, 100.0)    # seconds
@@ -161,51 +176,82 @@ def match_links(season_html):
     return sorted(set(out))
 
 
-def main():
-    RAW.mkdir(parents=True, exist_ok=True)
-    counter = {"n": 0}
+def team_dir(team):
+    """Jordan keeps the original flat filenames; other teams get a subdirectory."""
+    return RAW if team == "Jordan" else RAW / team.lower().replace(" ", "_")
 
-    hist = fetch(f"{BASE}/en/squads/{SQUAD}/history/", RAW / "jordan_history.html",
-                 counter)
+
+def index_path(team):
+    slug = team.lower().replace(" ", "_")
+    return CACHE / ("match_index.csv" if team == "Jordan"
+                    else f"match_index_{slug}.csv")
+
+
+def plan(team, counter=None):
+    """Fetch only the index pages and report what a full run would cost.
+
+    Phase 1 is a dozen pages; phase 2 is well over a hundred. Knowing the real
+    phase-2 count before committing to it is worth the small phase-1 cost, and
+    every page fetched here is one the full run then skips.
+    """
+    squad = SQUADS[team]
+    out = team_dir(team)
+    out.mkdir(parents=True, exist_ok=True)
+    counter = {"n": 0} if counter is None else counter
+
+    hist = fetch(f"{BASE}/en/squads/{squad}/history/", out / "history.html", counter)
     seasons = seasons_from_history(hist)
-    print(f"seasons to fetch ({len(seasons)}): {seasons}\n")
+    print(f"{team}: {len(seasons)} seasons {seasons}", flush=True)
 
-    print("=== phase 1: season pages ===", flush=True)
     links = {}
     for yr in seasons:
-        dest = RAW / f"season_{yr}.html"
-        html = fetch(f"{BASE}/en/squads/{SQUAD}/{yr}/Jordan-Men-Stats", dest, counter)
+        html = fetch(f"{BASE}/en/squads/{squad}/{yr}/", out / f"season_{yr}.html",
+                     counter)
         links[yr] = match_links(html)
-        print(f"  season {yr}: {len(links[yr])} matches", flush=True)
 
     every = sorted({h for v in links.values() for h in v})
-    print(f"\n{len(every)} distinct match reports "
-          f"({sum(len(v) for v in links.values())} rows across seasons)")
-
     have = sum(1 for h in every
-               if is_complete(RAW / f"match_{h.split('/')[3]}.html"))
-    print(f"{have} already cached, {len(every) - have} to fetch\n")
+               if is_complete(out / f"match_{h.split('/')[3]}.html"))
+    print(f"{team}: {len(every)} match reports, {have} cached, "
+          f"{len(every) - have} to fetch", flush=True)
+    return links, every
 
-    print("=== phase 2: match reports ===", flush=True)
+
+def run(team, counter=None):
+    counter = {"n": 0} if counter is None else counter
+    out = team_dir(team)
+    links, every = plan(team, counter)
+
+    print(f"=== {team}: match reports ===", flush=True)
     for i, href in enumerate(every, 1):
         mid = href.split("/")[3]
-        dest = RAW / f"match_{mid}.html"
+        dest = out / f"match_{mid}.html"
         if is_complete(dest):
             continue
-        print(f"[{i}/{len(every)}] {mid}", flush=True)
+        print(f"[{team} {i}/{len(every)}] {mid}", flush=True)
         fetch(BASE + href, dest, counter)
 
     pd.DataFrame(
         [{"season": yr, "href": h, "match_id": h.split("/")[3]}
          for yr, v in links.items() for h in v]
-    ).to_csv(CACHE / "match_index.csv", index=False)
-    print(f"\ndone. {counter['n']} pages fetched this run. "
-          f"index -> cache/match_index.csv")
+    ).to_csv(index_path(team), index=False)
+    return every
 
 
 if __name__ == "__main__":
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    only_plan = "--plan" in sys.argv
+    teams = args or ["Jordan"]
+    unknown = [t for t in teams if t not in SQUADS]
+    if unknown:
+        sys.exit(f"unknown team(s) {unknown}; known: {sorted(SQUADS)}")
+
+    counter = {"n": 0}
     try:
-        main()
+        for t in teams:
+            (plan if only_plan else run)(t, counter)
+        print()
+        print(f"done. {counter['n']} pages fetched this run.")
     except RuntimeError as e:
-        print(f"\nSTOPPED: {e}", file=sys.stderr)
+        print(f"STOPPED: {e}", file=sys.stderr)
         sys.exit(1)
