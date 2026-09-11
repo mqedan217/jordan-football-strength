@@ -2,7 +2,7 @@ wiki_name,fbref_name,player_id,status,suggested_fbref_name,similarity,confirmed
 Abdallah Nasib,Abdallah Nasib,aaab3072,exact,,,
 Adham Al-Quraishi,Adham Al Quraishi,f3e3d9ee,exact,,,
 Ahmad Ersan,Ahmad Ersan,93295f12,exact,,,
-Ahmad Sariweh,,,UNRESOLVED,Ahmad Israiwah,0.815,
+Ahmad Sariweh,,,UNRESOLVED,Ahmad Israiwah,0.815,yes
 Ahmad Tha'er,Ahmad Tha'er,7c02bd32,exact,,,
 Ali Hajabi,Ali Hajabi,2e24908f,exact,,,
 Ali Olwan,Ali Olwan,33c1d68d,exact,,,
@@ -17,9 +17,9 @@ Ihsan Haddad,Ihsan Haddad,85660a5d,exact,,,
 Issam Smeeri,Issam Smeeri,cadaaea5,exact,,,
 Mahmoud Al-Mardi,Mahmoud Al-Mardi,1eedc1ea,exact,,,
 Mohammad Abu Hasheesh,Mohammad Abu Hasheesh,72c2fa7a,exact,,,
-Mohammad Abu Hashish,,,UNRESOLVED,Mohammad Abu Hasheesh,0.927,
-Mohammad Abu Zrayq,,,UNRESOLVED,Mohammad Aburiziq,0.8,
-Mohammad Al-Dmeiri,,,UNRESOLVED,Mohammad Al Dumeiri,0.973,
+Mohammad Abu Hashish,,,UNRESOLVED,Mohammad Abu Hasheesh,0.927,yes
+Mohammad Abu Zrayq,,,UNRESOLVED,Mohammad Aburiziq,0.8,yes
+Mohammad Al-Dmeiri,,,UNRESOLVED,Mohammad Al Dumeiri,0.973,yes
 Mohannad Abu Taha,Mohannad Abu Taha,5c4bac6c,exact,,,
 Nizar Al-Rashdan,Nizar Al Rashdan,feaa0ffd,exact,,,
 Noor Al-Rawabdeh,Noor Al Rawabdeh,3bb06c86,exact,,,
@@ -29,8 +29,8 @@ Rajaei Ayed,Rajaei Ayed,b71e02c7,exact,,,
 Saed Al-Rosan,Saed Al-Rosan,f3115445,exact,,,
 Salim Obaid,Salim Obaid,f494bf5f,exact,,,
 Sharara,Sharara,67e2aed8,exact,,,
-Yaseen Al-Bakhit,,,UNRESOLVED,Yaseen Al Bakheet,0.909,
+Yaseen Al-Bakhit,,,UNRESOLVED,Yaseen Al Bakheet,0.909,yes
 Yazan Al-Arab,Yazan Al-Arab,32878a09,exact,,,
 Yazan Al-Naimat,Yazan Al-Naimat,1703917d,exact,,,
 Yazeed Abulaila,Yazeed Abulaila,5d11fc17,exact,,,
-Yazid Abu Layla,,,UNRESOLVED,Yazeed Abulaila,0.8,
+Yazid Abu Layla,,,UNRESOLVED,Yazeed Abulaila,0.8,yes

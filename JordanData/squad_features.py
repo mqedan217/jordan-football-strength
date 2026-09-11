@@ -44,9 +44,21 @@ WINDOW = 10
 
 
 def _load():
-    matches = pd.read_csv(SQUAD_DIR / "matches.csv")
+    """Prefer the combined tables, which add the Arab Cup matches FBref lacks.
+
+    `matches.csv` / `appearances.csv` are FBref-only and regenerable from the
+    page cache; the `_combined` versions add the Wikipedia-sourced Arab Cup
+    fixtures with a `source` column. Falling back keeps this working if the
+    merge step has not been run.
+    """
+    def pick(name):
+        combined = SQUAD_DIR / f"{name}_combined.csv"
+        return pd.read_csv(combined if combined.exists()
+                           else SQUAD_DIR / f"{name}.csv")
+
+    matches = pick("matches")
+    apps = pick("appearances")
     lineups = pd.read_csv(SQUAD_DIR / "lineups.csv")
-    apps = pd.read_csv(SQUAD_DIR / "appearances.csv")
     matches["date"] = pd.to_datetime(matches["Date"], errors="coerce")
     return matches, lineups, apps
 
