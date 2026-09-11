@@ -245,8 +245,25 @@ def build_match_table():
         out.loc[ok, "band_df"].astype(int).astype(str) + "-"
         + out.loc[ok, "band_mf"].astype(int).astype(str) + "-"
         + out.loc[ok, "band_fw"].astype(int).astype(str))
+    # A single usable formation column: FBref's where it exists, the derived
+    # band count elsewhere, with the origin of every value recorded. Deliberately
+    # NOT a third-party fill -- four sources were checked on the 2025 Arab Cup
+    # final and returned 3-6-1 (BeSoccer), 3-4-2-1 (search summary), 3-4-3
+    # (derived) and nothing (FBref) for the same eleven players. Formation is a
+    # provider's interpretation, so mixing providers would make the column
+    # measure who recorded it rather than how the team lined up.
+    #
+    # 🚨 The two methods agree only 69% of the time, and their mix shifts across
+    # the treatment date: 50/50 fbref/derived before mid-2022, 85/15 after.
+    # A pre/post comparison over the full span therefore partly measures the
+    # METHOD changing. Restricted to 2019 onward the mix is 82% vs 85% and the
+    # comparison is safe. Use `formation_source` to check this before trusting
+    # any trend, or filter to formation_source == "fbref".
     out["formation_source"] = None
     out.loc[out.formation.notna(), "formation_source"] = "fbref"
+    out.loc[out.formation.isna() & out.xi_shape.notna(),
+            "formation_source"] = "derived_from_lineup"
+    out["formation_best"] = out.formation.fillna(out.xi_shape)
     # attendance is a count; FBref writes it as "68,527", which makes the
     # column a string and blocks any later numeric fill
     if "attendance" in out.columns:
