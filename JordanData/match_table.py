@@ -42,10 +42,33 @@ SQUAD = ROOT / "outputs" / "squad"
 JORDAN = "3e22f0fa"
 TEAM = "Jordan"
 LOOKBACK_DAYS = 3650
-COARSE = {"GK": "GK", "CB": "DF", "LB": "DF", "RB": "DF", "DF": "DF", "WB": "DF",
+COARSE = {"GK": "GK",
+          # wing-backs group with defenders, as bare WB already did. RWB/LWB
+          # were missing, which silently dropped 12 starters from the shape
+          # counts and left several matches summing to 9 players rather than 11.
+          "CB": "DF", "LB": "DF", "RB": "DF", "DF": "DF",
+          "WB": "DF", "RWB": "DF", "LWB": "DF",
           "DM": "MF", "CM": "MF", "AM": "MF", "LM": "MF", "RM": "MF", "MF": "MF",
           "LW": "FW", "RW": "FW", "FW": "FW", "CF": "FW", "SS": "FW",
           "LF": "FW", "RF": "FW"}
+
+
+# A second grouping, used ONLY for the band counts behind xi_shape. A winger is
+# a forward when you ask who scored, and a midfielder when you ask what shape
+# the team lined up in -- in a 4-2-3-1 the wide players are the "3". Tested
+# against the 97 matches where FBref states a formation: sending wingers to FW
+# reproduces its bands 58% of the time, to MF 69%. Neither is good enough to
+# call the result a formation, which is why xi_shape is a separate column.
+SHAPE = {**{k: v for k, v in COARSE.items()}, "LW": "MF", "RW": "MF"}
+
+
+def shape_position(p):
+    if not isinstance(p, str):
+        return None
+    for part in (x.strip() for x in p.split(",")):
+        if part in SHAPE:
+            return SHAPE[part]
+    return None
 
 
 def coarse_position(p):
@@ -170,6 +193,14 @@ def build_match_table():
              .rename(columns=lambda c: f"n_{c.lower()}"))
     per = per.join(shape)
 
+    # band counts for xi_shape use the shape grouping, not the scoring one
+    starters_shape = starters.assign(band=starters.Pos.map(shape_position))
+    bands = (starters_shape.pivot_table(index="match_id", columns="band",
+                                        values="Player", aggfunc="count",
+                                        fill_value=0)
+             .rename(columns=lambda c: f"band_{c.lower()}"))
+    per = per.join(bands)
+
     # substitution and card timing, Jordan's own only where side is known
     ev = events.merge(matches[["match_id", "date"]], on="match_id", how="left")
     jnames = set(ja.Player.dropna())
@@ -196,6 +227,26 @@ def build_match_table():
                               "home_manager": "manager"})
     out["year"] = out.date.dt.year
     out["has_xi"] = out.n_starters.eq(11)
+
+    # A shape derived by counting the positions the source states, for the 77
+    # matches where FBref records no formation string and no other source has
+    # one. It is NOT the same thing as `formation` and is kept in its own
+    # column: 4-2-3-1 and 4-5-1 both count as four defenders, five midfielders
+    # and one forward, so the shape cannot distinguish them. It says how many
+    # players occupied each band, which is a fact about the team sheet, not a
+    # guess at the manager's intent.
+    cols = ["band_gk", "band_df", "band_mf", "band_fw"]
+    for c in cols:
+        if c not in out:
+            out[c] = pd.NA
+    ok = out[cols].notna().all(axis=1) & out[cols].sum(axis=1).eq(11)
+    out["xi_shape"] = None
+    out.loc[ok, "xi_shape"] = (
+        out.loc[ok, "band_df"].astype(int).astype(str) + "-"
+        + out.loc[ok, "band_mf"].astype(int).astype(str) + "-"
+        + out.loc[ok, "band_fw"].astype(int).astype(str))
+    out["formation_source"] = None
+    out.loc[out.formation.notna(), "formation_source"] = "fbref"
     # attendance is a count; FBref writes it as "68,527", which makes the
     # column a string and blocks any later numeric fill
     if "attendance" in out.columns:
