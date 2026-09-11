@@ -20,9 +20,25 @@ INK_2 = "#52514e"
 INK_MUTED = "#8a8880"
 GRID = "#e6e5e1"
 
-BLUE = "#2a78d6"
-ORANGE = "#eb6834"
+BLUE = "#2a78d6"      # categorical slot 1
+ORANGE = "#eb6834"    # slot 2
+AQUA = "#1baf7a"      # slot 3
+VIOLET = "#4a3aa7"    # slot 7
 SERIES = [BLUE, ORANGE]
+
+# Four-series set, for the Jordan-vs-peers charts. Slots 1-3 are the documented
+# all-pairs-validated subset; a fourth is needed here and the validator could
+# not be run in this environment (no node), so violet was chosen for being much
+# darker than blue rather than by measurement. Because that is a judgement and
+# not a check, identity in these charts is ALWAYS carried redundantly -- every
+# series is directly labelled, so colour never carries meaning alone.
+SERIES4 = [BLUE, ORANGE, AQUA, VIOLET]
+TEAM_COLOURS = {
+    "Jordan": BLUE,
+    "Iraq": ORANGE,
+    "Syria": AQUA,
+    "United Arab Emirates": VIOLET,
+}
 
 # sequential blue ramp, for magnitude
 RAMP = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
