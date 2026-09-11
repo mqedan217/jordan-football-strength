@@ -299,7 +299,7 @@ All checked during research. Each failed for the reason given.
 | source | verdict |
 |---|---|
 | RSSSF | Only 23 of 67 listed players have match-by-match pages. Coverage 64% (2011) → 13% (2025). **Al-Taamari and Al-Naimat have no pages.** Main results page dead since 2008. |
-| Wikipedia | 137 of 184 category members have no international by-year table. Tables truncated at source (Ali Olwan shows 31 caps vs 59 actual). Parser was fixed and validated — Amer Shafi 171/171, Al-Dardour 113/113 — the source is what's incomplete. |
+| Wikipedia (player pages) | 137 of 184 category members have no international by-year table. Tables truncated at source (Ali Olwan shows 31 caps vs 59 actual). Parser was fixed and validated — Amer Shafi 171/171, Al-Dardour 113/113 — the source is what's incomplete. |
 | FootyStats | 10 friendlies, season aggregates only, corners/cards paywalled, percentages computed on n=2. Paid product, scraping breaches terms. |
 | API-Football | Free tier serves **2022–2024 only**. Lineups/events flagged true from 2011 but need paid tier. Pro is $19/mo, 7500 req/day — ~460 requests would backfill everything. **Terms forbid redistributing raw data** (scraper + derived features are fine). This remains the only complete option. |
 | StatsBomb open | Rich (3947 events/match, xG, freeze frames) but La Liga = Messi dataset (Barcelona only, except full 2015/16). UCL = finals only. No Jordan. |
@@ -312,6 +312,35 @@ All checked during research. Each failed for the reason given.
 | `withqwerty/reep` | ID crosswalk only (444k people, 45k teams, 212 competitions). No match data. Useful only for joining across providers. v0 register frozen since Apr 2026. |
 
 ---
+
+### Arab Cup — recovered from Wikipedia match articles (2026-09-11)
+
+FBref carries no Arab Cup at all: absent from Jordan's squad pages and from
+FBref's own competition index. Wikipedia's *tournament* articles do carry full
+match detail, and this is a different body of content from the per-player
+by-year tables listed as a dead end above.
+
+All **10** Arab Cup matches since 2015 are now extracted (`JordanData/wiki_arabcup.py`
+-> `outputs/squad/arabcup_*.csv`): 2021 group x3 + quarter-final, 2025 group x3 +
+quarter-final, semi-final and final. Exactly 11 starters per match, and all ten
+scores agree with `data/results.csv`.
+
+Parsing notes, each one a bug that failed silently before it was caught:
+- lineups are plain wikitables, not templates; split on any table opening and
+  keep the ones containing lineup rows, because the 2021 articles write
+  `font-size: 90%` and the 2025 ones `font-size:90%`
+- the bench separator is `'''Substitutes:'''` in some articles and
+  `'''Substitutions:'''` in others, sometimes on the same page; matching one
+  spelling counts the whole bench as starters (16 a side)
+- a `^`-anchored row regex needs `re.M` when searched against a whole table
+
+🚨 **Wikipedia supplies no player id.** Rows carry `player_id = NA` and
+`source = "wikipedia"`. 29 of 35 names match an FBref player exactly; the other
+6 are transliteration variants (`Yaseen Al-Bakhit` / `Yaseen Al Bakheet`) and
+are listed in `arabcup_name_crosswalk.csv` with a suggested match and a
+similarity score, **unconfirmed**. Do not merge these rows into the main
+appearances table until a human sets `confirmed`. A close string is not proof,
+and a wrong accept invents a player history.
 
 ## Limitations for the README
 

@@ -1,0 +1,158 @@
+position,shirt_no,player,role,is_captain,on_minute,off_minute,yellow_minute,red_minute,match_id,date,player_id,source
+GK,1,Yazid Abu Layla,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+RB,23,Ihsan Haddad,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+CB,5,Yazan Al-Arab,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+CB,21,Mohammad Al-Dmeiri,starter,False,,61.0,,,ac_20211201,2021-12-01,,wikipedia
+LB,2,Mohammad Abu Hasheesh,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+RM,10,Yazan Al-Naimat,starter,False,,61.0,,,ac_20211201,2021-12-01,,wikipedia
+CM,8,Noor Al-Rawabdeh,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+CM,4,Baha' Abdel-Rahman,starter,True,,71.0,,,ac_20211201,2021-12-01,,wikipedia
+LM,13,Mahmoud Al-Mardi,starter,False,,83.0,,,ac_20211201,2021-12-01,,wikipedia
+CF,9,Baha' Faisal,starter,False,,83.0,51.0,,ac_20211201,2021-12-01,,wikipedia
+CF,16,Ali Olwan,starter,False,,,,,ac_20211201,2021-12-01,,wikipedia
+DF,19,Abdallah Nasib,sub,False,61.0,,,,ac_20211201,2021-12-01,,wikipedia
+MF,14,Ahmad Tha'er,sub,False,61.0,,,,ac_20211201,2021-12-01,,wikipedia
+MF,15,Ibrahim Sadeh,sub,False,71.0,,,,ac_20211201,2021-12-01,,wikipedia
+MF,11,Yaseen Al-Bakhit,sub,False,83.0,,,,ac_20211201,2021-12-01,,wikipedia
+FW,20,Hamza Al-Dardour,sub,False,83.0,,,,ac_20211201,2021-12-01,,wikipedia
+GK,1,Yazid Abu Layla,starter,False,,,,,ac_20211204,2021-12-04,,wikipedia
+RB,6,Hadi Al-Hourani,starter,False,,,,,ac_20211204,2021-12-04,,wikipedia
+CB,19,Abdallah Nasib,starter,False,,72.0,66.0,,ac_20211204,2021-12-04,,wikipedia
+CB,5,Yazan Al-Arab,starter,False,,,,,ac_20211204,2021-12-04,,wikipedia
+LB,2,Mohammad Abu Hasheesh,starter,False,,,41.0,,ac_20211204,2021-12-04,,wikipedia
+RM,18,Ahmad Sariweh,starter,False,,46.0,,,ac_20211204,2021-12-04,,wikipedia
+CM,8,Noor Al-Rawabdeh,starter,False,,,,,ac_20211204,2021-12-04,,wikipedia
+CM,17,Rajaei Ayed,starter,False,,46.0,,,ac_20211204,2021-12-04,,wikipedia
+LM,13,Mahmoud Al-Mardi,starter,False,,76.0,,,ac_20211204,2021-12-04,,wikipedia
+CF,9,Baha' Faisal,starter,True,,15.0,,,ac_20211204,2021-12-04,,wikipedia
+CF,16,Ali Olwan,starter,False,,,,,ac_20211204,2021-12-04,,wikipedia
+FW,20,Hamza Al-Dardour,sub,False,15.0,,,,ac_20211204,2021-12-04,,wikipedia
+MF,11,Yaseen Al-Bakhit,sub,False,46.0,,,,ac_20211204,2021-12-04,,wikipedia
+MF,4,Baha' Abdel-Rahman,sub,False,46.0,,,,ac_20211204,2021-12-04,,wikipedia
+MF,7,Sharara,sub,False,72.0,,,,ac_20211204,2021-12-04,,wikipedia
+MF,15,Ibrahim Sadeh,sub,False,76.0,,,,ac_20211204,2021-12-04,,wikipedia
+GK,1,Yazid Abu Layla,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+RB,14,Ahmad Tha'er,starter,False,,46.0,,,ac_20211207,2021-12-07,,wikipedia
+CB,19,Abdallah Nasib,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+CB,5,Yazan Al-Arab,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+LB,2,Mohammad Abu Hasheesh,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+DM,4,Baha' Abdel-Rahman,starter,True,,75.0,,,ac_20211207,2021-12-07,,wikipedia
+RM,7,Mohammad Abu Zrayq,starter,False,,86.0,,,ac_20211207,2021-12-07,,wikipedia
+CM,8,Noor Al-Rawabdeh,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+LM,11,Yaseen Al-Bakhit,starter,False,,60.0,,,ac_20211207,2021-12-07,,wikipedia
+CF,16,Ali Olwan,starter,False,,,,,ac_20211207,2021-12-07,,wikipedia
+CF,20,Hamza Al-Dardour,starter,False,,75.0,,,ac_20211207,2021-12-07,,wikipedia
+DF,6,Hadi Al-Hourani,sub,False,46.0,,,,ac_20211207,2021-12-07,,wikipedia
+MF,13,Mahmoud Al-Mardi,sub,False,60.0,,,,ac_20211207,2021-12-07,,wikipedia
+FW,10,Yazan Al-Naimat,sub,False,75.0,,,,ac_20211207,2021-12-07,,wikipedia
+MF,17,Rajaei Ayed,sub,False,75.0,,,,ac_20211207,2021-12-07,,wikipedia
+MF,15,Ibrahim Sadeh,sub,False,86.0,,,,ac_20211207,2021-12-07,,wikipedia
+GK,1,Yazid Abu Layla,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+CB,19,Abdallah Nasib,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+CB,4,Baha' Abdel-Rahman,starter,True,,,,,ac_20211211,2021-12-11,,wikipedia
+CB,6,Hadi Al-Hourani,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+RWB,23,Ihsan Haddad,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+LWB,2,Mohammad Abu Hasheesh,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+CM,7,Mohammad Abu Zrayq,starter,False,,60.0,54.0,,ac_20211211,2021-12-11,,wikipedia
+CM,8,Noor Al-Rawabdeh,starter,False,,106.0,,,ac_20211211,2021-12-11,,wikipedia
+CM,13,Mahmoud Al-Mardi,starter,False,,77.0,,,ac_20211211,2021-12-11,,wikipedia
+CF,16,Ali Olwan,starter,False,,,,,ac_20211211,2021-12-11,,wikipedia
+CF,10,Yazan Al-Naimat,starter,False,,90.0,,,ac_20211211,2021-12-11,,wikipedia
+FW,11,Yaseen Al-Bakhit,sub,False,60.0,,,,ac_20211211,2021-12-11,,wikipedia
+FW,20,Hamza Al-Dardour,sub,False,77.0,,,,ac_20211211,2021-12-11,,wikipedia
+MF,17,Rajaei Ayed,sub,False,90.0,,,,ac_20211211,2021-12-11,,wikipedia
+MF,15,Ibrahim Sadeh,sub,False,106.0,,,,ac_20211211,2021-12-11,,wikipedia
+GK,1,Yazeed Abulaila,starter,True,,,,,ac_20251203,2025-12-03,,wikipedia
+CB,3,Abdallah Nasib,starter,False,,,,,ac_20251203,2025-12-03,,wikipedia
+CB,19,Saed Al-Rosan,starter,False,,,,,ac_20251203,2025-12-03,,wikipedia
+CB,18,Salim Obaid,starter,False,,52.0,,,ac_20251203,2025-12-03,,wikipedia
+RWB,23,Adham Al-Quraishi,starter,False,,,,,ac_20251203,2025-12-03,,wikipedia
+LWB,20,Mohannad Abu Taha,starter,False,,,,,ac_20251203,2025-12-03,,wikipedia
+RM,9,Ali Olwan,starter,False,,,,,ac_20251203,2025-12-03,,wikipedia
+CM,21,Nizar Al-Rashdan,starter,False,,88.0,,,ac_20251203,2025-12-03,,wikipedia
+CM,15,Ibrahim Sadeh,starter,False,,52.0,,,ac_20251203,2025-12-03,,wikipedia
+LM,10,Ahmad Ersan,starter,False,,68.0,,,ac_20251203,2025-12-03,,wikipedia
+CF,11,Yazan Al-Naimat,starter,False,,88.0,,,ac_20251203,2025-12-03,,wikipedia
+DF,4,Husam Abu Dahab,sub,False,52.0,,,,ac_20251203,2025-12-03,,wikipedia
+MF,6,Amer Jamous,sub,False,52.0,,89.0,,ac_20251203,2025-12-03,,wikipedia
+FW,13,Mahmoud Al-Mardi,sub,False,68.0,,,,ac_20251203,2025-12-03,,wikipedia
+MF,14,Rajaei Ayed,sub,False,88.0,,,,ac_20251203,2025-12-03,,wikipedia
+FW,8,Odeh Al-Fakhouri,sub,False,88.0,,,,ac_20251203,2025-12-03,,wikipedia
+GK,1,Yazeed Abulaila,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+CB,3,Abdallah Nasib,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+CB,19,Saed Al-Rosan,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+CB,4,Husam Abu Dahab,starter,False,,90.0,,,ac_20251206,2025-12-06,,wikipedia
+RWB,23,Adham Al-Quraishi,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+LWB,20,Mohannad Abu Taha,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+RM,9,Ali Olwan,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+CM,6,Amer Jamous,starter,False,,,,,ac_20251206,2025-12-06,,wikipedia
+CM,21,Nizar Al-Rashdan,starter,False,,68.0,,,ac_20251206,2025-12-06,,wikipedia
+LM,13,Mahmoud Al-Mardi,starter,True,,68.0,,,ac_20251206,2025-12-06,,wikipedia
+CF,11,Yazan Al-Naimat,starter,False,,79.0,,,ac_20251206,2025-12-06,,wikipedia
+MF,15,Ibrahim Sadeh,sub,False,68.0,,,,ac_20251206,2025-12-06,,wikipedia
+FW,8,Odeh Al-Fakhouri,sub,False,68.0,,,,ac_20251206,2025-12-06,,wikipedia
+MF,14,Rajaei Ayed,sub,False,79.0,,,,ac_20251206,2025-12-06,,wikipedia
+DF,16,Ali Hajabi,sub,False,90.0,,,,ac_20251206,2025-12-06,,wikipedia
+GK,22,Nour Bani Attiah,starter,False,,,,,ac_20251209,2025-12-09,,wikipedia
+CB,5,Hadi Al-Hourani,starter,False,,63.0,,,ac_20251209,2025-12-09,,wikipedia
+CB,18,Salim Obaid,starter,False,,58.0,,,ac_20251209,2025-12-09,,wikipedia
+CB,16,Ali Hajabi,starter,False,,71.0,,,ac_20251209,2025-12-09,,wikipedia
+RWB,17,Issam Smeeri,starter,False,,,,,ac_20251209,2025-12-09,,wikipedia
+LWB,2,Mohammad Abu Hashish,starter,False,,46.0,,,ac_20251209,2025-12-09,,wikipedia
+RM,7,Mohammad Abu Zrayq,starter,False,,83.0,,,ac_20251209,2025-12-09,,wikipedia
+CM,14,Rajaei Ayed,starter,True,,,,,ac_20251209,2025-12-09,,wikipedia
+CM,15,Ibrahim Sadeh,starter,False,,,,,ac_20251209,2025-12-09,,wikipedia
+LM,10,Ahmad Ersan,starter,False,,63.0,,,ac_20251209,2025-12-09,,wikipedia
+CF,8,Odeh Al-Fakhouri,starter,False,,,,,ac_20251209,2025-12-09,,wikipedia
+DF,20,Mohannad Abu Taha,sub,False,46.0,,,,ac_20251209,2025-12-09,,wikipedia
+DF,19,Saed Al-Rosan,sub,False,58.0,,,,ac_20251209,2025-12-09,,wikipedia
+DF,3,Abdallah Nasib,sub,False,63.0,,,,ac_20251209,2025-12-09,,wikipedia
+FW,13,Mahmoud Al-Mardi,sub,False,63.0,,,,ac_20251209,2025-12-09,,wikipedia
+DF,4,Husam Abu Dahab,sub,False,71.0,,,,ac_20251209,2025-12-09,,wikipedia
+FW,9,Ali Olwan,sub,False,83.0,,,,ac_20251209,2025-12-09,,wikipedia
+GK,1,Yazeed Abulaila,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+CB,3,Abdallah Nasib,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+CB,19,Saed Al-Rosan,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+CB,4,Husam Abu Dahab,starter,False,,83.0,54.0,,ac_20251212,2025-12-12,,wikipedia
+RWB,23,Adham Al-Quraishi,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+LWB,20,Mohannad Abu Taha,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+RM,9,Ali Olwan,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+CM,21,Nizar Al-Rashdan,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+CM,6,Amer Jamous,starter,False,,,,,ac_20251212,2025-12-12,,wikipedia
+LM,13,Mahmoud Al-Mardi,starter,True,,65.0,,,ac_20251212,2025-12-12,,wikipedia
+CF,11,Yazan Al-Naimat,starter,False,,15.0,,,ac_20251212,2025-12-12,,wikipedia
+FW,8,Odeh Al-Fakhouri,sub,False,15.0,,,,ac_20251212,2025-12-12,,wikipedia
+MF,14,Rajaei Ayed,sub,False,65.0,,,,ac_20251212,2025-12-12,,wikipedia
+DF,16,Ali Hajabi,sub,False,83.0,,,,ac_20251212,2025-12-12,,wikipedia
+GK,1,Yazeed Abulaila,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+CB,3,Abdallah Nasib,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+CB,19,Saed Al-Rosan,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+CB,4,Husam Abu Dahab,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+RWB,17,Issam Smeeri,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+LWB,20,Mohannad Abu Taha,starter,False,,85.0,,,ac_20251215,2025-12-15,,wikipedia
+CM,21,Nizar Al-Rashdan,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+CM,14,Rajaei Ayed,starter,False,,,90.0,,ac_20251215,2025-12-15,,wikipedia
+RF,9,Ali Olwan,starter,False,,,,,ac_20251215,2025-12-15,,wikipedia
+CF,13,Mahmoud Al-Mardi,starter,True,,72.0,,,ac_20251215,2025-12-15,,wikipedia
+LF,10,Ahmad Ersan,starter,False,,46.0,,,ac_20251215,2025-12-15,,wikipedia
+FW,7,Mohammad Abu Zrayq,sub,False,46.0,85.0,,,ac_20251215,2025-12-15,,wikipedia
+MF,2,Mohammad Abu Hashish,sub,False,72.0,,,,ac_20251215,2025-12-15,,wikipedia
+DF,16,Ali Hajabi,sub,False,85.0,,,,ac_20251215,2025-12-15,,wikipedia
+MF,6,Amer Jamous,sub,False,85.0,,,,ac_20251215,2025-12-15,,wikipedia
+GK,1,Yazeed Abulaila,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+CB,3,Abdallah Nasib,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+CB,19,Saed Al-Rosan,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+CB,4,Husam Abu Dahab,starter,False,,104.0,77.0,,ac_20251218,2025-12-18,,wikipedia
+RM,17,Issam Smeeri,starter,False,,46.0,,,ac_20251218,2025-12-18,,wikipedia
+CM,21,Nizar Al-Rashdan,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+CM,6,Amer Jamous,starter,False,,81.0,,,ac_20251218,2025-12-18,,wikipedia
+LM,20,Mohannad Abu Taha,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+RF,7,Mohammad Abu Zrayq,starter,False,,46.0,,,ac_20251218,2025-12-18,,wikipedia
+CF,9,Ali Olwan,starter,False,,,,,ac_20251218,2025-12-18,,wikipedia
+LF,13,Mahmoud Al-Mardi,starter,True,,90.0,,,ac_20251218,2025-12-18,,wikipedia
+MF,23,Adham Al-Quraishi,sub,False,46.0,,,,ac_20251218,2025-12-18,,wikipedia
+FW,8,Odeh Al-Fakhouri,sub,False,46.0,112.0,,,ac_20251218,2025-12-18,,wikipedia
+MF,14,Rajaei Ayed,sub,False,81.0,,119.0,,ac_20251218,2025-12-18,,wikipedia
+DF,2,Mohammad Abu Hashish,sub,False,90.0,,,,ac_20251218,2025-12-18,,wikipedia
+DF,16,Ali Hajabi,sub,False,104.0,,,,ac_20251218,2025-12-18,,wikipedia
+FW,10,Ahmad Ersan,sub,False,112.0,,,,ac_20251218,2025-12-18,,wikipedia
