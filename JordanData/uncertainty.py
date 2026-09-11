@@ -49,7 +49,13 @@ def _pack(df, idx):
 
 
 def _fit_at(cols, order, n_teams, ti, ref_day, lookback_days, half_life, ridge):
-    """Fit one reference date on the rows named by `order`. None if degenerate."""
+    """Fit one reference date on the rows named by `order`. None if degenerate.
+
+    `ti` may be a single team index or a sequence of them. Every fit already
+    estimates all 337 teams, so tracking several costs nothing beyond the
+    bookkeeping -- which is what makes the placebo comparison free once the
+    bootstrap is running at all.
+    """
     day = cols["day"][order]
     win = (day < ref_day) & (day >= ref_day - lookback_days)
     if win.sum() < 100:
@@ -58,15 +64,20 @@ def _fit_at(cols, order, n_teams, ti, ref_day, lookback_days, half_life, ridge):
     m = PoissonStrength(n_teams, half_life_days=half_life, ridge=ridge)
     m.fit(cols["h"][sel], cols["a"][sel], cols["gh"][sel], cols["ga"][sel],
           cols["flag"][sel], (ref_day - cols["day"][sel]).astype(float))
-    return m.atk[ti], m.dfn[ti], m.strength(ti), m.adv, int(win.sum())
+    idxs = np.atleast_1d(ti)
+    return (m.atk[idxs], m.dfn[idxs],
+            np.array([m.strength(i) for i in idxs]),
+            np.full(len(idxs), m.adv), int(win.sum()))
 
 
 def bootstrap(team="Jordan", start="2012-01-01", end="2026-07-01", freq="6MS",
               half_life=730.0, ridge=0.05, lookback_years=10, n_boot=N_BOOT,
               seed=SEED):
+    """`team` may be one name or a list; extra teams are free (see _fit_at)."""
     df = load_results()
     teams, idx = index_teams(df)
-    ti = idx[team]
+    names = [team] if isinstance(team, str) else list(team)
+    ti = [idx[t] for t in names]
     cols = _pack(df, idx)
     n_rows = len(df)
     lookback_days = 365 * lookback_years
@@ -77,11 +88,12 @@ def bootstrap(team="Jordan", start="2012-01-01", end="2026-07-01", freq="6MS",
     identity = np.arange(n_rows)
     fitted = [_fit_at(cols, identity, len(teams), ti, rd, lookback_days,
                       half_life, ridge) for rd in ref_days]
-    point = np.array([f[:4] for f in fitted])
+    # (date, param, team)
+    point = np.array([np.stack(f[:4]) for f in fitted])
     n_win = np.array([f[4] for f in fitted])
 
     rng = np.random.default_rng(seed)
-    draws = np.full((n_boot, len(refs), 4), np.nan)
+    draws = np.full((n_boot, len(refs), 4, len(ti)), np.nan)
     t0 = time.perf_counter()
     for b in range(n_boot):
         order = np.sort(rng.integers(0, n_rows, n_rows))
@@ -89,37 +101,53 @@ def bootstrap(team="Jordan", start="2012-01-01", end="2026-07-01", freq="6MS",
             got = _fit_at(cols, order, len(teams), ti, rd, lookback_days,
                           half_life, ridge)
             if got is not None:
-                draws[b, j] = got[:4]
+                draws[b, j] = np.stack(got[:4])
         if (b + 1) % 25 == 0:
             el = time.perf_counter() - t0
             print(f"  draw {b + 1}/{n_boot}  {el:.0f}s elapsed  "
                   f"{el / (b + 1) * (n_boot - b - 1):.0f}s left", flush=True)
 
-    return refs, n_win, point, draws
+    return refs, n_win, point, draws, names
 
 
-def summarise(refs, n_win, point, draws, lo=2.5, hi=97.5):
-    names = ["attack", "defence", "strength", "home_adv"]
-    out = pd.DataFrame({"date": refs, "n_matches": n_win})
-    for k, name in enumerate(names):
-        d = draws[:, :, k]
-        out[name] = point[:, k]
-        out[f"{name}_lo"] = np.nanpercentile(d, lo, axis=0)
-        out[f"{name}_hi"] = np.nanpercentile(d, hi, axis=0)
-        out[f"{name}_se"] = np.nanstd(d, axis=0, ddof=1)
-    return out
+def summarise(refs, n_win, point, draws, names, lo=2.5, hi=97.5):
+    """One frame per team, concatenated with a `team` column."""
+    params = ["attack", "defence", "strength", "home_adv"]
+    frames = []
+    for t, team in enumerate(names):
+        out = pd.DataFrame({"team": team, "date": refs, "n_matches": n_win})
+        for k, name in enumerate(params):
+            d = draws[:, :, k, t]
+            out[name] = point[:, k, t]
+            out[f"{name}_lo"] = np.nanpercentile(d, lo, axis=0)
+            out[f"{name}_hi"] = np.nanpercentile(d, hi, axis=0)
+            out[f"{name}_se"] = np.nanstd(d, axis=0, ddof=1)
+        frames.append(out)
+    return pd.concat(frames, ignore_index=True)
 
+
+PLACEBO = ["Jordan", "Iraq", "Syria", "United Arab Emirates"]
 
 if __name__ == "__main__":
-    n_boot = int(sys.argv[1]) if len(sys.argv) > 1 else N_BOOT
-    refs, n_win, point, draws = bootstrap(n_boot=n_boot)
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    n_boot = int(args[0]) if args else N_BOOT
+    names = PLACEBO if "--placebo" in sys.argv else ["Jordan"]
 
+    refs, n_win, point, draws, names = bootstrap(team=names, n_boot=n_boot)
     (ROOT / "outputs").mkdir(exist_ok=True)
-    summarise(refs, n_win, point, draws).to_csv(
-        ROOT / "outputs/jordan_strength_ci.csv", index=False)
+    summary = summarise(refs, n_win, point, draws, names)
+
+    jordan = summary[summary.team == "Jordan"].drop(columns="team")
+    jordan.to_csv(ROOT / "outputs/jordan_strength_ci.csv", index=False)
+    if len(names) > 1:
+        summary.to_csv(ROOT / "outputs/strength_ci_multi.csv", index=False)
+
     np.savez_compressed(
         ROOT / "outputs/bootstrap_draws.npz",
         dates=refs.to_numpy("datetime64[D]").astype(np.int64),
         point=point, draws=draws, seed=SEED, n_boot=n_boot,
+        teams=np.array(names),
         params=np.array(["attack", "defence", "strength", "home_adv"]))
-    print("wrote outputs/jordan_strength_ci.csv and outputs/bootstrap_draws.npz")
+    print(f"wrote jordan_strength_ci.csv"
+          + (", strength_ci_multi.csv" if len(names) > 1 else "")
+          + ", bootstrap_draws.npz")

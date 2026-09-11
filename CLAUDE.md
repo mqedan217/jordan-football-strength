@@ -216,7 +216,14 @@ but it rules out using any advanced stat across the boundary.
 ### Coverage boundaries (verified)
 
 - Lineups, minutes, subs, cards: back to at least 2017, friendlies included
-- Possession: only from ~Sept 2024
+- Possession: **27 of 165 matches, back to 2015** -- not "from ~Sept 2024"
+  as previously recorded. Like every advanced stat here it is gated by
+  competition, not date: Asian Cup 14/14, World Cup 3/3, WCQ 10/50, Asian Cup
+  qualification 0/15, friendlies 0/83. A pre-2022 baseline therefore exists
+  (Asian Cup 2015 and 2019) but is only 7 matches, against 20 after -- far too
+  few to establish a trend given how much possession moves with the opponent
+- Ball location (territory, touches by third, field tilt, passing networks):
+  absent entirely, in every era
 - Formation / opponent formation: recent seasons only
 - xG: not available for AFC competitions
 - FBref launched June 2018 and backfilled; it warns totals may be incomplete
