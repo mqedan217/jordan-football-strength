@@ -151,7 +151,15 @@ def parse_page(text, team_code="JOR"):
             continue
 
         side = "team1" if t1.group(1) == team_code else "team2"
-        goals = re.search(rf"goals{side[-1]}\s*=\s*(.*)", head)
+        # Capture the WHOLE goals field, not one line. Two traps here:
+        # a scorer list spans several lines, so `.` must cross newlines and
+        # the match must stop at the next "| field =" rather than run on;
+        # and \s* after the = would itself cross a newline, so when Jordan
+        # scored none it swallowed the blank line and captured the
+        # OPPONENT's goals field instead. Horizontal whitespace only.
+        goals = re.search(
+            rf"goals{side[-1]}[ \t]*=[ \t]*(.*?)(?=\n[ \t]*\|[ \t]*\w+[ \t]*=|\n\}}\}})",
+            chunk, re.S)
         sc = re.search(r"score\s*=\s*(?:\{\{score link\|[^|]*\|)?\s*([0-9]+)[^0-9]+([0-9]+)", head)
         stadium = re.search(r"stadium\s*=\s*(.+)", head)
         att = re.search(r"attendance\s*=\s*([\d,]+)", head)
@@ -274,7 +282,20 @@ def build():
     print(ldf.groupby("role").size().to_string())
 
     cw = crosswalk(ldf)
-    cw.to_csv(OUT / "arabcup_name_crosswalk.csv", index=False)
+    # Carry forward any confirmations already recorded. Rebuilding the
+    # crosswalk from scratch would silently discard human review, and the
+    # merge step then drops those players -- which is exactly what happened
+    # the first time this module was re-run.
+    prior_path = OUT / "arabcup_name_crosswalk.csv"
+    if prior_path.exists():
+        prior = pd.read_csv(prior_path)
+        if "confirmed" in prior.columns:
+            keep = dict(zip(prior.wiki_name, prior.confirmed))
+            cw["confirmed"] = cw.wiki_name.map(keep).fillna(cw.confirmed)
+            n_kept = cw.confirmed.notna().sum()
+            if n_kept:
+                print(f"  carried forward {n_kept} existing confirmation(s)")
+    cw.to_csv(prior_path, index=False)
     n_ok = (cw.status == "exact").sum()
     print(f"\narabcup_name_crosswalk.csv  {n_ok}/{len(cw)} names matched to an "
           f"FBref player id; {len(cw) - n_ok} unresolved")

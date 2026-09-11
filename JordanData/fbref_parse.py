@@ -291,8 +291,10 @@ def parse_match(path):
             if len(ids) and len(df) >= len(ids):
                 df = df.iloc[:len(ids)].copy()
                 df["player_id"] = ids
+            # "0 Player" (singular) also occurs, so the s is optional;
+            # matching only the plural left 18 totals rows in the data
             df = df[df.Player.notna() &
-                    ~df.Player.astype(str).str.contains(r"^\d+ Players$", regex=True)]
+                    ~df.Player.astype(str).str.contains(r"^\d+ Players?$", regex=True)]
             df.insert(0, "squad_id", m.group(1))
             apps.append(df)
     appearances = pd.concat(apps, ignore_index=True) if apps else pd.DataFrame()

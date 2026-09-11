@@ -323,10 +323,10 @@ date,opponent,tournament,venue,gf,ga,result,match_id,Comp,n_starters,has_fbref,h
 2014-05-17,Sri Lanka,Palestine International Championship,neutral,4,0,W,,,,False,False,competition not tracked by fbref
 2014-05-20,Palestine,Palestine International Championship,away,0,1,L,,,,False,False,competition not tracked by fbref
 2014-06-06,Colombia,Friendly,neutral,0,3,L,,,,False,False,match absent from fbref
-2014-09-04,Uzbekistan,Friendly,away,0,2,L,d2ced4a6,Friendlies (M),1.0,True,False,fbref report has no lineup
+2014-09-04,Uzbekistan,Friendly,away,0,2,L,d2ced4a6,Friendlies (M),0.0,True,False,fbref report has no lineup
 2014-09-09,China,Friendly,away,1,1,D,1d599265,Friendlies (M),11.0,True,True,
-2014-10-10,Kuwait,Friendly,home,0,1,L,2f64572e,Friendlies (M),1.0,True,False,fbref report has no lineup
-2014-10-13,Kuwait,Friendly,home,1,1,D,dbadea03,Friendlies (M),1.0,True,False,fbref report has no lineup
+2014-10-10,Kuwait,Friendly,home,0,1,L,2f64572e,Friendlies (M),0.0,True,False,fbref report has no lineup
+2014-10-13,Kuwait,Friendly,home,1,1,D,dbadea03,Friendlies (M),0.0,True,False,fbref report has no lineup
 2014-11-14,South Korea,Friendly,home,0,1,L,7288d094,Friendlies (M),11.0,True,True,
 2014-11-18,Estonia,Friendly,away,0,1,L,516dde36,Friendlies (M),11.0,True,True,
 2014-12-21,Uzbekistan,Friendly,neutral,1,2,L,899ca228,Friendlies (M),11.0,True,True,
@@ -346,7 +346,7 @@ date,opponent,tournament,venue,gf,ga,result,match_id,Comp,n_starters,has_fbref,h
 2015-10-03,Iraq,Friendly,home,3,0,W,a5903e76,Friendlies (M),11.0,True,True,
 2015-10-08,Australia,FIFA World Cup qualification,home,2,0,W,930c4d21,WCQ,11.0,True,True,
 2015-10-13,Tajikistan,FIFA World Cup qualification,home,3,0,W,6c55bb96,WCQ,11.0,True,True,
-2015-11-11,Malta,Friendly,neutral,2,0,W,c08a6664,Friendlies (M),1.0,True,False,fbref report has no lineup
+2015-11-11,Malta,Friendly,neutral,2,0,W,c08a6664,Friendlies (M),0.0,True,False,fbref report has no lineup
 2015-11-17,Kyrgyzstan,FIFA World Cup qualification,away,0,1,L,93aef3ed,WCQ,11.0,True,True,
 2016-01-27,Egypt,Friendly,away,1,0,W,903004b1,Friendlies (M),11.0,True,True,
 2016-03-24,Bangladesh,FIFA World Cup qualification,home,8,0,W,ba22f42b,WCQ,11.0,True,True,
@@ -433,9 +433,9 @@ date,opponent,tournament,venue,gf,ga,result,match_id,Comp,n_starters,has_fbref,h
 2022-09-23,Syria,Jordan International Tournament,home,2,0,W,,,,False,False,competition not tracked by fbref
 2022-09-26,Oman,Jordan International Tournament,home,1,0,W,,,,False,False,competition not tracked by fbref
 2022-11-17,Spain,Friendly,home,1,3,L,,,,False,False,match absent from fbref
-2023-03-28,Philippines,Friendly,neutral,4,0,W,0691ca88,Friendlies (M),1.0,True,False,fbref report has no lineup
+2023-03-28,Philippines,Friendly,neutral,4,0,W,0691ca88,Friendlies (M),0.0,True,False,fbref report has no lineup
 2023-06-16,Serbia,Friendly,neutral,2,3,L,c4673266,Friendlies (M),11.0,True,True,
-2023-06-19,Jamaica,Friendly,neutral,2,1,W,15a5b9e6,Friendlies (M),1.0,True,False,fbref report has no lineup
+2023-06-19,Jamaica,Friendly,neutral,2,1,W,15a5b9e6,Friendlies (M),0.0,True,False,fbref report has no lineup
 2023-09-07,Norway,Friendly,away,0,6,L,29f3e91c,Friendlies (M),11.0,True,True,
 2023-09-12,Azerbaijan,Friendly,away,1,2,L,1305d8f5,Friendlies (M),11.0,True,True,
 2023-11-16,Tajikistan,FIFA World Cup qualification,away,1,1,D,1250ff01,WCQ,11.0,True,True,
@@ -469,11 +469,11 @@ date,opponent,tournament,venue,gf,ga,result,match_id,Comp,n_starters,has_fbref,h
 2025-06-05,Oman,FIFA World Cup qualification,away,3,0,W,1c28d9c5,WCQ,11.0,True,True,
 2025-06-10,Iraq,FIFA World Cup qualification,home,0,1,L,316731a5,WCQ,11.0,True,True,
 2025-09-04,Russia,Friendly,away,0,0,D,6615ec5c,Friendlies (M),11.0,True,True,
-2025-09-09,Dominican Republic,Friendly,home,3,0,W,378b61aa,Friendlies (M),1.0,True,False,fbref report has no lineup
+2025-09-09,Dominican Republic,Friendly,home,3,0,W,378b61aa,Friendlies (M),0.0,True,False,fbref report has no lineup
 2025-10-10,Bolivia,Friendly,neutral,0,1,L,17e56e25,Friendlies (M),11.0,True,True,
 2025-10-14,Albania,Friendly,away,2,4,L,bf9307f1,Friendlies (M),11.0,True,True,
 2025-11-14,Tunisia,Friendly,away,2,3,L,245693f0,Friendlies (M),11.0,True,True,
-2025-11-18,Mali,Friendly,neutral,2,3,L,b4fee6f4,Friendlies (M),1.0,True,False,fbref report has no lineup
+2025-11-18,Mali,Friendly,neutral,2,3,L,b4fee6f4,Friendlies (M),0.0,True,False,fbref report has no lineup
 2025-12-03,United Arab Emirates,Arab Cup,neutral,2,1,W,,,,False,False,competition not tracked by fbref
 2025-12-06,Kuwait,Arab Cup,neutral,3,1,W,,,,False,False,competition not tracked by fbref
 2025-12-09,Egypt,Arab Cup,neutral,3,0,W,,,,False,False,competition not tracked by fbref

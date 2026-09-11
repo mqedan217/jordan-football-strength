@@ -35,24 +35,24 @@ Asian Cup qual.,Performance PKwon,15,1.0,not_collected
 Asian Cup qual.,Performance Sh,15,1.0,not_collected
 Asian Cup qual.,Performance SoT,15,1.0,not_collected
 Asian Cup qual.,Performance TklW,15,1.0,not_collected
-Friendlies (M),Min,83,0.096,ok
-Friendlies (M),Performance Ast,83,0.494,ok
-Friendlies (M),Performance CrdR,83,0.916,suspect
-Friendlies (M),Performance CrdY,83,0.265,ok
-Friendlies (M),Performance Crs,83,1.0,not_collected
-Friendlies (M),Performance Fld,83,1.0,not_collected
-Friendlies (M),Performance Fls,83,1.0,not_collected
-Friendlies (M),Performance Gls,83,0.253,ok
-Friendlies (M),Performance Int,83,1.0,not_collected
-Friendlies (M),Performance OG,83,0.928,suspect
-Friendlies (M),Performance Off,83,1.0,not_collected
-Friendlies (M),Performance PK,83,0.819,ok
-Friendlies (M),Performance PKatt,83,0.771,ok
-Friendlies (M),Performance PKcon,83,1.0,not_collected
-Friendlies (M),Performance PKwon,83,1.0,not_collected
-Friendlies (M),Performance Sh,83,1.0,not_collected
-Friendlies (M),Performance SoT,83,1.0,not_collected
-Friendlies (M),Performance TklW,83,1.0,not_collected
+Friendlies (M),Min,75,0.0,ok
+Friendlies (M),Performance Ast,75,0.44,ok
+Friendlies (M),Performance CrdR,75,0.907,suspect
+Friendlies (M),Performance CrdY,75,0.187,ok
+Friendlies (M),Performance Crs,75,1.0,not_collected
+Friendlies (M),Performance Fld,75,1.0,not_collected
+Friendlies (M),Performance Fls,75,1.0,not_collected
+Friendlies (M),Performance Gls,75,0.173,ok
+Friendlies (M),Performance Int,75,1.0,not_collected
+Friendlies (M),Performance OG,75,0.92,suspect
+Friendlies (M),Performance Off,75,1.0,not_collected
+Friendlies (M),Performance PK,75,0.8,ok
+Friendlies (M),Performance PKatt,75,0.747,ok
+Friendlies (M),Performance PKcon,75,1.0,not_collected
+Friendlies (M),Performance PKwon,75,1.0,not_collected
+Friendlies (M),Performance Sh,75,1.0,not_collected
+Friendlies (M),Performance SoT,75,1.0,not_collected
+Friendlies (M),Performance TklW,75,1.0,not_collected
 WCQ,Min,50,0.0,ok
 WCQ,Performance Ast,50,0.58,ok
 WCQ,Performance CrdR,50,0.94,suspect
