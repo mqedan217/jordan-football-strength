@@ -129,6 +129,13 @@ def arabcup_appearances():
         "role": played.role,
         "role_source": "wikipedia_lineup",
         "source": "wikipedia",
+        # kept so match_table can derive substitution timing, cards and the
+        # captain for these matches; the FBref event feed has no Arab Cup rows
+        "on_minute": played.on_minute,
+        "off_minute": played.off_minute,
+        "yellow_minute": played.yellow_minute,
+        "red_minute": played.red_minute,
+        "is_captain": played.is_captain,
     })
     return out
 

@@ -182,12 +182,7 @@ def build_match_table():
         "n_subs_used": subs.groupby("match_id").size(),
         "starting_xi": g.apply(_as_json, include_groups=False),
         "subs_used": subs.groupby("match_id").apply(_as_json, include_groups=False),
-        "captain_played": g.apply(
-            lambda d: ", ".join(d.loc[d.get("is_captain", False) == True, "Player"])
-            if "is_captain" in d else "", include_groups=False),
     })
-    per = per.drop(columns=[c for c in ["captain_played"] if per[c].eq("").all()],
-                   errors="ignore")
     shape = (starters.pivot_table(index="match_id", columns="grp", values="Player",
                                  aggfunc="count", fill_value=0)
              .rename(columns=lambda c: f"n_{c.lower()}"))
@@ -214,6 +209,27 @@ def build_match_table():
         "n_cards": cards.groupby("match_id").size(),
     }))
 
+    # Fall back to the appearance rows where the event feed is silent. The ten
+    # Arab Cup matches come from Wikipedia and have no FBref events, but their
+    # lineups carry on_minute for every substitute and a card minute for every
+    # booking, so the same measures are derivable directly.
+    if "on_minute" in ja.columns:
+        on = pd.to_numeric(ja.on_minute, errors="coerce")
+        sub_on = ja.assign(on=on)[ja.role.eq("sub") & on.notna()].groupby("match_id").on
+        per["first_sub_minute"] = per.first_sub_minute.fillna(sub_on.min())
+        per["median_sub_minute"] = per.median_sub_minute.fillna(sub_on.median())
+    card_cols = [c for c in ["yellow_minute", "red_minute"] if c in ja.columns]
+    if card_cols:
+        n_card = (ja[card_cols].apply(pd.to_numeric, errors="coerce").notna()
+                  .sum(axis=1).groupby(ja.match_id).sum())
+        has_any = n_card.index[n_card.gt(0)]
+        per["n_cards"] = per.n_cards.fillna(n_card.reindex(per.index).where(
+            per.index.isin(has_any)))
+    if "is_captain" in ja.columns:
+        cap = (ja[ja.is_captain.fillna(False).astype(bool)]
+               .drop_duplicates("match_id").set_index("match_id").Player)
+        per["captain_from_lineup"] = cap
+
     keep = ["match_id", "date", "Comp", "Round", "Formation", "Opp Formation",
             "Poss", "Attendance", "Referee", "Captain", "home_manager", "source"]
     keep = [c for c in keep if c in matches.columns]
@@ -225,6 +241,25 @@ def build_match_table():
                               "Poss": "possession", "Attendance": "attendance",
                               "Referee": "referee", "Captain": "captain",
                               "home_manager": "manager"})
+    # Zero versus not-recorded. A count is a real 0 when we hold the source for
+    # that match and nothing of that kind occurred; it stays null only when we
+    # have no source. Leaving a card-free match null would drop it from any
+    # average, which silently inflates cards per match.
+    has_events = set(events.match_id.dropna().unique())
+    has_lineup_detail = set()
+    if "on_minute" in ja.columns:
+        detail = ja[["match_id", "on_minute", "yellow_minute", "red_minute"]]
+        has_lineup_detail = set(detail.match_id[detail.notna().any(axis=1)])
+    known = has_events | has_lineup_detail
+    known_mask = out.match_id.isin(known)
+
+    out["n_cards"] = out.n_cards.where(~(out.n_cards.isna() & known_mask), 0)
+    out["n_subs_used"] = out.n_subs_used.where(
+        ~(out.n_subs_used.isna() & out.n_starters.eq(11)), 0)
+
+    if "captain_from_lineup" in out.columns:
+        out["captain"] = out.captain.fillna(out.captain_from_lineup)
+        out = out.drop(columns=["captain_from_lineup"])
     out["year"] = out.date.dt.year
     out["has_xi"] = out.n_starters.eq(11)
 
