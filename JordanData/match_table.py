@@ -117,15 +117,30 @@ def build_match_table():
     ja["age"] = (pd.to_numeric(ja.age_years, errors="coerce")
                  + pd.to_numeric(ja.age_days, errors="coerce") / 365.25)
     ja["grp"] = ja.Pos.map(coarse_position)
+
+    # The XI as text on the match row. The authoritative per-player data is
+    # appearances_combined.csv, one row per player per match -- this is a
+    # readable copy so a match can be eyeballed without a join, which is what
+    # anyone checking these rows by hand actually needs.
+    ja = ja.sort_values(["match_id", "Min"], ascending=[True, False])
     starters = ja[ja.role == "starter"]
+    subs = ja[ja.role == "sub"]
 
     g = starters.groupby("match_id")
     per = pd.DataFrame({
         "n_starters": g.size(),
         "age_mean": g.age.mean(),
         "age_sd": g.age.std(ddof=1),
-        "n_subs_used": ja[ja.role == "sub"].groupby("match_id").size(),
+        "n_subs_used": subs.groupby("match_id").size(),
+        "starting_xi": g.Player.apply(lambda s: ", ".join(s.dropna().astype(str))),
+        "subs_used": subs.groupby("match_id").Player.apply(
+            lambda s: ", ".join(s.dropna().astype(str))),
+        "captain_played": g.apply(
+            lambda d: ", ".join(d.loc[d.get("is_captain", False) == True, "Player"])
+            if "is_captain" in d else "", include_groups=False),
     })
+    per = per.drop(columns=[c for c in ["captain_played"] if per[c].eq("").all()],
+                   errors="ignore")
     shape = (starters.pivot_table(index="match_id", columns="grp", values="Player",
                                  aggfunc="count", fill_value=0)
              .rename(columns=lambda c: f"n_{c.lower()}"))
@@ -157,6 +172,14 @@ def build_match_table():
                               "home_manager": "manager"})
     out["year"] = out.date.dt.year
     out["has_xi"] = out.n_starters.eq(11)
+    # attendance is a count; FBref writes it as "68,527", which makes the
+    # column a string and blocks any later numeric fill
+    if "attendance" in out.columns:
+        out["attendance"] = pd.to_numeric(
+            out.attendance.astype(str).str.replace(r"[^\d]", "", regex=True),
+            errors="coerce").astype("Int64")
+    if "possession" in out.columns:
+        out["possession"] = pd.to_numeric(out.possession, errors="coerce")
 
     exp = _expectations(dict(zip(out.match_id, out.date)))
     out["expected_gf"] = out.match_id.map(lambda m: exp.get(m, (np.nan,) * 3)[0])
@@ -276,6 +299,8 @@ def build_goals(match_table):
         ac = ac.rename(columns={"scorer_wiki": "scorer"})
         g = pd.concat([g, ac], ignore_index=True)
 
+    g = _fill_goal_gaps(g, match_table)
+
     # attach scorer attributes from the appearance row for that match
     attr = ja.set_index(["match_id", "Player"])[["grp", "age", "role", "player_id"]]
     idx = pd.MultiIndex.from_arrays([g.match_id, g.scorer])
@@ -285,6 +310,55 @@ def build_goals(match_table):
     g["scorer_role"] = joined.role.values
     g["scorer_player_id"] = joined.player_id.values
     return g.sort_values(["date", "minute"]).reset_index(drop=True)
+
+
+def _fill_goal_gaps(goals, match_table):
+    """Recover goals for matches whose FBref report contains no events.
+
+    Six friendlies have an FBref report with no event feed at all, so their
+    goals are simply absent -- 14 of them. Wikipedia's Jordan results articles
+    record scorers for most matches, so they can be recovered.
+
+    The rule is strict on purpose, because these rows are meant to be checked:
+    a match is only filled if we currently have NO goals for it AND the number
+    of goals the article lists equals the scoreline we already hold. A source
+    that disagrees about the score is not a source to take scorers from -- the
+    2025 Mali friendly is recorded on Wikipedia as 0-0 where the results
+    dataset has 2-3, and is therefore left alone rather than reconciled.
+    """
+    try:
+        from wiki_results import jordan_goals
+    except Exception:                                   # noqa: BLE001
+        return goals
+
+    have = goals.groupby("match_id").size() if len(goals) else pd.Series(dtype=int)
+    need = match_table[match_table.gf.notna()].copy()
+    need["have"] = need.match_id.map(have).fillna(0).astype(int)
+    need = need[(need.have == 0) & (need.gf > 0)]
+    if need.empty:
+        return goals
+
+    wiki = jordan_goals()
+    if wiki.empty:
+        return goals
+
+    added = []
+    for _, r in need.iterrows():
+        cand = wiki[wiki.date == r.date]
+        if len(cand) != int(r.gf):
+            continue                       # count must match the scoreline
+        for _, g in cand.iterrows():
+            added.append({
+                "match_id": r.match_id, "date": r.date, "minute": g.minute,
+                "minute_stoppage": g.minute_stoppage, "scorer": g.scorer,
+                "type": g.type, "assist": None, "source": "wikipedia_results",
+            })
+    if not added:
+        return goals
+    out = pd.concat([goals, pd.DataFrame(added)], ignore_index=True)
+    print(f"  recovered {len(added)} goals for "
+          f"{len({a['match_id'] for a in added})} matches from Wikipedia results")
+    return out
 
 
 def build():
