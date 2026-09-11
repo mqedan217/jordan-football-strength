@@ -342,6 +342,38 @@ similarity score, **unconfirmed**. Do not merge these rows into the main
 appearances table until a human sets `confirmed`. A close string is not proof,
 and a wrong accept invents a player history.
 
+### 🚫 Possession — checked exhaustively, NOT obtainable (2026-09-11)
+
+Do not re-explore. Possession exists for **27 of 174** matches and cannot be
+completed, because for most of Jordan's fixtures the measurement was never
+taken. Sources checked:
+
+| source | result |
+|---|---|
+| FBref | 27 matches, gated by competition (Asian Cup 14/14, World Cup 3/3, WCQ 10/50, Asian Cup qualification 0/15, friendlies 0/83) |
+| Wikipedia results + tournament articles | **zero** occurrences of "possession", four probes |
+| ESPN (2015 Jordan–Malta friendly) | lineups, scorers, referee — no possession, and a "1 shot" total in a 2–0 win |
+| FootballCritic match-stats page (same match) | lineups, scorers, referee, stadium — no possession |
+| `stats.the-afc.com` | domain no longer resolves |
+| BeSoccer | **has it for recent matches** (2025 Arab Cup final: Jordan 42%) |
+| Sofascore | checked manually — does not have it for the old matches |
+
+Coverage by era is the tell: **0% (2011-14), 6% (2015-18), 9% (2019-22), 44%
+(2023-26)**. That is the history of when these fixtures were instrumented, not
+a gap in any one provider.
+
+🚨 **A partial fill would make things worse, not better.** Anything obtainable is
+concentrated in recent matches, so topping up 2023-26 from BeSoccer while
+2011-18 stays empty turns any pre/post comparison into a comparison of "matches
+with data" against "matches without" — and that boundary sits right at the
+treatment date. There is no safe window to retreat to, unlike formation.
+
+**Use possession descriptively for the 27 matches, never as a trend variable.**
+It does say something real: Jordan is under 50% in 23 of the 27, including 30%
+in the 2024 Asian Cup semi-final win over Korea and 27% against Argentina.
+Whatever changed, it is not ball control — consistent with the rise being
+attacking rather than defensive.
+
 ## Limitations for the README
 
 State these plainly rather than working around them:
