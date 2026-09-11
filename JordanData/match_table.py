@@ -115,16 +115,21 @@ def _pick(name):
     return pd.read_csv(combined if combined.exists() else SQUAD / f"{name}.csv")
 
 
-def _expectations(dates_by_match):
-    """Model expectation per match, fit only on matches strictly before it."""
+def _expectations(fixtures):
+    """Model expectation per match, fit only on matches strictly before it.
+
+    Takes opponent and venue from the match row rather than looking them up in
+    the results spine. Three FBref matches (the March and June 2019 friendlies
+    against Syria, Iraq and Slovakia) are absent from results.csv entirely, and
+    a spine lookup silently skipped them.
+    """
     df = load_results()
     teams, idx = index_teams(df)
     ti = idx[TEAM]
-    spine = team_view(df, TEAM).set_index("date")
 
     out = {}
-    for mid, date in sorted(dates_by_match.items(), key=lambda kv: kv[1]):
-        if pd.isna(date):
+    for mid, date, opponent, venue in sorted(fixtures, key=lambda r: r[1]):
+        if pd.isna(date) or not isinstance(opponent, str):
             continue
         win = df[(df.date < date) & (df.date >= date - pd.Timedelta(days=LOOKBACK_DAYS))]
         if len(win) < 100:
@@ -134,15 +139,11 @@ def _expectations(dates_by_match):
             win.home_score.to_numpy(float), win.away_score.to_numpy(float),
             (~win.neutral).to_numpy(float),
             (date - win.date).dt.days.to_numpy(float))
-        if date not in spine.index:
-            continue
-        row = spine.loc[date]
-        row = row.iloc[0] if isinstance(row, pd.DataFrame) else row
-        oi = idx.get(row.opponent)
+        oi = idx.get(opponent)
         if oi is None:
             continue
-        flag = 1.0 if row.venue == "home" else 0.0
-        if row.venue == "away":
+        flag = 1.0 if venue == "home" else 0.0
+        if venue == "away":
             mo, mj = m.rates(np.array([oi]), np.array([ti]), np.array([1.0]))
         else:
             mj, mo = m.rates(np.array([ti]), np.array([oi]), np.array([flag]))
@@ -230,8 +231,12 @@ def build_match_table():
                .drop_duplicates("match_id").set_index("match_id").Player)
         per["captain_from_lineup"] = cap
 
+    # Opponent/Venue/GF/GA are FBref's own copies of the spine columns. They are
+    # kept so the three matches results.csv lacks can be filled from them, then
+    # dropped once used.
     keep = ["match_id", "date", "Comp", "Round", "Formation", "Opp Formation",
-            "Poss", "Attendance", "Referee", "Captain", "home_manager", "source"]
+            "Poss", "Attendance", "Referee", "Captain", "home_manager", "source",
+            "Opponent", "Venue", "GF", "GA"]
     keep = [c for c in keep if c in matches.columns]
     out = (matches[keep].merge(per, on="match_id", how="left")
            .merge(spine, on="date", how="left"))
@@ -260,6 +265,27 @@ def build_match_table():
     if "captain_from_lineup" in out.columns:
         out["captain"] = out.captain.fillna(out.captain_from_lineup)
         out = out.drop(columns=["captain_from_lineup"])
+    # FBref holds three matches results.csv does not, so their spine columns are
+    # null. FBref's own fixture row carries the same facts -- fill from there
+    # rather than leave the rows unusable. Zero extra fetching, and the values
+    # come from a page already on disk.
+    fb_opp = (out.Opponent.astype(str).str.replace(r"^[a-z]{2}\s+", "", regex=True)
+              if "Opponent" in out.columns else pd.Series(dtype=object))
+    if "Opponent" in out.columns:
+        out["opponent"] = out.opponent.fillna(fb_opp.where(fb_opp.ne("nan")))
+    if "Venue" in out.columns:
+        out["venue"] = out.venue.fillna(out.Venue.str.lower())
+    for col, src in (("gf", "GF"), ("ga", "GA")):
+        if src in out.columns:
+            out[col] = out[col].fillna(pd.to_numeric(out[src], errors="coerce"))
+    out["gd"] = out.gd.fillna(out.gf - out.ga)
+    out["result"] = out.result.fillna(
+        pd.Series(np.select([out.gd > 0, out.gd == 0], ["W", "D"], "L"),
+                  index=out.index).where(out.gd.notna()))
+    out["tournament"] = out.tournament.fillna(out.comp)
+
+    out = out.drop(columns=[c for c in ["Opponent", "Venue", "GF", "GA"]
+                            if c in out.columns])
     out["year"] = out.date.dt.year
     out["has_xi"] = out.n_starters.eq(11)
 
@@ -308,7 +334,7 @@ def build_match_table():
     if "possession" in out.columns:
         out["possession"] = pd.to_numeric(out.possession, errors="coerce")
 
-    exp = _expectations(dict(zip(out.match_id, out.date)))
+    exp = _expectations(list(zip(out.match_id, out.date, out.opponent, out.venue)))
     out["expected_gf"] = out.match_id.map(lambda m: exp.get(m, (np.nan,) * 3)[0])
     out["expected_ga"] = out.match_id.map(lambda m: exp.get(m, (np.nan,) * 3)[1])
     out["strength_at_match"] = out.match_id.map(lambda m: exp.get(m, (np.nan,) * 3)[2])
@@ -488,8 +514,41 @@ def _fill_goal_gaps(goals, match_table):
     return out
 
 
+def _fill_from_results_articles(out):
+    """Attendance and referee from Wikipedia's Jordan results articles.
+
+    Only nulls are filled, and only where the article's scoreline agrees with
+    ours, so a date collision cannot attach the wrong row. Provenance is kept
+    per field.
+    """
+    try:
+        from wiki_results import propose
+    except Exception:                                   # noqa: BLE001
+        return out
+    try:
+        fills, clashes, _ = propose(out)
+    except Exception as exc:                            # noqa: BLE001
+        print(f"  !! results-article fill skipped: {type(exc).__name__}: {exc}")
+        return out
+
+    for field in ("attendance", "referee"):
+        out[f"{field}_source"] = None
+        out.loc[out[field].notna(), f"{field}_source"] = "fbref"
+        out[field] = out[field].astype(object)
+    for _, f in fills.iterrows():
+        i = out.index[out.match_id == f.match_id]
+        out.loc[i, f.field] = f.proposed
+        out.loc[i, f"{f.field}_source"] = "wikipedia"
+    out["attendance"] = pd.to_numeric(out.attendance, errors="coerce").astype("Int64")
+    if len(clashes):
+        print(f"  {len(clashes)} rows rejected: article scoreline disagrees")
+    print(f"  filled {len(fills)} cells from the results articles")
+    return out
+
+
 def build():
     mt = build_match_table()
+    mt = _fill_from_results_articles(mt)
     mt.to_csv(SQUAD / "match_table.csv", index=False)
     print(f"match_table.csv  {len(mt)} matches, {mt.has_xi.sum()} with a full XI")
 
