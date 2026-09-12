@@ -151,12 +151,104 @@ def _expectations(fixtures):
     return out
 
 
+# Two spellings of one man. He is the only manager who alternates within what
+# is plainly a single spell (2017-01-25 to 2017-10-10), which is what a
+# transliteration variant looks like and what a real change of manager does
+# not. Same treatment as the Arab Cup player crosswalk: an explicit, visible
+# alias rather than a silent fuzzy merge.
+MANAGER_ALIASES = {"Abdulla Mesfer": "Abdullah Ahmed Mesfer"}
+
+
+def _resolve_manager(matches, apps):
+    """Pick Jordan's manager out of the scorebox, and name the opponent's.
+
+    FBref's scorebox carries both managers and is parsed positionally into
+    home_/away_. Taking home_manager unconditionally therefore returns the
+    OPPONENT's manager for every away match.
+
+    Which side Jordan was on is decided by, in order:
+
+    1. the captain. The season fixtures page is Jordan's, so its `Captain` is
+       Jordan's by construction; the scorebox side whose captain it matches is
+       Jordan's. Applied ONLY where both captains parsed -- where just one did,
+       the positional assignment files it under home_ whatever side it came
+       from, which is exactly what made two Bahrain away matches read as home.
+    2. FBref's `Venue`, which is already Jordan-relative (Home/Away/Neutral).
+    3. nothing. The row keeps a null manager rather than a guessed one.
+
+    Rules 1 and 2 agree on all 122 matches where both fire, and rule 1 also
+    overrides lineup-table ordering correctly in the three cases they differ.
+    """
+    m = matches.copy()
+    for col in ("home_manager", "away_manager", "home_captain", "away_captain",
+                "Captain", "Venue"):
+        if col not in m.columns:
+            m[col] = pd.NA
+
+    # Jordan's players in each match, to recognise a captain by the squad he
+    # is in rather than by the fixture page -- covers matches with no `Captain`.
+    ja = apps[apps.squad_id == JORDAN] if "squad_id" in apps.columns else apps
+    roster = ja.groupby("match_id").Player.apply(set)
+    seen = m.match_id.map(roster)
+
+    def is_jordan(col):
+        return pd.Series([isinstance(r, set) and c in r
+                          for c, r in zip(m[col], seen)], index=m.index)
+
+    both = m.home_captain.notna() & m.away_captain.notna()
+    home = both & (m.Captain.eq(m.home_captain) | is_jordan("home_captain"))
+    away = both & (m.Captain.eq(m.away_captain) | is_jordan("away_captain"))
+    conflict = home & away
+    if conflict.any():
+        raise ValueError(f"{int(conflict.sum())} matches resolve to both sides")
+
+    side = pd.Series(np.where(home, "home", np.where(away, "away", None)),
+                     index=m.index, dtype=object)
+    src = pd.Series(np.where(side.notna(), "captain", None),
+                    index=m.index, dtype=object)
+
+    venue_ok = side.isna() & m.Venue.isin(["Home", "Away"])
+    side[venue_ok] = m.Venue[venue_ok].str.lower()
+    src[venue_ok] = "venue"
+
+    # Wikipedia's Arab Cup rows are written from Jordan's own match article, so
+    # their manager field is Jordan's already. They carry no opposing scorebox
+    # and sit at neutral venues, so neither rule above can see them.
+    if "source" in m.columns:
+        wiki = m.source.eq("wikipedia") & m.home_manager.notna()
+        side[wiki] = "home"
+        src[wiki] = "source"
+
+    m["manager"] = np.where(side == "home", m.home_manager,
+                            np.where(side == "away", m.away_manager, None))
+    m["opp_manager"] = np.where(side == "home", m.away_manager,
+                                np.where(side == "away", m.home_manager, None))
+
+    # One block only. Manager and captain are separate positional parses, so a
+    # pair of them is ordered home/away reliably -- but a lone pair carries no
+    # side information at all, only the team it was written for. Recognise that
+    # team by the captain and the lone manager is theirs, in either slot.
+    lone = (m[["home_manager", "away_manager"]].notna().sum(axis=1).eq(1)
+            & m[["home_captain", "away_captain"]].notna().sum(axis=1).eq(1))
+    jordan_block = lone & (is_jordan("home_captain") | is_jordan("away_captain"))
+    only_mgr = m.home_manager.fillna(m.away_manager)
+    m.loc[jordan_block, "manager"] = only_mgr[jordan_block]
+    m.loc[jordan_block, "opp_manager"] = None
+    src[jordan_block] = "lone_block"
+    m["manager_side_source"] = src.where(m.manager.notna())
+    for col in ("manager", "opp_manager"):
+        m[col] = m[col].replace(MANAGER_ALIASES)
+    return m
+
+
 def build_match_table():
     matches = _pick("matches")
     apps = _pick("appearances")
     events = pd.read_csv(SQUAD / "events.csv")
     matches["date"] = pd.to_datetime(matches["Date"], errors="coerce")
     matches = matches.dropna(subset=["date", "match_id"])
+
+    matches = _resolve_manager(matches, apps)
 
     spine = team_view(load_results(), TEAM)[
         ["date", "opponent", "tournament", "venue", "gf", "ga", "gd", "result"]]
@@ -235,7 +327,8 @@ def build_match_table():
     # kept so the three matches results.csv lacks can be filled from them, then
     # dropped once used.
     keep = ["match_id", "date", "Comp", "Round", "Formation", "Opp Formation",
-            "Poss", "Attendance", "Referee", "Captain", "home_manager", "source",
+            "Poss", "Attendance", "Referee", "Captain", "source",
+            "manager", "opp_manager", "manager_side_source",
             "Opponent", "Venue", "GF", "GA"]
     keep = [c for c in keep if c in matches.columns]
     out = (matches[keep].merge(per, on="match_id", how="left")
@@ -244,8 +337,7 @@ def build_match_table():
                               "Formation": "formation",
                               "Opp Formation": "opp_formation",
                               "Poss": "possession", "Attendance": "attendance",
-                              "Referee": "referee", "Captain": "captain",
-                              "home_manager": "manager"})
+                              "Referee": "referee", "Captain": "captain"})
     # Zero versus not-recorded. A count is a real 0 when we hold the source for
     # that match and nothing of that kind occurred; it stays null only when we
     # have no source. Leaving a card-free match null would drop it from any

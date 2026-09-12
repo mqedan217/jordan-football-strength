@@ -198,6 +198,53 @@ class turns two goals into substitutions. Also: FBref files an own goal under
 the team that benefits, so `side` is the scoring team while `player` is the
 opponent who scored it.
 
+### 🚨 Data trap: the scorebox is positional, and half of it is the opponent's
+
+The scorebox carries **both** teams' manager and captain. `fbref_parse._scorebox`
+collects them with two independent `re.findall`s and assigns by position —
+`managers[0]` is home, `managers[1]` is away. `match_table` then renamed
+`home_manager` straight to `manager`, which for every **away** match returns the
+**opponent's** manager. The column held 81 distinct names where Jordan has had
+about 13, with Roberto Mancini, Ralf Rangnick, Zlatko Dalić and Ange Postecoglou
+filed as Jordan managers, and changed value 123 times in 174 matches.
+
+The tell is spell structure: a manager column is correct when it forms
+contiguous blocks, not when it alternates. It now gives **15 spells over 166
+matches**, which reconciles with Jordan's actual coaching history.
+
+Which side Jordan was on is resolved in `match_table._resolve_manager`, in order:
+
+1. **the captain** — the season fixtures page is Jordan's, so its `Captain` is
+   Jordan's by construction; the scorebox side whose captain it matches is
+   Jordan's. Also accepts a captain recognised from Jordan's own appearance rows,
+   which covers matches with no `Captain`. 135 matches.
+2. **`Venue`** — FBref's own column, already Jordan-relative. 20 matches.
+3. **`source == "wikipedia"`** — the Arab Cup rows are written from Jordan's
+   match article, so their manager field is Jordan's already and neither rule
+   above can see them (no opposing scorebox, neutral venue). 10 matches.
+4. nothing — the row keeps a **null** manager rather than a guessed one. 8
+   matches, all of which have no manager in the source at all.
+
+Rules 1 and 2 agree wherever both fire, and there are zero rows resolving to
+both sides. The chosen rule is recorded per match in `manager_side_source`, and
+the opposing manager is kept in `opp_manager` (105 distinct, free of Jordan's).
+
+🚨 **A lone block carries no side information.** Where FBref populated only one
+team's metadata, exactly one manager and one captain parse, and both land in the
+`home_` slots whatever team they belong to. Position is then meaningless, but the
+pair came from the *same* block — so recognising the captain identifies the
+manager. Without this, 2016-09-04 vs Bahrain files Abdullah Abu Zema, Jordan's
+own caretaker, as the opposition. Note this is the *opposite* failure to rules 1
+and 2, which is why the captain rule is restricted to rows with **both** captains.
+
+**`Abdulla Mesfer` and `Abdullah Ahmed Mesfer` are one man** — the only manager
+who alternates inside a single unbroken spell (2017-01-25 to 2017-10-10), which
+is what a transliteration variant looks like and what a real change of manager
+does not. Merged through an explicit `MANAGER_ALIASES` dict, visible in the
+source, never a fuzzy match. Managers have no FBref id, so the
+"never key by name" rule below cannot be applied to them — treat any manager
+comparison as name-keyed and check new spells by hand.
+
 ### 🚨 Never key players by name
 
 Arabic names get re-transliterated between seasons. Name-keying invents debuts
