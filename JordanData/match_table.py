@@ -383,7 +383,9 @@ def _arabcup_goals(apps):
         if not isinstance(r.goals_raw, str):
             continue
         for target, display, goalblob in GOAL_RE.findall(r.goals_raw):
-            name = (display or target).strip()
+            # the target is the full name ("Ali Olwan"); the display text is
+            # usually the surname alone and joins to nothing
+            name = target.strip()
             for tpl in GOAL_TPL.findall(goalblob):
                 for g in _minutes_from_template(tpl):
                     rows.append({
@@ -454,7 +456,9 @@ def build_goals(match_table):
 
     g = _fill_goal_gaps(g, match_table)
 
-    # attach scorer attributes from the appearance row for that match
+    # Per-match attributes where the scorer actually appears in that match's
+    # lineup -- position, age and whether they started are properties of the
+    # appearance, not of the player.
     attr = ja.set_index(["match_id", "Player"])[["grp", "age", "role", "player_id"]]
     idx = pd.MultiIndex.from_arrays([g.match_id, g.scorer])
     joined = attr.reindex(idx)
@@ -462,7 +466,41 @@ def build_goals(match_table):
     g["scorer_age"] = joined.age.values
     g["scorer_role"] = joined.role.values
     g["scorer_player_id"] = joined.player_id.values
+
+    # Identity, however, is squad-wide. A goal recovered for a match with no
+    # lineup has no appearance row to join to, and a name written differently
+    # by another source will not match -- but the player is the same person.
+    g["scorer_player_id"] = g.scorer_player_id.fillna(
+        g.scorer.map(_name_to_id(ja)))
     return g.sort_values(["date", "minute"]).reset_index(drop=True)
+
+
+def _name_to_id(ja):
+    """Squad-wide name -> player id, including confirmed transliterations.
+
+    Verified one-to-one: a name that mapped to two different ids would silently
+    merge two players, so that case raises rather than guessing.
+    """
+    pairs = (ja[["Player", "player_id"]].dropna().drop_duplicates())
+    clash = pairs.groupby("Player").player_id.nunique()
+    bad = clash[clash > 1]
+    if len(bad):
+        raise ValueError(f"name maps to several ids: {list(bad.index)}")
+    mapping = dict(zip(pairs.Player, pairs.player_id))
+
+    # the Arab Cup crosswalk carries the confirmed transliteration variants
+    cw_path = SQUAD / "arabcup_name_crosswalk.csv"
+    if cw_path.exists():
+        cw = pd.read_csv(cw_path)
+        for _, r in cw.iterrows():
+            target = r.fbref_name if pd.notna(r.fbref_name) else r.suggested_fbref_name
+            confirmed = str(r.get("confirmed", "")).strip().lower() in {
+                "y", "yes", "true", "1"}
+            if (r.status == "exact" or confirmed) and pd.notna(target):
+                pid = mapping.get(target)
+                if pid:
+                    mapping.setdefault(r.wiki_name, pid)
+    return mapping
 
 
 def _fill_goal_gaps(goals, match_table):
