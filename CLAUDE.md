@@ -497,7 +497,9 @@ rises +0.067 pre to post; simulating each scoreline from the model's own
 `expected_gf`/`expected_ga` (goal minutes drawn from the pooled empirical
 distribution, identical across eras) collapses it to **−0.006**. The raw rise
 was Argentina and Switzerland, not Jordan. Scratch implementation and a power
-calculation are in the session scratchpad; promote it to a module before use.
+calculation are in `docs/scratch/state_adjusted.py` -- it runs from the repo
+root with hardcoded relative paths; give it the ROOT/SQUAD treatment and move
+it into `JordanData/` before relying on it.
 
 **Still uncovered: 19 matches** — 14 friendlies and 5 competitive, all FBref
 reports with no event feed. Coverage is now balanced across eras, so this is
