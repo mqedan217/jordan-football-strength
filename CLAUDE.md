@@ -421,57 +421,87 @@ in the 2024 Asian Cup semi-final win over Korea and 27% against Argentina.
 Whatever changed, it is not ball control — consistent with the rise being
 attacking rather than defensive.
 
-### Match state — built, and it says nothing (2026-09-13)
+### Match state — built, and the coverage trap it exposed (2026-09-13)
 
-`JordanData/match_state.py` -> `outputs/squad/match_state.csv`. `events.csv`
-carries **both** teams' goals with a minute and a running score, which is enough
-to reconstruct the scoreboard through a match: time spent leading / level /
-trailing, who scored first and when, goals for and against per 15-minute
-window, and what happened after Jordan led or fell behind. **145 of 174
-matches** (111 pre, 34 post); 377 goals.
+`JordanData/match_state.py` -> `outputs/squad/match_state.csv`. Reconstructs the
+scoreboard through each match from goal minutes on **both** sides: time leading
+/ level / trailing, first goal, goals for and against per 15-minute window, and
+what followed a lead or a deficit. **155 of 174 matches, 409 goals.**
 
-Two decisions make it trustworthy, and both are reusable:
+Three decisions make it trustworthy, all reusable:
 
-- **Which side was Jordan?** The feed is match-relative. Compare its final
-  running score against Jordan's own `gf`/`ga` — the orientation that
-  reproduces the result is Jordan's. 116 matches resolve this way with **no
-  match failing both orientations**, which also proves the feed is complete
-  wherever it exists. Level scorelines reproduce both and fall back to `venue`
-  (29 more); level scorelines at neutral grounds stay unresolved rather than
-  guessed, because a wrong orientation silently inverts every scored/conceded
-  number for that match.
+- **Which side was Jordan?** The event feed is match-relative. Compare its final
+  running score against Jordan's own `gf`/`ga` — the orientation reproducing the
+  result is Jordan's (116 matches). No match fails both, which also proves the
+  feed is complete wherever it exists. Level scorelines reproduce both and fall
+  back to `venue` (29); level scorelines at neutral grounds stay unresolved
+  rather than guessed, since a wrong orientation silently inverts every
+  scored/conceded number.
 - **State comes from the running score, never the `side` label**, which means
-  different things for different event types (own goals are filed under the
-  team that benefits). Whichever score column advanced is the scoring team, so
-  own goals need no special case.
+  different things for different event types. Whichever score column advanced is
+  the scoring team, so own goals need no special case.
+- **Goalless matches are not absent data.** A 0-0 is 90 minutes of state, level
+  throughout. 18 matches, all genuine 0-0 draws.
 
-🚨 **Goalless matches are not absent data.** A 0-0 has no goal events but is 90
-minutes of match state — level throughout. Eighteen matches, all genuine 0-0
-draws. Dropping them biases every state measure toward matches where something
-happened.
+🚨 **The coverage trap — check representativeness BEFORE reporting a null.**
+The first version covered 145 matches and returned a clean null on everything.
+It was wrong, not because the numbers were wrong but because the covered subset
+was not representative:
 
-**The result is a null, and it should be reported as one.** Block bootstrap on
-six-month windows, pre vs post 2022-07:
+| | n | gd_above_expected |
+|---|---|---|
+| post, with event data | 34 | **+0.126** |
+| post, without | 11 | **+1.062** |
 
-| | pre | post | diff | 95% |
-|---|---|---|---|---|
-| share of time leading | 0.32 | 0.29 | −0.03 | [−0.23, +0.12] |
-| share of time trailing | 0.17 | 0.24 | +0.07 | [−0.05, +0.23] |
-| scores first | 0.54 | 0.47 | −0.07 | [−0.36, +0.14] |
-| trailed → avoided defeat | 0.16 | 0.20 | +0.04 | [−0.16, +0.25] |
-| led → won | 0.85 | 0.67 | −0.18 | [−0.72, +0.08] |
+FBref carries no Arab Cup, so the entire 2025 run — UAE, Kuwait, Egypt (+3.47),
+Iraq, Saudi Arabia, Morocco — plus the 2024 Asian Cup draw with South Korea sat
+outside the feed. On covered matches the improvement read +0.126 post against
++0.125 pre: **no improvement at all**, because the improvement lived in the
+matches the feed could not see. Same failure mode as possession: coverage
+correlated with the outcome, boundary near the treatment date.
 
-Twelve scoring/conceding timing comparisons were run; two cross zero narrowly
-(conceded 31-45 +0.23 [+0.00, +0.52]; conceded 46-60 −0.11 [−0.20, −0.02]).
-**At 95% across 12 tests that is what chance produces** — do not report either
-as a finding. In particular the eye-catching raw pattern, conceding 0.34 → 0.56
-per match in the 76-90 window, has interval [−0.06, +0.66] and does **not**
-survive; read it against Armatas et al. (2009), who find 22.5% of all goals
-fall in that window regardless.
+Fixed by reading the opponent's goals from the Wikipedia `Football box`, which
+was already cached — only Jordan's half had been parsed. Coverage 145 -> 155 and
+**89% in both eras** rather than 76% post against 86% pre. Covered subset now
+reads +0.293 post against +0.126 pre.
 
-Match state is therefore a **"what it isn't"** section, not a finding. That is
-worth keeping: with n=34 post-2022 matches these intervals are the honest
-result, and a null with an interval is more useful than a point estimate.
+**Findings, on the repaired data:**
+
+- **Jordan concedes 33.9% of all goals against in the 76-90 window**, against
+  22.0% of its own goals scored there — and Armatas et al. (2009) put the
+  all-football benchmark at 22.5%. The attack's timing is unremarkable; the
+  defence's is not. This is a description of all 155 matches, not a change.
+- **Scoring rate per 90 minutes actually spent in each state** — a rate, so
+  "trails more, therefore scores more while trailing" cannot fake it:
+
+  | | leading | level | trailing |
+  |---|---|---|---|
+  | pre | 2.47 | 1.13 | **0.85** |
+  | post | 1.96 | 1.53 | **1.40** |
+
+  Pre-2022 Jordan was a front-runner: ruthless ahead, and *below its level-state
+  rate* when behind (0.75x), the opposite of the Lago-Penas pattern. Post-2022
+  is flatter (0.92x). ⚠️ **No intervals on these yet and the trailing cell is 12
+  goals.** Bootstrap before believing it — this is the most interesting and the
+  thinnest number in the analysis.
+- **Blowouts did not change.** Win by 3+ −0.008 [−0.152, +0.124]; lose by 3+
+  −0.002 [−0.068, +0.097]; margin sd 2.34 -> 2.36. What changed is total goals
+  per match, **2.50 -> 3.05 [+0.08, +1.04]** — games got more open.
+- **Still null:** time leading, time trailing, scores first, recovery from
+  behind. Led->won falls 0.841 -> 0.708 [−0.446, +0.082], suggestive only. The
+  "mentality" story stays dead; the change is in how flat the scoring rate is
+  across states, which is a squad-quality story.
+
+🚨 **Opponent-adjust state measures before comparing eras.** Raw time-trailing
+rises +0.067 pre to post; simulating each scoreline from the model's own
+`expected_gf`/`expected_ga` (goal minutes drawn from the pooled empirical
+distribution, identical across eras) collapses it to **−0.006**. The raw rise
+was Argentina and Switzerland, not Jordan. Scratch implementation and a power
+calculation are in the session scratchpad; promote it to a module before use.
+
+**Still uncovered: 19 matches** — 14 friendlies and 5 competitive, all FBref
+reports with no event feed. Coverage is now balanced across eras, so this is
+noise rather than bias, but it caps n at 40 post-2022.
 
 ## Limitations for the README
 
