@@ -25,6 +25,7 @@ rise through a match and peak in the final 15 minutes -- the expected shape
 that any era difference here has to be judged against. Match-state effects on
 play are established in Lago-Penas & Gomez-Lopez (2014).
 """
+import re
 from pathlib import Path
 
 import numpy as np
@@ -100,73 +101,118 @@ def _timeline(rows, side):
     return out
 
 
+GOAL_TPL = re.compile(r"\{\{goal\|([^}]*)\}\}")
+
+
+def _arabcup_timelines():
+    """Goal timelines for the Arab Cup, from the Wikipedia match boxes.
+
+    One template can hold several goals -- `{{goal|48||68|pen.}}` is two -- so
+    every numeric field counts, not every template. Stoppage time is written
+    `90+3`, which int() on the leading digits resolves to the minute the goal
+    belongs in. Returns {match_id: [(minute, +1 for Jordan / -1 against)]}.
+    """
+    path = SQUAD / "arabcup_matches.csv"
+    if not path.exists():
+        return {}
+    ac = pd.read_csv(path)
+    if "opp_goals_raw" not in ac.columns:
+        return {}
+
+    def minutes(blob):
+        if not isinstance(blob, str):
+            return []
+        out = []
+        for m in GOAL_TPL.finditer(blob):
+            for part in m.group(1).split("|"):
+                hit = re.match(r"\s*(\d+)(?:\+(\d+))?", part)
+                if hit:
+                    out.append(float(hit.group(1)) +
+                               (float(hit.group(2)) if hit.group(2) else 0.0))
+        return out
+
+    tl = {}
+    for r in ac.itertuples():
+        ours = [(m, 1) for m in minutes(r.goals_raw)]
+        theirs = [(m, -1) for m in minutes(r.opp_goals_raw)]
+        if len(ours) != r.gf or len(theirs) != r.ga:
+            raise ValueError(
+                f"Arab Cup {r.date}: parsed {len(ours)}-{len(theirs)}, "
+                f"scoreline says {r.gf}-{r.ga}")
+        tl[r.match_id] = sorted(ours + theirs)
+    return tl
+
+
+def _state_row(mid, tl, side, src):
+    """State measures for one match from its goal timeline."""
+    end = max(90.0, max((m for m, _ in tl), default=0.0))
+    lead = level = trail = 0.0
+    diff, t = 0, 0.0
+    for minute, delta in tl:
+        span = minute - t
+        if diff > 0:
+            lead += span
+        elif diff < 0:
+            trail += span
+        else:
+            level += span
+        diff += delta
+        t = minute
+    span = end - t
+    if diff > 0:
+        lead += span
+    elif diff < 0:
+        trail += span
+    else:
+        level += span
+
+    deltas = [d for _, d in tl]
+    running = np.cumsum(deltas) if deltas else np.array([])
+    return {
+        "match_id": mid, "jordan_side": side, "side_source": src,
+        "n_goal_events": len(tl),
+        "first_goal": ("for" if deltas[0] > 0 else "against") if deltas else None,
+        "first_goal_minute": tl[0][0] if tl else np.nan,
+        "min_leading": lead, "min_level": level, "min_trailing": trail,
+        "ever_led": bool((running > 0).any()),
+        "ever_trailed": bool((running < 0).any()),
+        "match_end": end,
+    }
+
+
 def build():
     ev, mt = _load()
     sides = resolve_side(ev, mt)
     goals = ev[ev.type.isin(GOAL_TYPES)].sort_values(
-        ["match_id", "minute", "minute_stoppage"])
-    goals = goals.merge(sides, on="match_id")
+        ["match_id", "minute", "minute_stoppage"]).merge(sides, on="match_id")
+
+    # One dict of goal timelines, whatever the source. Everything downstream
+    # reads this, so a match from Wikipedia is treated exactly like one from
+    # the event feed.
+    timelines = {}
+    for mid, grp in goals.groupby("match_id"):
+        timelines[mid] = (_timeline(grp, grp.jordan_side.iloc[0]),
+                          grp.jordan_side.iloc[0], grp.side_source.iloc[0])
 
     # A goalless match has no goal events but is still 90 minutes of match
     # state -- level throughout. Dropping those would bias every state measure
     # toward matches where something happened. All 18 are genuine 0-0 draws.
-    goalless = sides[~sides.match_id.isin(goals.match_id)]
+    for r in sides[~sides.match_id.isin(goals.match_id)].itertuples():
+        timelines[r.match_id] = ([], r.jordan_side, r.side_source)
 
-    rows = []
-    for mid in goalless.match_id:
-        src = goalless.loc[goalless.match_id.eq(mid), "side_source"].iloc[0]
-        side = goalless.loc[goalless.match_id.eq(mid), "jordan_side"].iloc[0]
-        rows.append({
-            "match_id": mid, "jordan_side": side, "side_source": src,
-            "n_goal_events": 0, "first_goal": None, "first_goal_minute": np.nan,
-            "min_leading": 0.0, "min_level": 90.0, "min_trailing": 0.0,
-            "ever_led": False, "ever_trailed": False, "match_end": 90.0,
-        })
+    # The Arab Cup, which the event feed does not carry at all.
+    for mid, tl in _arabcup_timelines().items():
+        timelines.setdefault(mid, (tl, "home", "arabcup_box"))
 
-    for mid, grp in goals.groupby("match_id"):
-        side = grp.jordan_side.iloc[0]
-        tl = _timeline(grp, side)
-        # Match length: 90, or later if a goal came in stoppage time. Halves are
-        # not separable here, so this is deliberately coarse.
-        end = max(90.0, max((m for m, _ in tl), default=0.0))
-
-        lead = level = trail = 0.0
-        diff, t = 0, 0.0
-        for minute, delta in tl:
-            span = minute - t
-            bucket = "lead" if diff > 0 else ("trail" if diff < 0 else "level")
-            lead += span if bucket == "lead" else 0
-            level += span if bucket == "level" else 0
-            trail += span if bucket == "trail" else 0
-            diff += delta
-            t = minute
-        span = end - t
-        lead += span if diff > 0 else 0
-        level += span if diff == 0 else 0
-        trail += span if diff < 0 else 0
-
-        deltas = [d for _, d in tl]
-        running = np.cumsum(deltas) if deltas else np.array([])
-        rows.append({
-            "match_id": mid,
-            "jordan_side": side,
-            "side_source": grp.side_source.iloc[0],
-            "n_goal_events": len(tl),
-            "first_goal": ("for" if deltas[0] > 0 else "against") if deltas else None,
-            "first_goal_minute": tl[0][0] if tl else np.nan,
-            "min_leading": lead, "min_level": level, "min_trailing": trail,
-            "ever_led": bool((running > 0).any()),
-            "ever_trailed": bool((running < 0).any()),
-            "match_end": end,
-        })
+    rows = [_state_row(mid, tl, side, src)
+            for mid, (tl, side, src) in timelines.items()]
 
     st = pd.DataFrame(rows)
 
     # Goals for and against per 15-minute bucket, wide.
     per = []
-    for mid, grp in goals.groupby("match_id"):
-        side = grp.jordan_side.iloc[0]
-        for minute, delta in _timeline(grp, side):
+    for mid, (tl, _side, _src) in timelines.items():
+        for minute, delta in tl:
             per.append((mid, minute, "for" if delta > 0 else "against"))
     pg = pd.DataFrame(per, columns=["match_id", "minute", "dir"])
     pg["bucket"] = pd.cut(pg.minute.clip(0, 90), BUCKETS,

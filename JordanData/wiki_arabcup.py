@@ -160,6 +160,13 @@ def parse_page(text, team_code="JOR"):
         goals = re.search(
             rf"goals{side[-1]}[ \t]*=[ \t]*(.*?)(?=\n[ \t]*\|[ \t]*\w+[ \t]*=|\n\}}\}})",
             chunk, re.S)
+        # The same field for the other team. Needed to rebuild the scoreboard:
+        # without the opponent's goal minutes there is no match state, and
+        # these ten matches are where the post-2022 outperformance lives.
+        other = "1" if side == "team2" else "2"
+        opp_goals = re.search(
+            rf"goals{other}[ \t]*=[ \t]*(.*?)(?=\n[ \t]*\|[ \t]*\w+[ \t]*=|\n\}}\}})",
+            chunk, re.S)
         sc = re.search(r"score\s*=\s*(?:\{\{score link\|[^|]*\|)?\s*([0-9]+)[^0-9]+([0-9]+)", head)
         stadium = re.search(r"stadium\s*=\s*(.+)", head)
         att = re.search(r"attendance\s*=\s*([\d,]+)", head)
@@ -193,6 +200,7 @@ def parse_page(text, team_code="JOR"):
             "referee": _clean_name(ref.group(1)) if ref else None,
             "manager": manager,
             "goals_raw": goals.group(1).strip() if goals else None,
+            "opp_goals_raw": opp_goals.group(1).strip() if opp_goals else None,
             "lineup": rows,
         })
     return out
