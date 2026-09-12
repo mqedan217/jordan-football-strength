@@ -421,6 +421,58 @@ in the 2024 Asian Cup semi-final win over Korea and 27% against Argentina.
 Whatever changed, it is not ball control — consistent with the rise being
 attacking rather than defensive.
 
+### Match state — built, and it says nothing (2026-09-13)
+
+`JordanData/match_state.py` -> `outputs/squad/match_state.csv`. `events.csv`
+carries **both** teams' goals with a minute and a running score, which is enough
+to reconstruct the scoreboard through a match: time spent leading / level /
+trailing, who scored first and when, goals for and against per 15-minute
+window, and what happened after Jordan led or fell behind. **145 of 174
+matches** (111 pre, 34 post); 377 goals.
+
+Two decisions make it trustworthy, and both are reusable:
+
+- **Which side was Jordan?** The feed is match-relative. Compare its final
+  running score against Jordan's own `gf`/`ga` — the orientation that
+  reproduces the result is Jordan's. 116 matches resolve this way with **no
+  match failing both orientations**, which also proves the feed is complete
+  wherever it exists. Level scorelines reproduce both and fall back to `venue`
+  (29 more); level scorelines at neutral grounds stay unresolved rather than
+  guessed, because a wrong orientation silently inverts every scored/conceded
+  number for that match.
+- **State comes from the running score, never the `side` label**, which means
+  different things for different event types (own goals are filed under the
+  team that benefits). Whichever score column advanced is the scoring team, so
+  own goals need no special case.
+
+🚨 **Goalless matches are not absent data.** A 0-0 has no goal events but is 90
+minutes of match state — level throughout. Eighteen matches, all genuine 0-0
+draws. Dropping them biases every state measure toward matches where something
+happened.
+
+**The result is a null, and it should be reported as one.** Block bootstrap on
+six-month windows, pre vs post 2022-07:
+
+| | pre | post | diff | 95% |
+|---|---|---|---|---|
+| share of time leading | 0.32 | 0.29 | −0.03 | [−0.23, +0.12] |
+| share of time trailing | 0.17 | 0.24 | +0.07 | [−0.05, +0.23] |
+| scores first | 0.54 | 0.47 | −0.07 | [−0.36, +0.14] |
+| trailed → avoided defeat | 0.16 | 0.20 | +0.04 | [−0.16, +0.25] |
+| led → won | 0.85 | 0.67 | −0.18 | [−0.72, +0.08] |
+
+Twelve scoring/conceding timing comparisons were run; two cross zero narrowly
+(conceded 31-45 +0.23 [+0.00, +0.52]; conceded 46-60 −0.11 [−0.20, −0.02]).
+**At 95% across 12 tests that is what chance produces** — do not report either
+as a finding. In particular the eye-catching raw pattern, conceding 0.34 → 0.56
+per match in the 76-90 window, has interval [−0.06, +0.66] and does **not**
+survive; read it against Armatas et al. (2009), who find 22.5% of all goals
+fall in that window regardless.
+
+Match state is therefore a **"what it isn't"** section, not a finding. That is
+worth keeping: with n=34 post-2022 matches these intervals are the honest
+result, and a null with an interval is more useful than a point estimate.
+
 ## Limitations for the README
 
 State these plainly rather than working around them:
@@ -444,3 +496,17 @@ State these plainly rather than working around them:
 - No claim without an interval.
 - Any column that is uniformly zero is missing until proven otherwise.
 - Cite Dixon & Coles (1997), Maher (1982), Baio & Blangiardo (2010).
+
+---
+
+## Citations
+
+Every method, data source and software dependency this project leans on is
+listed in **`docs/references.md`**, with the file that uses it. Cite from there
+rather than re-deriving a reference; add to it when a new method is introduced.
+
+The three that carry the most weight: **Dixon & Coles (1997)** for the
+time-decayed Poisson model, **Künsch (1989)** for the block bootstrap behind
+every interval, and **Gotelli & Colwell (2001)** for rarefaction — without which
+"fewer different scorers after 2022" is an artefact of the post era being
+shorter, not a finding.
