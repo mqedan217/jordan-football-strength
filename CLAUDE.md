@@ -604,9 +604,22 @@ level, 61-75 -> 76-90, scoring goes **1.41 -> 0.21** per 90 while conceding goes
 last fifteen minutes and conceded **twenty**.
 
 Verified a second way, independent of the rate arithmetic: **36 matches level at
-the 75th minute -> 2W 20D 14L, 0.72 points of a possible 3.** Present in both
-eras (pre 1-15-8, post 1-5-6), so this is **not** a pre/post change — the model
-says Jordan improved a lot over this period and this failure came with it.
+the 75th minute -> 2W 20D 14L, 0.72 points of a possible 3.**
+
+**Tested across the eras, not assumed.** The shortfall against model expectation
+is **-0.50 [-0.73, -0.22]** before 2022 and **-0.41 [-0.84, +0.12]** after: a
+change of **+0.09, 95% [-0.37, +0.75]**. Unchanged. The raw rate in that cell
+goes 3.04 -> 7.32 per 90, but the interval is [-0.08, +11.59] — ten goals in 123
+minutes distinguishes nothing, so do NOT report it as having worsened. Post-2022
+failing to clear zero on its own is twelve matches, not a fix.
+
+🚨 **The state distribution barely moves either, and that is the point.** Jordan
+reaches the 75th minute leading in 47% of matches in BOTH eras and level in
+about a quarter — while the opposition got much harder (mean expected GD across
+all matches +0.48 -> +0.02, and among matches reaching 75' level, +0.50 ->
+-0.41). Holding the same scoreboard positions against much better teams IS the
+improvement; it is notebook 01's headline in a different register. The
+conversion from those positions did not improve at all.
 
 Opponent-adjusted, because that check has caught several claims in this project:
 those 36 fixtures have mean `expected_gd` **+0.20**, i.e. Jordan was *favoured*.

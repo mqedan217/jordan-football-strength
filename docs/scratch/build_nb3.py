@@ -631,29 +631,132 @@ print(f"\\n  across {len(L)} matches that is {abs(obs - exp) * len(L):.0f} point
 """)
 
 md("""
-**This is the clearest actionable finding in the project.** A level scoreline at
-the 75th minute, against these opponents, should be worth about 1.2 points.
-Jordan takes 0.72 — a shortfall of roughly half a point per match, with an
-interval that excludes zero, across 36 matches.
+A level scoreline at the 75th minute, against these opponents, should be worth
+about 1.2 points. Jordan takes 0.72 — a shortfall of roughly half a point per
+match, interval excluding zero, across 36 matches.
 
 It is not an artefact of the clock convention: even adding eight minutes of
 stoppage to every one of those matches, the late level-state spike remains about
-2.7×. And it is not opponent quality — these are fixtures Jordan was, on
-average, *favoured* in.
+2.7×. And it is not opponent quality — the adjustment above already handles
+that, and these are fixtures Jordan was on average favoured in.
 
-Three things it is **not**:
+### Did this change between the eras?
 
-- **not a lost-lead problem.** With a lead, the late conceding rate is flat.
-- **not a general late-goal effect.** Armatas et al. (2009) find goals rise late
-  everywhere, but that would lift the leading line too, and it does not.
-- **not a change across 2022.** It is present in both eras. The model says
-  Jordan got substantially better over this period; this particular failure went
-  with them.
+That is the notebook's actual question, so it has to be tested rather than
+asserted from the pooled number.
+""")
 
-What it *is* cannot be settled here. The obvious reading — a team chasing a
-winner gets caught on the break — is exactly the kind of mechanism that needs
-shot locations or possession to test, and neither exists for these matches
-(notebook 02). It stays a description of what happens, not an explanation.
+code("""
+cells["era"] = cells.match_id.map(mt.set_index("match_id").era)
+print("the level-state late cell, by era:")
+for e in ("pre", "post"):
+    d = cells[(cells.era == e) & (cells.state == "level")]
+    for w in ("61-75", "76-90"):
+        s = d[d.window == w]
+        print(f"  {e:5s} {w}: {int(s.ga.sum()):2d} conceded, {int(s.gf.sum())} scored"
+              f" / {s.minutes.sum():6.0f} min = {s.ga.sum()/s.minutes.sum()*90:.2f} per 90")
+
+def late_level(ms_):
+    return rate(ms_, "76-90", "level")
+
+pre_m = mt[mt.era == "pre"].match_id.tolist()
+post_m = mt[mt.era == "post"].match_id.tolist()
+blk = {e: [d.match_id.tolist() for _, d in mt[mt.era == e].groupby("blk")]
+       for e in ("pre", "post")}
+draws = []
+for _ in range(2000):
+    s = {e: [m for i in rng.integers(0, len(blk[e]), len(blk[e])) for m in blk[e][i]]
+         for e in ("pre", "post")}
+    v = late_level(s["post"]) - late_level(s["pre"])
+    if np.isfinite(v):
+        draws.append(v)
+lo, hi = np.percentile(draws, [2.5, 97.5])
+print(f"\\n  conceding rate while level, 76-90: pre {late_level(pre_m):.2f} -> "
+      f"post {late_level(post_m):.2f}")
+print(f"  difference {late_level(post_m)-late_level(pre_m):+.2f} per 90  "
+      f"95% [{lo:+.2f}, {hi:+.2f}]  -- spans zero, so NOT shown to have worsened")
+""")
+
+code("""
+# The interpretable version: the points shortfall, by era.
+L["era"] = L.match_id.map(mt.set_index("match_id").era)
+L["blk"] = L.match_id.map(mt.set_index("match_id").blk)
+L["expected_pts"] = sim
+L["short"] = L.pts - L.expected_pts
+print(L.groupby("era").agg(n=("pts", "size"), observed=("pts", "mean"),
+                           model_expected=("expected_pts", "mean"),
+                           shortfall=("short", "mean"),
+                           opponent_exp_gd=("expected_gd", "mean")).round(2).to_string())
+
+LB = {e: [d.match_id.tolist() for _, d in L[L.era == e].groupby("blk")]
+      for e in ("pre", "post")}
+lm = L.set_index("match_id")
+d_obs = L[L.era == "post"].short.mean() - L[L.era == "pre"].short.mean()
+dr = []
+for _ in range(4000):
+    s = {e: [m for i in rng.integers(0, len(LB[e]), len(LB[e])) for m in LB[e][i]]
+         for e in ("pre", "post")}
+    v = lm.loc[s["post"]].short.mean() - lm.loc[s["pre"]].short.mean()
+    if np.isfinite(v):
+        dr.append(v)
+lo, hi = np.percentile(dr, [2.5, 97.5])
+print(f"\\n  change in shortfall, pre -> post: {d_obs:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
+for e in ("pre", "post"):
+    d = L[L.era == e]
+    b = [d.short.values[p].mean()
+         for p in (rng.integers(0, len(d), len(d)) for _ in range(5000))]
+    l2, h2 = np.percentile(b, [2.5, 97.5])
+    print(f"    {e:5s} n={len(d):2d}  shortfall {d.short.mean():+.2f}  "
+          f"95% [{l2:+.2f}, {h2:+.2f}]")
+""")
+
+code("""
+# How often does Jordan even arrive at the 75th minute in each state?
+at75 = []
+for mid, (tl, _s, _x) in TL.items():
+    d75 = sum(d for m, d in tl if m <= 75)
+    at75.append({"era": info.loc[mid, "era"],
+                 "at75": "leading" if d75 > 0 else ("trailing" if d75 < 0 else "level")})
+at75 = pd.DataFrame(at75)
+print("scoreboard state at the 75th minute, share of matches:")
+print(pd.crosstab(at75.era, at75.at75, normalize="index")
+      .reindex(index=["pre", "post"])[["leading", "level", "trailing"]].round(3).to_string())
+print("\\nand the opposition faced, all matches:")
+print(mt.groupby("era")[["expected_gd", "expected_gf", "expected_ga"]]
+      .mean().reindex(["pre", "post"]).round(3).to_string())
+""")
+
+md("""
+**The answer: this is the part that did not improve.**
+
+The shortfall is **−0.50** before 2022 and **−0.41** after, a change of **+0.09,
+95% [−0.36, +0.77]** — no change worth the name. The raw conceding rate in that
+cell rises from 3.04 to 7.32 per 90, which looks alarming until you see the
+interval, [−0.42, +11.66]: ten goals in 123 minutes cannot distinguish anything.
+Pre-2022 the shortfall clears zero on its own; post-2022 it does not, but that
+is twelve matches, not evidence of a fix.
+
+The state distribution barely moves either — Jordan arrives at the 75th minute
+leading in **47%** of matches in both eras, and level in about a quarter.
+
+**And that is the interesting part.** Over the same period the opposition got
+dramatically harder: mean expected goal difference across all matches falls from
+**+0.48** to **+0.02**, and among the matches that reach 75 minutes level, from
+**+0.50** to **−0.41** — from fixtures Jordan was favoured in to fixtures it was
+not. Reaching the same scoreboard positions against that much better opposition
+*is* the improvement, and it is the same phenomenon as notebook 01's headline:
+the raw numbers hold flat while the quality behind them rises.
+
+So this section's contribution to the notebook's question is a negative one, and
+a useful one. The results got better, but **none of the improvement came from
+managing tight matches better.** Jordan converts a level scoreline at 75 minutes
+exactly as badly as it did before — roughly half a point per match below what
+the fixture is worth, in both eras. Whatever drove the rise, it was not this.
+
+What the failure *is* cannot be settled here. The obvious reading — a team
+chasing a winner gets caught on the break — needs shot locations or possession
+to test, and neither exists for these matches (notebook 02). It stays a
+description of what happens, not an explanation.
 """)
 
 md("""
@@ -782,16 +885,17 @@ comparison that falls outside:
   starters who have played together more in the preceding two years
 - a larger share of goals comes from **midfield**
 
-**True of the whole period, not a change** — and the most actionable thing here:
+**Unchanged across the eras — the part of the game that did not improve:**
 
 - Jordan concedes **a third of its goals in the last fifteen minutes**, against
   an all-football benchmark of 22.5%
 - crossed with state, that is **entirely a level-scoreline problem**. With a
-  lead the late conceding rate is flat; while level it roughly quadruples, and
-  Jordan's own scoring rate collapses in the same window
+  lead the late conceding rate is flat (1.01×); while level it roughly
+  quadruples (3.92×), and Jordan's own scoring rate collapses in the same window
 - from a **level scoreline at the 75th minute** Jordan takes about 0.7 points
-  where the model expects about 1.2 — a shortfall of roughly half a point a
-  match, interval excluding zero, in fixtures it was on average favoured in
+  where the model expects about 1.2 — and that shortfall is **−0.50 before 2022
+  and −0.41 after, a change of +0.09, 95% [−0.36, +0.77]**. It did not get
+  better and it did not get worse.
 
 **Not established** — measured, interval spans zero:
 
@@ -801,11 +905,35 @@ comparison that falls outside:
 
 **Ruled out as the mechanism:** goalkeeping and discipline.
 
+### So how did the results get better?
+
+Putting the sections together, the shape of the answer is:
+
+**Through the attack, from a narrower group, with a more settled team.** More of
+the goals come from a small set of players and from midfield, minutes are
+concentrated in fewer men, and those men have played together more in the
+preceding two years. Against opposition that got substantially harder — mean
+expected goal difference falling from +0.48 to +0.02 — that produced better
+results.
+
+**Not through game management.** Jordan reaches the 75th minute in the same
+scoreboard positions as before, and converts a level one exactly as badly. It
+does not hold leads better, recover from behind better, score first more often,
+win more heavily or concede more heavily. Every one of those is a measured null,
+and the level-scoreline shortfall is unchanged at about half a point a match.
+
+**Not through the goalkeeper or discipline**, both of which changed hands or
+could have and neither of which moved the numbers.
+
+That last group matters as much as the first. The list of things that *didn't*
+change is what stops "Jordan got better" from being a story you can tell any way
+you like.
+
 ### What this does and does not license
 
 The honest reading is a **coincidence with uncertainty**, which is what this
 design can support and no more. Jordan's attack improved; over the same period
-the scoring narrowed onto a small group of new players and the team became more
+the scoring narrowed onto a small group of players and the team became more
 settled. Those things happened together.
 
 They are not shown to cause one another. Squad change, coaching change and
