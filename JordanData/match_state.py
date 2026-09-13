@@ -193,15 +193,19 @@ def _state_row(mid, tl, side, src):
     }
 
 
-def build():
-    ev, mt = _load()
+def goal_timelines(ev=None, mt=None):
+    """{match_id: ([(minute, +1 for Jordan / -1 against)], side, side_source)}.
+
+    One dict whatever the source, so a match recovered from Wikipedia is
+    treated exactly like one from the event feed. This is the public entry
+    point -- build on it rather than re-deriving from the private helpers.
+    """
+    if ev is None or mt is None:
+        ev, mt = _load()
     sides = resolve_side(ev, mt)
     goals = ev[ev.type.isin(GOAL_TYPES)].sort_values(
         ["match_id", "minute", "minute_stoppage"]).merge(sides, on="match_id")
 
-    # One dict of goal timelines, whatever the source. Everything downstream
-    # reads this, so a match from Wikipedia is treated exactly like one from
-    # the event feed.
     timelines = {}
     for mid, grp in goals.groupby("match_id"):
         timelines[mid] = (_timeline(grp, grp.jordan_side.iloc[0]),
@@ -216,6 +220,54 @@ def build():
     # The Arab Cup, which the event feed does not carry at all.
     for mid, tl in _arabcup_timelines().items():
         timelines.setdefault(mid, (tl, "home", "arabcup_box"))
+    return timelines
+
+
+def state_time_cells(timelines=None):
+    """Minutes at risk and goals, per (match, 15-minute window, state).
+
+    Long format, one row per contiguous stretch of a single state inside a
+    window, plus a zero-minute row per goal carrying the state it was scored
+    in. Summing `minutes` and `ga` over a group and dividing gives a conceding
+    rate per 90 minutes actually spent in that situation.
+
+    🚨 The clock stops at 90. Every match plays stoppage time but only some
+    have a goal in it, so letting the last window run to the final goal's
+    minute would give matches with late goals more minutes at risk than those
+    without. Goals after 90 are counted in the 76-90 window and minutes at risk
+    there are a flat 15 for every match. That inflates the last window's rate
+    for everyone equally, which is a bias a comparison ACROSS windows must
+    allow for -- see the stoppage-time sensitivity check in notebook 03.
+    """
+    if timelines is None:
+        timelines = goal_timelines()
+    edges = list(zip(BUCKETS[:-1], [15, 30, 45, 60, 75, 90]))
+
+    rows = []
+    for mid, (tl, _side, _src) in timelines.items():
+        ev_tl = sorted((min(m, 90.0), d) for m, d in tl)
+
+        def state_at(t):
+            d = sum(x for m, x in ev_tl if m <= t)
+            return "leading" if d > 0 else ("trailing" if d < 0 else "level")
+
+        for (lo, hi), lab in zip(edges, BUCKET_LABELS):
+            cuts = sorted({lo, hi} | {m for m, _ in ev_tl if lo < m < hi})
+            for a, b in zip(cuts[:-1], cuts[1:]):
+                rows.append({"match_id": mid, "window": lab,
+                             "state": state_at(a + 1e-9),
+                             "minutes": b - a, "gf": 0, "ga": 0})
+            for m, delta in ev_tl:
+                if lo < m <= hi:
+                    rows.append({"match_id": mid, "window": lab,
+                                 "state": state_at(m - 1e-9), "minutes": 0.0,
+                                 "gf": int(delta > 0), "ga": int(delta < 0)})
+    return pd.DataFrame(rows)
+
+
+def build():
+    ev, mt = _load()
+    timelines = goal_timelines(ev, mt)
 
     rows = [_state_row(mid, tl, side, src)
             for mid, (tl, side, src) in timelines.items()]
@@ -246,6 +298,12 @@ def build():
     cols = ["match_id"] + [c for c in context if c in out.columns] + \
            [c for c in out.columns if c in set(st.columns) - {"match_id"}]
     out[cols].to_csv(SQUAD / "match_state.csv", index=False)
+
+    cells = state_time_cells(timelines)
+    cells.to_csv(SQUAD / "state_time_cells.csv", index=False)
+    print(f"state_time_cells.csv  {len(cells)} rows "
+          f"({cells.minutes.sum():.0f} minutes at risk, "
+          f"{int(cells.ga.sum())} conceded, {int(cells.gf.sum())} scored)")
 
     have = st.match_id.nunique()
     print(f"match_state.csv  {have} matches with a reconstructed scoreboard "

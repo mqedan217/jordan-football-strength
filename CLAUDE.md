@@ -574,6 +574,57 @@ window, where Al-Taamari's pre-2022 share looks smaller.
 Nulls reported as nulls: match state, heavy wins and defeats, goalkeeper,
 discipline, and the state scoring rates.
 
+### ✅ The level-scoreline collapse — the project's one actionable finding
+
+Time and state were used separately at first, and neither alone explains the
+late conceding. **Crossed, they do.** `match_state.state_time_cells()` ->
+`outputs/squad/state_time_cells.csv` gives minutes AT RISK and goals per
+(15-minute window x scoreboard state), which is what a rate needs: a team that
+spends the last fifteen minutes level has more chance to concede a level-state
+goal simply by being there.
+
+Goals conceded per 90 minutes at risk, 2015+:
+
+| window | leading | level | trailing |
+|---|---|---|---|
+| 61-75 | 0.89 | 1.10 | 1.45 |
+| **76-90** | **0.90** | **4.30** | 2.42 |
+
+- **while level: 3.92x, 95% [1.80, 11.47]**
+- **while leading: 1.01x, 95% [0.45, 2.22]** — the control, flat
+
+The control is what makes this more than "goals rise late". Armatas et al.
+(2009) find that everywhere, but a general effect would lift the leading row
+too, and it does not.
+
+🚨 **The internal control is the decisive one.** If level matches simply get
+frantic, Jordan should score more late as well. It does the opposite: while
+level, 61-75 -> 76-90, scoring goes **1.41 -> 0.21** per 90 while conceding goes
+**1.10 -> 4.30**. Since 2015 Jordan has scored **one** goal while level in the
+last fifteen minutes and conceded **twenty**.
+
+Verified a second way, independent of the rate arithmetic: **36 matches level at
+the 75th minute -> 2W 20D 14L, 0.72 points of a possible 3.** Present in both
+eras (pre 1-15-8, post 1-5-6), so this is **not** a pre/post change — the model
+says Jordan improved a lot over this period and this failure came with it.
+
+Opponent-adjusted, because that check has caught several claims in this project:
+those 36 fixtures have mean `expected_gd` **+0.20**, i.e. Jordan was *favoured*.
+Simulating the remaining 15 minutes at each fixture's own model goal rates gives
+an expected **1.19** points against **0.72** observed — a shortfall of
+**-0.47, 95% [-0.69, -0.22]**, about 17 points across the 36.
+
+Robustness: minutes at risk stop at 90 for every match while stoppage is always
+played, so the last window's rate is inflated for everyone. Adding 8 minutes of
+stoppage to every level match still leaves the spike at **2.69x**.
+
+🚨 **Do not explain it.** The obvious reading — a team chasing a winner is caught
+on the break — needs shot locations or possession to test, and neither exists
+for these matches. It is a description of what happens, not a mechanism.
+
+`goal_timelines()` is now the public way to get {match_id: (timeline, side,
+source)}; three scripts had been rebuilding it from private helpers.
+
 ## Limitations for the README
 
 State these plainly rather than working around them:

@@ -460,7 +460,204 @@ points at something to fix rather than something to celebrate.
 """)
 
 md("""
-## 5. What it isn't
+## 5. Crossing the two: when *and* in what state
+
+Section 4 showed **when** Jordan concedes and the earlier sections showed **in
+what state**. Neither alone explains the late-conceding result, because "a third
+of goals conceded arrive after the 75th minute" is compatible with two opposite
+stories: a team that throws away leads, or a team that gets put away in matches
+it was already losing.
+
+Crossing them settles it. Rates need **minutes at risk** in each cell, not goal
+counts — a team that spends the last fifteen minutes level has more chance to
+concede a level-state goal simply by being there.
+""")
+
+code("""
+cells = pd.read_csv(SQUAD / "state_time_cells.csv")
+cells = cells[cells.match_id.isin(set(mt.match_id))]          # 2015+ window
+grid = (cells.groupby(["window", "state"])
+        .agg(minutes=("minutes", "sum"), ga=("ga", "sum"), gf=("gf", "sum"))
+        .reset_index())
+grid["conceded_per90"] = grid.ga / grid.minutes * 90
+grid["scored_per90"] = grid.gf / grid.minutes * 90
+ORDER = ["1-15", "16-30", "31-45", "46-60", "61-75", "76-90"]
+
+print("conceded per 90 minutes AT RISK:")
+print(grid.pivot(index="window", columns="state",
+                 values="conceded_per90").reindex(ORDER).round(2).to_string())
+print("\\ngoals conceded in each cell:")
+print(grid.pivot(index="window", columns="state",
+                 values="ga").reindex(ORDER).astype(int).to_string())
+print("\\nminutes at risk:")
+print(grid.pivot(index="window", columns="state",
+                 values="minutes").reindex(ORDER).round(0).to_string())
+""")
+
+code("""
+fig, ax = plt.subplots(figsize=(7.6, 4.6))
+x = np.arange(len(ORDER))
+for st, col in (("leading", viz.BLUE), ("level", viz.ORANGE), ("trailing", viz.AQUA)):
+    y = grid[grid.state == st].set_index("window").reindex(ORDER).conceded_per90
+    ax.plot(x, y.values, color=col, marker="o")
+    ax.annotate(st, xy=(x[-1], y.values[-1]), xytext=(7, 0),
+                textcoords="offset points", color=col, fontsize=9,
+                va="center", fontweight="semibold")
+ax.set_xticks(x); ax.set_xticklabels(ORDER)
+ax.set_xlim(-0.3, len(ORDER) + 0.9)
+ax.set_xlabel("minute"); ax.set_ylabel("goals conceded per 90 min at risk")
+ax.set_title("Jordan does not lose leads. It loses level matches, late.")
+viz.despine(ax)
+ax.grid(axis="x", visible=False)
+plt.show()
+""")
+
+md("""
+The blue line is the control and it is flat: **with a lead, Jordan's conceding
+rate in the last fifteen minutes is indistinguishable from the fifteen before
+it.** Leads are not the problem.
+
+The orange line is the finding. While **level**, the conceding rate roughly
+quadruples going into the final window.
+""")
+
+code("""
+# The contrast, bootstrapped over matches in six-month blocks.
+by_match = {m: d for m, d in cells.groupby("match_id")}
+blocks = [d.match_id.tolist() for _, d in mt.groupby("blk")]
+
+def rate(ms_, window, state, direction="ga"):
+    d = pd.concat([by_match[m] for m in ms_ if m in by_match])
+    s = d[(d.window == window) & (d.state == state)]
+    return s[direction].sum() / s.minutes.sum() * 90 if s.minutes.sum() > 0 else np.nan
+
+def ratio(ms_, state):
+    late, before = rate(ms_, "76-90", state), rate(ms_, "61-75", state)
+    return late / before if before and np.isfinite(before) else np.nan
+
+allm = mt.match_id.tolist()
+for st in ("level", "leading"):
+    obs = ratio(allm, st)
+    draws = []
+    for _ in range(1500):
+        pick = [m for i in rng.integers(0, len(blocks), len(blocks)) for m in blocks[i]]
+        v = ratio(pick, st)
+        if np.isfinite(v):
+            draws.append(v)
+    lo, hi = np.percentile(draws, [2.5, 97.5])
+    tag = "FINDING" if lo > 1 else "control, flat"
+    print(f"  while {st:8s}: 61-75 {rate(allm,'61-75',st):.2f} -> "
+          f"76-90 {rate(allm,'76-90',st):.2f} per 90   "
+          f"ratio {obs:.2f}x  95% [{lo:.2f}, {hi:.2f}]   {tag}")
+
+print("\\n  internal control -- does Jordan also SCORE more while level late?")
+print("  If level matches simply get frantic, both rates rise together.")
+for w in ("61-75", "76-90"):
+    print(f"    {w}: scored {rate(allm, w, 'level', 'gf'):.2f}  "
+          f"conceded {rate(allm, w, 'level', 'ga'):.2f} per 90")
+""")
+
+md("""
+So it is not that level matches get frantic and goals fly both ways. Jordan's
+*scoring* rate while level collapses in the same window its conceding rate
+quadruples. The asymmetry is the point.
+
+Two checks before trusting it.
+""")
+
+code("""
+# The goal timelines, the same ones match_state builds its own table from.
+from match_state import goal_timelines
+TL = {m: v for m, v in goal_timelines().items() if m in set(mt.match_id)}
+info = mt.set_index("match_id")
+
+# Check 1 -- stoppage time. Minutes at risk stop at 90 for every match, but
+# stoppage is always played, so the last window's rate is inflated for
+# everyone. Adding it back can only shrink the effect. How much does it take?
+level_at_90 = sum(1 for tl, _s, _x in TL.values()
+                  if sum(d for m, d in tl if m <= 90) == 0)
+lvl = grid[grid.state == "level"].set_index("window")
+print(f"matches still level at 90': {level_at_90}")
+for extra in (0, 3, 5, 8):
+    m = lvl.loc["76-90", "minutes"] + extra * level_at_90
+    r = lvl.loc["76-90", "ga"] / m * 90
+    print(f"  +{extra} min stoppage on each -> {r:.2f} per 90 "
+          f"({r / lvl.loc['61-75', 'conceded_per90']:.2f}x vs 61-75)")
+""")
+
+code("""
+# Check 2 -- outcomes, independent of the rate arithmetic entirely.
+rows = []
+for mid, (tl, _s, _x) in TL.items():
+    if sum(d for m, d in tl if m <= 75) != 0:      # level at 75' only
+        continue
+    dft = sum(d for _, d in tl)
+    r = info.loc[mid]
+    rows.append({"match_id": mid, "date": r.date, "era": r.era,
+                 "opponent": r.opponent, "expected_gf": r.expected_gf,
+                 "expected_ga": r.expected_ga, "expected_gd": r.expected_gd,
+                 "pts": 3 if dft > 0 else (1 if dft == 0 else 0),
+                 "result": "W" if dft > 0 else ("D" if dft == 0 else "L")})
+L = pd.DataFrame(rows)
+print(f"matches level at the 75th minute: {len(L)}  {L.era.value_counts().to_dict()}")
+print(pd.crosstab(L.era, L.result).reindex(columns=["W", "D", "L"])
+      .fillna(0).astype(int).to_string())
+print(f"\\n  points per match from that position: {L.pts.mean():.2f} of 3")
+print(f"  mean expected_gd of those fixtures: {L.expected_gd.mean():+.2f} "
+      f"(all matches {mt.expected_gd.mean():+.2f})")
+print("  -> these are not fixtures Jordan was losing on paper")
+""")
+
+code("""
+# Opponent-adjusted: what should a level scoreline at 75' be worth against
+# THESE opponents? Simulate the remaining 15 minutes at each fixture's own
+# model goal rates, which is the same adjustment gd_above_expected applies to
+# a full match.
+sim = []
+for r in L.itertuples():
+    kf = rng.poisson(r.expected_gf * 15 / 90, 40000)
+    ka = rng.poisson(r.expected_ga * 15 / 90, 40000)
+    d = kf - ka
+    sim.append(np.where(d > 0, 3, np.where(d == 0, 1, 0)).mean())
+sim = np.array(sim)
+obs, exp = L.pts.mean(), sim.mean()
+draws = [(L.pts.values[p].mean() - sim[p].mean())
+         for p in (rng.integers(0, len(L), len(L)) for _ in range(5000))]
+lo, hi = np.percentile(draws, [2.5, 97.5])
+print(f"  observed        {obs:.2f} points per match")
+print(f"  model-expected  {exp:.2f}")
+print(f"  shortfall       {obs - exp:+.2f}   95% [{lo:+.2f}, {hi:+.2f}]")
+print(f"\\n  across {len(L)} matches that is {abs(obs - exp) * len(L):.0f} points.")
+""")
+
+md("""
+**This is the clearest actionable finding in the project.** A level scoreline at
+the 75th minute, against these opponents, should be worth about 1.2 points.
+Jordan takes 0.72 — a shortfall of roughly half a point per match, with an
+interval that excludes zero, across 36 matches.
+
+It is not an artefact of the clock convention: even adding eight minutes of
+stoppage to every one of those matches, the late level-state spike remains about
+2.7×. And it is not opponent quality — these are fixtures Jordan was, on
+average, *favoured* in.
+
+Three things it is **not**:
+
+- **not a lost-lead problem.** With a lead, the late conceding rate is flat.
+- **not a general late-goal effect.** Armatas et al. (2009) find goals rise late
+  everywhere, but that would lift the leading line too, and it does not.
+- **not a change across 2022.** It is present in both eras. The model says
+  Jordan got substantially better over this period; this particular failure went
+  with them.
+
+What it *is* cannot be settled here. The obvious reading — a team chasing a
+winner gets caught on the break — is exactly the kind of mechanism that needs
+shot locations or possession to test, and neither exists for these matches
+(notebook 02). It stays a description of what happens, not an explanation.
+""")
+
+md("""
+## 6. What it isn't
 
 The measures below were built and returned nothing. They are reported because a
 null with an interval is a result, and because each one closes off an
@@ -585,10 +782,16 @@ comparison that falls outside:
   starters who have played together more in the preceding two years
 - a larger share of goals comes from **midfield**
 
-**True of the whole period, not a change:**
+**True of the whole period, not a change** — and the most actionable thing here:
 
 - Jordan concedes **a third of its goals in the last fifteen minutes**, against
   an all-football benchmark of 22.5%
+- crossed with state, that is **entirely a level-scoreline problem**. With a
+  lead the late conceding rate is flat; while level it roughly quadruples, and
+  Jordan's own scoring rate collapses in the same window
+- from a **level scoreline at the 75th minute** Jordan takes about 0.7 points
+  where the model expects about 1.2 — a shortfall of roughly half a point a
+  match, interval excluding zero, in fixtures it was on average favoured in
 
 **Not established** — measured, interval spans zero:
 
