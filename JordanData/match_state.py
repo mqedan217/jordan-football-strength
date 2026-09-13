@@ -166,9 +166,22 @@ def _state_row(mid, tl, side, src):
     else:
         level += span
 
+    # Goals for and against broken out by the state they were scored in, so a
+    # scoring RATE per minute spent in each state can be formed downstream. A
+    # raw count is not comparable across states -- a team that trails a lot has
+    # more opportunity to score while trailing.
+    per_state = {f"{d}_{s}": 0 for d in ("gf", "ga") for s in
+                 ("leading", "level", "trailing")}
+    diff = 0
+    for _, delta in tl:
+        st = "leading" if diff > 0 else ("trailing" if diff < 0 else "level")
+        per_state[f"{'gf' if delta > 0 else 'ga'}_{st}"] += 1
+        diff += delta
+
     deltas = [d for _, d in tl]
     running = np.cumsum(deltas) if deltas else np.array([])
     return {
+        **per_state,
         "match_id": mid, "jordan_side": side, "side_source": src,
         "n_goal_events": len(tl),
         "first_goal": ("for" if deltas[0] > 0 else "against") if deltas else None,

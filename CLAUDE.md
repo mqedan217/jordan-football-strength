@@ -245,6 +245,39 @@ source, never a fuzzy match. Managers have no FBref id, so the
 "never key by name" rule below cannot be applied to them — treat any manager
 comparison as name-keyed and check new spells by hand.
 
+### 🚨 `gf_above_expected` is a model-lag statistic, not an improvement measure
+
+`match_table` carries `gf_above_expected` = goals scored minus the model's
+expectation for that fixture. It reads like "how much better than expected they
+played" and it is **not** a measure of improvement. Do not use it as the outcome
+for a pre/post comparison.
+
+The model is refit every six months on data strictly before each match, so the
+residual measures how far Jordan beat its own **contemporaneous forecast**. On
+the 2015+ window:
+
+| | pre | post |
+|---|---|---|
+| goals for | 1.449 | 1.756 |
+| model expected_gf | 1.376 | **1.338** |
+| gf_above_expected | +0.073 | **+0.417** |
+
+Expected goals-for is essentially flat across the boundary, because Jordan's
+attack rising and its opponents getting much stronger cancel out. A team
+improving faster than a 730-day half-life can track shows a positive residual
+for that reason alone, so the post-era value is largely the model lagging.
+
+**The improvement measure is the model's own attack parameter**, which rises
+0.229 [0.018, 0.399] in 2015 to 0.710 [0.468, 0.866] in 2026 — the +0.744
+[+0.238, +1.212] already recorded above.
+
+This cost a real analysis: a "symmetric top-k scorer removal" test was built on
+`gf_above_expected` as the outcome, which answers *how much of the model's
+forecast error those players accounted for* rather than whether the improvement
+depended on them. Dropped. Questions about who scored are answerable in
+**shares and counts**, which need no expectation at all — that is what notebook
+03 uses.
+
 ### 🚨 Never key players by name
 
 Arabic names get re-transliterated between seasons. Name-keying invents debuts
@@ -479,11 +512,12 @@ reads +0.293 post against +0.126 pre.
   | pre | 2.47 | 1.13 | **0.85** |
   | post | 1.96 | 1.53 | **1.40** |
 
-  Pre-2022 Jordan was a front-runner: ruthless ahead, and *below its level-state
-  rate* when behind (0.75x), the opposite of the Lago-Penas pattern. Post-2022
-  is flatter (0.92x). ⚠️ **No intervals on these yet and the trailing cell is 12
-  goals.** Bootstrap before believing it — this is the most interesting and the
-  thinnest number in the analysis.
+  Pre-2022 Jordan looks like a front-runner: ruthless ahead, and *below its
+  level-state rate* when behind, the opposite of the Lago-Penas pattern.
+  ❌ **Bootstrapped, and it does not survive.** On the 2015+ window the
+  trailing/level ratio difference is +0.19, 95% [-1.01, +0.99], resting on 24
+  goals scored while trailing in eleven years. The point estimates tell a good
+  story and the interval cannot carry it. Reported in notebook 03 as a null.
 - **Blowouts did not change.** Win by 3+ −0.008 [−0.152, +0.124]; lose by 3+
   −0.002 [−0.068, +0.097]; margin sd 2.34 -> 2.36. What changed is total goals
   per match, **2.50 -> 3.05 [+0.08, +1.04]** — games got more open.
@@ -504,6 +538,41 @@ it into `JordanData/` before relying on it.
 **Still uncovered: 19 matches** — 14 friendlies and 5 competitive, all FBref
 reports with no event feed. Coverage is now balanced across eras, so this is
 noise rather than bias, but it caps n at 40 post-2022.
+
+### Notebook 03 — where the goals came from (2026-09-14)
+
+`notebooks/03_where_the_goals_came_from.ipynb`, built by a script in the session
+scratchpad, 27 cells and 4 figures. Window 2015+, split 2022-07-01, 98 pre / 45
+post matches. Every code cell recomputes its own numbers so the prose cannot
+drift from the output.
+
+**Supported:**
+
+| | estimate | 95% |
+|---|---|---|
+| midfielder share of goals | +0.148 | [+0.039, +0.315] |
+| minutes: top-11 share | +0.247 | [+0.135, +0.351] |
+| familiarity rate (pairs) | +0.217 | [+0.113, +0.337] |
+| appearance rate (starters) | +0.209 | [+0.106, +0.319] |
+
+Rarefied to equal goals (75): distinct scorers 16 vs [21, 28], top-3 share 0.640
+vs [0.333, 0.480], HHI 0.153 vs [0.068, 0.113] — all **outside**.
+
+🚨 **Top-1 share is 0.253 against a rarefied [0.147, 0.267] — inside.** Jordan is
+NOT a one-man team, and the popular version of this claim is not supportable.
+The breadth measures move and the single-player measure does not; that is a
+narrowing onto a small *group*.
+
+🚨 **It is not a clean replacement of scorers.** Al-Dardour (29 goals, then 0)
+and Baha' Faisal (17, then 0) vanish, but the new top three were all already
+scoring before 2022 — Olwan 8 -> 19, Al-Naimat 5 -> 15, and Al-Taamari is in the
+top three of **both** eras (10 -> 14). A wide distribution collapsing onto three
+players who were already in it, not a new generation arriving. Earlier notes in
+this file described a replacement; that was an artefact of using the 2011+
+window, where Al-Taamari's pre-2022 share looks smaller.
+
+Nulls reported as nulls: match state, heavy wins and defeats, goalkeeper,
+discipline, and the state scoring rates.
 
 ## Limitations for the README
 
