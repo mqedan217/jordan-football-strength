@@ -31,7 +31,8 @@ Jordan found a few players. The second is more fragile, and it is the one the
 data points to.
 
 Everything is on the project's stated window, **2015 onward**, split at
-**2022-07-01**. Every difference carries a block-bootstrap interval clustered on
+**2022-07-01** — a date section 0 puts on trial before anything is allowed to
+rest on it. Every difference carries a block-bootstrap interval clustered on
 six-month windows, because matches inside a window share opponents, a manager
 and a squad.
 """)
@@ -79,40 +80,179 @@ print(f"goals    {goals.era.value_counts().reindex(['pre','post']).to_dict()}"
 """)
 
 md("""
-## 0. One measure this notebook deliberately does not use
+## 0. Is 2022 real?
 
-`match_table` carries `gf_above_expected` — goals scored minus the model's
-expectation for that fixture. It is tempting as an outcome, and it is the wrong
-tool for this question.
+Everything below splits the record at **2022-07-01**, and a single date picked
+after seeing the results is exactly the kind of choice that manufactures
+findings. This project has already retired one effect on that ground: the
+competitive-match premium in notebook 01 grew monotonically the later the cut
+was placed, which is what slicing a smooth trend looks like rather than what a
+change looks like.
 
-The model is refit every six months on data *before* each match, so the residual
-measures **how far Jordan beat its own contemporaneous forecast**, not how much
-it improved. And because Jordan's attack rose while its opponents got much
-stronger, the two effects cancel in the expectation: expected goals-for is
-essentially *flat* across the boundary while actual goals-for rises. A team
-improving faster than a 730-day half-life can track will show a positive
-residual for that reason alone.
+So the check comes first, before anything that depends on it. Slide the cut
+every six months from 2018 to 2024 and recompute each headline measure. The two
+cases leave different signatures:
 
-So the residual is a statement about the model's lag, and using it here would
-answer "how much of the forecast error did these players account for" — a
-different question, wearing the same clothes.
+- a **change** at a date gives a ramp up to that date and then a **plateau** --
+  once the cut is past the real break, moving it further only trades matches
+  between two groups that already differ
+- a **trend** with no break gives a line that **keeps climbing**, because every
+  step of the cut puts more of the rise on one side
+
+The cut moves; the data does not. This can say whether mid-2022 is where things
+changed. It cannot say why, and nothing here identifies a cause.
 """)
 
 code("""
-print(mt.groupby("era")[["gf", "expected_gf", "gf_above_expected",
-                         "strength_at_match"]].mean().round(3).to_string())
+# One function per measure, each over an arbitrary set of matches, so the same
+# code can be pointed at any candidate date. Sections 1 and 3 reuse them.
+pos_by_match = {m: s.scorer_position.dropna().tolist() for m, s in goals.groupby("match_id")}
+mins_by_match = {m: s.groupby("player_id").Min.sum() for m, s in ja.groupby("match_id")}
+xi = mt.dropna(subset=["starting_xi"]).copy()
+xi["ids"] = xi.starting_xi.map(lambda s: [p["id"] for p in json.loads(s) if p.get("id")])
+XI = xi.set_index("match_id")
+
+def mf_share(d):
+    v = [p for m in d.match_id for p in pos_by_match.get(m, [])]
+    return np.mean([x == "MF" for x in v]) if v else np.nan
+
+def top11(d):
+    tot = {}
+    for m in d.match_id:
+        s = mins_by_match.get(m)
+        if s is None:
+            continue
+        for pid, v in s.items():
+            tot[pid] = tot.get(pid, 0) + v
+    if not tot:
+        return np.nan
+    p = pd.Series(tot).sort_values(ascending=False)
+    return p.head(11).sum() / p.sum()
+
+def top3_share(d):
+    g = gj[gj.match_id.isin(set(d.match_id))].scorer_player_id
+    if len(g) < 20:                    # too few goals to form a share
+        return np.nan
+    return g.value_counts(normalize=True).head(3).sum()
+
+# Familiarity and appearance rate depend on the match and the FULL history
+# behind it, never on which matches a bootstrap draw happens to pick -- so they
+# are computed once per match here, and resampling only averages them.
+# Both are divided by the matches available in the 24-month window, making them
+# rates: raw counts accumulate with time and FBref's coverage starts in 2011, so
+# the unadjusted versions rise for reasons that have nothing to do with Jordan.
+fam_rate, caps_rate = {}, {}
+for r in xi.itertuples():
+    prior = xi[(xi.date >= r.date - pd.Timedelta(days=730)) & (xi.date < r.date)]
+    if len(prior) < 15:                # too little history to form a rate
+        continue
+    pc, cc = {}, {}
+    for q in prior.itertuples():
+        for pair in combinations(sorted(q.ids), 2):
+            pc[pair] = pc.get(pair, 0) + 1
+        for i in q.ids:
+            cc[i] = cc.get(i, 0) + 1
+    pairs = list(combinations(sorted(r.ids), 2))
+    fam_rate[r.match_id] = np.mean([pc.get(p, 0) for p in pairs]) / len(prior)
+    caps_rate[r.match_id] = np.mean([cc.get(i, 0) for i in r.ids]) / len(prior)
+
+def windowed(d, which):
+    src = fam_rate if which == "fam" else caps_rate
+    v = [src[m] for m in d.match_id if m in src]
+    return np.mean(v) if v else np.nan
+
+print(f"windowed rates computed for {len(fam_rate)} of {len(xi)} matches with an XI")
+""")
+
+code("""
+SWEEP = [("minutes top-11", top11),
+         ("familiarity", lambda d: windowed(d, "fam")),
+         ("appearance rate", lambda d: windowed(d, "caps")),
+         ("top-3 goal share", top3_share),
+         ("midfielder share", mf_share)]
+
+rows = []
+for cut in pd.date_range("2018-07-01", "2024-07-01", freq="6MS"):
+    pre, post = mt[mt.date < cut], mt[mt.date >= cut]
+    if len(pre) < 25 or len(post) < 25:     # a side too thin to compare
+        continue
+    r = {"cut": cut.date(), "n_pre": len(pre), "n_post": len(post)}
+    for lab, fn in SWEEP:
+        x, y = fn(pre), fn(post)
+        r[lab] = y - x if np.isfinite(x) and np.isfinite(y) else np.nan
+    rows.append(r)
+sweep = pd.DataFrame(rows)
+print("post minus pre, at every candidate split date:")
+print(sweep.round(3).to_string(index=False))
 print()
-print("expected_gf barely moves; the model's own ATTACK estimate is what rose.")
-tr = pd.read_csv(ROOT / "outputs" / "jordan_strength_ci.csv", parse_dates=["date"])
-sel = tr[tr.date.isin(pd.to_datetime(["2015-01-01", "2022-07-01", "2026-07-01"]))]
-print(sel[["date", "attack", "attack_lo", "attack_hi"]].round(3).to_string(index=False))
+print("rows repeat where no match falls between two cuts (the 2020 shutdown,")
+print("and the gap after 2022-07) -- the same split, reached two ways.")
+""")
+
+code("""
+fig, ax = plt.subplots(figsize=(7.6, 4.4))
+x = pd.to_datetime(sweep.cut)
+# The shaded band is where the cut is already past the break: if the change is
+# real, the lines go flat inside it.
+ax.axvspan(pd.Timestamp("2022-01-01"), pd.Timestamp("2024-01-01"),
+           color=viz.GRID, zorder=0)
+ax.annotate("cut is past the break \u2192", xy=(pd.Timestamp("2022-01-01"), 1.0),
+            xycoords=("data", "axes fraction"), xytext=(-5, -10),
+            textcoords="offset points", fontsize=8, color=viz.INK_MUTED,
+            ha="right", va="top")
+PALETTE = [viz.BLUE, viz.ORANGE, viz.AQUA, viz.VIOLET, viz.INK_MUTED]
+for (lab, _), col in zip(SWEEP, PALETTE):
+    odd = lab == "midfielder share"          # the one that never settles
+    ax.plot(x, sweep[lab], color=col, marker="o", ms=3.5, label=lab,
+            lw=1.6 if odd else 2.2, ls=(0, (4, 3)) if odd else "-")
+ax.axhline(0, color=viz.INK_MUTED, lw=0.9, zorder=0)
+viz.mark_split(ax, label="the cut used below")
+ax.set_xlabel("where the cut is placed")
+ax.set_ylabel("difference, post minus pre")
+ax.set_title("Move the cut: four measures stop moving after early 2022, one never does")
+ax.legend(fontsize=8, ncol=3, loc="lower center")
+viz.despine(ax)
+plt.show()
+""")
+
+code("""
+# Ramp  = how far a measure travels from the earliest cut to the one we use.
+# Flat  = how much it still moves once the cut is PAST the break (shaded band).
+# A real change has flat much smaller than ramp. A trend being sliced has the
+# two comparable, because there is no break for the cut to get past.
+band = pd.to_datetime(sweep.cut).between("2022-01-01", "2024-01-01")
+chosen = sweep[pd.to_datetime(sweep.cut) == CUT].iloc[0]
+for lab, _ in SWEEP:
+    ramp = chosen[lab] - sweep[lab].iloc[0]
+    flat = sweep.loc[band, lab].max() - sweep.loc[band, lab].min()
+    if abs(ramp) < 0.05:
+        verdict = "NO BREAK TO FIND -- as large at the 2018 cut as at 2022"
+    else:
+        ratio = flat / abs(ramp)
+        verdict = f"flat/ramp {ratio:4.2f}   " + ("PLATEAU" if ratio < 0.25 else "still moving")
+    print(f"  {lab:17s} ramp {ramp:+.3f}   flat {flat:.3f}   {verdict}")
 """)
 
 md("""
-This notebook therefore works in **shares and counts** — how goals were
-distributed across players and positions, and how settled the team was. Those
-need no expectation at all, so none of what follows depends on the model being
-well calibrated.
+**Four of the five behave the way a real change behaves.** Minutes
+concentration, familiarity, appearance rate and top-3 goal share all climb from
+2018, arrive by **2022-01**, and then sit still — moving the cut a further two
+years changes minutes top-11 by 0.007 on a rise of 0.275. Wherever the break is,
+it is no later than early 2022, and the exact date is not carrying the result.
+
+**The fifth does not, and that is worth saying plainly.** The midfielder share of
+goals is as large at a 2018 cut as at 2022, sags in between, and is largest at
+the very last cut — where only 27 matches remain on the post side. The sweep
+cannot locate a date for it. Its interval in section 3 still excludes zero, so
+the post-2022 team really does take more of its goals from midfield; but that is
+a statement about two groups of matches, not evidence that anything changed in
+mid-2022. Treat it as the weakest of the four measures there.
+
+What this cannot do is separate mid-2022 from the months either side. The
+plateau is already reached at the 2022-01 cut, and at ~15 matches a year those
+two dates are a handful of fixtures apart. **"No later than early 2022"** is the
+claim the sweep supports; "July 2022 specifically" is not, and nothing below
+depends on it.
 """)
 
 md("""
@@ -287,56 +427,6 @@ Plus **where the goals came from positionally**, which needs no such correction.
 
 code("""
 BLOCKS = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
-pos_by_match = {m: s.scorer_position.dropna().tolist() for m, s in goals.groupby("match_id")}
-mins_by_match = {m: s.groupby("player_id").Min.sum() for m, s in ja.groupby("match_id")}
-xi = mt.dropna(subset=["starting_xi"]).copy()
-xi["ids"] = xi.starting_xi.map(lambda s: [p["id"] for p in json.loads(s) if p.get("id")])
-XI = xi.set_index("match_id")
-
-def mf_share(d):
-    v = [p for m in d.match_id for p in pos_by_match.get(m, [])]
-    return np.mean([x == "MF" for x in v]) if v else np.nan
-
-def top11(d):
-    tot = {}
-    for m in d.match_id:
-        s = mins_by_match.get(m)
-        if s is None:
-            continue
-        for pid, v in s.items():
-            tot[pid] = tot.get(pid, 0) + v
-    if not tot:
-        return np.nan
-    p = pd.Series(tot).sort_values(ascending=False)
-    return p.head(11).sum() / p.sum()
-
-# Familiarity and appearance rate depend on the match and the FULL history
-# behind it, never on which matches a bootstrap draw happens to pick -- so they
-# are computed once per match here, and resampling only averages them.
-# Both are divided by the matches available in the 24-month window, making them
-# rates: raw counts accumulate with time and FBref's coverage starts in 2011, so
-# the unadjusted versions rise for reasons that have nothing to do with Jordan.
-fam_rate, caps_rate = {}, {}
-for r in xi.itertuples():
-    prior = xi[(xi.date >= r.date - pd.Timedelta(days=730)) & (xi.date < r.date)]
-    if len(prior) < 15:                # too little history to form a rate
-        continue
-    pc, cc = {}, {}
-    for q in prior.itertuples():
-        for pair in combinations(sorted(q.ids), 2):
-            pc[pair] = pc.get(pair, 0) + 1
-        for i in q.ids:
-            cc[i] = cc.get(i, 0) + 1
-    pairs = list(combinations(sorted(r.ids), 2))
-    fam_rate[r.match_id] = np.mean([pc.get(p, 0) for p in pairs]) / len(prior)
-    caps_rate[r.match_id] = np.mean([cc.get(i, 0) for i in r.ids]) / len(prior)
-
-print(f"windowed rates computed for {len(fam_rate)} of {len(xi)} matches with an XI")
-
-def windowed(d, which):
-    src = fam_rate if which == "fam" else caps_rate
-    v = [src[m] for m in d.match_id if m in src]
-    return np.mean(v) if v else np.nan
 
 def block_boot(fn, nb=600):
     \"\"\"Resample six-month blocks within each era; matches in a window are not
@@ -640,6 +730,12 @@ stoppage to every one of those matches, the late level-state spike remains about
 2.7×. And it is not opponent quality — the adjustment above already handles
 that, and these are fixtures Jordan was on average favoured in.
 
+🚨 **It is partly an artefact of the model.** The simulation that sets the 1.2
+draws goals at a constant rate whatever the scoreboard says, and that is known
+to be wrong for level matches specifically. How much of the shortfall that costs
+is measured in **What we can still improve**, at the end of this notebook; the
+number above should be read with that qualification attached.
+
 ### Did this change between the eras?
 
 That is the notebook's actual question, so it has to be tested rather than
@@ -942,6 +1038,176 @@ and no design here separates them. The one thing worth saying beyond the
 association is a **caution rather than a conclusion**: a rise carried by a
 narrow group is more fragile than one carried by a broad one, and the top-3
 share is the number to watch if the level slips.
+""")
+
+md("""
+## What we can still improve
+
+Ranked by how much each would change what is written above. The first one
+qualifies a claim already made; the rest are things this notebook does not know.
+
+### 1. The shortfall in section 5 is partly the model's fault, not Jordan's
+
+Section 5 sets the expectation for a level scoreline by simulating the last
+fifteen minutes at each fixture's own model goal rates. That simulation draws
+goals at a **constant rate whatever the scoreboard says** — and the match-status
+literature says that assumption is wrong for exactly this situation. Late goals
+are more common when a match is level, and level teams underperform leading ones
+on shot quality, for everyone, everywhere. If the model under-predicts late goals
+in level matches in general, then part of the −0.47 points is the model being
+state-blind rather than Jordan being bad.
+
+Two diagnostics, both of which the notebook can run on its own data:
+""")
+
+code("""
+# Does the constant-rate model fit the last fifteen minutes of a level match?
+late = pd.DataFrame([{"match_id": m,
+                      "gf75": sum(1 for x, d in TL[m][0] if x > 75 and d > 0),
+                      "ga75": sum(1 for x, d in TL[m][0] if x > 75 and d < 0)}
+                     for m in L.match_id]).merge(L, on="match_id")
+sg, sd = [], []
+for r in late.itertuples():
+    kf = rng.poisson(r.expected_gf * 15 / 90, 40000)
+    ka = rng.poisson(r.expected_ga * 15 / 90, 40000)
+    sg.append((kf + ka).mean())
+    sd.append((kf == ka).mean())
+print("CALIBRATION -- the model vs what actually happens, same 36 matches")
+print(f"  goals after 75'   observed {(late.gf75 + late.ga75).mean():.2f} per match"
+      f"    model {np.mean(sg):.2f}")
+print(f"  draws             observed {(late.pts == 1).mean():.2f}"
+      f"                model {np.mean(sd):.2f}")
+print("  -> it predicts too few goals and too many draws. The shortfall")
+print("     inherits that mis-specification; it is not all Jordan's.")
+""")
+
+code("""
+# DIRECTION is the part no general effect explains. "Level matches produce more
+# late goals" predicts volume. It does not predict them going one way.
+f, g = int(late.gf75.sum()), int(late.ga75.sum())
+sh = []
+for _ in range(20000):
+    d = late.sample(len(late), replace=True, random_state=int(rng.integers(1e9)))
+    t = d.gf75.sum() + d.ga75.sum()
+    if t:
+        sh.append(d.gf75.sum() / t)
+lo, hi = np.percentile(sh, [2.5, 97.5])
+mdl = (late.expected_gf / (late.expected_gf + late.expected_ga)).mean()
+print(f"DIRECTION -- after the 75th minute in those {len(late)} level matches")
+print(f"  Jordan scored {f}, conceded {g}")
+print(f"  Jordan's share {f / (f + g):.3f}   95% [{lo:.3f}, {hi:.3f}]"
+      f"   {'EXCLUDES' if hi < 0.5 else 'includes'} 0.5")
+print(f"  the model's own implied share for these fixtures: {mdl:.3f}")
+for e in ("pre", "post"):
+    d = late[late.era == e]
+    t = d.gf75.sum() + d.ga75.sum()
+    print(f"    {e:5s} n={len(d):2d}  {int(t):2d} late goals, "
+          f"Jordan's share {d.gf75.sum() / t:.3f}")
+""")
+
+md("""
+So section 5 should be **re-centred on the direction, not the volume**. That the
+last fifteen minutes of a level match are busy is ordinary football. That those
+goals go one way three times in four, against fixtures the model makes Jordan
+the favourite in, is not, and it holds in both eras. The rate ratio and the
+points shortfall are still worth showing, but as symptoms — they cannot be
+quoted as if the comparison were clean.
+
+### 2. There is no placebo in this notebook
+
+The analysis plan calls for running the same pipeline on three or four
+comparable AFC nations, and notebook 01 does exactly that for strength. Nothing
+here does. Every measure in this notebook is Jordan against its own past, so a finding that
+is really about international football in the 2020s — squads settling, scoring
+narrowing, late goals rising — would look identical. This is the single
+largest hole, and it is the one the split-date sweep in section 0 cannot fill,
+because that check moves the date and not the team.
+
+What it costs: roughly 600 match reports for the peer nations, most of which are
+not in the cache. A cheaper partial version would take only the level-at-75
+finding, which needs goal minutes and nothing else.
+
+### 3. Three squad measures from the plan were never built
+
+`age of the starting XI`, `debuts per window`, and `squad turnover (Jaccard of
+consecutive XIs)`. The data for all three is already on disk — `player_dob.csv`
+and the appearance rows — so this is an afternoon, not a project. Debuts in
+particular look like they would say something: keyed on player id, first
+appearances run **13 in 2021, then 1 in 2022 and 1 in 2023**, reopening to 6 and
+9 in 2024-25. Those years hold very different numbers of covered matches (21, 6,
+5), so per match it is 0.62 → 0.17 → 0.20 — a smaller drop than the raw counts
+suggest, and exactly the kind of thing that needs building properly with an
+interval rather than quoting. It is currently in no notebook.
+
+### 4. The mechanism behind section 5 is out of reach, and will stay there
+
+The obvious reading of the level-scoreline collapse — a team pushing for a
+winner and getting caught — needs shot locations or possession, and neither
+exists for these matches. Possession has been checked exhaustively and is not
+obtainable; the 27 matches that have it are concentrated after 2023, so filling
+it in would put the coverage boundary on the treatment date. Section 5 stays a
+description of what happens, not an explanation.
+
+### 5. Nineteen matches have no event feed at all
+
+14 friendlies and 5 competitive fixtures with an FBref report but no timeline,
+so they contribute to the squad measures and not to anything in sections 4-6.
+Coverage is balanced across the eras at 89%, which makes this noise rather than
+bias — but it caps the post-2022 side at about 40 matches, and that is why the
+state-crossed intervals are as wide as they are.
+
+### 6. Smaller things, recorded so they are not rediscovered
+
+- **Minutes at risk stop at 90** while stoppage is always played, inflating the
+  last window's rate for every team equally. Section 5 shows the effect survives
+  eight added minutes, but the underlying clock is still wrong.
+- **Managers have no stable id**, so the manager column is name-keyed and any
+  manager-level comparison has to be checked by hand — the opposite of the rule
+  the rest of the project follows for players.
+- **Six Arab Cup names are unconfirmed transliteration matches** and are
+  deliberately not merged into the appearance table. Confirming them by hand
+  would add ten matches to the squad measures.
+- **Notebooks 01 and 02 have not been revised** since the manager column was
+  fixed; notebook 02's column-completeness figure predates it.
+""")
+
+md("""
+## Appendix — one measure this notebook deliberately does not use
+
+`match_table` carries `gf_above_expected` — goals scored minus the model's
+expectation for that fixture. It is tempting as an outcome, and it is the wrong
+tool for this question.
+
+The model is refit every six months on data *before* each match, so the residual
+measures **how far Jordan beat its own contemporaneous forecast**, not how much
+it improved. And because Jordan's attack rose while its opponents got much
+stronger, the two effects cancel in the expectation: expected goals-for is
+essentially *flat* across the boundary while actual goals-for rises. A team
+improving faster than a 730-day half-life can track will show a positive
+residual for that reason alone.
+
+So the residual is a statement about the model's lag, and using it here would
+answer "how much of the forecast error did these players account for" — a
+different question, wearing the same clothes.
+""")
+
+code("""
+print(mt.groupby("era")[["gf", "expected_gf", "gf_above_expected",
+                         "strength_at_match"]].mean().round(3).to_string())
+print()
+print("expected_gf barely moves; the model's own ATTACK estimate is what rose.")
+tr = pd.read_csv(ROOT / "outputs" / "jordan_strength_ci.csv", parse_dates=["date"])
+sel = tr[tr.date.isin(pd.to_datetime(["2015-01-01", "2022-07-01", "2026-07-01"]))]
+print(sel[["date", "attack", "attack_lo", "attack_hi"]].round(3).to_string(index=False))
+""")
+
+md("""
+This is why the notebook works in **shares and counts** — how goals were
+distributed across players and positions, and how settled the team was. Those
+need no expectation at all, so sections 1 to 3 do not depend on the model being
+well calibrated at all. Sections 4 and 5 do use the model, to adjust for
+opponent quality, and that is where its limits start to matter — which is the
+first item in **What we can still improve**.
 """)
 
 nb = nbf.v4.new_notebook(cells=cells)

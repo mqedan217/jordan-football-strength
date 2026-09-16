@@ -541,8 +541,13 @@ noise rather than bias, but it caps n at 40 post-2022.
 
 ### Notebook 03 — where the goals came from (2026-09-14)
 
-`notebooks/03_where_the_goals_came_from.ipynb`, built by a script in the session
-scratchpad, 27 cells and 4 figures. Window 2015+, split 2022-07-01, 98 pre / 45
+`notebooks/03_where_the_goals_came_from.ipynb`, built by
+`docs/scratch/build_nb3.py`, **51 cells and 6 figures**. It opens with `## 0. Is
+2022 real?` (the split-date sweep above), closes with **`## What we can still
+improve`**, and the `gf_above_expected` caveat that used to open it is now an
+appendix. The shared measure functions (`top11`, `mf_share`, `top3_share`,
+`fam_rate`/`caps_rate`, `windowed`) are defined once in section 0 and reused by
+sections 1 and 3 — do not redefine them. Window 2015+, split 2022-07-01, 98 pre / 45
 post matches. Every code cell recomputes its own numbers so the prose cannot
 drift from the output.
 
@@ -573,6 +578,38 @@ window, where Al-Taamari's pre-2022 share looks smaller.
 
 Nulls reported as nulls: match state, heavy wins and defeats, goalkeeper,
 discipline, and the state scoring rates.
+
+### ✅ 2022 survives a split-date sweep — except one measure (2026-09-16)
+
+Notebook 03 rested entirely on 2022-07-01 and never tested it, in a project that
+had already disqualified the competitive/friendly DiD for growing monotonically
+with the cut. It now opens with the check (`## 0. Is 2022 real?`): slide the cut
+every six months 2018-2024, recompute, and read the shape. A **change** ramps and
+then plateaus; a **trend being sliced** keeps climbing.
+
+`ramp` = travel from the earliest cut to 2022-07; `flat` = residual movement once
+the cut is past the break (the 2022-01 .. 2024-01 band):
+
+| measure | ramp | flat | flat/ramp | |
+|---|---|---|---|---|
+| minutes top-11 | +0.275 | 0.007 | 0.02 | plateau |
+| familiarity | +0.120 | 0.013 | 0.11 | plateau |
+| appearance rate | +0.115 | 0.007 | 0.06 | plateau |
+| top-3 goal share | +0.247 | 0.035 | 0.14 | plateau |
+| **midfielder share** | **−0.011** | 0.023 | — | **no break to find** |
+
+🚨 **The midfielder share of goals does not locate a date at all.** It is as large
+at a 2018 cut (+0.159) as at 2022 (+0.148), sags in between, and peaks at the
+final cut where only 27 matches remain post. Its pre/post interval still excludes
+zero — the post-2022 team really does score more from midfield — but that is a
+statement about two groups, **not** evidence of a change in mid-2022. It is the
+weakest of the four "supported" measures in notebook 03; do not lead with it.
+
+The defensible claim is **"no later than early 2022"**, not July 2022: the
+plateau is already reached at the 2022-01 cut, and at ~15 matches a year those
+two cuts are a handful of fixtures apart. Nothing in the notebook depends on the
+finer distinction. Also note 2020-01/2020-07 and 2022-07/2023-01 give identical
+rows — no match falls between them (the shutdown, and the post-2022 gap).
 
 ### ✅ The level-scoreline collapse — the project's one actionable finding
 
@@ -630,6 +667,29 @@ an expected **1.19** points against **0.72** observed — a shortfall of
 Robustness: minutes at risk stop at 90 for every match while stoppage is always
 played, so the last window's rate is inflated for everyone. Adding 8 minutes of
 stoppage to every level match still leaves the spike at **2.69x**.
+
+🚨 **The −0.47 is partly the model's fault, and must not be quoted clean.**
+The expectation comes from simulating the last fifteen minutes at each fixture's
+own model goal rates — at a **constant rate whatever the scoreboard says**. The
+match-status literature says that is wrong for exactly this situation: late goals
+are more common when a match is level, everywhere, for everyone. Checked against
+these same 36 matches, the model is visibly mis-specified for them:
+
+| after 75', matches level at 75' | observed | model |
+|---|---|---|
+| goals per match | 0.69 | **0.38** |
+| draws | 0.56 | **0.71** |
+
+It predicts too few goals and too many draws, so part of the shortfall — and part
+of the 3.92× rate ratio — is general football rather than Jordan.
+
+✅ **What survives is the DIRECTION, and it is the better finding.** A general
+"level matches produce more late goals" effect predicts volume; it does not
+predict them going one way. Of the 25 goals after the 75th minute in those 36
+matches, Jordan **scored 6 and conceded 19** — a share of **0.240, 95% [0.048,
+0.419]**, excluding 0.5, against a **model-implied 0.539** for these fixtures.
+Stable across eras (pre 0.231 on 13 goals, post 0.250 on 12). Lead with this;
+report the rate ratio and the points shortfall as symptoms beneath it.
 
 🚨 **Do not explain it.** The obvious reading — a team chasing a winner is caught
 on the break — needs shot locations or possession to test, and neither exists

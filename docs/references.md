@@ -134,12 +134,22 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   Match status drives possession and territory: teams that go behind take on
   more of the ball. This is why the possession figures in this project are
   descriptive only — a low possession share may be the scoreline, not a style.
+  It is also why notebook 03's level-scoreline expectation is qualified: a
+  Poisson simulation at a constant rate is state-blind by construction, and
+  match status is precisely what it ignores.
 - **Armatas, V., Yiannakos, A., Skoufas, D. & Papadopoulou, S. (2009).**
   Evaluation of goals scored in top ranking soccer matches: Greek "Super
   League" 2006-07. *Serbian Journal of Sports Sciences*, 3(1), 39–43.
   Goals rise steadily through a match, peaking at **22.5% in the 76–90 minute
   window**. Any era difference in Jordan's scoring or conceding profile has to
   be read against that baseline rather than against a flat expectation.
+
+  🚨 These two between them motivate the qualification on notebook 03's
+  level-scoreline shortfall, but they do not carry it. Neither paper reports a
+  late-goal rate conditioned on being level at the 75th minute specifically, so
+  the argument is made on Jordan's own data instead: the model predicts 0.38
+  goals and 0.71 draws after the 75th where 0.69 and 0.56 are observed. Cite the
+  calibration check, not the literature, for the size of the effect.
 - **Myers, B. R. (2012).** A proposed decision rule for the timing of soccer
   substitutions. *Journal of Quantitative Analysis in Sports*, 8(1).
   The 58/73/79-minute rule. **Not applied here** — see below.
