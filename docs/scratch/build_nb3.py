@@ -16,25 +16,18 @@ def code(s):
 md("""
 # Where the goals came from
 
-Notebook 01 established the shift: Jordan's opponent-adjusted strength rose
-about 0.7 goals of expected goal difference between 2015 and 2026, the rise came
-from **attack** rather than defence (+0.744, 95% CI [+0.238, +1.212]), and no
-regional peer matched it. Notebook 02 assembled the squad data and marked its
-edges.
+Notebook 01 found the shift: Jordan's opponent-adjusted strength rose ~0.7 goals
+of expected goal difference between 2015 and 2026, carried by **attack** rather
+than defence (+0.744, 95% [+0.238, +1.212]), and no regional peer matched it.
 
-This notebook asks the next question: **the extra goals — who scored them, and
-how many players did it take?**
+**Who scored the extra goals, and how many players did it take?** If a broad
+group, Jordan built a better team. If a handful, Jordan found a few players. The
+second is more fragile, and it is the one the data points to.
 
-Two answers are possible and they mean very different things. If the goals came
-from a broad group, Jordan built a better team. If they came from a handful,
-Jordan found a few players. The second is more fragile, and it is the one the
-data points to.
-
-Everything is on the project's stated window, **2015 onward**, split at
-**2022-07-01** — a date section 0 puts on trial before anything is allowed to
-rest on it. Every difference carries a block-bootstrap interval clustered on
-six-month windows, because matches inside a window share opponents, a manager
-and a squad.
+Window **2015+**, split **2022-07-01** — a date section 0 puts on trial first.
+Every difference carries a block-bootstrap interval clustered on six-month
+windows (Künsch 1989): matches inside a window share opponents, a manager and a
+squad.
 """)
 
 code("""
@@ -82,25 +75,18 @@ print(f"goals    {goals.era.value_counts().reindex(['pre','post']).to_dict()}"
 md("""
 ## 0. Is 2022 real?
 
-Everything below splits the record at **2022-07-01**, and a single date picked
-after seeing the results is exactly the kind of choice that manufactures
-findings. This project has already retired one effect on that ground: the
-competitive-match premium in notebook 01 grew monotonically the later the cut
-was placed, which is what slicing a smooth trend looks like rather than what a
-change looks like.
+A split date picked after seeing the results manufactures findings. This project
+has already retired one effect on that ground — notebook 01's competitive-match
+premium grew monotonically the later the cut was placed, which is what slicing a
+trend looks like rather than what a change looks like.
 
-So the check comes first, before anything that depends on it. Slide the cut
-every six months from 2018 to 2024 and recompute each headline measure. The two
-cases leave different signatures:
+So: slide the cut every six months from 2018 to 2024 and recompute.
 
-- a **change** at a date gives a ramp up to that date and then a **plateau** --
-  once the cut is past the real break, moving it further only trades matches
-  between two groups that already differ
-- a **trend** with no break gives a line that **keeps climbing**, because every
-  step of the cut puts more of the rise on one side
+- a **change** ramps to the date, then **plateaus** — past the break, moving the
+  cut only trades matches between two already-different groups
+- a **trend** with no break **keeps climbing**
 
-The cut moves; the data does not. This can say whether mid-2022 is where things
-changed. It cannot say why, and nothing here identifies a cause.
+The cut moves; the data does not. This locates a date. It cannot explain one.
 """)
 
 code("""
@@ -234,38 +220,32 @@ for lab, _ in SWEEP:
 """)
 
 md("""
-**Four of the five behave the way a real change behaves.** Minutes
-concentration, familiarity, appearance rate and top-3 goal share all climb from
-2018, arrive by **2022-01**, and then sit still — moving the cut a further two
-years changes minutes top-11 by 0.007 on a rise of 0.275. Wherever the break is,
-it is no later than early 2022, and the exact date is not carrying the result.
+**Four of five behave like a real change.** Minutes concentration, familiarity,
+appearance rate and top-3 goal share climb from 2018, arrive by **2022-01**, then
+sit still — two further years of cut move minutes top-11 by 0.007 on a rise of
+0.275.
 
-**The fifth does not, and that is worth saying plainly.** The midfielder share of
-goals is as large at a 2018 cut as at 2022, sags in between, and is largest at
-the very last cut — where only 27 matches remain on the post side. The sweep
-cannot locate a date for it. Its interval in section 3 still excludes zero, so
-the post-2022 team really does take more of its goals from midfield; but that is
-a statement about two groups of matches, not evidence that anything changed in
-mid-2022. Treat it as the weakest of the four measures there.
+🚨 **The fifth does not.** Midfielder share of goals is as large at a 2018 cut as
+at 2022, sags between, and peaks at the final cut where only 27 matches remain
+post. The sweep cannot locate a date for it. Its interval in section 3 still
+excludes zero — the post-2022 team does score more from midfield — but that is a
+fact about two groups, not about mid-2022. **The weakest of the four.**
 
-What this cannot do is separate mid-2022 from the months either side. The
-plateau is already reached at the 2022-01 cut, and at ~15 matches a year those
-two dates are a handful of fixtures apart. **"No later than early 2022"** is the
-claim the sweep supports; "July 2022 specifically" is not, and nothing below
-depends on it.
+The claim the sweep supports is **"no later than early 2022"**, not July
+specifically: the plateau is already reached at the 2022-01 cut, a handful of
+fixtures away. Nothing below depends on the difference.
 """)
 
 md("""
 ## 1. The goals came from fewer players
 
 "How many different men scored" is a **species-richness** problem, and richness
-rises with sample size whatever the underlying diversity. The post-2022 era has
-far fewer goals than the pre era, so the two counts are not comparable as
-observed — the smaller sample would show fewer scorers even if nothing changed.
+rises with sample size whatever the true diversity. The post era has far fewer
+goals, so raw counts are not comparable.
 
-The correction is **rarefaction** (Gotelli & Colwell 2001; Hurlbert 1971):
-repeatedly draw the larger era down to the smaller era's size and compare
-distributions rather than points. Four measures, from breadth to concentration.
+The fix is **rarefaction** (Gotelli & Colwell 2001; Hurlbert 1971): draw the
+larger era down to the smaller era's size, repeatedly, and compare distributions
+rather than points.
 """)
 
 code("""
@@ -292,6 +272,31 @@ rar = pd.DataFrame(rows)
 print(f"post: {n_post} goals, {int(obs[0])} scorers")
 print(f"pre : {len(pre_s)} goals, {pre_s.nunique()} scorers, rarefied to {n_post}\\n")
 print(rar.round(3).to_string(index=False))
+""")
+
+code("""
+# Four measures, four different units. Put them on one axis by expressing the
+# post-2022 value in units of its OWN rarefied pre-2022 range: 0 is that range's
+# floor, 1 its ceiling. Inside the band means indistinguishable from a pre-2022
+# sample of the same size.
+fig, ax = plt.subplots(figsize=(7.6, 2.9))
+d = rar.iloc[::-1].reset_index(drop=True)
+z = (d.post - d.pre_lo) / (d.pre_hi - d.pre_lo)
+ax.axvspan(0, 1, color=viz.GRID, zorder=0)
+ax.annotate("indistinguishable from pre-2022", xy=(0.5, 1.0),
+            xycoords=("data", "axes fraction"), xytext=(0, -9),
+            textcoords="offset points", ha="center", va="top", fontsize=8,
+            color=viz.INK_MUTED)
+for i, (v, verdict) in enumerate(zip(z, d.verdict)):
+    col = viz.ORANGE if verdict == "outside" else viz.INK_MUTED
+    ax.plot([min(v, 0), max(v, 1)], [i, i], color=viz.GRID, lw=1.0, zorder=1)
+    ax.scatter([v], [i], color=col, s=52, zorder=3)
+ax.set_yticks(range(len(d)))
+ax.set_yticklabels(d.measure)
+ax.set_xlabel("post-2022 value, in units of the rarefied pre-2022 range")
+ax.set_title("Three of four fall outside the pre-2022 range. Top-1 share does not.")
+viz.despine(ax)
+plt.show()
 """)
 
 code("""
@@ -334,27 +339,20 @@ plt.show()
 """)
 
 md("""
-The curves separate well before the cut, so this is not an artefact of the eras
-being different lengths: **at any common number of goals, the post-2022 era uses
-fewer scorers.**
+**At any common number of goals, the post-2022 era uses fewer scorers** — the
+curves separate well before the cut, so this is not an artefact of era length.
 
-**But it is not one man.** The top-1 share sits *inside* the rarefied interval —
-Jordan's leading scorer takes no more of the load than a pre-2022 sample of the
-same size would give. The breadth measures move and the single-player measure
-does not, which is a narrowing to a small **group**, not a dependence on an
-individual. Worth stating plainly, because "one player carries them" is the
-popular version of this claim and the data does not support it.
+🚨 **But it is not one man.** Top-1 share sits *inside* the rarefied range:
+Jordan's leading scorer takes no more of the load than a same-sized pre-2022
+sample would. Breadth moves; the individual does not. A narrowing onto a small
+**group** — and "one player carries them" is not supportable.
 """)
 
 md("""
 ## 2. Who
 
-It is tempting to call this a changing of the guard, and the table below only
-half supports that. Two high-volume pre-2022 scorers vanish completely. The
-three who take over were **already there** — all of them scoring before 2022,
-then scaling up sharply. So it is partly a replacement and partly an emergence,
-and the distinction matters: a group that grew into the role is a different
-proposition from one that arrived.
+Half a changing of the guard. Two high-volume pre-2022 scorers vanish; the three
+who take over were **already there**, scoring before 2022 and then scaling up.
 """)
 
 code("""
@@ -389,40 +387,32 @@ plt.show()
 """)
 
 md("""
-Two patterns, and they should not be blurred together.
+**The old top two disappear** — not reduced roles, zero goals.
 
-**The old top two disappear.** Jordan's leading scorer of the pre-2022 era and
-the man third behind him contribute nothing at all afterwards — not reduced
-roles, zero goals.
+**The new top three were already scoring**, then roughly double or triple.
+Al-Taamari is in the top three of *both* eras, so "Jordan replaced its forwards"
+would be an overstatement.
 
-**The new top three were already scoring.** Every one of them appears in the
-pre-2022 column, then roughly doubles or triples his output. Al-Taamari in
-particular is in the top three of *both* eras, which is why "Jordan replaced its
-forwards" would be an overstatement.
-
-So the narrowing in section 1 is not a squad being rebuilt. It is a wide, fairly
-flat scoring distribution collapsing onto three players who were already part of
-it. Whether that is a team finding its best attackers or a team running out of
-alternatives, this data cannot say.
+Section 1's narrowing is not a squad rebuilt. It is a wide, flat distribution
+collapsing onto three players already in it. Whether that is finding your best
+attackers or running out of alternatives, this data cannot say.
 """)
 
 md("""
 ## 3. A narrower group, a more settled team
 
-If the goals come from fewer players, the obvious next question is whether the
-*team* also narrowed. Three measures, each of which has to be built carefully
-because the naive version is confounded by time.
+If the goals narrowed, did the *team*? Three measures, each built to survive the
+same confound: raw counts accumulate with time, and FBref's coverage starts in
+2011, so the naive versions rise for reasons unrelated to Jordan.
 
-- **Minutes concentration** — share of all minutes going to the top eleven
-  players. Compared at equal match counts.
-- **Team familiarity** — the standard measure is pairwise prior appearances
-  together (*Journal of Big Data*, 2025). Raw counts accumulate with time and
-  FBref's coverage starts in 2011, so both rise for reasons unrelated to Jordan.
-  Here it is restricted to a **24-month lookback** and divided by the matches
-  available in that window, making it a rate that cannot drift.
+- **Minutes concentration** — share of minutes to the top eleven, at equal match
+  counts.
+- **Team familiarity** — pairwise prior appearances together (*Journal of Big
+  Data*, 2025), restricted to a **24-month lookback** and divided by the matches
+  available in it, making it a rate that cannot drift.
 - **Appearance rate** — the same treatment for individual starters.
 
-Plus **where the goals came from positionally**, which needs no such correction.
+Plus **midfield share of goals**, which needs no correction.
 """)
 
 code("""
@@ -480,28 +470,25 @@ plt.show()
 """)
 
 md("""
-All four move the same way and their intervals clear zero: the post-2022 team
-gives more of its minutes to fewer players, those players have played together
-more recently, and a larger share of the goals comes from midfield.
+All four clear zero: more minutes to fewer players, players who have played
+together more recently, more goals from midfield.
 
-The last one is worth separating from the rest. The others describe *stability*;
-the midfield share describes *shape*. They are consistent with one another but
-they are not the same evidence, and the notebook does not treat them as such.
+Keep the last one separate. The others describe **stability**; midfield share
+describes **shape** — consistent evidence, not the same evidence. And per section
+0, it is the one measure that cannot locate a date.
 """)
 
 md("""
 ## 4. When the goals happen
 
-A different cut of the same matches: not who scored, but when — and what the
-scoreboard said at the time. Reconstructed in `JordanData/match_state.py` from
-goal minutes on **both** sides, including the ten Arab Cup matches recovered
-from Wikipedia, which FBref does not carry at all.
+Not who scored but when, and what the scoreboard said. Reconstructed in
+`JordanData/match_state.py` from goal minutes on **both** sides, including the
+ten Arab Cup matches recovered from Wikipedia that FBref does not carry.
 
-Coverage is 155 of 174 matches across the whole file and somewhat fewer inside
-the 2015 window used here; the cell prints the exact count it works from. The
-gap is FBref reports with no event feed, and it is balanced across the two eras
-— which it was **not** before the Arab Cup was recovered, when the missing
-matches were disproportionately Jordan's best.
+Coverage is 155 of 174 matches; the cell prints the count inside this window. The
+gap is FBref reports with no event feed, and it is **balanced across eras** —
+which it was not before the Arab Cup was recovered, when the missing matches were
+disproportionately Jordan's best.
 """)
 
 code("""
@@ -538,29 +525,26 @@ plt.show()
 """)
 
 md("""
-Jordan's own late scoring sits almost exactly on the all-football benchmark —
-the attack has no special relationship with the clock. The conceding column is
-the outlier: **a third of every goal Jordan concedes arrives in the last fifteen
-minutes**, around half again the rate the literature expects.
+Jordan's scoring sits on the all-football benchmark — the attack has no special
+relationship with the clock. **The conceding column is the outlier: a third of
+every goal Jordan concedes arrives in the last fifteen minutes**, about half
+again what Armatas et al. (2009) expect.
 
-This is a description of all 155 matches, **not** a change across 2022 — the era
-difference in that window does not clear zero. It is a standing feature of this
-team over the whole period, and it is the clearest thing in the notebook that
-points at something to fix rather than something to celebrate.
+This describes all 155 matches, **not** a change across 2022 — the era difference
+there does not clear zero. A standing feature, and the clearest thing in the
+notebook pointing at something to fix.
 """)
 
 md("""
 ## 5. Crossing the two: when *and* in what state
 
-Section 4 showed **when** Jordan concedes and the earlier sections showed **in
-what state**. Neither alone explains the late-conceding result, because "a third
-of goals conceded arrive after the 75th minute" is compatible with two opposite
-stories: a team that throws away leads, or a team that gets put away in matches
-it was already losing.
+"A third of goals conceded arrive after the 75th" fits two opposite stories: a
+team that throws away leads, or one that gets put away in matches it was already
+losing. Neither section settles it alone.
 
-Crossing them settles it. Rates need **minutes at risk** in each cell, not goal
-counts — a team that spends the last fifteen minutes level has more chance to
-concede a level-state goal simply by being there.
+Crossing them does. Rates need **minutes at risk** per cell, not goal counts — a
+team that spends the last fifteen minutes level has more chance to concede a
+level-state goal simply by being there.
 """)
 
 code("""
@@ -721,25 +705,19 @@ print(f"\\n  across {len(L)} matches that is {abs(obs - exp) * len(L):.0f} point
 """)
 
 md("""
-A level scoreline at the 75th minute, against these opponents, should be worth
-about 1.2 points. Jordan takes 0.72 — a shortfall of roughly half a point per
-match, interval excluding zero, across 36 matches.
+A level scoreline at 75 minutes against these opponents should be worth ~1.2
+points. Jordan takes **0.72** — roughly half a point per match short, interval
+excluding zero, across 36 matches.
 
-It is not an artefact of the clock convention: even adding eight minutes of
-stoppage to every one of those matches, the late level-state spike remains about
-2.7×. And it is not opponent quality — the adjustment above already handles
-that, and these are fixtures Jordan was on average favoured in.
+Not the clock convention: adding eight minutes of stoppage to every one of them
+still leaves the spike at ~2.7×. Not opponent quality: the adjustment handles
+that, and these are fixtures Jordan was favoured in.
 
-🚨 **It is partly an artefact of the model.** The simulation that sets the 1.2
-draws goals at a constant rate whatever the scoreboard says, and that is known
-to be wrong for level matches specifically. How much of the shortfall that costs
-is measured in **What we can still improve**, at the end of this notebook; the
-number above should be read with that qualification attached.
+🚨 **Partly the model, though.** The simulation setting that 1.2 draws goals at a
+constant rate whatever the scoreboard says. How much that costs is measured in
+**What we can still improve**; read the number with that attached.
 
 ### Did this change between the eras?
-
-That is the notebook's actual question, so it has to be tested rather than
-asserted from the pooled number.
 """)
 
 code("""
@@ -822,45 +800,69 @@ print(mt.groupby("era")[["expected_gd", "expected_gf", "expected_ga"]]
       .mean().reindex(["pre", "post"]).round(3).to_string())
 """)
 
+code("""
+fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.2),
+                         gridspec_kw={"width_ratios": [1.6, 1]})
+a = axes[0]
+sh75 = (pd.crosstab(at75.era, at75.at75, normalize="index")
+        .reindex(index=["pre", "post"])[["leading", "level", "trailing"]])
+x = np.arange(3)
+a.bar(x - 0.19, sh75.loc["pre"], width=0.36, color=viz.BLUE, label="pre-2022")
+a.bar(x + 0.19, sh75.loc["post"], width=0.36, color=viz.ORANGE, label="post-2022")
+a.set_xticks(x)
+a.set_xticklabels(sh75.columns)
+a.set_ylabel("share of matches")
+a.set_title("Scoreboard at the 75th minute", fontsize=9.5)
+a.legend(fontsize=8)
+viz.despine(a)
+
+b = axes[1]
+opp = mt.groupby("era").expected_gd.mean().reindex(["pre", "post"])
+b.bar([0, 1], opp.values, width=0.52, color=[viz.BLUE, viz.ORANGE])
+for i, v in enumerate(opp.values):
+    b.annotate(f"{v:+.2f}", (i, v), xytext=(0, 4), textcoords="offset points",
+               ha="center", fontsize=9, color=viz.INK_2)
+b.axhline(0, color=viz.INK_2, lw=1.0)
+b.set_xticks([0, 1])
+b.set_xticklabels(["pre-2022", "post-2022"])
+b.set_ylabel("mean expected goal difference")
+b.set_title("Opponent quality faced", fontsize=9.5)
+viz.despine(b)
+
+fig.suptitle("Same positions, much harder opponents", fontsize=11)
+fig.tight_layout()
+plt.show()
+""")
+
 md("""
-**The answer: this is the part that did not improve.**
+**This is the part that did not improve.**
 
-The shortfall is **−0.50** before 2022 and **−0.41** after, a change of **+0.09,
-95% [−0.36, +0.77]** — no change worth the name. The raw conceding rate in that
-cell rises from 3.04 to 7.32 per 90, which looks alarming until you see the
-interval, [−0.42, +11.66]: ten goals in 123 minutes cannot distinguish anything.
-Pre-2022 the shortfall clears zero on its own; post-2022 it does not, but that
-is twelve matches, not evidence of a fix.
+The shortfall is **−0.50** pre and **−0.41** post, a change of **+0.09, 95%
+[−0.36, +0.77]**. The raw conceding rate in that cell rises 3.04 → 7.32 per 90,
+alarming until the interval: [−0.08, +11.59]. Ten goals in 123 minutes
+distinguishes nothing.
 
-The state distribution barely moves either — Jordan arrives at the 75th minute
-leading in **47%** of matches in both eras, and level in about a quarter.
+**The scoreboard distribution barely moves either** — Jordan reaches the 75th
+minute leading in **47%** of matches in both eras.
 
-**And that is the interesting part.** Over the same period the opposition got
-dramatically harder: mean expected goal difference across all matches falls from
-**+0.48** to **+0.02**, and among the matches that reach 75 minutes level, from
-**+0.50** to **−0.41** — from fixtures Jordan was favoured in to fixtures it was
-not. Reaching the same scoreboard positions against that much better opposition
-*is* the improvement, and it is the same phenomenon as notebook 01's headline:
-the raw numbers hold flat while the quality behind them rises.
+**That is the interesting part.** Over the same period the opposition got much
+harder: mean expected goal difference **+0.48 → +0.02**, and among matches
+reaching 75' level, **+0.50 → −0.41**. Holding the same positions against that
+much better opposition *is* the improvement — notebook 01's headline in another
+register. The conversion from them did not improve at all.
 
-So this section's contribution to the notebook's question is a negative one, and
-a useful one. The results got better, but **none of the improvement came from
-managing tight matches better.** Jordan converts a level scoreline at 75 minutes
-exactly as badly as it did before — roughly half a point per match below what
-the fixture is worth, in both eras. Whatever drove the rise, it was not this.
-
-What the failure *is* cannot be settled here. The obvious reading — a team
-chasing a winner gets caught on the break — needs shot locations or possession
-to test, and neither exists for these matches (notebook 02). It stays a
-description of what happens, not an explanation.
+So this section contributes a negative, and a useful one: **none of the
+improvement came from managing tight matches better.** What the failure *is*
+cannot be settled here — that needs shot locations or possession, and neither
+exists for these matches.
 """)
 
 md("""
 ## 6. What it isn't
 
-The measures below were built and returned nothing. They are reported because a
-null with an interval is a result, and because each one closes off an
-explanation that would otherwise stay live.
+Built, and returned nothing. Reported because a null with an interval is a
+result, and because each one closes off an explanation that would otherwise stay
+live.
 """)
 
 code("""
@@ -890,7 +892,7 @@ NULLS = [
 ]
 rows = []
 for lab, fn in NULLS:
-    o, lo, hi = sboot(fn)
+    o, lo, hi = sboot(fn)   # collected, not just printed -- the figure below uses it
     rows.append({"measure": lab, "diff": o, "lo": lo, "hi": hi,
                  "excludes_0": bool(lo > 0 or hi < 0)})
 nulls = pd.DataFrame(rows)
@@ -900,14 +902,16 @@ print(nulls.round(3).to_string(index=False))
 code("""
 # Scoring rate per 90 minutes ACTUALLY SPENT in each state. Both numerator and
 # denominator move when a match is resampled, so the rate is what is bootstrapped.
-def rate(d, s, direction="gf"):
-    m = d[f"min_{s}"].sum()
-    return d[f"{direction}_{s}"].sum() / m * 90 if m > 0 else np.nan
+def rate(d, st, direction="gf"):
+    m = d[f"min_{st}"].sum()
+    return d[f"{direction}_{st}"].sum() / m * 90 if m > 0 else np.nan
 
-for s in ("leading", "level", "trailing"):
-    o, lo, hi = sboot(lambda d, ss=s: rate(d, ss))
-    a, b = rate(ms[ms.era == "pre"], s), rate(ms[ms.era == "post"], s)
-    print(f"  scored while {s:9s} pre {a:.2f}  post {b:.2f}  "
+srows = []
+for st in ("leading", "level", "trailing"):
+    o, lo, hi = sboot(lambda d, ss=st: rate(d, ss))
+    a, b = rate(ms[ms.era == "pre"], st), rate(ms[ms.era == "post"], st)
+    srows.append({"measure": f"scoring rate, {st}", "diff": o, "lo": lo, "hi": hi})
+    print(f"  scored while {st:9s} pre {a:.2f}  post {b:.2f}  "
           f"diff {b-a:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
 
 # The comparison of interest as a single quantity: does the team push when behind?
@@ -916,10 +920,31 @@ def ratio(d):
     return rate(d, "trailing") / lv if lv > 0 else np.nan
 
 o, lo, hi = sboot(ratio)
+srows.append({"measure": "trailing / level ratio", "diff": o, "lo": lo, "hi": hi})
+state_nulls = pd.DataFrame(srows)
 print(f"\\n  trailing/level ratio  pre {ratio(ms[ms.era=='pre']):.2f}  "
       f"post {ratio(ms[ms.era=='post']):.2f}  diff {o:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
 print(f"  goals scored while trailing, both eras: "
       f"{int(ms.gf_trailing.sum())} -- the whole basis of this comparison")
+""")
+
+code("""
+# Shares and goals-per-90 are not the same unit, so they do not share an axis.
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.2))
+for ax, tab, unit in ((axes[0], nulls, "difference in share"),
+                      (axes[1], state_nulls, "difference in goals per 90 at risk")):
+    d = tab.iloc[::-1].reset_index(drop=True)
+    y = np.arange(len(d))
+    ax.hlines(y, d.lo, d.hi, color=viz.INK_MUTED, lw=2.0)
+    ax.scatter(d["diff"], y, color=viz.ORANGE, s=34, zorder=3)
+    ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=0)
+    ax.set_yticks(y)
+    ax.set_yticklabels(d.measure, fontsize=8.5)
+    ax.set_xlabel(unit, fontsize=8.5)
+    viz.despine(ax)
+fig.suptitle("Post minus pre: every interval crosses zero", fontsize=11)
+fig.tight_layout()
+plt.show()
 """)
 
 code("""
@@ -942,122 +967,72 @@ print("\\ncards per match:", mt.groupby("era").n_cards.mean().round(2).to_dict()
 """)
 
 md("""
-- **Match state.** Time leading, time trailing, scoring first, recovering from
-  behind — every interval spans zero. Jordan did not become a team that manages
-  the scoreboard differently.
+- **Match state** — time leading, trailing, scoring first, recovering. Jordan did
+  not become a team that manages the scoreboard differently.
 - **Scoring rate by state.** The point estimates are seductive: pre-2022 Jordan
-  looks like a front-runner, scoring freely with a lead and *below its own
-  level-state rate* when chasing — the opposite of the pattern Lago-Peñas &
-  Gómez-López (2014) describe, where teams that go behind take on more of the
-  game. Post-2022 looks flatter. But the whole comparison rests on the handful
-  of goals Jordan has scored while trailing in eleven years, and the interval on
-  the trailing/level ratio is far too wide to support any of it. A good story
-  that the data cannot carry.
-- **Margins.** Winning and losing heavily happen at the old rates. What changed
-  is that matches became higher-scoring overall.
-- **The goalkeeper.** The position does change hands — Amer Shafi plays 47
-  matches and none after February 2021, and Yazeed Abulaila, who had been
-  sharing the role since 2017, takes it over outright. But goals conceded above
-  expectation are essentially identical between the two. A plausible mechanism,
-  measured and ruled out.
-- **Discipline.** Cards per match, unchanged.
+  looks like a front-runner, scoring *below its own level-state rate* when
+  chasing — the opposite of Lago-Peñas & Gómez-López (2014). But it rests on **24
+  goals scored while trailing in eleven years**, and the interval cannot carry it.
+- **Margins** — heavy wins and defeats at the old rates. What changed is that
+  matches got higher-scoring overall.
+- **The goalkeeper.** The position does change hands — Shafi 47 matches and none
+  after Feb 2021, Abulaila takes over — and goals conceded above expectation are
+  identical. A plausible mechanism, measured and ruled out.
+- **Discipline** — cards per match, unchanged.
 
-Two more, tested elsewhere and excluded here for reasons worth recording:
-**substitutions** are confounded by the 2020 five-substitute rule, which lands
-two years before the treatment date; **manager** gives 15 spells across the
-window and cannot be separated from squad change at this sample size.
+Excluded rather than tested: **substitutions**, confounded by the 2020 five-sub
+rule two years before the cut; **manager**, 15 spells and inseparable from squad
+change at this n.
 """)
 
 md("""
 ## Summary
 
-**Supported** — each with an interval that excludes zero, or a rarefied
-comparison that falls outside:
-
-- the goals after 2022 come from a **narrower group** of scorers: fewer distinct
-  scorers, higher top-3 share, higher HHI, all outside the rarefied pre-2022
-  range at equal sample size
-- the team is **more settled**: minutes concentrated in fewer players, and
-  starters who have played together more in the preceding two years
-- a larger share of goals comes from **midfield**
-
-**Unchanged across the eras — the part of the game that did not improve:**
-
-- Jordan concedes **a third of its goals in the last fifteen minutes**, against
-  an all-football benchmark of 22.5%
-- crossed with state, that is **entirely a level-scoreline problem**. With a
-  lead the late conceding rate is flat (1.01×); while level it roughly
-  quadruples (3.92×), and Jordan's own scoring rate collapses in the same window
-- from a **level scoreline at the 75th minute** Jordan takes about 0.7 points
-  where the model expects about 1.2 — and that shortfall is **−0.50 before 2022
-  and −0.41 after, a change of +0.09, 95% [−0.36, +0.77]**. It did not get
-  better and it did not get worse.
-
-**Not established** — measured, interval spans zero:
-
-- that Jordan relies on **one** player: the top-1 share is ordinary
-- any change in match-state behaviour, in the rate of heavy wins or defeats, in
-  the goalkeeper's contribution, or in discipline
-
-**Ruled out as the mechanism:** goalkeeping and discipline.
+| | | |
+|---|---|---|
+| **Supported** | a narrower group of scorers | outside the rarefied pre-2022 range on distinct scorers, top-3 share and HHI |
+| | a more settled team | minutes top-11 **+0.247** [+0.135, +0.351]; familiarity **+0.217** [+0.113, +0.337] |
+| | more goals from midfield | **+0.148** [+0.039, +0.315] — but it cannot locate a date (section 0) |
+| **Unchanged** | late conceding | a third of goals against in the last fifteen minutes, both eras |
+| | level scorelines | shortfall −0.50 pre, −0.41 post; change **+0.09** [−0.36, +0.77] |
+| **Not established** | dependence on one player | top-1 share sits *inside* the rarefied range |
+| | game management, keeper, discipline, margins | every interval spans zero |
 
 ### So how did the results get better?
 
-Putting the sections together, the shape of the answer is:
-
 **Through the attack, from a narrower group, with a more settled team.** More of
-the goals come from a small set of players and from midfield, minutes are
-concentrated in fewer men, and those men have played together more in the
-preceding two years. Against opposition that got substantially harder — mean
-expected goal difference falling from +0.48 to +0.02 — that produced better
-results.
+the goals from a small set of players and from midfield, minutes concentrated in
+fewer men, those men having played together more. Against opposition that got
+substantially harder — expected goal difference **+0.48 → +0.02** — that produced
+better results.
 
-**Not through game management.** Jordan reaches the 75th minute in the same
-scoreboard positions as before, and converts a level one exactly as badly. It
-does not hold leads better, recover from behind better, score first more often,
-win more heavily or concede more heavily. Every one of those is a measured null,
-and the level-scoreline shortfall is unchanged at about half a point a match.
+**Not through game management.** Same scoreboard positions at the 75th minute,
+converted exactly as badly. Not through the goalkeeper or discipline either. The
+list of things that *didn't* change is what stops "Jordan got better" from being
+a story you can tell any way you like.
 
-**Not through the goalkeeper or discipline**, both of which changed hands or
-could have and neither of which moved the numbers.
+### What this licenses
 
-That last group matters as much as the first. The list of things that *didn't*
-change is what stops "Jordan got better" from being a story you can tell any way
-you like.
-
-### What this does and does not license
-
-The honest reading is a **coincidence with uncertainty**, which is what this
-design can support and no more. Jordan's attack improved; over the same period
-the scoring narrowed onto a small group of players and the team became more
-settled. Those things happened together.
-
-They are not shown to cause one another. Squad change, coaching change and
-scheduling all move together across mid-2022, there are ~40 matches after it,
-and no design here separates them. The one thing worth saying beyond the
-association is a **caution rather than a conclusion**: a rise carried by a
-narrow group is more fragile than one carried by a broad one, and the top-3
-share is the number to watch if the level slips.
+A **coincidence with uncertainty**, and no more. Squad change, coaching change
+and scheduling all move together across mid-2022, ~40 matches follow it, and no
+design here separates them. The one thing worth adding beyond the association is
+a caution: a rise carried by a narrow group is more fragile than one carried by a
+broad one, and **top-3 share is the number to watch** if the level slips.
 """)
 
 md("""
 ## What we can still improve
 
-Ranked by how much each would change what is written above. The first one
-qualifies a claim already made; the rest are things this notebook does not know.
+Ranked by how much each would change what is above. The first corrects a claim
+already made; the rest are things this notebook does not know.
 
-### 1. The shortfall in section 5 is partly the model's fault, not Jordan's
+### 1. Section 5's shortfall is partly the model's fault
 
-Section 5 sets the expectation for a level scoreline by simulating the last
-fifteen minutes at each fixture's own model goal rates. That simulation draws
-goals at a **constant rate whatever the scoreboard says** — and the match-status
-literature says that assumption is wrong for exactly this situation. Late goals
-are more common when a match is level, and level teams underperform leading ones
-on shot quality, for everyone, everywhere. If the model under-predicts late goals
-in level matches in general, then part of the −0.47 points is the model being
-state-blind rather than Jordan being bad.
-
-Two diagnostics, both of which the notebook can run on its own data:
+Its expectation comes from simulating the last fifteen minutes at each fixture's
+own model goal rates — at a **constant rate whatever the scoreboard says**. The
+match-status literature says that is wrong here specifically: late goals are more
+common when a match is level, everywhere, for everyone. Two diagnostics on the
+same 36 matches:
 """)
 
 code("""
@@ -1091,12 +1066,12 @@ for _ in range(20000):
     t = d.gf75.sum() + d.ga75.sum()
     if t:
         sh.append(d.gf75.sum() / t)
-lo, hi = np.percentile(sh, [2.5, 97.5])
+sh_lo, sh_hi = np.percentile(sh, [2.5, 97.5])
 mdl = (late.expected_gf / (late.expected_gf + late.expected_ga)).mean()
 print(f"DIRECTION -- after the 75th minute in those {len(late)} level matches")
 print(f"  Jordan scored {f}, conceded {g}")
-print(f"  Jordan's share {f / (f + g):.3f}   95% [{lo:.3f}, {hi:.3f}]"
-      f"   {'EXCLUDES' if hi < 0.5 else 'includes'} 0.5")
+print(f"  Jordan's share {f / (f + g):.3f}   95% [{sh_lo:.3f}, {sh_hi:.3f}]"
+      f"   {'EXCLUDES' if sh_hi < 0.5 else 'includes'} 0.5")
 print(f"  the model's own implied share for these fixtures: {mdl:.3f}")
 for e in ("pre", "post"):
     d = late[late.era == e]
@@ -1105,90 +1080,120 @@ for e in ("pre", "post"):
           f"Jordan's share {d.gf75.sum() / t:.3f}")
 """)
 
+code("""
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.2),
+                         gridspec_kw={"width_ratios": [1, 1.35]})
+a = axes[0]
+x = np.arange(2)
+obs_v = [(late.gf75 + late.ga75).mean(), (late.pts == 1).mean()]
+mod_v = [np.mean(sg), np.mean(sd)]
+for off, vals, col, lab in ((-0.19, obs_v, viz.ORANGE, "observed"),
+                            (0.19, mod_v, viz.INK_MUTED, "model")):
+    a.bar(x + off, vals, width=0.36, color=col, label=lab)
+    for xi, v in zip(x + off, vals):
+        a.annotate(f"{v:.2f}", (xi, v), xytext=(0, 3),
+                   textcoords="offset points", ha="center", fontsize=8,
+                   color=viz.INK_2)
+a.set_xticks(x)
+# two different units, side by side on purpose -- say so rather than hide it
+a.set_xticklabels(["goals per match", "draw rate"])
+a.set_ylim(0, max(obs_v + mod_v) * 1.22)
+a.set_title("The model does not fit these matches", fontsize=9.5)
+a.legend(fontsize=8, loc="upper center", ncol=2)
+viz.despine(a)
+
+b = axes[1]
+b.axvspan(0.5, 0.75, color=viz.GRID, zorder=0)
+b.annotate("an even split\\nor better", xy=(0.625, 0.03),
+           xycoords=("data", "axes fraction"), ha="center", va="bottom",
+           fontsize=8, color=viz.INK_MUTED)
+b.hlines(0, sh_lo, sh_hi, color=viz.INK_MUTED, lw=2.6)
+b.scatter([f / (f + g)], [0], color=viz.ORANGE, s=70, zorder=4)
+for k, (e, yy) in enumerate((("pre", -0.8), ("post", 0.8))):
+    dd = late[late.era == e]
+    b.scatter([dd.gf75.sum() / (dd.gf75.sum() + dd.ga75.sum())], [yy],
+              color=viz.BLUE, s=34, zorder=4)
+    b.annotate(e, (dd.gf75.sum() / (dd.gf75.sum() + dd.ga75.sum()), yy),
+               xytext=(7, 0), textcoords="offset points", fontsize=8.5,
+               color=viz.BLUE, va="center")
+b.axvline(mdl, color=viz.INK_2, lw=1.2, ls=(0, (4, 3)))
+b.annotate(f"model implies {mdl:.2f}", (mdl, 1.0),
+           xycoords=("data", "axes fraction"), xytext=(5, -9),
+           textcoords="offset points", fontsize=8, color=viz.INK_2, va="top")
+b.set_ylim(-2, 2)
+b.set_yticks([])
+b.set_xlim(0, 0.75)
+b.set_xlabel(f"Jordan's share of the {f + g} goals after the 75th minute")
+b.set_title("The direction, which no general effect explains", fontsize=9.5)
+viz.despine(b, keep=("bottom",))
+fig.tight_layout()
+plt.show()
+""")
+
 md("""
-So section 5 should be **re-centred on the direction, not the volume**. That the
-last fifteen minutes of a level match are busy is ordinary football. That those
-goals go one way three times in four, against fixtures the model makes Jordan
-the favourite in, is not, and it holds in both eras. The rate ratio and the
-points shortfall are still worth showing, but as symptoms — they cannot be
-quoted as if the comparison were clean.
+**Re-centre section 5 on direction, not volume.** A busy last fifteen minutes in
+a level match is ordinary football. Those goals going one way **three times in
+four**, in fixtures the model makes Jordan the favourite in, is not — and it
+holds in both eras. Keep the rate ratio and the points shortfall as symptoms
+beneath it, never as clean comparisons.
 
-### 2. There is no placebo in this notebook
+### 2. There is no placebo here
 
-The analysis plan calls for running the same pipeline on three or four
-comparable AFC nations, and notebook 01 does exactly that for strength. Nothing
-here does. Every measure in this notebook is Jordan against its own past, so a finding that
-is really about international football in the 2020s — squads settling, scoring
-narrowing, late goals rising — would look identical. This is the single
-largest hole, and it is the one the split-date sweep in section 0 cannot fill,
-because that check moves the date and not the team.
+The plan calls for the same pipeline on three or four comparable AFC nations;
+notebook 01 does it for strength, this notebook does nothing. Every measure is
+Jordan against its own past, so anything really about international football in
+the 2020s — squads settling, scoring narrowing, late goals rising — would look
+identical. **The largest hole**, and section 0 cannot fill it: that check moves
+the date, not the team.
 
-What it costs: roughly 600 match reports for the peer nations, most of which are
-not in the cache. A cheaper partial version would take only the level-at-75
-finding, which needs goal minutes and nothing else.
+Cost: ~600 match reports, mostly uncached. A cheap partial version would take
+only the level-at-75 finding, which needs goal minutes and nothing else.
 
-### 3. Three squad measures from the plan were never built
+### 3. Three planned squad measures were never built
 
-`age of the starting XI`, `debuts per window`, and `squad turnover (Jaccard of
-consecutive XIs)`. The data for all three is already on disk — `player_dob.csv`
-and the appearance rows — so this is an afternoon, not a project. Debuts in
-particular look like they would say something: keyed on player id, first
-appearances run **13 in 2021, then 1 in 2022 and 1 in 2023**, reopening to 6 and
-9 in 2024-25. Those years hold very different numbers of covered matches (21, 6,
-5), so per match it is 0.62 → 0.17 → 0.20 — a smaller drop than the raw counts
-suggest, and exactly the kind of thing that needs building properly with an
-interval rather than quoting. It is currently in no notebook.
+XI age, debuts per window, squad turnover (Jaccard). The data is already on disk.
+Debuts look like they would say something — **13 in 2021, then 1 and 1** — but
+those years hold 21, 6 and 5 covered matches, so per match it is 0.62 → 0.17 →
+0.20. Smaller than the counts suggest, and exactly why it needs building with an
+interval rather than quoting.
 
-### 4. The mechanism behind section 5 is out of reach, and will stay there
+### 4. The mechanism is out of reach, and will stay there
 
-The obvious reading of the level-scoreline collapse — a team pushing for a
-winner and getting caught — needs shot locations or possession, and neither
-exists for these matches. Possession has been checked exhaustively and is not
-obtainable; the 27 matches that have it are concentrated after 2023, so filling
-it in would put the coverage boundary on the treatment date. Section 5 stays a
-description of what happens, not an explanation.
+The obvious reading of section 5 — chasing a winner, caught on the break — needs
+shot locations or possession. Possession exists for 27 matches, concentrated
+after 2023, so filling it in would put the coverage boundary on the treatment
+date. It stays a description, not an explanation.
 
-### 5. Nineteen matches have no event feed at all
+### 5. Nineteen matches have no event feed
 
-14 friendlies and 5 competitive fixtures with an FBref report but no timeline,
-so they contribute to the squad measures and not to anything in sections 4-6.
-Coverage is balanced across the eras at 89%, which makes this noise rather than
-bias — but it caps the post-2022 side at about 40 matches, and that is why the
-state-crossed intervals are as wide as they are.
+14 friendlies, 5 competitive: FBref reports with no timeline, so they reach the
+squad measures but nothing in sections 4-6. Coverage is balanced across eras at
+89%, so noise rather than bias — but it caps the post side near 40 matches, which
+is why the state-crossed intervals are as wide as they are.
 
-### 6. Smaller things, recorded so they are not rediscovered
+### 6. Smaller, recorded so they are not rediscovered
 
-- **Minutes at risk stop at 90** while stoppage is always played, inflating the
-  last window's rate for every team equally. Section 5 shows the effect survives
-  eight added minutes, but the underlying clock is still wrong.
-- **Managers have no stable id**, so the manager column is name-keyed and any
-  manager-level comparison has to be checked by hand — the opposite of the rule
-  the rest of the project follows for players.
-- **Six Arab Cup names are unconfirmed transliteration matches** and are
-  deliberately not merged into the appearance table. Confirming them by hand
-  would add ten matches to the squad measures.
-- **Notebooks 01 and 02 have not been revised** since the manager column was
-  fixed; notebook 02's column-completeness figure predates it.
+- **Minutes at risk stop at 90** while stoppage is always played. Section 5
+  survives eight added minutes; the clock is still wrong.
+- **Managers have no stable id** — name-keyed, and checked by hand.
+- **Six Arab Cup names** are unconfirmed transliteration matches, deliberately
+  unmerged. Confirming them adds ten matches.
+- **Notebooks 01 and 02 predate the manager fix**; notebook 02's
+  column-completeness figure is stale.
 """)
 
 md("""
 ## Appendix — one measure this notebook deliberately does not use
 
-`match_table` carries `gf_above_expected` — goals scored minus the model's
-expectation for that fixture. It is tempting as an outcome, and it is the wrong
-tool for this question.
+`match_table` carries `gf_above_expected` — goals minus the model's expectation
+for that fixture. Tempting as an outcome, and wrong for this question.
 
-The model is refit every six months on data *before* each match, so the residual
-measures **how far Jordan beat its own contemporaneous forecast**, not how much
-it improved. And because Jordan's attack rose while its opponents got much
-stronger, the two effects cancel in the expectation: expected goals-for is
-essentially *flat* across the boundary while actual goals-for rises. A team
-improving faster than a 730-day half-life can track will show a positive
+The model refits every six months on data *before* each match, so the residual
+measures how far Jordan beat its **contemporaneous forecast**, not how much it
+improved. Jordan's attack rising and its opponents strengthening cancel in the
+expectation: expected goals-for is flat across the boundary while actual rises. A
+team improving faster than a 730-day half-life can track shows a positive
 residual for that reason alone.
-
-So the residual is a statement about the model's lag, and using it here would
-answer "how much of the forecast error did these players account for" — a
-different question, wearing the same clothes.
 """)
 
 code("""
@@ -1202,11 +1207,9 @@ print(sel[["date", "attack", "attack_lo", "attack_hi"]].round(3).to_string(index
 """)
 
 md("""
-This is why the notebook works in **shares and counts** — how goals were
-distributed across players and positions, and how settled the team was. Those
-need no expectation at all, so sections 1 to 3 do not depend on the model being
-well calibrated at all. Sections 4 and 5 do use the model, to adjust for
-opponent quality, and that is where its limits start to matter — which is the
+Hence **shares and counts** throughout sections 1-3: they need no expectation, so
+nothing there depends on the model being calibrated. Sections 4 and 5 do use it,
+to adjust for opponent quality, and that is where its limits start to bite — the
 first item in **What we can still improve**.
 """)
 
