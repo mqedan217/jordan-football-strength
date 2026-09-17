@@ -93,7 +93,10 @@ has already retired one effect on that ground — notebook 01's competitive-matc
 premium grew monotonically the later the cut was placed, which is what slicing a
 trend looks like rather than what a change looks like.
 
-So: slide the cut every six months from 2018 to 2024 and recompute.
+So: slide the cut every six months from 2018 to 2024 and recompute. The axis
+below is spaced by **matches** before the cut rather than by date, because that
+is what actually moves the curve — on a date axis the 2020 shutdown stretches
+into a flat run and fakes a break at mid-2021.
 
 - a **change** ramps to the date, then **plateaus** — past the break, moving the
   cut only trades matches between two already-different groups
@@ -181,17 +184,25 @@ for cut in pd.date_range("2018-07-01", "2024-07-01", freq="6MS"):
         x, y = fn(pre), fn(post)
         r[lab] = y - x if np.isfinite(x) and np.isfinite(y) else np.nan
     rows.append(r)
-sweep = pd.DataFrame(rows)   # drawn by the next cell
+sweep = pd.DataFrame(rows)
+# Two cut dates with no match between them describe the same split, so they are
+# the same point -- keep one, labelled by the earlier date.
+sweep = sweep.drop_duplicates(subset="n_pre", keep="first").reset_index(drop=True)
 """)
 
 code("""
-fig, ax = plt.subplots(figsize=(7.6, 4.4))
-x = pd.to_datetime(sweep.cut)
-# The shaded band is where the cut is already past the break: if the change is
-# real, the lines go flat inside it.
-ax.axvspan(pd.Timestamp("2022-01-01"), pd.Timestamp("2024-01-01"),
-           color=viz.GRID, zorder=0)
-ax.annotate("cut is past the break \u2192", xy=(pd.Timestamp("2022-01-01"), 1.0),
+# Spaced by MATCHES before the cut, not by date. Nothing here moves with the
+# calendar -- the curve only changes when matches cross the cut -- and Jordan
+# played 2 matches in all of 2020, so a date axis stretches the shutdown into a
+# flat stretch and makes the climb look like it begins in mid-2021.
+fig, ax = plt.subplots(figsize=(7.8, 4.6))
+x = sweep.n_pre.values
+cut_x = int((mt.date < CUT).sum())
+band = (int((mt.date < pd.Timestamp("2022-01-01")).sum()),
+        int((mt.date < pd.Timestamp("2024-01-01")).sum()))
+
+ax.axvspan(band[0], band[1], color=viz.GRID, zorder=0)
+ax.annotate("cut is past the break \u2192", xy=(band[0], 1.0),
             xycoords=("data", "axes fraction"), xytext=(-5, -10),
             textcoords="offset points", fontsize=8, color=viz.INK_MUTED,
             ha="right", va="top")
@@ -201,12 +212,33 @@ for (lab, _), col in zip(SWEEP, PALETTE):
     ax.plot(x, sweep[lab], color=col, marker="o", ms=3.5, label=lab,
             lw=1.6 if odd else 2.2, ls=(0, (4, 3)) if odd else "-")
 ax.axhline(0, color=viz.INK_MUTED, lw=0.9, zorder=0)
-viz.mark_split(ax, label="the cut used below")
-ax.set_xlabel("where the cut is placed")
+ax.axvline(cut_x, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)), zorder=0)
+# down at the baseline, where the lines are not
+ax.annotate("the cut used below", xy=(cut_x, 0.02), xycoords=("data", "axes fraction"),
+            xytext=(5, 0), textcoords="offset points", fontsize=8,
+            color=viz.INK_2, va="bottom")
+
+ax.set_xticks(x)
+ax.set_xticklabels([str(c)[:7] for c in sweep.cut], rotation=45, ha="right",
+                   fontsize=8)
+# The whole of 2020 spans this many matches. Shade it, so the compression is
+# visible rather than asserted -- on a date axis it was a third of the chart.
+y2020 = (int((mt.date < pd.Timestamp("2020-01-01")).sum()),
+         int((mt.date < pd.Timestamp("2021-01-01")).sum()))
+ax.axvspan(y2020[0], y2020[1], color=viz.ORANGE, alpha=0.22, zorder=0)
+ax.annotate(f"all of 2020 is these {y2020[1] - y2020[0]} matches",
+            xy=(sum(y2020) / 2, 0.10), xycoords=("data", "axes fraction"),
+            xytext=(0, -30), textcoords="offset points", ha="center",
+            fontsize=7.5, color=viz.INK_2,
+            arrowprops=dict(arrowstyle="-", color=viz.INK_MUTED, lw=0.8))
+ax.set_xlabel("where the cut is placed \u2014 spaced by matches before it, "
+              "labelled by date")
 ax.set_ylabel("difference, post minus pre")
 ax.set_title("Move the cut: four measures stop moving after early 2022, one never does")
-ax.legend(fontsize=8, ncol=3, loc="lower center")
+fig.legend(*ax.get_legend_handles_labels(), loc="outside lower center",
+           ncol=5, fontsize=8)
 viz.despine(ax)
+ax.grid(axis="x", visible=False)
 plt.show()
 """)
 
