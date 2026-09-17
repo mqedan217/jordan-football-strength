@@ -86,23 +86,16 @@ plt.show()
 """)
 
 md("""
-## 0. Is 2022 real?
+## 0. Where the cut comes from
 
-A split date picked after seeing the results manufactures findings. This project
-has already retired one effect on that ground — notebook 01's competitive-match
-premium grew monotonically the later the cut was placed, which is what slicing a
-trend looks like rather than what a change looks like.
+The cut is **not** this notebook's to choose. Notebook 01's opponent-adjusted
+strength model is what establishes that the results shifted, and **2022-07-01**
+is where that shift sits. What the squad data can add is *what was happening
+around it* — so this section puts the two on one timeline.
 
-So: slide the cut every six months from 2018 to 2024 and recompute. The axis
-below is spaced by **matches** before the cut rather than by date, because that
-is what actually moves the curve — on a date axis the 2020 shutdown stretches
-into a flat run and fakes a break at mid-2021.
-
-- a **change** ramps to the date, then **plateaus** — past the break, moving the
-  cut only trades matches between two already-different groups
-- a **trend** with no break **keeps climbing**
-
-The cut moves; the data does not. This locates a date. It cannot explain one.
+It is worth saying what this is not. There is no step change in the squad
+measures to find, and looking for one was a mistake: what the composition data
+shows is an **arc**, and the model's turn sits inside it.
 """)
 
 code("""
@@ -168,128 +161,149 @@ XI_COVER = (len(fam_rate), len(xi))
 """)
 
 code("""
+# The model's own trace, and the squad's history, on one clock.
+tr = pd.read_csv(ROOT / "outputs" / "jordan_strength_ci.csv", parse_dates=["date"])
+tr = tr[tr.date >= START]
+
+# First-time starters need the FULL table, not the 2015+ window -- a player who
+# debuted in 2013 is not a debutant in 2015.
+allm = (pd.read_csv(SQUAD / "match_table.csv", parse_dates=["date"])
+        .sort_values("date").dropna(subset=["starting_xi"]))
+allm["ids"] = allm.starting_xi.map(lambda s: [p["id"] for p in json.loads(s) if p.get("id")])
+seen, deb = set(), []
+for r in allm.itertuples():
+    deb.append({"date": r.date, "new": len([i for i in r.ids if i not in seen])})
+    seen.update(r.ids)
+deb = pd.DataFrame(deb)
+deb = deb[deb.date >= START]
+
+# Squad measures per calendar year: half-years get as thin as one match, and a
+# rate built on one match is not a point worth plotting.
+mt["year"] = mt.date.dt.year
+yr = []
+for y, d in mt.groupby("year"):
+    have = sum(1 for m in d.match_id if m in fam_rate)   # matches with a rate
+    yr.append({"year": y, "n": len(d), "n_rate": have,
+               "familiarity": windowed(d, "fam") if have >= 3 else np.nan,
+               "appearance rate": windowed(d, "caps") if have >= 3 else np.nan,
+               "minutes top-11": top11(d)})
+yr = pd.DataFrame(yr)
+yr["debuts"] = deb.groupby(deb.date.dt.year).new.sum().reindex(yr.year).values
+""")
+
+code("""
+fig, axes = plt.subplots(3, 1, figsize=(7.8, 7.4), sharex=True,
+                         gridspec_kw={"height_ratios": [1.5, 1.2, 0.9]})
+REBUILD = (pd.Timestamp("2021-01-01"), pd.Timestamp("2022-01-01"))
+for ax in axes:
+    ax.axvspan(*REBUILD, color=viz.ORANGE, alpha=0.13, zorder=0)
+    ax.axvline(CUT, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)), zorder=0)
+
+a = axes[0]
+a.fill_between(tr.date, tr.strength_lo, tr.strength_hi, color=viz.BLUE,
+               alpha=0.15, lw=0)
+a.plot(tr.date, tr.strength, color=viz.BLUE, lw=2.3)
+trough = tr.loc[tr.strength.idxmin()]
+a.scatter([trough.date], [trough.strength], color=viz.ORANGE, s=60, zorder=4)
+a.annotate(f"worst of the window\\n{trough.strength:.2f}, {str(trough.date.date())[:7]}",
+           xy=(trough.date, trough.strength), xytext=(8, -26),
+           textcoords="offset points", fontsize=8, color=viz.INK_2)
+a.set_ylabel("opponent-adjusted strength")
+a.set_title("What the model saw", fontsize=9.5)
+viz.despine(a)
+
+b = axes[1]
+mid = pd.to_datetime(yr.year.astype(str) + "-07-01")
+for col, col_c in (("familiarity", viz.BLUE), ("appearance rate", viz.AQUA)):
+    b.plot(mid, yr[col], color=col_c, lw=2.2, label=col)
+    # marker area tracks the matches behind each year; 2020 has too few to plot
+    b.scatter(mid, yr[col], color=col_c, s=yr.n_rate * 4.5, zorder=3)
+b.set_ylabel("rate, per match played")
+b.set_title("How settled the starting XI was   (marker area = matches behind "
+            "the year; 2020 had too few to plot)", fontsize=9.5)
+b.legend(fontsize=8, loc="upper left")
+viz.despine(b)
+
+c = axes[2]
+c.bar(mid, yr.debuts, width=240, color=viz.ORANGE)
+for x_, v in zip(mid, yr.debuts):
+    if v:
+        c.annotate(int(v), (x_, v), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=8, color=viz.INK_2)
+c.set_ylabel("first-time starters")
+c.set_ylim(0, yr.debuts.max() * 1.28)
+c.set_title("and how much new blood came in", fontsize=9.5)
+viz.despine(c)
+c.grid(axis="x", visible=False)
+
+fig.suptitle("Rebuilt in 2021, settled by 2022 — and that is when the results turned",
+             fontsize=11)
+plt.show()
+""")
+
+code("""
+# Robustness, and nothing more: does the pre/post comparison depend on the exact
+# date? Recompute at EVERY cut with at least 25 matches a side -- the full
+# admissible range, not a hand-picked window -- and report the spread.
 SWEEP = [("minutes top-11", top11),
          ("familiarity", lambda d: windowed(d, "fam")),
          ("appearance rate", lambda d: windowed(d, "caps")),
          ("top-3 goal share", top3_share),
          ("midfielder share", mf_share)]
-
 rows = []
-for cut in pd.date_range("2018-07-01", "2024-07-01", freq="6MS"):
+for cut in pd.date_range("2015-07-01", "2026-01-01", freq="6MS"):
     pre, post = mt[mt.date < cut], mt[mt.date >= cut]
-    if len(pre) < 25 or len(post) < 25:     # a side too thin to compare
+    if len(pre) < 25 or len(post) < 25:
         continue
-    r = {"cut": cut.date(), "n_pre": len(pre), "n_post": len(post)}
+    r = {"cut": cut, "n_pre": len(pre)}
     for lab, fn in SWEEP:
         x, y = fn(pre), fn(post)
         r[lab] = y - x if np.isfinite(x) and np.isfinite(y) else np.nan
     rows.append(r)
-sweep = pd.DataFrame(rows)
-# Two cut dates with no match between them describe the same split, so they are
-# the same point -- keep one, labelled by the earlier date.
-sweep = sweep.drop_duplicates(subset="n_pre", keep="first").reset_index(drop=True)
-""")
+sweep = pd.DataFrame(rows).drop_duplicates(subset="n_pre", keep="first")
+chosen = sweep[sweep.cut == CUT].iloc[0]
 
-code("""
-# Spaced by MATCHES before the cut, not by date. Nothing here moves with the
-# calendar -- the curve only changes when matches cross the cut -- and Jordan
-# played 2 matches in all of 2020, so a date axis stretches the shutdown into a
-# flat stretch and makes the climb look like it begins in mid-2021.
-fig, ax = plt.subplots(figsize=(7.8, 4.6))
-x = sweep.n_pre.values
-cut_x = int((mt.date < CUT).sum())
-band = (int((mt.date < pd.Timestamp("2022-01-01")).sum()),
-        int((mt.date < pd.Timestamp("2024-01-01")).sum()))
-
-ax.axvspan(band[0], band[1], color=viz.GRID, zorder=0)
-ax.annotate("cut is past the break \u2192", xy=(band[0], 1.0),
-            xycoords=("data", "axes fraction"), xytext=(-5, -10),
-            textcoords="offset points", fontsize=8, color=viz.INK_MUTED,
-            ha="right", va="top")
-PALETTE = [viz.BLUE, viz.ORANGE, viz.AQUA, viz.VIOLET, viz.INK]
-for (lab, _), col in zip(SWEEP, PALETTE):
-    odd = lab == "midfielder share"          # the one that never settles
-    ax.plot(x, sweep[lab], color=col, marker="o", ms=3.5, label=lab,
-            lw=1.6 if odd else 2.2, ls=(0, (4, 3)) if odd else "-")
-ax.axhline(0, color=viz.INK_MUTED, lw=0.9, zorder=0)
-ax.axvline(cut_x, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)), zorder=0)
-# down at the baseline, where the lines are not
-ax.annotate("the cut used below", xy=(cut_x, 0.02), xycoords=("data", "axes fraction"),
-            xytext=(5, 0), textcoords="offset points", fontsize=8,
-            color=viz.INK_2, va="bottom")
-
-ax.set_xticks(x)
-ax.set_xticklabels([str(c)[:7] for c in sweep.cut], rotation=45, ha="right",
-                   fontsize=8)
-# The whole of 2020 spans this many matches. Shade it, so the compression is
-# visible rather than asserted -- on a date axis it was a third of the chart.
-y2020 = (int((mt.date < pd.Timestamp("2020-01-01")).sum()),
-         int((mt.date < pd.Timestamp("2021-01-01")).sum()))
-ax.axvspan(y2020[0], y2020[1], color=viz.ORANGE, alpha=0.22, zorder=0)
-ax.annotate(f"all of 2020 is these {y2020[1] - y2020[0]} matches",
-            xy=(sum(y2020) / 2, 0.10), xycoords=("data", "axes fraction"),
-            xytext=(0, -30), textcoords="offset points", ha="center",
-            fontsize=7.5, color=viz.INK_2,
-            arrowprops=dict(arrowstyle="-", color=viz.INK_MUTED, lw=0.8))
-ax.set_xlabel("where the cut is placed \u2014 spaced by matches before it, "
-              "labelled by date")
-ax.set_ylabel("difference, post minus pre")
-ax.set_title("Move the cut: four measures stop moving after early 2022, one never does")
-fig.legend(*ax.get_legend_handles_labels(), loc="outside lower center",
-           ncol=5, fontsize=8)
-viz.despine(ax)
-ax.grid(axis="x", visible=False)
-plt.show()
-""")
-
-code("""
-# Ramp  = how far a measure travels from the earliest cut to the one we use.
-# Flat  = how much it still moves once the cut is PAST the break (shaded band).
-# A real change has flat much smaller than ramp. A trend being sliced has the
-# two comparable, because there is no break for the cut to get past.
-band = pd.to_datetime(sweep.cut).between("2022-01-01", "2024-01-01")
-chosen = sweep[pd.to_datetime(sweep.cut) == CUT].iloc[0]
-shape = pd.DataFrame([{"measure": lab,
-                       "ramp": abs(chosen[lab] - sweep[lab].iloc[0]),
-                       "flat": sweep.loc[band, lab].max() - sweep.loc[band, lab].min()}
-                      for lab, _ in SWEEP])
-shape["located"] = shape.ramp >= 0.05
-
-fig, ax = plt.subplots(figsize=(7.6, 2.9))
-d = shape.iloc[::-1].reset_index(drop=True)
+fig, ax = plt.subplots(figsize=(7.6, 2.7))
+d = sweep[[l for l, _ in SWEEP]].agg(["min", "max"]).T.iloc[::-1]
 y = np.arange(len(d))
-ax.barh(y, d.ramp, height=0.58, color=viz.GRID, label="travel up to the 2022 cut")
-ax.barh(y, d.flat, height=0.26, color=viz.ORANGE,
-        label="movement still left after it")
-for i, r in d.iterrows():
-    txt = f"{r.flat / r.ramp:.0%} of the travel" if r.located else "no travel to locate"
-    ax.annotate(txt, (max(r.ramp, r.flat), i), xytext=(7, 0), va="center",
-                textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+ax.hlines(y, d["min"], d["max"], color=viz.INK_MUTED, lw=2.4)
+ax.scatter([chosen[i] for i in d.index], y, color=viz.ORANGE, s=52, zorder=3)
+ax.axvline(0, color=viz.INK_2, lw=1.0)
 ax.set_yticks(y)
-ax.set_yticklabels(d.measure)
-ax.set_xlim(0, d.ramp.max() * 1.6)
-ax.set_xlabel("absolute difference, post minus pre")
-ax.set_title("Past the break, four measures stop moving. One has no break to be past.")
-ax.legend(fontsize=8, loc="lower right")
+ax.set_yticklabels(d.index)
+ax.set_xlabel(f"pre/post difference across all {len(sweep)} admissible cut dates "
+              f"({str(sweep.cut.min().date())[:7]} to {str(sweep.cut.max().date())[:7]})")
+ax.set_title("Dot = the cut used below. Line = every other cut it could have been.")
 viz.despine(ax)
 plt.show()
 """)
 
 md("""
-**Four of five behave like a real change.** Minutes concentration, familiarity,
-appearance rate and top-3 goal share climb from 2018, arrive by **2022-01**, then
-sit still — two further years of cut move minutes top-11 by 0.007 on a rise of
-0.275.
+**An arc, not a step.** Jordan rebuilt through 2021 — **14 first-time starters
+in 21 matches** — and it cost them: the model's **lowest strength of the entire
+window, 0.555 in July 2021**, below anything in 2015-19. Then the squad closed:
+**two** first-time starters in the next two and a half years, familiarity
+roughly doubling as the same eleven accumulated time together, and strength
+climbing from 0.69 to a peak above 1.1.
 
-🚨 **The fifth does not.** Midfielder share of goals is as large at a 2018 cut as
-at 2022, sags between, and peaks at the final cut where only 27 matches remain
-post. The sweep cannot locate a date for it. Its interval in section 3 still
-excludes zero — the post-2022 team does score more from midfield — but that is a
-fact about two groups, not about mid-2022. **The weakest of the four.**
+The cut sits just after the turn in both series. It is not a wall between two
+regimes — it is the point where a squad assembled in 2021 started playing
+together.
 
-The claim the sweep supports is **"no later than early 2022"**, not July
-specifically: the plateau is already reached at the 2022-01 cut, a handful of
-fixtures away. Nothing below depends on the difference.
+🚨 **The link is not tight, and the timeline should not be read as though it
+were.** 2026H1 is the **highest strength in the window** with familiarity
+already fallen back, and 2025 reopened the squad — nine first-time starters —
+without the results collapsing. Composition and strength move together over this
+one cycle. That is a coincidence with uncertainty, which is all this design can
+carry, and the same caution the summary closes on.
+
+The last panel is robustness and nothing else: it recomputes each pre/post
+difference at **every** cut with 25 matches a side, 2017-01 to 2024-07. Three of
+the five — familiarity, appearance rate, midfielder share — keep their sign
+wherever the line falls. **Minutes top-11 and top-3 goal share do not**: both go
+negative at the earliest cuts, where "pre" is 29 matches against 114. Their
+section 3 intervals stand, but their sign is a function of how much history you
+call "before".
 """)
 
 md("""
