@@ -96,6 +96,12 @@ around it* — so this section puts the two on one timeline.
 It is worth saying what this is not. There is no step change in the squad
 measures to find, and looking for one was a mistake: what the composition data
 shows is an **arc**, and the model's turn sits inside it.
+
+Reading the middle panel: it is the share of Jordan's previous 24 months that
+the average starter had already started — 0 if the XI is all new, 1 if the same
+eleven started every match for two years. It begins in 2016 because that
+lookback needs filling, and each marker's area is the matches behind that year,
+so 2020's two fixtures show as a small dot rather than a confident one.
 """)
 
 code("""
@@ -221,16 +227,14 @@ viz.despine(a)
 b = axes[1]
 mid = pd.to_datetime(yr.year.astype(str) + "-07-01")
 midr = pd.to_datetime(yrr.year.astype(str) + "-07-01")
-# Appearance rate is this same measure at player level rather than pair level
-# and tracks it at r = 0.99, so it would be a second line carrying no second
-# fact. One line; section 3 shows both and says so.
-b.plot(midr, yrr.familiarity, color=viz.BLUE, lw=2.2)
-b.scatter(midr, yrr.familiarity, color=viz.BLUE, s=yrr.n_rate * 4.5, zorder=3)
-b.set_ylabel("familiarity, per match played")
-b.set_title(f"How settled the starting XI was: share of the prior 24 months a "
-            f"typical pair had started together\\n(from {RATE_FROM}, once the "
-            f"lookback fills; marker area = matches behind the year)",
-            fontsize=9.5)
+# Appearance rate rather than familiarity: the two track each other at r = 0.99,
+# and this is the one that reads without a paragraph of setup. Section 3 reports
+# both.
+b.plot(midr, yrr["appearance rate"], color=viz.BLUE, lw=2.2)
+b.scatter(midr, yrr["appearance rate"], color=viz.BLUE, s=yrr.n_rate * 4.5,
+          zorder=3)
+b.set_ylabel("share of the prior 24 months\\nthe average starter had started")
+b.set_title("How settled the XI was", fontsize=9.5)
 viz.despine(b)
 
 c = axes[2]
