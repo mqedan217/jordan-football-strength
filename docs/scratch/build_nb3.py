@@ -277,17 +277,24 @@ for cut in pd.date_range("2015-07-01", "2026-01-01", freq="6MS"):
 sweep = pd.DataFrame(rows).drop_duplicates(subset="n_pre", keep="first")
 chosen = sweep[sweep.cut == CUT].iloc[0]
 
-fig, ax = plt.subplots(figsize=(7.6, 2.7))
-d = sweep[[l for l, _ in SWEEP]].agg(["min", "max"]).T.iloc[::-1]
-y = np.arange(len(d))
-ax.hlines(y, d["min"], d["max"], color=viz.INK_MUTED, lw=2.4)
-ax.scatter([chosen[i] for i in d.index], y, color=viz.ORANGE, s=52, zorder=3)
-ax.axvline(0, color=viz.INK_2, lw=1.0)
-ax.set_yticks(y)
-ax.set_yticklabels(d.index)
-ax.set_xlabel(f"pre/post difference across all {len(sweep)} admissible cut dates "
-              f"({str(sweep.cut.min().date())[:7]} to {str(sweep.cut.max().date())[:7]})")
-ax.set_title("Dot = the cut used below. Line = every other cut it could have been.")
+# One dot per cut date, not a bar: a bar here would read as a confidence
+# interval, and this is a spread across analysis choices rather than sampling
+# uncertainty. Deliberately a different shape from the forests elsewhere.
+labels = [l for l, _ in SWEEP][::-1]
+fig, ax = plt.subplots(figsize=(7.6, 2.9))
+for i, lab in enumerate(labels):
+    v = sweep[lab].dropna()
+    ax.scatter(v, np.full(len(v), i), s=26, color=viz.INK_MUTED, alpha=0.55,
+               zorder=2)
+    ax.scatter([chosen[lab]], [i], s=70, color=viz.ORANGE, zorder=3,
+               edgecolor=viz.SURFACE, linewidth=1.2)
+ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=1)
+ax.set_yticks(range(len(labels)))
+ax.set_yticklabels(labels)
+ax.set_ylim(-0.6, len(labels) - 0.4)
+ax.set_xlabel(f"pre/post difference at each of the {len(sweep)} cut dates "
+              f"(orange = the one used)")
+ax.set_title("Every cut date this could have used")
 viz.despine(ax)
 plt.show()
 """)
