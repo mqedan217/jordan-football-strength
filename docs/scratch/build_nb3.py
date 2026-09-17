@@ -184,10 +184,16 @@ yr = []
 for y, d in mt.groupby("year"):
     have = sum(1 for m in d.match_id if m in fam_rate)   # matches with a rate
     yr.append({"year": y, "n": len(d), "n_rate": have,
-               "familiarity": windowed(d, "fam") if have >= 3 else np.nan,
-               "appearance rate": windowed(d, "caps") if have >= 3 else np.nan,
+               "familiarity": windowed(d, "fam"),
+               "appearance rate": windowed(d, "caps"),
                "minutes top-11": top11(d)})
 yr = pd.DataFrame(yr)
+# The rate needs 24 months of prior lineups, so the first year of the window has
+# almost none: 2015 qualifies 1 match of 17, at the bare 15-match minimum. That
+# is the lookback filling, not a measurement -- the series starts once most of a
+# year's matches can carry a rate, and is unbroken from there.
+RATE_FROM = int(yr.year[yr.n_rate / yr.n >= 0.5].min())
+yrr = yr[yr.year >= RATE_FROM]
 yr["debuts"] = deb.groupby(deb.date.dt.year).new.sum().reindex(yr.year).values
 """)
 
@@ -214,13 +220,14 @@ viz.despine(a)
 
 b = axes[1]
 mid = pd.to_datetime(yr.year.astype(str) + "-07-01")
+midr = pd.to_datetime(yrr.year.astype(str) + "-07-01")
 for col, col_c in (("familiarity", viz.BLUE), ("appearance rate", viz.AQUA)):
-    b.plot(mid, yr[col], color=col_c, lw=2.2, label=col)
-    # marker area tracks the matches behind each year; 2020 has too few to plot
-    b.scatter(mid, yr[col], color=col_c, s=yr.n_rate * 4.5, zorder=3)
+    b.plot(midr, yrr[col], color=col_c, lw=2.2, label=col)
+    b.scatter(midr, yrr[col], color=col_c, s=yrr.n_rate * 4.5, zorder=3)
 b.set_ylabel("rate, per match played")
-b.set_title("How settled the starting XI was   (marker area = matches behind "
-            "the year; 2020 had too few to plot)", fontsize=9.5)
+b.set_title(f"How settled the starting XI was   (from {RATE_FROM}, once the "
+            f"24-month lookback fills; marker area = matches behind the year)",
+            fontsize=9.5)
 b.legend(fontsize=8, loc="upper left")
 viz.despine(b)
 
