@@ -683,19 +683,47 @@ rather than an estimate with an interval.
 md("""
 ## 3. The scorers
 
-Now the people. Three questions, and the third is the one that decides whether
-the first two mean anything:
+Section 2 asked who Jordan played. This asks who did the scoring, and whether
+they were good or merely picked.
+
+Six questions:
 
 1. **Who scored, before and after?**
-2. **How were they used** — did the scorers get more of the playing time?
-3. **Did the scoring concentrate more than the squad did?** If the same eleven
-   take every minute, goals concentrate for free, and that is section 1's
-   finding wearing a disguise.
+2. **How were they treated** — did the scorers get more of the playing time?
+3. **Did they score faster, or just more often?** Goals per 90 separates a better
+   forward from a forward who is simply on the pitch longer.
+4. **Do their goals justify their minutes?** A player's share of the goals
+   against his share of the time.
+5. **What kind of goals?** Penalties flatter a scoring record.
+6. **Did the scoring concentrate more than the squad did?** — the check that
+   decides whether any of the above is a fact about scoring at all.
 
-Assists are deliberately absent. They exist in the data but are recorded on
-**35%** of pre-2022 open-play goals against **70%** after, with the boundary on
-the treatment date — any pre/post assist number would be measuring FBref's
-record-keeping, not Jordan.
+Assists would belong here and are excluded: recorded on **35%** of pre-2022
+open-play goals against **70%** after, with the boundary on the treatment date.
+Shots are worse — zero in 2015-18 and 2020-23, gated by competition exactly like
+possession.
+""")
+
+code("""
+# Per player, per era: minutes, goals, and the rate. Everything below is built
+# from this one frame.
+ja_e = ja.dropna(subset=["player_id"]).assign(
+    era=ja.match_id.map(mt.set_index("match_id").era)).dropna(subset=["era"])
+mins = (ja_e.groupby(["player_id", "era"]).Min.sum().unstack("era")
+        .reindex(columns=["pre", "post"]).fillna(0))
+gls = (gj.groupby(["scorer_player_id", "era"]).size().unstack("era")
+       .reindex(columns=["pre", "post"]).fillna(0))
+sc = mins.join(gls, rsuffix="_g").fillna(0)
+sc["name"] = sc.index.map(NAMES)
+TEAM_MIN = ja_e.groupby("era").Min.sum()
+TEAM_GLS = gj.groupby("era").size()
+MIN_FLOOR = 270          # three full matches; below this a per-90 is noise
+for e in ("pre", "post"):
+    sc[f"share_min_{e}"] = sc[e] / TEAM_MIN[e]
+    sc[f"share_gls_{e}"] = sc[f"{e}_g"] / TEAM_GLS[e]
+    sc[f"p90_{e}"] = np.where(sc[e] >= MIN_FLOOR, sc[f"{e}_g"] / sc[e] * 90, np.nan)
+sc["total_g"] = sc.pre_g + sc.post_g
+TOP = sc.sort_values("total_g", ascending=False).head(10)
 """)
 
 code("""
@@ -721,6 +749,129 @@ ax.legend(loc="lower right")
 viz.despine(ax)
 ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
 plt.show()
+""")
+
+code("""
+# How the scoring load was carried: minutes on the left, rate on the right, the
+# same ten players in the same order, so a reader can see at a glance whether a
+# man scored more because he played more or because he scored faster.
+d = TOP.iloc[::-1]
+y = np.arange(len(d))
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 4.2), sharey=True)
+
+a = axes[0]
+for i, r in enumerate(d.itertuples()):
+    a.plot([r.share_min_pre, r.share_min_post], [i, i], color=viz.GRID, lw=2.0,
+           zorder=1, solid_capstyle="round")
+a.scatter(d.share_min_pre, y, color=viz.BLUE, s=48, zorder=3, label="pre-2022")
+a.scatter(d.share_min_post, y, color=viz.ORANGE, s=48, zorder=3, label="post-2022")
+a.set_yticks(y)
+a.set_yticklabels(d.name, fontsize=8.5)
+a.set_xlabel("share of all Jordan minutes")
+a.set_title("How much they played", fontsize=9.5)
+a.legend(fontsize=8, loc="lower right")
+viz.despine(a)
+
+b = axes[1]
+for i, r in enumerate(d.itertuples()):
+    if np.isfinite(r.p90_pre) and np.isfinite(r.p90_post):
+        b.plot([r.p90_pre, r.p90_post], [i, i], color=viz.GRID, lw=2.0, zorder=1)
+b.scatter(d.p90_pre, y, color=viz.BLUE, s=48, zorder=3)
+b.scatter(d.p90_post, y, color=viz.ORANGE, s=48, zorder=3)
+b.set_xlabel("goals per 90 minutes")
+b.set_title(f"How fast they scored  (blank below {MIN_FLOOR} min in an era)",
+            fontsize=9.5)
+viz.despine(b)
+fig.suptitle("Ten leading scorers, 2015-2026", fontsize=11)
+plt.show()
+""")
+
+code("""
+# Do the goals justify the minutes? On the diagonal a player takes exactly the
+# share of the goals that he takes of the time. Above it he is doing more with
+# what he gets.
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.8), sharex=True, sharey=True)
+for ax, e, col in ((axes[0], "pre", viz.BLUE), (axes[1], "post", viz.ORANGE)):
+    d = sc[sc[e] >= MIN_FLOOR]
+    lim = max(d[f"share_min_{e}"].max(), d[f"share_gls_{e}"].max()) * 1.15
+    ax.plot([0, lim], [0, lim], color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)),
+            zorder=1)
+    ax.scatter(d[f"share_min_{e}"], d[f"share_gls_{e}"], s=34, color=col,
+               alpha=0.85, zorder=3, linewidths=0)
+    for r in d.sort_values(f"share_gls_{e}", ascending=False).head(4).itertuples():
+        ax.annotate(getattr(r, "name").split()[-1],
+                    (getattr(r, f"share_min_{e}"), getattr(r, f"share_gls_{e}")),
+                    xytext=(5, 3), textcoords="offset points", fontsize=7.5,
+                    color=viz.INK_2)
+    ax.set_xlim(0, lim)
+    ax.set_ylim(0, lim)
+    ax.set_xlabel("share of minutes")
+    ax.set_title(f"{e}-2022", fontsize=9.5)
+    viz.despine(ax)
+axes[0].set_ylabel("share of goals")
+axes[0].annotate("above the line =\\nmore goals than minutes", xy=(0.04, 0.93),
+                 xycoords="axes fraction", fontsize=7.5, color=viz.INK_MUTED,
+                 va="top")
+fig.suptitle("Goals against playing time, everyone over three matches in the era",
+             fontsize=10.5)
+plt.show()
+""")
+
+code("""
+# What kind of goals, and from which positions? Penalties flatter a record, and
+# position ties straight back to the formation change in section 1.
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0))
+a = axes[0]
+pk = gj.assign(pen=gj.type.eq("penalty_goal")).groupby("era").pen
+share = pk.mean().reindex(["pre", "post"])
+cnt = pk.sum().reindex(["pre", "post"])
+tot = gj.groupby("era").size().reindex(["pre", "post"])
+boot = {e: np.percentile([rng.binomial(int(tot[e]), share[e]) / tot[e]
+                          for _ in range(4000)], [2.5, 97.5]) for e in share.index}
+a.bar([0, 1], share.values, width=0.5, color=[viz.BLUE, viz.ORANGE])
+for i, e in enumerate(share.index):
+    a.vlines(i, *boot[e], color=viz.INK_2, lw=1.4)
+    a.annotate(f"{int(cnt[e])} of {int(tot[e])}", (i, share[e]), xytext=(0, 12),
+               ha="center", textcoords="offset points", fontsize=8,
+               color=viz.INK_2)
+a.set_xticks([0, 1])
+a.set_xticklabels(["pre-2022", "post-2022"])
+a.set_ylim(0, max(share) * 2.0)
+a.set_ylabel("share of goals from penalties")
+a.set_title("Penalties", fontsize=9.5)
+viz.despine(a)
+
+b = axes[1]
+pos = (pd.crosstab(gj.scorer_position, gj.era, normalize="columns")
+       .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
+x = np.arange(len(pos))
+b.bar(x - 0.19, pos.pre, width=0.36, color=viz.BLUE, label="pre-2022")
+b.bar(x + 0.19, pos.post, width=0.36, color=viz.ORANGE, label="post-2022")
+b.set_xticks(x)
+b.set_xticklabels(pos.index)
+b.set_ylabel("share of goals")
+b.set_title("Who scores them", fontsize=9.5)
+b.legend(fontsize=8)
+viz.despine(b)
+plt.show()
+""")
+
+md("""
+**They were picked far more, and they also got better.** Both halves matter, and
+they are different claims.
+
+Ali Olwan goes from **1.5% to 7.2%** of Jordan's minutes, Al-Naimat from 1.1% to
+6.2% — roughly five times the playing time each. That is selection. But the rate
+moved too: Al-Taamari **doubles**, 0.27 to 0.53 goals per 90, and Olwan and
+Al-Naimat both improve on an already decent number. Mahmoud Al-Mardi is the
+counter-example, taking a large share of the minutes while his rate drifts down.
+
+**The scoring is not propped up by penalties**, though the share does rise —
+9.9% to 14.3%, on 14 and 11 goals, an interval far too wide to call a change.
+
+**Midfielders take a third of the goals, up from a fifth.** Hold that thought:
+section 1 showed Jordan switching to a back three, which puts more midfielders on
+the pitch, and the two facts are not independent.
 """)
 
 code("""
@@ -880,11 +1031,11 @@ At any common number of goals the post era uses fewer scorers, and that is real.
 🚨 **But it is not one man** — top-1 share sits *inside* the rarefied range, so
 "one player carries them" is not supportable.
 
-🚨 **And it is not a fact about scoring.** Allocating each era's goals in
-proportion to the minutes actually played, Jordan's scoring is about **2.4×**
+🚨 **And the narrowing is not a fact about scoring.** Allocating each era's goals
+in proportion to the minutes actually played, Jordan's scoring is about **2.4×**
 more concentrated than minutes imply — *the same multiple before and after 2022*.
-Whatever makes Jordan's goals cluster on a few men was already there in 2015.
-What changed is how few men were on the pitch.
+The distribution's shape did not change; what changed is how few men were on the
+pitch, and how good the few were.
 """)
 
 md("""
