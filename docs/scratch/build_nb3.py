@@ -221,14 +221,16 @@ viz.despine(a)
 b = axes[1]
 mid = pd.to_datetime(yr.year.astype(str) + "-07-01")
 midr = pd.to_datetime(yrr.year.astype(str) + "-07-01")
-for col, col_c in (("familiarity", viz.BLUE), ("appearance rate", viz.AQUA)):
-    b.plot(midr, yrr[col], color=col_c, lw=2.2, label=col)
-    b.scatter(midr, yrr[col], color=col_c, s=yrr.n_rate * 4.5, zorder=3)
-b.set_ylabel("rate, per match played")
-b.set_title(f"How settled the starting XI was   (from {RATE_FROM}, once the "
-            f"24-month lookback fills; marker area = matches behind the year)",
+# Appearance rate is this same measure at player level rather than pair level
+# and tracks it at r = 0.99, so it would be a second line carrying no second
+# fact. One line; section 3 shows both and says so.
+b.plot(midr, yrr.familiarity, color=viz.BLUE, lw=2.2)
+b.scatter(midr, yrr.familiarity, color=viz.BLUE, s=yrr.n_rate * 4.5, zorder=3)
+b.set_ylabel("familiarity, per match played")
+b.set_title(f"How settled the starting XI was: share of the prior 24 months a "
+            f"typical pair had started together\\n(from {RATE_FROM}, once the "
+            f"lookback fills; marker area = matches behind the year)",
             fontsize=9.5)
-b.legend(fontsize=8, loc="upper left")
 viz.despine(b)
 
 c = axes[2]
@@ -252,9 +254,10 @@ code("""
 # Robustness, and nothing more: does the pre/post comparison depend on the exact
 # date? Recompute at EVERY cut with at least 25 matches a side -- the full
 # admissible range, not a hand-picked window -- and report the spread.
+# appearance rate is omitted here: it is familiarity at player level and moves
+# with it at r = 0.99, so it would widen the panel without testing anything new.
 SWEEP = [("minutes top-11", top11),
          ("familiarity", lambda d: windowed(d, "fam")),
-         ("appearance rate", lambda d: windowed(d, "caps")),
          ("top-3 goal share", top3_share),
          ("midfielder share", mf_share)]
 rows = []
@@ -479,10 +482,14 @@ same confound: raw counts accumulate with time, and FBref's coverage starts in
 
 - **Minutes concentration** — share of minutes to the top eleven, at equal match
   counts.
-- **Team familiarity** — pairwise prior appearances together (*Journal of Big
-  Data*, 2025), restricted to a **24-month lookback** and divided by the matches
-  available in it, making it a rate that cannot drift.
-- **Appearance rate** — the same treatment for individual starters.
+- **Team familiarity** — of the 55 pairs in today's XI, how much of the previous
+  24 months the average pair had already started together (pairwise prior
+  appearances, *Journal of Big Data* 2025), divided by the matches available in
+  that window so it is a rate that cannot drift with fixture density.
+- **Appearance rate** — the same thing at player level instead of pair level:
+  how much of those 24 months the average starter had started. 🚨 It is **not**
+  independent evidence — it tracks familiarity at r = 0.99 and cannot exceed it,
+  so the two below are one finding measured at two levels.
 
 Plus **midfield share of goals**, which needs no correction.
 """)
@@ -544,8 +551,10 @@ plt.show()
 """)
 
 md("""
-All four clear zero: more minutes to fewer players, players who have played
-together more recently, more goals from midfield.
+All four clear zero — but they are **three** findings, not four: familiarity and
+appearance rate are the same measure at pair and player level, and agreeing with
+itself is not corroboration. What is left is more minutes to fewer players, a
+more continuous selection, and more goals from midfield.
 
 Keep the last one separate. The others describe **stability**; midfield share
 describes **shape** — consistent evidence, not the same evidence. And per section
