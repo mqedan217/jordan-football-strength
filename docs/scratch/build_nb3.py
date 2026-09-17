@@ -818,60 +818,100 @@ plt.show()
 """)
 
 code("""
-# What kind of goals, and from which positions? Penalties flatter a record, and
-# position ties straight back to the formation change in section 1.
-fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0))
-a = axes[0]
-pk = gj.assign(pen=gj.type.eq("penalty_goal")).groupby("era").pen
-share = pk.mean().reindex(["pre", "post"])
-cnt = pk.sum().reindex(["pre", "post"])
-tot = gj.groupby("era").size().reindex(["pre", "post"])
-boot = {e: np.percentile([rng.binomial(int(tot[e]), share[e]) / tot[e]
-                          for _ in range(4000)], [2.5, 97.5]) for e in share.index}
-a.bar([0, 1], share.values, width=0.5, color=[viz.BLUE, viz.ORANGE])
-for i, e in enumerate(share.index):
-    a.vlines(i, *boot[e], color=viz.INK_2, lw=1.4)
-    a.annotate(f"{int(cnt[e])} of {int(tot[e])}", (i, share[e]), xytext=(0, 12),
-               ha="center", textcoords="offset points", fontsize=8,
-               color=viz.INK_2)
-a.set_xticks([0, 1])
-a.set_xticklabels(["pre-2022", "post-2022"])
-a.set_ylim(0, max(share) * 2.1)
-a.set_ylabel("share of goals from penalties")
-# who actually takes them, since the obvious suspicion about the panel to the
-# right is that midfielders are simply the penalty takers
-pmf = (gj[gj.type.eq("penalty_goal")].groupby("era")
-       .scorer_position.value_counts().unstack(fill_value=0)
-       .reindex(["pre", "post"]))
-a.set_title("Penalties", fontsize=9.5)
-a.annotate(f"midfielders took {int(pmf.get('MF', pd.Series()).get('pre', 0))} of "
-           f"{int(pmf.loc['pre'].sum())}, then "
-           f"{int(pmf.get('MF', pd.Series()).get('post', 0))} of "
-           f"{int(pmf.loc['post'].sum())}",
-           xy=(0.5, 0.97), xycoords="axes fraction", ha="center", va="top",
-           fontsize=7.5, color=viz.INK_MUTED)
-viz.despine(a)
 
-b = axes[1]
-# OPEN PLAY ONLY, so the panel cannot be read as "midfielders take the penalties"
+# What kind of goals? Penalties and own goals flatter a scoring record, so the
+# open-play count is the one worth carrying forward.
+# the FULL goals frame, not gj: an own goal for Jordan is scored by an opponent
+# and so carries no Jordan player id, which would zero that bar out
+gt = goals.assign(t=goals.type.fillna("open play"))
+ORD = ["goal", "penalty_goal", "own_goal_for"]
+kinds = (pd.crosstab(gt.t, gt.era, normalize="columns")
+         .reindex(columns=["pre", "post"]).reindex(ORD).fillna(0))
+cnt = (pd.crosstab(gt.t, gt.era).reindex(columns=["pre", "post"])
+       .reindex(ORD).fillna(0))
+kinds.index = cnt.index = ["open play", "penalty", "own goal for"]
+
+fig, ax = plt.subplots(figsize=(7.0, 2.9))
+x = np.arange(len(kinds))
+tot = gt.groupby("era").size().reindex(["pre", "post"])
+for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    ax.bar(x + off, kinds[e], width=0.36, color=col, label=f"{e}-2022")
+    for xi_, v, n_ in zip(x + off, kinds[e], cnt[e]):
+        ax.annotate(f"{int(n_)}", (xi_, v), xytext=(0, 3), ha="center",
+                    textcoords="offset points", fontsize=7.5, color=viz.INK_2)
+# an interval on the penalty share, since that is the one people read into
+for i, (off, e) in enumerate(((-0.19, "pre"), (0.19, "post"))):
+    p_ = kinds.loc["penalty", e]
+    lo, hi = np.percentile([rng.binomial(int(tot[e]), p_) / tot[e]
+                            for _ in range(4000)], [2.5, 97.5])
+    ax.vlines(1 + off, lo, hi, color=viz.INK_2, lw=1.3)
+ax.set_xticks(x)
+ax.set_xticklabels(kinds.index)
+ax.set_ylabel("share of goals")
+ax.set_ylim(0, 1.0)
+ax.set_title("What kind of goals (bar labels are counts; interval on penalties)",
+             fontsize=9.5)
+ax.legend(fontsize=8)
+viz.despine(ax)
+plt.show()
+
+""")
+
+code("""
+
+# WHERE the goals come from, open play only. The right panel is the test: a back
+# three puts more midfielders on the pitch, so their share of the goals should
+# rise for free. Slots first, then goals, then the ratio between them.
 op = gj[~gj.type.eq("penalty_goal")]
 pos = (pd.crosstab(op.scorer_position, op.era, normalize="columns")
        .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
+slots = (mt.groupby("era")[["n_df", "n_mf", "n_fw"]].sum()
+         .reindex(["pre", "post"]))
+slots = slots.div(slots.sum(axis=1), axis=0)
+
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.2),
+                         gridspec_kw={"width_ratios": [1.15, 1]})
+a = axes[0]
 x = np.arange(len(pos))
-b.bar(x - 0.19, pos.pre, width=0.36, color=viz.BLUE, label="pre-2022")
-b.bar(x + 0.19, pos.post, width=0.36, color=viz.ORANGE, label="post-2022")
-for off, col in ((-0.19, "pre"), (0.19, "post")):
-    for xi_, v in zip(x + off, pos[col]):
-        b.annotate(f"{v:.2f}", (xi_, v), xytext=(0, 3), ha="center",
+for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    a.bar(x + off, pos[e], width=0.36, color=col, label=f"{e}-2022")
+    for xi_, v in zip(x + off, pos[e]):
+        a.annotate(f"{v:.2f}", (xi_, v), xytext=(0, 3), ha="center",
                    textcoords="offset points", fontsize=7.5, color=viz.INK_2)
-b.set_xticks(x)
-b.set_xticklabels(pos.index)
-b.set_ylim(0, pos.values.max() * 1.25)
-b.set_ylabel("share of open-play goals")
-b.set_title("Who scores them, penalties excluded", fontsize=9.5)
-b.legend(fontsize=8)
+a.set_xticks(x)
+a.set_xticklabels(pos.index)
+a.set_ylim(0, pos.values.max() * 1.25)
+a.set_ylabel("share of open-play goals")
+a.set_title("Which positions score", fontsize=9.5)
+a.legend(fontsize=8)
+viz.despine(a)
+
+b = axes[1]
+mf_slot = slots.n_mf
+mf_goal = pos.loc["MF"]
+xx = np.arange(2)
+b.bar(xx - 0.19, mf_slot.values, width=0.36, color=viz.INK_MUTED,
+      label="share of outfield slots")
+b.bar(xx + 0.19, mf_goal.values, width=0.36, color=viz.AQUA,
+      label="share of open-play goals")
+for i in range(2):
+    b.annotate(f"{mf_slot.iloc[i]:.2f}", (xx[i] - 0.19, mf_slot.iloc[i]),
+               xytext=(0, 3), ha="center", textcoords="offset points",
+               fontsize=7.5, color=viz.INK_2)
+    b.annotate(f"{mf_goal.iloc[i]:.2f}", (xx[i] + 0.19, mf_goal.iloc[i]),
+               xytext=(0, 3), ha="center", textcoords="offset points",
+               fontsize=7.5, color=viz.INK_2)
+    b.annotate(f"goals per slot {mf_goal.iloc[i] / mf_slot.iloc[i]:.2f}",
+               (xx[i], 0), xytext=(0, -26), ha="center",
+               textcoords="offset points", fontsize=7.5, color=viz.INK_MUTED)
+b.set_xticks(xx)
+b.set_xticklabels(["pre-2022", "post-2022"])
+b.set_ylim(0, 0.62)
+b.set_title("Midfielders: on the pitch vs on the scoresheet", fontsize=9.5)
+b.legend(fontsize=7.5, loc="upper left")
 viz.despine(b)
 plt.show()
+
 """)
 
 md("""
@@ -887,15 +927,17 @@ counter-example, taking a large share of the minutes while his rate drifts down.
 **The scoring is not propped up by penalties**, though the share does rise —
 9.9% to 14.3%, on 14 and 11 goals, an interval far too wide to call a change.
 
-**And the penalties are not what put midfielders on the scoresheet**, which is
-the obvious thing to suspect from the panel beside it. Midfielders take about
-half the spot kicks in *both* eras, and the midfield share of **open-play** goals
-rises **+0.146, 95% [+0.045, +0.332]** against +0.148 [+0.038, +0.329] for all
-goals — the same number. That is why the right-hand panel excludes them.
+**And the penalties are not what put midfielders on the scoresheet.**
+Midfielders take about half the spot kicks in *both* eras, and the midfield share
+of **open-play** goals rises **+0.146, 95% [+0.045, +0.332]** against +0.148
+[+0.038, +0.329] for all goals — the same number. Penalties explain none of it,
+which is why the position figure drops them.
 
-**Midfielders take a third of the open-play goals, up from a fifth.** Hold that
-thought: section 1 showed Jordan switching to a back three, which puts more
-midfielders on the pitch, and the two facts are not independent.
+**What does explain part of it is the formation.** Section 1's back three puts
+more midfielders on the pitch: they go from **32%** of the outfield to **43%**.
+But that is not the whole story either — their goals per outfield slot rises
+**0.60 → 0.80**. More midfielders, *and* each one scoring more often than a
+midfielder used to. Both, not either.
 """)
 
 code("""
