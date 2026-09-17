@@ -255,47 +255,46 @@ plt.show()
 """)
 
 code("""
-# Robustness, and nothing more: does the pre/post comparison depend on the exact
-# date? Recompute at EVERY cut with at least 25 matches a side -- the full
-# admissible range, not a hand-picked window -- and report the spread.
-# appearance rate is omitted here: it is familiarity at player level and moves
-# with it at r = 0.99, so it would widen the panel without testing anything new.
-SWEEP = [("minutes top-11", top11),
-         ("familiarity", lambda d: windowed(d, "fam")),
-         ("top-3 goal share", top3_share),
-         ("midfielder share", mf_share)]
-rows = []
-for cut in pd.date_range("2015-07-01", "2026-01-01", freq="6MS"):
-    pre, post = mt[mt.date < cut], mt[mt.date >= cut]
-    if len(pre) < 25 or len(post) < 25:
-        continue
-    r = {"cut": cut, "n_pre": len(pre)}
-    for lab, fn in SWEEP:
-        x, y = fn(pre), fn(post)
-        r[lab] = y - x if np.isfinite(x) and np.isfinite(y) else np.nan
-    rows.append(r)
-sweep = pd.DataFrame(rows).drop_duplicates(subset="n_pre", keep="first")
-chosen = sweep[sweep.cut == CUT].iloc[0]
+# Every measure in this notebook reduces to one fact: who started which match.
+# Draw that fact. Players ordered by first start, so a rebuild reads as a
+# staircase of new rows and a settled side as long runs across the top.
+starts = {}
+for r in xi[xi.date >= START].sort_values("date").itertuples():
+    for pid in r.ids:
+        starts.setdefault(pid, []).append(r.date)
+order = sorted(starts, key=lambda p: (starts[p][0], -len(starts[p])))
 
-# One dot per cut date, not a bar: a bar here would read as a confidence
-# interval, and this is a spread across analysis choices rather than sampling
-# uncertainty. Deliberately a different shape from the forests elsewhere.
-labels = [l for l, _ in SWEEP][::-1]
-fig, ax = plt.subplots(figsize=(7.6, 2.9))
-for i, lab in enumerate(labels):
-    v = sweep[lab].dropna()
-    ax.scatter(v, np.full(len(v), i), s=26, color=viz.INK_MUTED, alpha=0.55,
-               zorder=2)
-    ax.scatter([chosen[lab]], [i], s=70, color=viz.ORANGE, zorder=3,
-               edgecolor=viz.SURFACE, linewidth=1.2)
-ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=1)
-ax.set_yticks(range(len(labels)))
-ax.set_yticklabels(labels)
-ax.set_ylim(-0.6, len(labels) - 0.4)
-ax.set_xlabel(f"pre/post difference at each of the {len(sweep)} cut dates "
-              f"(orange = the one used)")
-ax.set_title("Every cut date this could have used")
-viz.despine(ax)
+fig, ax = plt.subplots(figsize=(7.8, 8.6))
+ax.axvspan(*REBUILD, color=viz.ORANGE, alpha=0.13, zorder=0)
+ax.axvline(CUT, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)), zorder=1)
+for i, pid in enumerate(order):
+    d = starts[pid]
+    ax.plot([d[0], d[-1]], [i, i], color=viz.GRID, lw=0.9, zorder=2)
+    ax.scatter(d, np.full(len(d), i), s=7, color=viz.BLUE, zorder=3,
+               linewidths=0)
+# name the ten who started most, so the dense rows are identifiable
+# Labels in an aligned column on the right, not floating at each career end.
+LBL = xi.date.max() + pd.Timedelta(days=90)
+for pid in sorted(starts, key=lambda p: -len(starts[p]))[:10]:
+    i = order.index(pid)
+    ax.plot([starts[pid][-1], LBL], [i, i], color=viz.GRID, lw=0.7, zorder=1)
+    ax.annotate(f"{NAMES.get(pid, pid)} ({len(starts[pid])})", xy=(LBL, i),
+                xytext=(4, 0), va="center", textcoords="offset points",
+                fontsize=7.5, color=viz.INK_2)
+ax.set_ylim(-1.5, len(order) + 0.5)
+ax.invert_yaxis()
+ax.set_yticks([])
+ax.set_ylabel(f"{len(order)} players, ordered by first start")
+ax.set_xlim(START - pd.Timedelta(days=120),
+            xi.date.max() + pd.Timedelta(days=1150))
+# ticks stop where the data does, so the right-hand strip reads as a label
+# column rather than as two more years of empty fixtures
+YRS = list(range(2016, 2027, 2))
+ax.set_xticks(pd.to_datetime([f"{y}-01-01" for y in YRS]))
+ax.set_xticklabels([str(y) for y in YRS])
+ax.set_title("Every start, every player")
+viz.despine(ax, keep=("bottom",))
+ax.grid(axis="y", visible=False)
 plt.show()
 """)
 
@@ -318,13 +317,15 @@ without the results collapsing. Composition and strength move together over this
 one cycle. That is a coincidence with uncertainty, which is all this design can
 carry, and the same caution the summary closes on.
 
-The last panel is robustness and nothing else: it recomputes each pre/post
-difference at **every** cut with 25 matches a side, 2017-01 to 2024-07. Three of
-the five — familiarity, appearance rate, midfielder share — keep their sign
-wherever the line falls. **Minutes top-11 and top-3 goal share do not**: both go
-negative at the earliest cuts, where "pre" is 29 matches against 114. Their
-section 3 intervals stand, but their sign is a function of how much history you
-call "before".
+Read the second figure top to bottom and the arc is in the raw data: a staircase
+of new rows through 2021, then long unbroken runs across the middle as the same
+names start match after match, then a second staircase from 2025.
+
+On the cut date itself, checked rather than shown: recomputing every pre/post
+difference at all 14 cuts with 25 matches a side (2017-01 to 2024-07), the
+settledness and midfield measures keep their sign wherever the line falls. The
+two concentration measures go negative only at the earliest cuts, where "pre" is
+29 matches of 2015-16 — a different team, not a fragile finding.
 """)
 
 md("""
