@@ -14,7 +14,7 @@ def code(s):
 
 
 md("""
-# Where the goals came from
+# Jordan 2015-2026: the squad, the opposition, and the goals
 
 Notebook 01 found the shift: Jordan's opponent-adjusted strength rose ~0.7 goals
 of expected goal difference between 2015 and 2026, carried by **attack** rather
@@ -254,6 +254,164 @@ fig.suptitle("Rebuilt in 2021, settled by 2022 — and that is when the results 
 plt.show()
 """)
 
+md("""
+**An arc, not a step.** Jordan rebuilt through 2021 — **14 first-time starters
+in 21 matches** — and it cost them: the model's **lowest strength of the entire
+window, 0.555 in July 2021**, below anything in 2015-19. Then the squad closed:
+**two** first-time starters in the next two and a half years, familiarity
+roughly doubling as the same eleven accumulated time together, and strength
+climbing from 0.69 to a peak above 1.1.
+
+The cut sits just after the turn in both series. It is not a wall between two
+regimes — it is the point where a squad assembled in 2021 started playing
+together.
+
+🚨 **The link is not tight, and the timeline should not be read as though it
+were.** 2026H1 is the **highest strength in the window** with familiarity
+already fallen back, and 2025 reopened the squad — nine first-time starters —
+without the results collapsing. Composition and strength move together over this
+one cycle. That is a coincidence with uncertainty, which is all this design can
+carry, and the same caution the summary closes on.
+
+Read the second figure top to bottom and the arc is in the raw data: a staircase
+of new rows through 2021, then long unbroken runs across the middle as the same
+names start match after match, then a second staircase from 2025.
+
+On the cut date itself, checked rather than shown: recomputing every pre/post
+difference at all 14 cuts with 25 matches a side (2017-01 to 2024-07), the
+settledness and midfield measures keep their sign wherever the line falls. The
+two concentration measures go negative only at the earliest cuts, where "pre" is
+29 matches of 2015-16 — a different team, not a fragile finding.
+""")
+
+md("""
+## 1. The squad
+
+Section 0 showed *when* things changed. This asks *what* changed, in the only
+material this notebook has direct access to: who was picked, in what shape, and
+how often that changed.
+
+Four questions:
+
+1. **What formation did Jordan play, and when did that move?**
+2. **Did the shape settle, or just the personnel?**
+3. **How concentrated did the playing time become?**
+4. **How much did the XI change from one match to the next?**
+""")
+
+code("""
+# Formation comes two ways and they can be checked against each other: FBref's
+# reported label, and the shape derived from the positions in the XI. Where both
+# exist they agree on the size of the back line in every single match, so
+# formation_best (label, falling back to derived) is safe to use across eras.
+mt["backline"] = pd.to_numeric(mt.formation_best.astype(str).str.split("-").str[0],
+                               errors="coerce")
+mt["line"] = np.where(mt.backline.isin([3, 5]), "back 3 or 5",
+                       np.where(mt.backline == 4, "back 4", None))
+both = mt.dropna(subset=["formation", "xi_shape"])
+AGREE = (both.formation.str.split("-").str[0]
+         == both.xi_shape.str.split("-").str[0]).mean()
+FORM_N = (len(both), int(mt.line.notna().sum()), len(mt))
+# six-month blocks, needed here and reused by the settledness cell below
+BLOCKS_F = {e: [d for _, d in mt[mt.era == e].groupby("blk")]
+            for e in ("pre", "post")}
+""")
+
+code("""
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.4),
+                         gridspec_kw={"width_ratios": [1.7, 1]})
+a = axes[0]
+d = mt.dropna(subset=["line"])
+t = pd.crosstab(d.date.dt.year, d.line)
+for c in ("back 4", "back 3 or 5"):
+    if c not in t:
+        t[c] = 0
+t = t[["back 4", "back 3 or 5"]]
+a.bar(t.index, t["back 4"], color=viz.BLUE, label="back 4", width=0.78)
+a.bar(t.index, t["back 3 or 5"], bottom=t["back 4"], color=viz.ORANGE,
+      label="back 3 or 5", width=0.78)
+a.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+a.set_ylabel("matches")
+a.set_title("Jordan abandoned the back four", fontsize=9.5)
+a.legend(fontsize=8, loc="upper left")
+viz.despine(a)
+
+b = axes[1]
+sh = (d.assign(b3=d.line.eq("back 3 or 5"))
+      .groupby("era").b3.mean().reindex(["pre", "post"]))
+b.bar([0, 1], sh.values, width=0.52, color=[viz.BLUE, viz.ORANGE])
+for i, v in enumerate(sh.values):
+    b.annotate(f"{v:.0%}", (i, v), xytext=(0, 4), ha="center",
+               textcoords="offset points", fontsize=9.5, color=viz.INK_2)
+b.set_xticks([0, 1])
+b.set_xticklabels(["pre-2022", "post-2022"])
+b.set_ylim(0, 1.15)
+b.set_ylabel("share played with a back 3 or 5")
+b.set_title("20% to 90%", fontsize=9.5)
+viz.despine(b)
+plt.show()
+""")
+
+code("""
+# Did the SHAPE settle, or only the personnel? Count distinct formations used in
+# each year, and bootstrap the era difference in the back-3 share.
+obs = (mt[mt.era == "post"].line.eq("back 3 or 5").mean()
+       - mt[mt.era == "pre"].line.eq("back 3 or 5").mean())
+dr = []
+for _ in range(3000):
+    v = []
+    for e in ("pre", "post"):
+        pick = pd.concat([BLOCKS_F[e][i]
+                          for i in rng.integers(0, len(BLOCKS_F[e]), len(BLOCKS_F[e]))])
+        v.append(pick.line.eq("back 3 or 5").mean())
+    if np.isfinite(v[0]) and np.isfinite(v[1]):
+        dr.append(v[1] - v[0])
+BACK3 = (obs, *np.percentile(dr, [2.5, 97.5]))
+
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0),
+                         gridspec_kw={"width_ratios": [1, 1.3]})
+a = axes[0]
+a.hlines(0, BACK3[1], BACK3[2], color=viz.ORANGE, lw=2.8)
+a.scatter([BACK3[0]], [0], color=viz.ORANGE, s=75, zorder=3)
+a.axvline(0, color=viz.INK_2, lw=1.0)
+a.annotate(f"{BACK3[0]:+.2f}", (BACK3[0], 0), xytext=(0, 11), ha="center",
+           textcoords="offset points", fontsize=9, color=viz.INK_2)
+a.set_ylim(-1, 1)
+a.set_yticks([])
+a.set_xlabel("change in back-3 share, post minus pre")
+a.set_title("The biggest move in the squad data", fontsize=9.5)
+viz.despine(a, keep=("bottom",))
+
+b = axes[1]
+nf = mt.dropna(subset=["formation_best"]).groupby(mt.date.dt.year).formation_best.nunique()
+nm = mt.groupby(mt.date.dt.year).size()
+b.bar(nf.index, nf.values, color=viz.AQUA, width=0.78)
+for x_, v, m_ in zip(nf.index, nf.values, nm.reindex(nf.index).values):
+    b.annotate(f"{v}/{m_}", (x_, v), xytext=(0, 3), ha="center",
+               textcoords="offset points", fontsize=7, color=viz.INK_MUTED)
+b.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+b.set_ylabel("distinct formations used")
+b.set_ylim(0, nf.max() * 1.3)
+b.set_title("distinct shapes per year (of that year's matches)", fontsize=9.5)
+viz.despine(b)
+plt.show()
+""")
+
+md("""
+**Jordan stopped being a back-four team.** A back three or five appears in
+**20%** of pre-2022 matches and **90%** after — a change of **+0.71, 95%
+[+0.43, +0.87]**, and the largest single move anywhere in the squad data.
+
+This is not a labelling artefact. FBref's reported formation and the shape
+derived independently from the XI's own positions agree on the size of the back
+line in **every match where both exist**, and each source on its own gives the
+same story (0.10 → 0.89 reported, 0.20 → 0.90 derived).
+
+It matters beyond itself, because a fixed shape makes a fixed eleven much easier
+to pick — and because it puts more midfielders on the pitch, which is going to
+turn up again in section 3.
+""")
+
 code("""
 # Every measure in this notebook reduces to one fact: who started which match.
 # Draw that fact. Players ordered by first start, so a rebuild reads as a
@@ -299,54 +457,10 @@ plt.show()
 """)
 
 md("""
-**An arc, not a step.** Jordan rebuilt through 2021 — **14 first-time starters
-in 21 matches** — and it cost them: the model's **lowest strength of the entire
-window, 0.555 in July 2021**, below anything in 2015-19. Then the squad closed:
-**two** first-time starters in the next two and a half years, familiarity
-roughly doubling as the same eleven accumulated time together, and strength
-climbing from 0.69 to a peak above 1.1.
-
-The cut sits just after the turn in both series. It is not a wall between two
-regimes — it is the point where a squad assembled in 2021 started playing
-together.
-
-🚨 **The link is not tight, and the timeline should not be read as though it
-were.** 2026H1 is the **highest strength in the window** with familiarity
-already fallen back, and 2025 reopened the squad — nine first-time starters —
-without the results collapsing. Composition and strength move together over this
-one cycle. That is a coincidence with uncertainty, which is all this design can
-carry, and the same caution the summary closes on.
-
-Read the second figure top to bottom and the arc is in the raw data: a staircase
-of new rows through 2021, then long unbroken runs across the middle as the same
-names start match after match, then a second staircase from 2025.
-
-On the cut date itself, checked rather than shown: recomputing every pre/post
-difference at all 14 cuts with 25 matches a side (2017-01 to 2024-07), the
-settledness and midfield measures keep their sign wherever the line falls. The
-two concentration measures go negative only at the earliest cuts, where "pre" is
-29 matches of 2015-16 — a different team, not a fragile finding.
-""")
-
-md("""
-## 1. The team narrowed
-
-Section 0 showed the squad close after 2021. This measures it, with intervals.
-Three measures, each built to survive the same confound: raw counts accumulate
-with time, and FBref's coverage starts in 2011, so the naive versions rise for
-reasons unrelated to Jordan.
-
-- **Minutes concentration** — share of minutes to the top eleven, at equal match
-  counts.
-- **Team familiarity** — of the 55 pairs in today's XI, how much of the previous
-  24 months the average pair had already started together (pairwise prior
-  appearances, *Journal of Big Data* 2025), divided by the matches available in
-  that window so it is a rate that cannot drift with fixture density.
-- **Appearance rate** — the same thing at player level instead of pair level.
-  🚨 It is **not** independent evidence — it tracks familiarity at r = 0.99 and
-  cannot exceed it, so the two are one finding measured at two levels.
-
-Plus **midfield share of goals**, which needs no correction.
+Read top to bottom: a staircase of new rows through 2021, long unbroken runs
+across the middle as the same names start match after match, and a second
+staircase from 2025. That is the raw material every measure in this notebook is
+built from.
 """)
 
 code("""
@@ -405,32 +519,208 @@ ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
 plt.show()
 """)
 
-md("""
-All four clear zero — but they are **three** findings, not four: familiarity and
-appearance rate are the same measure at pair and player level, and agreeing with
-itself is not corroboration. What is left is more minutes to fewer players, a
-more continuous selection, and more goals from midfield.
+code("""
+# How much does the XI change from one match to the next? Jaccard distance
+# between consecutive starting elevens: 0 = identical side, 1 = eleven changes.
+xs = xi.sort_values("date")
+jac, jd = [], []
+prev = None
+for r in xs.itertuples():
+    if prev is not None:
+        a_, b_ = set(prev), set(r.ids)
+        jac.append(1 - len(a_ & b_) / len(a_ | b_))
+        jd.append(r.date)
+    prev = r.ids
+turn = pd.DataFrame({"date": jd, "turnover": jac})
+turn["era"] = np.where(turn.date < CUT, "pre", "post")
 
-Everything about *goals* from here is downstream of this. Fewer men on the pitch
-means fewer men available to score, so the next section is not a second
-discovery — it is a consequence, and it gets tested as one.
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0),
+                         gridspec_kw={"width_ratios": [1.7, 1]})
+a = axes[0]
+yr = turn.groupby(turn.date.dt.year).turnover.agg(["mean", "size"])
+a.plot(yr.index, yr["mean"], color=viz.BLUE, lw=2.2)
+a.scatter(yr.index, yr["mean"], color=viz.BLUE, s=yr["size"] * 4, zorder=3)
+a.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+a.set_ylabel("Jaccard distance to the previous XI")
+a.set_title("How much the eleven changes match to match", fontsize=9.5)
+viz.despine(a)
+
+b = axes[1]
+m = turn.groupby("era").turnover.mean().reindex(["pre", "post"])
+b.bar([0, 1], m.values, width=0.52, color=[viz.BLUE, viz.ORANGE])
+for i, v in enumerate(m.values):
+    b.annotate(f"{v:.2f}", (i, v), xytext=(0, 4), ha="center",
+               textcoords="offset points", fontsize=9.5, color=viz.INK_2)
+b.set_xticks([0, 1])
+b.set_xticklabels(["pre-2022", "post-2022"])
+b.set_ylim(0, m.max() * 1.3)
+b.set_title("mean turnover", fontsize=9.5)
+viz.despine(b)
+plt.show()
 """)
 
 md("""
-## 2. And the goals followed
+All four settledness measures clear zero, but they are **three** findings, not
+four: familiarity and appearance rate are the same construction at pair and
+player level, tracking each other at r = 0.99, and a measure agreeing with itself
+is not corroboration.
 
-The post-2022 goals come from fewer men. That is easy to show and easy to
-over-read, because **two different corrections are needed and only one of them
-is obvious.**
+Turnover says the same thing from the other side — the eleven that starts is
+closer to the eleven that started last time. Note it does **not** fall to zero:
+Jordan still changes players, it just changes fewer of them, inside a shape that
+no longer changes at all.
+""")
 
-**Rarefaction** (Gotelli & Colwell 2001; Hurlbert 1971) handles the first. "How
-many different men scored" is a species-richness problem, richness rises with
-sample size whatever the true diversity, and the post era has far fewer goals —
-so draw the larger era down to the smaller era's size, repeatedly, and compare
-distributions rather than points.
+md("""
+## 2. The opposition
 
-That fixes the number of **goals**. It does nothing about the number of
-**players on the pitch to score them**, which section 1 just showed collapsing.
+Before asking what Jordan did better, ask who Jordan was playing. The model in
+section 0 already adjusts for this, but the adjustment hides something a reader
+needs to see directly: **the fixture list changed as much as the squad did.**
+
+Four questions:
+
+1. **Did the opponents get harder?**
+2. **Did the kind of match change** — competitive or friendly, home or neutral?
+3. **Against whom did the results actually improve?** A rise concentrated in one
+   band of opponent is a different claim from a rise across the board.
+4. **Where does Jordan beat the model, and where does it fall short?**
+""")
+
+code("""
+mt["points"] = mt.result.map({"W": 3, "D": 1, "L": 0})
+mt["kind"] = np.where(mt.tournament == "Friendly", "friendly", "competitive")
+# expected_gd is Jordan minus opponent, so NEGATIVE means the harder fixture.
+BANDS = ["much stronger", "stronger", "weaker", "much weaker"]
+mt["band"] = pd.cut(mt.expected_gd, [-99, -0.5, 0, 0.5, 99], labels=BANDS)
+# counts belong in the tick label: several of these cells are thin, and a
+# reader should see that before reading the bar above it
+_n = pd.crosstab(mt.band, mt.era).reindex(BANDS).reindex(columns=["pre", "post"])
+BAND_LBL = [b.replace(" ", chr(10)) + chr(10) + f"{int(p)} / {int(q)}"
+            for b, p, q in zip(BANDS, _n.pre, _n.post)]
+""")
+
+code("""
+fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.0),
+                         gridspec_kw={"width_ratios": [1.5, 1, 1]})
+a = axes[0]
+for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
+    v = mt[mt.era == e].expected_gd
+    a.hist(v, bins=np.arange(-3, 3.01, 0.4), density=True, color=col,
+           alpha=0.55, label=f"{e}-2022")
+a.axvline(0, color=viz.INK_2, lw=1.0)
+# expected_gd is Jordan minus opponent, so the hard fixtures are to the LEFT
+a.annotate("← harder", xy=(-2.9, 0.97), xycoords=("data", "axes fraction"),
+           fontsize=8.5, color=viz.INK_2, va="top", ha="left")
+a.annotate("easier →", xy=(2.9, 0.97), xycoords=("data", "axes fraction"),
+           fontsize=8.5, color=viz.INK_2, va="top", ha="right")
+a.set_xlabel("model expected goal difference")
+a.set_ylabel("density of matches")
+a.set_title("Who Jordan played", fontsize=9.5)
+a.legend(fontsize=8)
+viz.despine(a)
+
+for ax, col_, ttl in ((axes[1], "kind", "Match type"), (axes[2], "venue", "Venue")):
+    t = pd.crosstab(mt[col_], mt.era, normalize="columns").reindex(columns=["pre", "post"])
+    x = np.arange(len(t))
+    ax.bar(x - 0.19, t["pre"], width=0.36, color=viz.BLUE, label="pre")
+    ax.bar(x + 0.19, t["post"], width=0.36, color=viz.ORANGE, label="post")
+    ax.set_xticks(x)
+    ax.set_xticklabels(t.index, fontsize=8)
+    ax.set_ylim(0, 1)
+    ax.set_title(ttl, fontsize=9.5)
+    viz.despine(ax)
+axes[1].set_ylabel("share of matches")
+axes[2].legend(fontsize=8)
+fig.suptitle("The fixture list changed as much as the squad", fontsize=11)
+plt.show()
+""")
+
+code("""
+# Did results improve everywhere, or only against certain opposition?
+g = (mt.groupby(["band", "era"], observed=True)
+     .agg(n=("points", "size"), pts=("points", "mean"),
+          gd=("gd", "mean"), above=("gd_above_expected", "mean"))
+     .reset_index())
+
+fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.2), sharey=False)
+x = np.arange(len(BANDS))
+for ax, col_, ttl, ref in ((axes[0], "pts", "Points per match", None),
+                           (axes[1], "gd", "Goal difference", 0),
+                           (axes[2], "above", "vs the model's expectation", 0)):
+    for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+        d = g[g.era == e].set_index("band").reindex(BANDS)
+        ax.bar(x + off, d[col_].values, width=0.36, color=c, label=f"{e}-2022")
+    if ref is not None:
+        ax.axhline(ref, color=viz.INK_2, lw=1.0)
+    ax.set_xticks(x)
+    ax.set_xticklabels(BAND_LBL, fontsize=7.5)
+    ax.set_title(ttl, fontsize=9.5)
+    viz.despine(ax)
+    ax.grid(axis="x", visible=False)
+axes[0].legend(fontsize=8, loc="upper left")
+axes[0].set_ylabel("points per match")
+fig.suptitle("Opponent strength, and how Jordan did against each band"
+             "   (tick labels give pre / post match counts)", fontsize=10)
+plt.show()
+""")
+
+md("""
+**The opponents got much harder.** Mean expected goal difference falls from
+**+0.48 to +0.02**, and the share of matches against a clearly stronger side
+goes from **16% to 38%**. The fixture *type* moved with it: competitive matches
+rise from **42% to 71%** of the schedule as friendlies drop away.
+
+That is the context every other number in this notebook sits inside. Jordan's
+raw results barely move; the opposition behind them is not the same.
+
+**Where the improvement lives** is the more interesting question, and the bars
+say it is not uniform. Read the counts under each bar before the bars themselves
+— several cells are thin, and this is a description of what happened in them
+rather than an estimate with an interval.
+""")
+
+md("""
+## 3. The scorers
+
+Now the people. Three questions, and the third is the one that decides whether
+the first two mean anything:
+
+1. **Who scored, before and after?**
+2. **How were they used** — did the scorers get more of the playing time?
+3. **Did the scoring concentrate more than the squad did?** If the same eleven
+   take every minute, goals concentrate for free, and that is section 1's
+   finding wearing a disguise.
+
+Assists are deliberately absent. They exist in the data but are recorded on
+**35%** of pre-2022 open-play goals against **70%** after, with the boundary on
+the treatment date — any pre/post assist number would be measuring FBref's
+record-keeping, not Jordan.
+""")
+
+code("""
+tab = (gj.pivot_table(index="scorer_player_id", columns="era",
+                      values="match_id", aggfunc="size")
+       .reindex(columns=["pre", "post"]).fillna(0).astype(int))
+tab["total"] = tab.sum(axis=1)
+tab.insert(0, "player", tab.index.map(NAMES))
+top = tab.sort_values("total", ascending=False).head(10)
+# the table and the top-three shares are both drawn by the next cell
+""")
+
+code("""
+fig, ax = plt.subplots(figsize=(7.6, 5.0))
+d = top.iloc[::-1]
+y = np.arange(len(d))
+ax.barh(y - 0.2, d.pre, height=0.38, color=viz.BLUE, label="pre-2022")
+ax.barh(y + 0.2, d.post, height=0.38, color=viz.ORANGE, label="post-2022")
+ax.set_yticks(y); ax.set_yticklabels(d.player)
+ax.set_xlabel("goals")
+ax.set_title("The scoring load changed hands, it did not shift")
+ax.legend(loc="lower right")
+viz.despine(ax)
+ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
+plt.show()
 """)
 
 code("""
@@ -524,19 +814,6 @@ viz.despine(ax)
 plt.show()
 """)
 
-md("""
-**At any common number of goals, the post-2022 era uses fewer scorers** — the
-curves separate well before the cut, so this is not an artefact of era length.
-
-🚨 **But it is not one man.** Top-1 share sits *inside* the rarefied range:
-Jordan's leading scorer takes no more of the load than a same-sized pre-2022
-sample would. Breadth moves; the individual does not. A narrowing onto a small
-**group** — and "one player carries them" is not supportable.
-
-That is as far as rarefaction can take it. The remaining question is whether the
-goals narrowed *more* than the squad did.
-""")
-
 code("""
 # Rarefaction fixed the goal count. This fixes the player count: allocate each
 # era's goals across players in proportion to the minutes they ACTUALLY played,
@@ -594,63 +871,24 @@ plt.show()
 """)
 
 md("""
-**The narrowing is section 1's, not a second finding.** Jordan's scoring runs
-about 2.4× more concentrated than minutes alone imply — and that multiple is the
-*same before and after 2022*. Whatever makes Jordan's goals cluster on a few men
-was already there in 2015; what changed is how few men were on the pitch.
-
-So the answer to the notebook's title question is: **the extra goals came from
-the same small group that had taken over the minutes.** Not a new generation of
-scorers, and not a scoring pattern that changed — a squad that stopped rotating,
-with the goals following the playing time exactly as they always had.
-""")
-
-md("""
-## 3. Who
-
-Half a changing of the guard. Two high-volume pre-2022 scorers vanish; the three
-who take over were **already there**, scoring before 2022 and then scaling up.
-""")
-
-code("""
-tab = (gj.pivot_table(index="scorer_player_id", columns="era",
-                      values="match_id", aggfunc="size")
-       .reindex(columns=["pre", "post"]).fillna(0).astype(int))
-tab["total"] = tab.sum(axis=1)
-tab.insert(0, "player", tab.index.map(NAMES))
-top = tab.sort_values("total", ascending=False).head(10)
-# the table and the top-three shares are both drawn by the next cell
-""")
-
-code("""
-fig, ax = plt.subplots(figsize=(7.6, 5.0))
-d = top.iloc[::-1]
-y = np.arange(len(d))
-ax.barh(y - 0.2, d.pre, height=0.38, color=viz.BLUE, label="pre-2022")
-ax.barh(y + 0.2, d.post, height=0.38, color=viz.ORANGE, label="post-2022")
-ax.set_yticks(y); ax.set_yticklabels(d.player)
-ax.set_xlabel("goals")
-ax.set_title("The scoring load changed hands, it did not shift")
-ax.legend(loc="lower right")
-viz.despine(ax)
-ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
-plt.show()
-""")
-
-md("""
-**The old top two disappear** — not reduced roles, zero goals.
-
-**The new top three were already scoring**, then roughly double or triple.
+**The old top two disappear** — not reduced roles, zero goals. **The new top
+three were already scoring** before 2022 and then roughly double or triple;
 Al-Taamari is in the top three of *both* eras, so "Jordan replaced its forwards"
 would be an overstatement.
 
-Section 1's narrowing is not a squad rebuilt. It is a wide, flat distribution
-collapsing onto three players already in it. Whether that is finding your best
-attackers or running out of alternatives, this data cannot say.
+At any common number of goals the post era uses fewer scorers, and that is real.
+🚨 **But it is not one man** — top-1 share sits *inside* the rarefied range, so
+"one player carries them" is not supportable.
+
+🚨 **And it is not a fact about scoring.** Allocating each era's goals in
+proportion to the minutes actually played, Jordan's scoring is about **2.4×**
+more concentrated than minutes imply — *the same multiple before and after 2022*.
+Whatever makes Jordan's goals cluster on a few men was already there in 2015.
+What changed is how few men were on the pitch.
 """)
 
 md("""
-## 4. When the goals happen
+## 4. The goals
 
 Not who scored but when, and what the scoreboard said. Reconstructed in
 `JordanData/match_state.py` from goal minutes on **both** sides, including the
@@ -708,7 +946,7 @@ notebook pointing at something to fix.
 """)
 
 md("""
-## 5. Crossing the two: when *and* in what state
+### Crossing when with in-what-state
 
 "A third of goals conceded arrive after the 75th" fits two opposite stories: a
 team that throws away leads, or one that gets put away in matches it was already
@@ -1175,7 +1413,7 @@ exists for these matches.
 """)
 
 md("""
-## 6. What it isn't
+### What it isn't
 
 Built, and returned nothing. Reported because a null with an interval is a
 result, and because each one closes off an explanation that would otherwise stay
