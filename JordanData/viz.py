@@ -58,7 +58,7 @@ def use_style():
         "axes.edgecolor": GRID,
         "axes.linewidth": 1.0,
         "axes.titlesize": 12,
-        "axes.titleweight": "semibold",
+        "axes.titleweight": "bold",   # the font has no semibold; 700 is what it resolved to anyway
         "axes.titlecolor": INK,
         "axes.titlelocation": "left",
         "axes.titlepad": 10,

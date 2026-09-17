@@ -66,10 +66,23 @@ gj = goals.dropna(subset=["scorer_player_id"]).copy()
 NAMES = ja.dropna(subset=["player_id"]).groupby("player_id").Player.agg(
     lambda s: s.mode().iloc[0])
 
-print(f"window   {mt.date.min().date()} .. {mt.date.max().date()}")
-print(f"matches  {mt.era.value_counts().reindex(['pre','post']).to_dict()}")
-print(f"goals    {goals.era.value_counts().reindex(['pre','post']).to_dict()}"
-      f"   with a scorer id: {len(gj)}")
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 2.9))
+yr = (mt.groupby([mt.date.dt.year, "era"]).size().unstack("era")
+      .reindex(columns=["pre", "post"]).fillna(0))
+gy = (goals.groupby([goals.date.dt.year, "era"]).size().unstack("era")
+      .reindex(columns=["pre", "post"]).fillna(0))
+for ax, tab, lab in ((axes[0], yr, "matches"), (axes[1], gy, "goals")):
+    ax.bar(tab.index, tab["pre"], width=0.78, color=viz.BLUE,
+           label=f"pre-2022 ({int(tab['pre'].sum())})")
+    ax.bar(tab.index, tab["post"], bottom=tab["pre"], width=0.78, color=viz.ORANGE,
+           label=f"post-2022 ({int(tab['post'].sum())})")
+    ax.set_ylabel(f"{lab} per year")
+    ax.legend(fontsize=8, loc="upper left")
+    viz.despine(ax)
+fig.suptitle(f"{len(mt)} matches and {len(goals)} goals, "
+             f"{mt.date.min().date()} to {mt.date.max().date()}   ·   "
+             f"{len(gj)} goals carry a scorer id", fontsize=10)
+plt.show()
 """)
 
 md("""
@@ -147,7 +160,8 @@ def windowed(d, which):
     v = [src[m] for m in d.match_id if m in src]
     return np.mean(v) if v else np.nan
 
-print(f"windowed rates computed for {len(fam_rate)} of {len(xi)} matches with an XI")
+# coverage of these two rates is reported on the section 3 figure
+XI_COVER = (len(fam_rate), len(xi))
 """)
 
 code("""
@@ -167,12 +181,7 @@ for cut in pd.date_range("2018-07-01", "2024-07-01", freq="6MS"):
         x, y = fn(pre), fn(post)
         r[lab] = y - x if np.isfinite(x) and np.isfinite(y) else np.nan
     rows.append(r)
-sweep = pd.DataFrame(rows)
-print("post minus pre, at every candidate split date:")
-print(sweep.round(3).to_string(index=False))
-print()
-print("rows repeat where no match falls between two cuts (the 2020 shutdown,")
-print("and the gap after 2022-07) -- the same split, reached two ways.")
+sweep = pd.DataFrame(rows)   # drawn by the next cell
 """)
 
 code("""
@@ -186,7 +195,7 @@ ax.annotate("cut is past the break \u2192", xy=(pd.Timestamp("2022-01-01"), 1.0)
             xycoords=("data", "axes fraction"), xytext=(-5, -10),
             textcoords="offset points", fontsize=8, color=viz.INK_MUTED,
             ha="right", va="top")
-PALETTE = [viz.BLUE, viz.ORANGE, viz.AQUA, viz.VIOLET, viz.INK_MUTED]
+PALETTE = [viz.BLUE, viz.ORANGE, viz.AQUA, viz.VIOLET, viz.INK]
 for (lab, _), col in zip(SWEEP, PALETTE):
     odd = lab == "midfielder share"          # the one that never settles
     ax.plot(x, sweep[lab], color=col, marker="o", ms=3.5, label=lab,
@@ -208,15 +217,30 @@ code("""
 # two comparable, because there is no break for the cut to get past.
 band = pd.to_datetime(sweep.cut).between("2022-01-01", "2024-01-01")
 chosen = sweep[pd.to_datetime(sweep.cut) == CUT].iloc[0]
-for lab, _ in SWEEP:
-    ramp = chosen[lab] - sweep[lab].iloc[0]
-    flat = sweep.loc[band, lab].max() - sweep.loc[band, lab].min()
-    if abs(ramp) < 0.05:
-        verdict = "NO BREAK TO FIND -- as large at the 2018 cut as at 2022"
-    else:
-        ratio = flat / abs(ramp)
-        verdict = f"flat/ramp {ratio:4.2f}   " + ("PLATEAU" if ratio < 0.25 else "still moving")
-    print(f"  {lab:17s} ramp {ramp:+.3f}   flat {flat:.3f}   {verdict}")
+shape = pd.DataFrame([{"measure": lab,
+                       "ramp": abs(chosen[lab] - sweep[lab].iloc[0]),
+                       "flat": sweep.loc[band, lab].max() - sweep.loc[band, lab].min()}
+                      for lab, _ in SWEEP])
+shape["located"] = shape.ramp >= 0.05
+
+fig, ax = plt.subplots(figsize=(7.6, 2.9))
+d = shape.iloc[::-1].reset_index(drop=True)
+y = np.arange(len(d))
+ax.barh(y, d.ramp, height=0.58, color=viz.GRID, label="travel up to the 2022 cut")
+ax.barh(y, d.flat, height=0.26, color=viz.ORANGE,
+        label="movement still left after it")
+for i, r in d.iterrows():
+    txt = f"{r.flat / r.ramp:.0%} of the travel" if r.located else "no travel to locate"
+    ax.annotate(txt, (max(r.ramp, r.flat), i), xytext=(7, 0), va="center",
+                textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+ax.set_yticks(y)
+ax.set_yticklabels(d.measure)
+ax.set_xlim(0, d.ramp.max() * 1.6)
+ax.set_xlabel("absolute difference, post minus pre")
+ax.set_title("Past the break, four measures stop moving. One has no break to be past.")
+ax.legend(fontsize=8, loc="lower right")
+viz.despine(ax)
+plt.show()
 """)
 
 md("""
@@ -268,10 +292,8 @@ for i, lab in enumerate(LABELS):
     lo, hi = np.percentile(draws[:, i], [2.5, 97.5])
     rows.append({"measure": lab, "post": obs[i], "pre_lo": lo, "pre_hi": hi,
                  "verdict": "outside" if not (lo <= obs[i] <= hi) else "inside"})
-rar = pd.DataFrame(rows)
-print(f"post: {n_post} goals, {int(obs[0])} scorers")
-print(f"pre : {len(pre_s)} goals, {pre_s.nunique()} scorers, rarefied to {n_post}\\n")
-print(rar.round(3).to_string(index=False))
+rar = pd.DataFrame(rows)   # drawn by the next two cells
+RAR_N = (n_post, int(obs[0]), len(pre_s), pre_s.nunique())
 """)
 
 code("""
@@ -295,6 +317,9 @@ ax.set_yticks(range(len(d)))
 ax.set_yticklabels(d.measure)
 ax.set_xlabel("post-2022 value, in units of the rarefied pre-2022 range")
 ax.set_title("Three of four fall outside the pre-2022 range. Top-1 share does not.")
+ax.annotate(f"post {RAR_N[0]} goals / {RAR_N[1]} scorers   ·   "
+            f"pre {RAR_N[2]} goals / {RAR_N[3]} scorers, drawn down to {RAR_N[0]}",
+            xy=(0, -0.30), xycoords="axes fraction", fontsize=8, color=viz.INK_MUTED)
 viz.despine(ax)
 plt.show()
 """)
@@ -328,10 +353,10 @@ ax.annotate(f"{n_post} goals\\n(post-2022 total)", xy=(n_post, 6),
             fontsize=8, color=viz.INK_MUTED, va="bottom")
 ax.annotate("pre-2022", xy=(ks[-1], c_pre[-1, 0]), xytext=(-4, 6),
             textcoords="offset points", color=viz.BLUE, fontsize=9,
-            ha="right", fontweight="semibold")
+            ha="right", fontweight="bold")
 ax.annotate("post-2022", xy=(ks_post[-1], c_post[-1, 0]), xytext=(6, -2),
             textcoords="offset points", color=viz.ORANGE, fontsize=9,
-            fontweight="semibold")
+            fontweight="bold")
 ax.set_xlabel("goals drawn"); ax.set_ylabel("different scorers")
 ax.set_title("Jordan's goals come from a narrower group after 2022")
 viz.despine(ax)
@@ -362,13 +387,7 @@ tab = (gj.pivot_table(index="scorer_player_id", columns="era",
 tab["total"] = tab.sum(axis=1)
 tab.insert(0, "player", tab.index.map(NAMES))
 top = tab.sort_values("total", ascending=False).head(10)
-print(top.to_string(index=False))
-
-for e in ("pre", "post"):
-    s = gj[gj.era == e].scorer_player_id
-    t3 = s.value_counts().head(3)
-    print(f"\\n{e:4s}  {len(s)} goals, top three = {t3.sum()/len(s):.0%}: "
-          + ", ".join(f"{NAMES.get(i, i)} ({c})" for i, c in t3.items()))
+# the table and the top-three shares are both drawn by the next cell
 """)
 
 code("""
@@ -446,8 +465,7 @@ for lab, fn, nb in MEASURES:
                 "post": fn(mt[mt.era == "post"]),
                 "diff": o, "lo": lo, "hi": hi,
                 "excludes_0": bool(lo > 0 or hi < 0)})
-settled = pd.DataFrame(res)
-print(settled.round(3).to_string(index=False))
+settled = pd.DataFrame(res)   # drawn by the next cell
 """)
 
 code("""
@@ -464,6 +482,9 @@ ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=0)
 ax.set_yticks(y); ax.set_yticklabels(d.measure)
 ax.set_xlabel("change, pre-2022 to post-2022  (95% block-bootstrap interval)")
 ax.set_title("A narrower, more settled team")
+ax.annotate(f"windowed rates cover {XI_COVER[0]} of {XI_COVER[1]} matches with a "
+            f"recorded XI", xy=(0, -0.26), xycoords="axes fraction", fontsize=8,
+            color=viz.INK_MUTED)
 viz.despine(ax)
 ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
 plt.show()
@@ -501,9 +522,7 @@ a_tot = ms[[f"against_{b}" for b in BUCK]].sum().values
 prof = pd.DataFrame({"window": BUCK,
                      "scored": f_tot / f_tot.sum(),
                      "conceded": a_tot / a_tot.sum()})
-print(f"{len(ms)} matches, {int(f_tot.sum())} scored, {int(a_tot.sum())} conceded\\n")
-print(prof.round(3).to_string(index=False))
-print("\\nArmatas et al. (2009), all football, 76-90 window: 0.225")
+MS_N = (len(ms), int(f_tot.sum()), int(a_tot.sum()))   # drawn by the next cell
 """)
 
 code("""
@@ -518,6 +537,9 @@ ax.annotate("22.5% — all-football rate for the 76-90 window\\n(Armatas et al. 
 ax.set_xticks(x); ax.set_xticklabels(BUCK)
 ax.set_xlabel("minute"); ax.set_ylabel("share of that side's goals")
 ax.set_title("Jordan's scoring is unremarkably timed. Its conceding is not.")
+ax.annotate(f"{MS_N[0]} matches with a reconstructed scoreboard   ·   "
+            f"{MS_N[1]} scored, {MS_N[2]} conceded",
+            xy=(0, -0.22), xycoords="axes fraction", fontsize=8, color=viz.INK_MUTED)
 ax.legend(loc="upper left")
 viz.despine(ax)
 ax.grid(axis="x", visible=False); ax.grid(axis="y", visible=True)
@@ -557,32 +579,42 @@ grid["conceded_per90"] = grid.ga / grid.minutes * 90
 grid["scored_per90"] = grid.gf / grid.minutes * 90
 ORDER = ["1-15", "16-30", "31-45", "46-60", "61-75", "76-90"]
 
-print("conceded per 90 minutes AT RISK:")
-print(grid.pivot(index="window", columns="state",
-                 values="conceded_per90").reindex(ORDER).round(2).to_string())
-print("\\ngoals conceded in each cell:")
-print(grid.pivot(index="window", columns="state",
-                 values="ga").reindex(ORDER).astype(int).to_string())
-print("\\nminutes at risk:")
-print(grid.pivot(index="window", columns="state",
-                 values="minutes").reindex(ORDER).round(0).to_string())
+# rates and the minutes behind them are both drawn by the next cell
 """)
 
 code("""
-fig, ax = plt.subplots(figsize=(7.6, 4.6))
+# A rate is a fraction, so both halves get drawn: the rate, and the minutes
+# at risk underneath it. The late level cell is the smallest denominator on the
+# chart, which is why its interval is wide.
+fig, axes = plt.subplots(2, 1, figsize=(7.6, 5.6), sharex=True,
+                         gridspec_kw={"height_ratios": [1.7, 1]})
 x = np.arange(len(ORDER))
-for st, col in (("leading", viz.BLUE), ("level", viz.ORANGE), ("trailing", viz.AQUA)):
+STATES = (("leading", viz.BLUE), ("level", viz.ORANGE), ("trailing", viz.AQUA))
+a = axes[0]
+for st, col in STATES:
     y = grid[grid.state == st].set_index("window").reindex(ORDER).conceded_per90
-    ax.plot(x, y.values, color=col, marker="o")
-    ax.annotate(st, xy=(x[-1], y.values[-1]), xytext=(7, 0),
-                textcoords="offset points", color=col, fontsize=9,
-                va="center", fontweight="semibold")
-ax.set_xticks(x); ax.set_xticklabels(ORDER)
-ax.set_xlim(-0.3, len(ORDER) + 0.9)
-ax.set_xlabel("minute"); ax.set_ylabel("goals conceded per 90 min at risk")
-ax.set_title("Jordan does not lose leads. It loses level matches, late.")
-viz.despine(ax)
-ax.grid(axis="x", visible=False)
+    a.plot(x, y.values, color=col, marker="o", label=st)
+    a.annotate(st, xy=(x[-1], y.values[-1]), xytext=(7, 0),
+               textcoords="offset points", color=col, fontsize=9,
+               va="center", fontweight="bold")
+a.set_ylabel("goals conceded per 90 min at risk")
+a.set_title("Jordan does not lose leads. It loses level matches, late.")
+viz.despine(a)
+
+b = axes[1]
+bot = np.zeros(len(ORDER))
+for st, col in STATES:
+    m = grid[grid.state == st].set_index("window").reindex(ORDER).minutes.fillna(0).values
+    b.bar(x, m, bottom=bot, width=0.74, color=col, label=st)
+    bot = bot + m
+b.set_xticks(x)
+b.set_xticklabels(ORDER)
+b.set_xlim(-0.6, len(ORDER) + 0.6)
+b.set_xlabel("minute")
+b.set_ylabel("minutes at risk")
+b.set_title("the denominator: minutes spent leading (bottom), level, trailing (top)",
+            fontsize=9.5)
+viz.despine(b)
 plt.show()
 """)
 
@@ -610,7 +642,8 @@ def ratio(ms_, state):
     return late / before if before and np.isfinite(before) else np.nan
 
 allm = mt.match_id.tolist()
-for st in ("level", "leading"):
+ratios = []
+for st in ("leading", "level"):
     obs = ratio(allm, st)
     draws = []
     for _ in range(1500):
@@ -619,16 +652,45 @@ for st in ("level", "leading"):
         if np.isfinite(v):
             draws.append(v)
     lo, hi = np.percentile(draws, [2.5, 97.5])
-    tag = "FINDING" if lo > 1 else "control, flat"
-    print(f"  while {st:8s}: 61-75 {rate(allm,'61-75',st):.2f} -> "
-          f"76-90 {rate(allm,'76-90',st):.2f} per 90   "
-          f"ratio {obs:.2f}x  95% [{lo:.2f}, {hi:.2f}]   {tag}")
+    ratios.append({"state": st, "obs": obs, "lo": lo, "hi": hi})
+ratios = pd.DataFrame(ratios)
 
-print("\\n  internal control -- does Jordan also SCORE more while level late?")
-print("  If level matches simply get frantic, both rates rise together.")
-for w in ("61-75", "76-90"):
-    print(f"    {w}: scored {rate(allm, w, 'level', 'gf'):.2f}  "
-          f"conceded {rate(allm, w, 'level', 'ga'):.2f} per 90")
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0),
+                         gridspec_kw={"width_ratios": [1.2, 1]})
+a = axes[0]
+for i, r in ratios.iterrows():
+    col = viz.ORANGE if r.lo > 1 else viz.BLUE
+    a.hlines(i, r.lo, r.hi, color=col, lw=2.6)
+    a.scatter([r.obs], [i], color=col, s=60, zorder=3)
+    a.annotate(f"{r.obs:.2f}x", (r.obs, i), xytext=(0, 9), ha="center",
+               textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+a.axvline(1.0, color=viz.INK_2, lw=1.0)
+a.set_xscale("log")
+a.set_xticks([0.5, 1, 2, 5, 10])
+a.set_xticklabels(["0.5x", "1x", "2x", "5x", "10x"])
+a.set_yticks(range(len(ratios)))
+a.set_yticklabels([f"while {v}" for v in ratios.state])
+a.set_ylim(-0.6, len(ratios) - 0.4)
+a.set_xlabel("76-90 conceding rate, relative to 61-75")
+a.set_title("With a lead the rate is flat. Level, it is not.", fontsize=9.5)
+viz.despine(a)
+
+# The internal control: if level matches were simply frantic, BOTH rates rise.
+b = axes[1]
+for lab, direction, col in (("scored", "gf", viz.BLUE), ("conceded", "ga", viz.ORANGE)):
+    v = [rate(allm, w, "level", direction) for w in ("61-75", "76-90")]
+    b.plot([0, 1], v, color=col, lw=2.4, marker="o", ms=7, label=lab)
+    b.annotate(f"{lab} {v[1]:.2f}", (1, v[1]), xytext=(9, 0), va="center",
+               textcoords="offset points", fontsize=8.5, color=col,
+               fontweight="bold")
+b.set_xticks([0, 1])
+b.set_xticklabels(["61-75", "76-90"])
+b.set_xlim(-0.15, 2.05)
+b.set_ylabel("per 90 min at risk, while level")
+b.set_title("They move opposite ways", fontsize=9.5)
+viz.despine(b)
+b.grid(axis="x", visible=False)
+plt.show()
 """)
 
 md("""
@@ -651,12 +713,28 @@ info = mt.set_index("match_id")
 level_at_90 = sum(1 for tl, _s, _x in TL.values()
                   if sum(d for m, d in tl if m <= 90) == 0)
 lvl = grid[grid.state == "level"].set_index("window")
-print(f"matches still level at 90': {level_at_90}")
-for extra in (0, 3, 5, 8):
-    m = lvl.loc["76-90", "minutes"] + extra * level_at_90
-    r = lvl.loc["76-90", "ga"] / m * 90
-    print(f"  +{extra} min stoppage on each -> {r:.2f} per 90 "
-          f"({r / lvl.loc['61-75', 'conceded_per90']:.2f}x vs 61-75)")
+extra = np.linspace(0, 10, 101)
+mins = lvl.loc["76-90", "minutes"] + extra * level_at_90
+curve = (lvl.loc["76-90", "ga"] / mins * 90) / lvl.loc["61-75", "conceded_per90"]
+
+fig, ax = plt.subplots(figsize=(7.6, 2.9))
+ax.plot(extra, curve, color=viz.ORANGE, lw=2.4)
+ax.axhline(1.0, color=viz.INK_2, lw=1.0)
+ax.annotate("no effect", xy=(10, 1.0), xytext=(-4, 6), ha="right",
+            textcoords="offset points", fontsize=8, color=viz.INK_2)
+for e in (0, 3, 5, 8):
+    v = (lvl.loc["76-90", "ga"] / (lvl.loc["76-90", "minutes"] + e * level_at_90)
+         * 90) / lvl.loc["61-75", "conceded_per90"]
+    ax.scatter([e], [v], color=viz.ORANGE, s=42, zorder=3)
+    ax.annotate(f"{v:.2f}x", (e, v), xytext=(0, 8), ha="center",
+                textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+ax.set_ylim(0, max(curve) * 1.18)
+ax.set_xlabel(f"stoppage minutes added to each of the {level_at_90} matches still level at 90'")
+ax.set_ylabel("76-90 vs 61-75")
+ax.set_title("The clock convention does not manufacture the spike")
+viz.despine(ax)
+ax.grid(axis="x", visible=False)
+plt.show()
 """)
 
 code("""
@@ -673,13 +751,38 @@ for mid, (tl, _s, _x) in TL.items():
                  "pts": 3 if dft > 0 else (1 if dft == 0 else 0),
                  "result": "W" if dft > 0 else ("D" if dft == 0 else "L")})
 L = pd.DataFrame(rows)
-print(f"matches level at the 75th minute: {len(L)}  {L.era.value_counts().to_dict()}")
-print(pd.crosstab(L.era, L.result).reindex(columns=["W", "D", "L"])
-      .fillna(0).astype(int).to_string())
-print(f"\\n  points per match from that position: {L.pts.mean():.2f} of 3")
-print(f"  mean expected_gd of those fixtures: {L.expected_gd.mean():+.2f} "
-      f"(all matches {mt.expected_gd.mean():+.2f})")
-print("  -> these are not fixtures Jordan was losing on paper")
+wdl = (pd.crosstab(L.era, L.result).reindex(columns=["W", "D", "L"]).fillna(0)
+       .astype(int).reindex(["pre", "post"]))
+wdl.loc["all"] = wdl.sum()
+
+fig, ax = plt.subplots(figsize=(7.6, 2.6))
+y = np.arange(len(wdl))[::-1]
+left = np.zeros(len(wdl))
+for res, col in (("W", viz.AQUA), ("D", viz.INK_MUTED), ("L", viz.ORANGE)):
+    v = wdl[res].values / wdl.sum(axis=1).values
+    ax.barh(y, v, left=left, height=0.6, color=col, label=res,
+            edgecolor=viz.SURFACE, linewidth=1.6)
+    for yy, (frac, n, l0) in enumerate(zip(v, wdl[res].values, left)):
+        if n:
+            ax.annotate(str(n), (l0 + frac / 2, y[yy]), ha="center", va="center",
+                        fontsize=8.5, color=viz.SURFACE, fontweight="bold")
+    left = left + v
+for i, e in enumerate(wdl.index):
+    d = L if e == "all" else L[L.era == e]
+    ax.annotate(f"{d.pts.mean():.2f} pts", (1.0, y[i]), xytext=(8, 0), va="center",
+                textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+ax.set_yticks(y)
+ax.set_yticklabels([f"{e}  (n={int(n)})" for e, n in zip(wdl.index, wdl.sum(axis=1))])
+ax.set_xlim(0, 1.16)
+ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+ax.set_xlabel(f"share of matches level at the 75th minute   ·   these fixtures "
+              f"average expected GD {L.expected_gd.mean():+.2f}")
+ax.set_title(f"Level at 75', Jordan takes {L.pts.mean():.2f} points of 3")
+fig.legend(*ax.get_legend_handles_labels(), loc="outside lower center", ncol=3,
+           fontsize=8)
+viz.despine(ax)
+ax.grid(axis="x", visible=False)
+plt.show()
 """)
 
 code("""
@@ -698,10 +801,35 @@ obs, exp = L.pts.mean(), sim.mean()
 draws = [(L.pts.values[p].mean() - sim[p].mean())
          for p in (rng.integers(0, len(L), len(L)) for _ in range(5000))]
 lo, hi = np.percentile(draws, [2.5, 97.5])
-print(f"  observed        {obs:.2f} points per match")
-print(f"  model-expected  {exp:.2f}")
-print(f"  shortfall       {obs - exp:+.2f}   95% [{lo:+.2f}, {hi:+.2f}]")
-print(f"\\n  across {len(L)} matches that is {abs(obs - exp) * len(L):.0f} points.")
+
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 2.7),
+                         gridspec_kw={"width_ratios": [1, 1.3]})
+a = axes[0]
+a.bar([0, 1], [obs, exp], width=0.5, color=[viz.ORANGE, viz.INK_MUTED])
+for i, v in enumerate((obs, exp)):
+    a.annotate(f"{v:.2f}", (i, v), xytext=(0, 4), ha="center",
+               textcoords="offset points", fontsize=9, color=viz.INK_2)
+a.set_xticks([0, 1])
+a.set_xticklabels(["observed", "model"])
+a.set_ylim(0, max(obs, exp) * 1.25)
+a.set_ylabel("points per match")
+a.set_title("From a level scoreline at 75'", fontsize=9.5)
+viz.despine(a)
+
+b = axes[1]
+b.hlines(0, lo, hi, color=viz.ORANGE, lw=2.8)
+b.scatter([obs - exp], [0], color=viz.ORANGE, s=70, zorder=3)
+b.axvline(0, color=viz.INK_2, lw=1.0)
+b.annotate(f"{obs - exp:+.2f}", (obs - exp, 0), xytext=(0, 11), ha="center",
+           textcoords="offset points", fontsize=9, color=viz.INK_2)
+b.set_ylim(-1, 1)
+b.set_yticks([])
+b.set_xlim(min(lo, 0) * 1.08, max(abs(lo), 0.05) * 0.30)
+b.set_xlabel("shortfall, points per match")
+b.set_title(f"{abs(obs - exp) * len(L):.0f} points across {len(L)} matches",
+            fontsize=9.5)
+viz.despine(b, keep=("bottom",))
+plt.show()
 """)
 
 md("""
@@ -722,13 +850,15 @@ constant rate whatever the scoreboard says. How much that costs is measured in
 
 code("""
 cells["era"] = cells.match_id.map(mt.set_index("match_id").era)
-print("the level-state late cell, by era:")
+cellsum = []
 for e in ("pre", "post"):
     d = cells[(cells.era == e) & (cells.state == "level")]
     for w in ("61-75", "76-90"):
-        s = d[d.window == w]
-        print(f"  {e:5s} {w}: {int(s.ga.sum()):2d} conceded, {int(s.gf.sum())} scored"
-              f" / {s.minutes.sum():6.0f} min = {s.ga.sum()/s.minutes.sum()*90:.2f} per 90")
+        q = d[d.window == w]
+        cellsum.append({"era": e, "window": w, "ga": int(q.ga.sum()),
+                        "minutes": q.minutes.sum(),
+                        "per90": q.ga.sum() / q.minutes.sum() * 90})
+cellsum = pd.DataFrame(cellsum)
 
 def late_level(ms_):
     return rate(ms_, "76-90", "level")
@@ -745,10 +875,39 @@ for _ in range(2000):
     if np.isfinite(v):
         draws.append(v)
 lo, hi = np.percentile(draws, [2.5, 97.5])
-print(f"\\n  conceding rate while level, 76-90: pre {late_level(pre_m):.2f} -> "
-      f"post {late_level(post_m):.2f}")
-print(f"  difference {late_level(post_m)-late_level(pre_m):+.2f} per 90  "
-      f"95% [{lo:+.2f}, {hi:+.2f}]  -- spans zero, so NOT shown to have worsened")
+
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 2.9),
+                         gridspec_kw={"width_ratios": [1.25, 1]})
+a = axes[0]
+x = np.arange(2)
+for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    d = cellsum[cellsum.era == e].set_index("window").reindex(["61-75", "76-90"])
+    a.bar(x + off, d.per90.values, width=0.36, color=col, label=f"{e}-2022")
+    for xi, (v, ga, mn) in enumerate(zip(d.per90, d.ga, d.minutes)):
+        a.annotate(f"{ga} in {mn:.0f}'", (x[xi] + off, v), xytext=(0, 3),
+                   ha="center", textcoords="offset points", fontsize=7.5,
+                   color=viz.INK_2)
+a.set_xticks(x)
+a.set_xticklabels(["61-75", "76-90"])
+a.set_ylabel("conceded per 90 min at risk")
+a.set_title("While level", fontsize=9.5)
+a.legend(fontsize=8, loc="upper left")
+viz.despine(a)
+a.grid(axis="x", visible=False)
+
+b = axes[1]
+b.hlines(0, lo, hi, color=viz.INK_MUTED, lw=2.8)
+dlate = late_level(post_m) - late_level(pre_m)
+b.scatter([dlate], [0], color=viz.ORANGE, s=70, zorder=3)
+b.annotate(f"{dlate:+.2f}", (dlate, 0), xytext=(0, 11), ha="center",
+           textcoords="offset points", fontsize=9, color=viz.INK_2)
+b.axvline(0, color=viz.INK_2, lw=1.0)
+b.set_ylim(-1, 1)
+b.set_yticks([])
+b.set_xlabel("post minus pre, per 90")
+b.set_title("Spans zero: not shown to have worsened", fontsize=9.5)
+viz.despine(b, keep=("bottom",))
+plt.show()
 """)
 
 code("""
@@ -757,11 +916,6 @@ L["era"] = L.match_id.map(mt.set_index("match_id").era)
 L["blk"] = L.match_id.map(mt.set_index("match_id").blk)
 L["expected_pts"] = sim
 L["short"] = L.pts - L.expected_pts
-print(L.groupby("era").agg(n=("pts", "size"), observed=("pts", "mean"),
-                           model_expected=("expected_pts", "mean"),
-                           shortfall=("short", "mean"),
-                           opponent_exp_gd=("expected_gd", "mean")).round(2).to_string())
-
 LB = {e: [d.match_id.tolist() for _, d in L[L.era == e].groupby("blk")]
       for e in ("pre", "post")}
 lm = L.set_index("match_id")
@@ -774,14 +928,34 @@ for _ in range(4000):
     if np.isfinite(v):
         dr.append(v)
 lo, hi = np.percentile(dr, [2.5, 97.5])
-print(f"\\n  change in shortfall, pre -> post: {d_obs:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
+rows = []
 for e in ("pre", "post"):
     d = L[L.era == e]
-    b = [d.short.values[p].mean()
-         for p in (rng.integers(0, len(d), len(d)) for _ in range(5000))]
-    l2, h2 = np.percentile(b, [2.5, 97.5])
-    print(f"    {e:5s} n={len(d):2d}  shortfall {d.short.mean():+.2f}  "
-          f"95% [{l2:+.2f}, {h2:+.2f}]")
+    bb = [d.short.values[p].mean()
+          for p in (rng.integers(0, len(d), len(d)) for _ in range(5000))]
+    l2, h2 = np.percentile(bb, [2.5, 97.5])
+    rows.append({"row": f"{e}-2022  (n={len(d)})", "est": d.short.mean(),
+                 "lo": l2, "hi": h2, "kind": "level"})
+rows.append({"row": "the change", "est": d_obs, "lo": lo, "hi": hi, "kind": "change"})
+short_era = pd.DataFrame(rows)
+
+fig, ax = plt.subplots(figsize=(7.6, 2.6))
+d = short_era.iloc[::-1].reset_index(drop=True)
+y = np.arange(len(d))
+for i, r in d.iterrows():
+    col = viz.INK_MUTED if r.kind == "change" else viz.ORANGE
+    ax.hlines(i, r.lo, r.hi, color=col, lw=2.6)
+    ax.scatter([r.est], [i], color=col, s=58, zorder=3)
+    ax.annotate(f"{r.est:+.2f}", (r.est, i), xytext=(0, 9), ha="center",
+                textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+ax.axvline(0, color=viz.INK_2, lw=1.0)
+ax.set_yticks(y)
+ax.set_yticklabels(d.row)
+ax.set_ylim(-0.6, len(d) - 0.4)
+ax.set_xlabel("points per match against the model's expectation")
+ax.set_title("The shortfall did not close: the change spans zero")
+viz.despine(ax)
+plt.show()
 """)
 
 code("""
@@ -791,13 +965,7 @@ for mid, (tl, _s, _x) in TL.items():
     d75 = sum(d for m, d in tl if m <= 75)
     at75.append({"era": info.loc[mid, "era"],
                  "at75": "leading" if d75 > 0 else ("trailing" if d75 < 0 else "level")})
-at75 = pd.DataFrame(at75)
-print("scoreboard state at the 75th minute, share of matches:")
-print(pd.crosstab(at75.era, at75.at75, normalize="index")
-      .reindex(index=["pre", "post"])[["leading", "level", "trailing"]].round(3).to_string())
-print("\\nand the opposition faced, all matches:")
-print(mt.groupby("era")[["expected_gd", "expected_gf", "expected_ga"]]
-      .mean().reindex(["pre", "post"]).round(3).to_string())
+at75 = pd.DataFrame(at75)   # drawn by the next cell
 """)
 
 code("""
@@ -830,7 +998,6 @@ b.set_title("Opponent quality faced", fontsize=9.5)
 viz.despine(b)
 
 fig.suptitle("Same positions, much harder opponents", fontsize=11)
-fig.tight_layout()
 plt.show()
 """)
 
@@ -895,8 +1062,7 @@ for lab, fn in NULLS:
     o, lo, hi = sboot(fn)   # collected, not just printed -- the figure below uses it
     rows.append({"measure": lab, "diff": o, "lo": lo, "hi": hi,
                  "excludes_0": bool(lo > 0 or hi < 0)})
-nulls = pd.DataFrame(rows)
-print(nulls.round(3).to_string(index=False))
+nulls = pd.DataFrame(rows)   # drawn two cells below
 """)
 
 code("""
@@ -910,9 +1076,8 @@ srows = []
 for st in ("leading", "level", "trailing"):
     o, lo, hi = sboot(lambda d, ss=st: rate(d, ss))
     a, b = rate(ms[ms.era == "pre"], st), rate(ms[ms.era == "post"], st)
-    srows.append({"measure": f"scoring rate, {st}", "diff": o, "lo": lo, "hi": hi})
-    print(f"  scored while {st:9s} pre {a:.2f}  post {b:.2f}  "
-          f"diff {b-a:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
+    srows.append({"measure": f"scoring rate, {st}", "diff": o, "lo": lo,
+                  "hi": hi, "pre": a, "post": b})
 
 # The comparison of interest as a single quantity: does the team push when behind?
 def ratio(d):
@@ -922,10 +1087,7 @@ def ratio(d):
 o, lo, hi = sboot(ratio)
 srows.append({"measure": "trailing / level ratio", "diff": o, "lo": lo, "hi": hi})
 state_nulls = pd.DataFrame(srows)
-print(f"\\n  trailing/level ratio  pre {ratio(ms[ms.era=='pre']):.2f}  "
-      f"post {ratio(ms[ms.era=='post']):.2f}  diff {o:+.2f}  95% [{lo:+.2f}, {hi:+.2f}]")
-print(f"  goals scored while trailing, both eras: "
-      f"{int(ms.gf_trailing.sum())} -- the whole basis of this comparison")
+N_TRAIL = int(ms.gf_trailing.sum())   # the whole basis of the trailing comparison
 """)
 
 code("""
@@ -943,7 +1105,9 @@ for ax, tab, unit in ((axes[0], nulls, "difference in share"),
     ax.set_xlabel(unit, fontsize=8.5)
     viz.despine(ax)
 fig.suptitle("Post minus pre: every interval crosses zero", fontsize=11)
-fig.tight_layout()
+axes[1].annotate(f"the trailing rates rest on {N_TRAIL} goals scored while behind, "
+                 f"in eleven years", xy=(0, -0.30), xycoords="axes fraction",
+                 fontsize=8, color=viz.INK_MUTED)
 plt.show()
 """)
 
@@ -961,9 +1125,47 @@ k = (kj.groupby("Player").agg(matches=("match_id", "size"),
      .sort_values("matches", ascending=False))
 k["first"] = k["first"].dt.date
 k["last"] = k["last"].dt.date
-print("goalkeepers, 8+ matches:")
-print(k[k.matches >= 8].round(3).to_string())
-print("\\ncards per match:", mt.groupby("era").n_cards.mean().round(2).to_dict())
+kk = k[k.matches >= 8].iloc[::-1]
+fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.0),
+                         gridspec_kw={"width_ratios": [1.5, 1.3, 0.7]})
+y = np.arange(len(kk))
+a = axes[0]
+a.barh(y, kk.pre, height=0.6, color=viz.BLUE, label="pre-2022")
+a.barh(y, kk.post, left=kk.pre, height=0.6, color=viz.ORANGE, label="post-2022")
+a.set_yticks(y)
+a.set_yticklabels(kk.index, fontsize=8.5)
+a.set_xlabel("matches")
+a.set_title("A complete handover", fontsize=9.5)
+a.legend(fontsize=8, loc="center right")
+viz.despine(a)
+
+b = axes[1]
+# Area tracks matches played: a 20-match mean should not read as loudly as a
+# 53-match one, and none of these carries an interval.
+b.scatter(kk.ga_above_expected, y, color=viz.ORANGE, zorder=3,
+          s=kk.matches.values * 2.2, alpha=0.85)
+b.axvline(0, color=viz.INK_2, lw=1.0)
+b.set_yticks(y)
+b.set_yticklabels([])
+b.set_xlabel("goals conceded above expectation")
+b.set_title("and no effect on goals conceded", fontsize=9.5)
+b.annotate("dot area = matches played", xy=(0.02, 0.97), xycoords="axes fraction",
+           va="top", fontsize=7.5, color=viz.INK_MUTED)
+viz.despine(b)
+
+c = axes[2]
+cards = mt.groupby("era").n_cards.mean().reindex(["pre", "post"])
+c.bar([0, 1], cards.values, width=0.5, color=[viz.BLUE, viz.ORANGE])
+for i, v in enumerate(cards.values):
+    c.annotate(f"{v:.2f}", (i, v), xytext=(0, 3), ha="center",
+               textcoords="offset points", fontsize=8.5, color=viz.INK_2)
+c.set_xticks([0, 1])
+c.set_xticklabels(["pre", "post"], fontsize=8.5)
+c.set_ylim(0, cards.max() * 1.3)
+c.set_ylabel("cards per match")
+c.set_title("Discipline", fontsize=9.5)
+viz.despine(c)
+plt.show()
 """)
 
 md("""
@@ -1047,13 +1249,7 @@ for r in late.itertuples():
     ka = rng.poisson(r.expected_ga * 15 / 90, 40000)
     sg.append((kf + ka).mean())
     sd.append((kf == ka).mean())
-print("CALIBRATION -- the model vs what actually happens, same 36 matches")
-print(f"  goals after 75'   observed {(late.gf75 + late.ga75).mean():.2f} per match"
-      f"    model {np.mean(sg):.2f}")
-print(f"  draws             observed {(late.pts == 1).mean():.2f}"
-      f"                model {np.mean(sd):.2f}")
-print("  -> it predicts too few goals and too many draws. The shortfall")
-print("     inherits that mis-specification; it is not all Jordan's.")
+# both halves of this comparison are drawn two cells below
 """)
 
 code("""
@@ -1068,16 +1264,7 @@ for _ in range(20000):
         sh.append(d.gf75.sum() / t)
 sh_lo, sh_hi = np.percentile(sh, [2.5, 97.5])
 mdl = (late.expected_gf / (late.expected_gf + late.expected_ga)).mean()
-print(f"DIRECTION -- after the 75th minute in those {len(late)} level matches")
-print(f"  Jordan scored {f}, conceded {g}")
-print(f"  Jordan's share {f / (f + g):.3f}   95% [{sh_lo:.3f}, {sh_hi:.3f}]"
-      f"   {'EXCLUDES' if sh_hi < 0.5 else 'includes'} 0.5")
-print(f"  the model's own implied share for these fixtures: {mdl:.3f}")
-for e in ("pre", "post"):
-    d = late[late.era == e]
-    t = d.gf75.sum() + d.ga75.sum()
-    print(f"    {e:5s} n={len(d):2d}  {int(t):2d} late goals, "
-          f"Jordan's share {d.gf75.sum() / t:.3f}")
+# drawn by the next cell
 """)
 
 code("""
@@ -1126,7 +1313,6 @@ b.set_xlim(0, 0.75)
 b.set_xlabel(f"Jordan's share of the {f + g} goals after the 75th minute")
 b.set_title("The direction, which no general effect explains", fontsize=9.5)
 viz.despine(b, keep=("bottom",))
-fig.tight_layout()
 plt.show()
 """)
 
@@ -1197,13 +1383,40 @@ residual for that reason alone.
 """)
 
 code("""
-print(mt.groupby("era")[["gf", "expected_gf", "gf_above_expected",
-                         "strength_at_match"]].mean().round(3).to_string())
-print()
-print("expected_gf barely moves; the model's own ATTACK estimate is what rose.")
 tr = pd.read_csv(ROOT / "outputs" / "jordan_strength_ci.csv", parse_dates=["date"])
-sel = tr[tr.date.isin(pd.to_datetime(["2015-01-01", "2022-07-01", "2026-07-01"]))]
-print(sel[["date", "attack", "attack_lo", "attack_hi"]].round(3).to_string(index=False))
+g = mt.groupby("era")[["gf", "expected_gf"]].mean().reindex(["pre", "post"])
+
+fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.0),
+                         gridspec_kw={"width_ratios": [1, 1.45]})
+a = axes[0]
+x = np.arange(2)
+a.bar(x - 0.19, g.gf.values, width=0.36, color=viz.ORANGE, label="goals actually scored")
+a.bar(x + 0.19, g.expected_gf.values, width=0.36, color=viz.INK_MUTED,
+      label="the model's expectation")
+for off, vals in ((-0.19, g.gf.values), (0.19, g.expected_gf.values)):
+    for xi, v in zip(x + off, vals):
+        a.annotate(f"{v:.2f}", (xi, v), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=8, color=viz.INK_2)
+a.set_xticks(x)
+a.set_xticklabels(["pre-2022", "post-2022"])
+a.set_ylim(0, max(g.gf.max(), g.expected_gf.max()) * 1.3)
+a.set_ylabel("goals for, per match")
+a.set_title("Actual rises; the expectation does not", fontsize=9.5)
+a.legend(fontsize=7.5, loc="upper left")
+viz.despine(a)
+
+b = axes[1]
+trw = tr[tr.date >= START]
+b.fill_between(trw.date, trw.attack_lo, trw.attack_hi, color=viz.BLUE,
+               alpha=0.16, lw=0)
+b.plot(trw.date, trw.attack, color=viz.BLUE, lw=2.2)
+viz.mark_split(b)
+b.set_ylabel("model attack parameter")
+b.set_title("What did rise: the attack estimate itself", fontsize=9.5)
+viz.despine(b)
+fig.suptitle("Why the residual is the wrong outcome: both terms moved together",
+             fontsize=10)
+plt.show()
 """)
 
 md("""
