@@ -836,21 +836,39 @@ for i, e in enumerate(share.index):
                color=viz.INK_2)
 a.set_xticks([0, 1])
 a.set_xticklabels(["pre-2022", "post-2022"])
-a.set_ylim(0, max(share) * 2.0)
+a.set_ylim(0, max(share) * 2.1)
 a.set_ylabel("share of goals from penalties")
+# who actually takes them, since the obvious suspicion about the panel to the
+# right is that midfielders are simply the penalty takers
+pmf = (gj[gj.type.eq("penalty_goal")].groupby("era")
+       .scorer_position.value_counts().unstack(fill_value=0)
+       .reindex(["pre", "post"]))
 a.set_title("Penalties", fontsize=9.5)
+a.annotate(f"midfielders took {int(pmf.get('MF', pd.Series()).get('pre', 0))} of "
+           f"{int(pmf.loc['pre'].sum())}, then "
+           f"{int(pmf.get('MF', pd.Series()).get('post', 0))} of "
+           f"{int(pmf.loc['post'].sum())}",
+           xy=(0.5, 0.97), xycoords="axes fraction", ha="center", va="top",
+           fontsize=7.5, color=viz.INK_MUTED)
 viz.despine(a)
 
 b = axes[1]
-pos = (pd.crosstab(gj.scorer_position, gj.era, normalize="columns")
+# OPEN PLAY ONLY, so the panel cannot be read as "midfielders take the penalties"
+op = gj[~gj.type.eq("penalty_goal")]
+pos = (pd.crosstab(op.scorer_position, op.era, normalize="columns")
        .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
 x = np.arange(len(pos))
 b.bar(x - 0.19, pos.pre, width=0.36, color=viz.BLUE, label="pre-2022")
 b.bar(x + 0.19, pos.post, width=0.36, color=viz.ORANGE, label="post-2022")
+for off, col in ((-0.19, "pre"), (0.19, "post")):
+    for xi_, v in zip(x + off, pos[col]):
+        b.annotate(f"{v:.2f}", (xi_, v), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=7.5, color=viz.INK_2)
 b.set_xticks(x)
 b.set_xticklabels(pos.index)
-b.set_ylabel("share of goals")
-b.set_title("Who scores them", fontsize=9.5)
+b.set_ylim(0, pos.values.max() * 1.25)
+b.set_ylabel("share of open-play goals")
+b.set_title("Who scores them, penalties excluded", fontsize=9.5)
 b.legend(fontsize=8)
 viz.despine(b)
 plt.show()
@@ -869,9 +887,15 @@ counter-example, taking a large share of the minutes while his rate drifts down.
 **The scoring is not propped up by penalties**, though the share does rise —
 9.9% to 14.3%, on 14 and 11 goals, an interval far too wide to call a change.
 
-**Midfielders take a third of the goals, up from a fifth.** Hold that thought:
-section 1 showed Jordan switching to a back three, which puts more midfielders on
-the pitch, and the two facts are not independent.
+**And the penalties are not what put midfielders on the scoresheet**, which is
+the obvious thing to suspect from the panel beside it. Midfielders take about
+half the spot kicks in *both* eras, and the midfield share of **open-play** goals
+rises **+0.146, 95% [+0.045, +0.332]** against +0.148 [+0.038, +0.329] for all
+goals — the same number. That is why the right-hand panel excludes them.
+
+**Midfielders take a third of the open-play goals, up from a fifth.** Hold that
+thought: section 1 showed Jordan switching to a back three, which puts more
+midfielders on the pitch, and the two facts are not independent.
 """)
 
 code("""
