@@ -329,15 +329,108 @@ two concentration measures go negative only at the earliest cuts, where "pre" is
 """)
 
 md("""
-## 1. The goals came from fewer players
+## 1. The team narrowed
 
-"How many different men scored" is a **species-richness** problem, and richness
-rises with sample size whatever the true diversity. The post era has far fewer
-goals, so raw counts are not comparable.
+Section 0 showed the squad close after 2021. This measures it, with intervals.
+Three measures, each built to survive the same confound: raw counts accumulate
+with time, and FBref's coverage starts in 2011, so the naive versions rise for
+reasons unrelated to Jordan.
 
-The fix is **rarefaction** (Gotelli & Colwell 2001; Hurlbert 1971): draw the
-larger era down to the smaller era's size, repeatedly, and compare distributions
-rather than points.
+- **Minutes concentration** — share of minutes to the top eleven, at equal match
+  counts.
+- **Team familiarity** — of the 55 pairs in today's XI, how much of the previous
+  24 months the average pair had already started together (pairwise prior
+  appearances, *Journal of Big Data* 2025), divided by the matches available in
+  that window so it is a rate that cannot drift with fixture density.
+- **Appearance rate** — the same thing at player level instead of pair level.
+  🚨 It is **not** independent evidence — it tracks familiarity at r = 0.99 and
+  cannot exceed it, so the two are one finding measured at two levels.
+
+Plus **midfield share of goals**, which needs no correction.
+""")
+
+code("""
+BLOCKS = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
+
+def block_boot(fn, nb=600):
+    \"\"\"Resample six-month blocks within each era; matches in a window are not
+    independent draws, so the block is the unit (Kunsch 1989).\"\"\"
+    obs = fn(mt[mt.era == "post"]) - fn(mt[mt.era == "pre"])
+    vals = []
+    for _ in range(nb):
+        s = {e: pd.concat([BLOCKS[e][i]
+                           for i in rng.integers(0, len(BLOCKS[e]), len(BLOCKS[e]))])
+             for e in ("pre", "post")}
+        v = fn(s["post"]) - fn(s["pre"])
+        if np.isfinite(v):
+            vals.append(v)
+    lo, hi = np.percentile(vals, [2.5, 97.5])
+    return obs, lo, hi
+
+MEASURES = [
+    ("midfielder share of goals", mf_share, 600),
+    ("minutes: top-11 share", top11, 600),
+    ("familiarity rate (pairs)", lambda d: windowed(d, "fam"), 600),
+    ("appearance rate (starters)", lambda d: windowed(d, "caps"), 600),
+]
+res = []
+for lab, fn, nb in MEASURES:
+    o, lo, hi = block_boot(fn, nb)
+    res.append({"measure": lab, "pre": fn(mt[mt.era == "pre"]),
+                "post": fn(mt[mt.era == "post"]),
+                "diff": o, "lo": lo, "hi": hi,
+                "excludes_0": bool(lo > 0 or hi < 0)})
+settled = pd.DataFrame(res)   # drawn by the next cell
+""")
+
+code("""
+fig, ax = plt.subplots(figsize=(7.6, 3.4))
+d = settled.iloc[::-1].reset_index(drop=True)
+y = np.arange(len(d))
+for i, r in d.iterrows():
+    col = viz.ORANGE if r.excludes_0 else viz.INK_MUTED
+    ax.plot([r.lo, r.hi], [i, i], color=col, lw=2.4, solid_capstyle="round")
+    ax.plot(r["diff"], i, "o", color=col, ms=7, zorder=3)
+    ax.annotate(f"{r['diff']:+.2f}", xy=(r["diff"], i), xytext=(0, 9),
+                textcoords="offset points", ha="center", fontsize=8, color=col)
+ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=0)
+ax.set_yticks(y); ax.set_yticklabels(d.measure)
+ax.set_xlabel("change, pre-2022 to post-2022  (95% block-bootstrap interval)")
+ax.set_title("A narrower, more settled team")
+ax.annotate(f"windowed rates cover {XI_COVER[0]} of {XI_COVER[1]} matches with a "
+            f"recorded XI", xy=(0, -0.26), xycoords="axes fraction", fontsize=8,
+            color=viz.INK_MUTED)
+viz.despine(ax)
+ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
+plt.show()
+""")
+
+md("""
+All four clear zero — but they are **three** findings, not four: familiarity and
+appearance rate are the same measure at pair and player level, and agreeing with
+itself is not corroboration. What is left is more minutes to fewer players, a
+more continuous selection, and more goals from midfield.
+
+Everything about *goals* from here is downstream of this. Fewer men on the pitch
+means fewer men available to score, so the next section is not a second
+discovery — it is a consequence, and it gets tested as one.
+""")
+
+md("""
+## 2. And the goals followed
+
+The post-2022 goals come from fewer men. That is easy to show and easy to
+over-read, because **two different corrections are needed and only one of them
+is obvious.**
+
+**Rarefaction** (Gotelli & Colwell 2001; Hurlbert 1971) handles the first. "How
+many different men scored" is a species-richness problem, richness rises with
+sample size whatever the true diversity, and the post era has far fewer goals —
+so draw the larger era down to the smaller era's size, repeatedly, and compare
+distributions rather than points.
+
+That fixes the number of **goals**. It does nothing about the number of
+**players on the pitch to score them**, which section 1 just showed collapsing.
 """)
 
 code("""
@@ -439,10 +532,81 @@ curves separate well before the cut, so this is not an artefact of era length.
 Jordan's leading scorer takes no more of the load than a same-sized pre-2022
 sample would. Breadth moves; the individual does not. A narrowing onto a small
 **group** — and "one player carries them" is not supportable.
+
+That is as far as rarefaction can take it. The remaining question is whether the
+goals narrowed *more* than the squad did.
+""")
+
+code("""
+# Rarefaction fixed the goal count. This fixes the player count: allocate each
+# era's goals across players in proportion to the minutes they ACTUALLY played,
+# and ask whether real scoring is more concentrated than that -- and whether the
+# gap moved. If the gap is the same in both eras, the narrowing is section 1's,
+# not a fact about scoring.
+def gprofile(c):
+    c = np.asarray(c, float)
+    p = c[c > 0] / c[c > 0].sum()
+    return {"distinct scorers": float(len(p)),
+            "top-3 share": float(np.sort(p)[-3:].sum()),
+            "HHI": float((p ** 2).sum())}
+
+era_of = mt.set_index("match_id").era
+jam = ja.assign(era=ja.match_id.map(era_of)).dropna(subset=["era"])
+null = []
+for e in ("pre", "post"):
+    w = jam[jam.era == e].groupby("player_id").Min.sum()
+    w = (w[w > 0] / w[w > 0].sum()).values
+    g = gj[gj.era == e]
+    obs = gprofile(g.scorer_player_id.value_counts().values)
+    sim = pd.DataFrame([gprofile(rng.multinomial(len(g), w / w.sum()))
+                        for _ in range(3000)])
+    for k, v in obs.items():
+        lo, hi = np.percentile(sim[k], [2.5, 97.5])
+        null.append({"era": e, "measure": k, "observed": v,
+                     "implied": sim[k].mean(), "lo": lo, "hi": hi,
+                     "n_players": len(w), "ratio": v / sim[k].mean()})
+null = pd.DataFrame(null)
+""")
+
+code("""
+MEAS = ["distinct scorers", "top-3 share", "HHI"]
+fig, axes = plt.subplots(1, 3, figsize=(7.8, 3.0))
+for ax, k in zip(axes, MEAS):
+    d = null[null.measure == k].set_index("era").reindex(["pre", "post"])
+    x = np.arange(2)
+    ax.vlines(x, d.lo, d.hi, color=viz.INK_MUTED, lw=6, alpha=0.35)
+    ax.scatter(x, d.implied, color=viz.INK_MUTED, s=26, zorder=3)
+    ax.scatter(x, d.observed, color=viz.ORANGE, s=70, zorder=4)
+    for xi, r in zip(x, d.ratio):
+        ax.annotate(f"x{r:.2f}", (xi, d.observed.iloc[xi]), xytext=(0, 9),
+                    ha="center", textcoords="offset points", fontsize=8.5,
+                    color=viz.INK_2)
+    ax.set_xticks(x)
+    ax.set_xticklabels(["pre", "post"])
+    ax.set_xlim(-0.6, 1.6)
+    ax.set_title(k, fontsize=9.5)
+    viz.despine(ax)
+    ax.grid(axis="x", visible=False)
+axes[0].set_ylabel("orange = observed\\ngrey = implied by minutes")
+fig.suptitle("Relative to who was on the pitch, the scoring did not narrow at all",
+             fontsize=11)
+plt.show()
 """)
 
 md("""
-## 2. Who
+**The narrowing is section 1's, not a second finding.** Jordan's scoring runs
+about 2.4× more concentrated than minutes alone imply — and that multiple is the
+*same before and after 2022*. Whatever makes Jordan's goals cluster on a few men
+was already there in 2015; what changed is how few men were on the pitch.
+
+So the answer to the notebook's title question is: **the extra goals came from
+the same small group that had taken over the minutes.** Not a new generation of
+scorers, and not a scoring pattern that changed — a squad that stopped rotating,
+with the goals following the playing time exactly as they always had.
+""")
+
+md("""
+## 3. Who
 
 Half a changing of the guard. Two high-volume pre-2022 scorers vanish; the three
 who take over were **already there**, scoring before 2022 and then scaling up.
@@ -483,94 +647,6 @@ would be an overstatement.
 Section 1's narrowing is not a squad rebuilt. It is a wide, flat distribution
 collapsing onto three players already in it. Whether that is finding your best
 attackers or running out of alternatives, this data cannot say.
-""")
-
-md("""
-## 3. A narrower group, a more settled team
-
-If the goals narrowed, did the *team*? Three measures, each built to survive the
-same confound: raw counts accumulate with time, and FBref's coverage starts in
-2011, so the naive versions rise for reasons unrelated to Jordan.
-
-- **Minutes concentration** — share of minutes to the top eleven, at equal match
-  counts.
-- **Team familiarity** — of the 55 pairs in today's XI, how much of the previous
-  24 months the average pair had already started together (pairwise prior
-  appearances, *Journal of Big Data* 2025), divided by the matches available in
-  that window so it is a rate that cannot drift with fixture density.
-- **Appearance rate** — the same thing at player level instead of pair level:
-  how much of those 24 months the average starter had started. 🚨 It is **not**
-  independent evidence — it tracks familiarity at r = 0.99 and cannot exceed it,
-  so the two below are one finding measured at two levels.
-
-Plus **midfield share of goals**, which needs no correction.
-""")
-
-code("""
-BLOCKS = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
-
-def block_boot(fn, nb=600):
-    \"\"\"Resample six-month blocks within each era; matches in a window are not
-    independent draws, so the block is the unit (Kunsch 1989).\"\"\"
-    obs = fn(mt[mt.era == "post"]) - fn(mt[mt.era == "pre"])
-    vals = []
-    for _ in range(nb):
-        s = {e: pd.concat([BLOCKS[e][i]
-                           for i in rng.integers(0, len(BLOCKS[e]), len(BLOCKS[e]))])
-             for e in ("pre", "post")}
-        v = fn(s["post"]) - fn(s["pre"])
-        if np.isfinite(v):
-            vals.append(v)
-    lo, hi = np.percentile(vals, [2.5, 97.5])
-    return obs, lo, hi
-
-MEASURES = [
-    ("midfielder share of goals", mf_share, 600),
-    ("minutes: top-11 share", top11, 600),
-    ("familiarity rate (pairs)", lambda d: windowed(d, "fam"), 600),
-    ("appearance rate (starters)", lambda d: windowed(d, "caps"), 600),
-]
-res = []
-for lab, fn, nb in MEASURES:
-    o, lo, hi = block_boot(fn, nb)
-    res.append({"measure": lab, "pre": fn(mt[mt.era == "pre"]),
-                "post": fn(mt[mt.era == "post"]),
-                "diff": o, "lo": lo, "hi": hi,
-                "excludes_0": bool(lo > 0 or hi < 0)})
-settled = pd.DataFrame(res)   # drawn by the next cell
-""")
-
-code("""
-fig, ax = plt.subplots(figsize=(7.6, 3.4))
-d = settled.iloc[::-1].reset_index(drop=True)
-y = np.arange(len(d))
-for i, r in d.iterrows():
-    col = viz.ORANGE if r.excludes_0 else viz.INK_MUTED
-    ax.plot([r.lo, r.hi], [i, i], color=col, lw=2.4, solid_capstyle="round")
-    ax.plot(r["diff"], i, "o", color=col, ms=7, zorder=3)
-    ax.annotate(f"{r['diff']:+.2f}", xy=(r["diff"], i), xytext=(0, 9),
-                textcoords="offset points", ha="center", fontsize=8, color=col)
-ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=0)
-ax.set_yticks(y); ax.set_yticklabels(d.measure)
-ax.set_xlabel("change, pre-2022 to post-2022  (95% block-bootstrap interval)")
-ax.set_title("A narrower, more settled team")
-ax.annotate(f"windowed rates cover {XI_COVER[0]} of {XI_COVER[1]} matches with a "
-            f"recorded XI", xy=(0, -0.26), xycoords="axes fraction", fontsize=8,
-            color=viz.INK_MUTED)
-viz.despine(ax)
-ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
-plt.show()
-""")
-
-md("""
-All four clear zero — but they are **three** findings, not four: familiarity and
-appearance rate are the same measure at pair and player level, and agreeing with
-itself is not corroboration. What is left is more minutes to fewer players, a
-more continuous selection, and more goals from midfield.
-
-Keep the last one separate. The others describe **stability**; midfield share
-describes **shape** — consistent evidence, not the same evidence. And per section
-0, it is the one measure that cannot locate a date.
 """)
 
 md("""
@@ -1266,8 +1342,8 @@ md("""
 
 | | | |
 |---|---|---|
-| **Supported** | a narrower group of scorers | outside the rarefied pre-2022 range on distinct scorers, top-3 share and HHI |
-| | a more settled team | minutes top-11 **+0.247** [+0.135, +0.351]; familiarity **+0.217** [+0.113, +0.337] |
+| **Supported** | a more settled team | minutes top-11 **+0.247** [+0.135, +0.351]; familiarity **+0.217** [+0.113, +0.337] |
+| | the goals narrowed with it | outside the rarefied pre-2022 range — but **entirely explained** by the minutes, ratio to minutes-implied 2.14 → 2.13 |
 | | more goals from midfield | **+0.148** [+0.039, +0.315] — but it cannot locate a date (section 0) |
 | **Unchanged** | late conceding | a third of goals against in the last fifteen minutes, both eras |
 | | level scorelines | shortfall −0.50 pre, −0.41 post; change **+0.09** [−0.36, +0.77] |
