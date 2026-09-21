@@ -355,15 +355,21 @@ plt.show()
 code("""
 # Did the SHAPE settle, or only the personnel? Count distinct formations used in
 # each year, and bootstrap the era difference in the back-3 share.
-obs = (mt[mt.era == "post"].line.eq("back 3 or 5").mean()
-       - mt[mt.era == "pre"].line.eq("back 3 or 5").mean())
+# A match with no recorded formation is NOT evidence of a back four, so the
+# unknowns leave the denominator rather than counting against it. Eight matches,
+# four each era; including them understates the change by 0.07.
+def b3(frame):
+    v = frame.line.dropna()
+    return v.eq("back 3 or 5").mean() if len(v) else np.nan
+
+obs = b3(mt[mt.era == "post"]) - b3(mt[mt.era == "pre"])
 dr = []
 for _ in range(3000):
     v = []
     for e in ("pre", "post"):
         pick = pd.concat([BLOCKS_F[e][i]
                           for i in rng.integers(0, len(BLOCKS_F[e]), len(BLOCKS_F[e]))])
-        v.append(pick.line.eq("back 3 or 5").mean())
+        v.append(b3(pick))
     if np.isfinite(v[0]) and np.isfinite(v[1]):
         dr.append(v[1] - v[0])
 BACK3 = (obs, *np.percentile(dr, [2.5, 97.5]))
