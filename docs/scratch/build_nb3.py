@@ -729,6 +729,17 @@ mt["opp_bl"] = pd.to_numeric(mt.opp_formation.astype(str).str.split("-").str[0],
                              errors="coerce")
 mt["opp_line"] = np.where(mt.opp_bl.isin([3, 5]), "back 3 or 5",
                           np.where(mt.opp_bl == 4, "back 4", None))
+# expected_gd is a DIFFERENCE: Jordan's strength minus the opponent's, plus the
+# model's home-advantage term. Back the opponent out of it, so the two sides can
+# be drawn separately. strength_at_match is Jordan's own parameter -- the same
+# quantity notebook 01 traces.
+_adv = tr.set_index("date").home_adv.sort_index()
+mt["adv"] = mt.date.map(lambda d: _adv.reindex(_adv.index.union([d]))
+                        .sort_index().ffill().get(d, np.nan))
+mt["venue_eff"] = np.where(mt.venue == "home", mt.adv,
+                           np.where(mt.venue == "away", -mt.adv, 0.0))
+mt["opp_str"] = mt.strength_at_match - (mt.expected_gd - mt.venue_eff)
+
 BLK = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
 
 
@@ -754,18 +765,25 @@ code("""
 fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
                          gridspec_kw={"width_ratios": [1.7, 1]})
 a = axes[0]
-for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
-    d = mt[mt.era == e]
-    a.scatter(d.date, d.expected_gd, s=16, color=col, alpha=0.6, linewidths=0)
-roll = mt.sort_values("date").set_index("date").expected_gd.rolling(12, center=True).mean()
-a.plot(roll.index, roll.values, color=viz.INK, lw=2.0)
-a.axhline(0, color=viz.INK_2, lw=1.0)
+srt = mt.sort_values("date")
+jr = srt.set_index("date").strength_at_match.rolling(12, center=True).mean()
+orr = srt.set_index("date").opp_str.rolling(12, center=True).mean()
+a.fill_between(jr.index, jr.values, orr.values, where=jr.values >= orr.values,
+               color=viz.BLUE, alpha=0.12, interpolate=True)
+a.fill_between(jr.index, jr.values, orr.values, where=jr.values < orr.values,
+               color=viz.ORANGE, alpha=0.14, interpolate=True)
+a.scatter(srt.date, srt.opp_str, s=12, color=viz.ORANGE, alpha=0.4, linewidths=0)
+a.plot(jr.index, jr.values, color=viz.BLUE, lw=2.3, label="Jordan")
+a.plot(orr.index, orr.values, color=viz.ORANGE, lw=2.3, label="the opponent")
 viz.mark_split(a)
-a.annotate("harder", xy=(0.01, 0.06), xycoords="axes fraction", fontsize=8,
+a.set_ylabel("model strength")
+a.set_title("Both sides of the subtraction", fontsize=9.5)
+a.annotate("12-match averages; the shaded gap is expected goal difference",
+           xy=(0.02, 0.03), xycoords="axes fraction", fontsize=7.5,
            color=viz.INK_MUTED)
-a.set_ylabel("expected goal difference")
-a.set_title("Opponent strength, match by match (black = 12-match average)",
-            fontsize=9.5)
+# the individual opponents run to +-4 and squash the lines that carry the point
+a.set_ylim(-2.2, 3.6)
+a.legend(fontsize=8, loc="upper left")
 viz.despine(a)
 
 b = axes[1]
@@ -962,11 +980,27 @@ plt.show()
 """)
 
 md("""
-**The opponents got much harder, and it was partly chosen.** Mean expected goal
-difference falls from **+0.48 to +0.02**, and the share of matches against a
-clearly stronger side goes **16% to 38%**. Qualifiers are drawn, so some of that
-is a consequence of going further — but the *friendlies* hardened too, **+0.24 to
-−0.39**, and friendlies are arranged. Somebody decided to play better teams.
+**The opponents got much harder — twice as fast as Jordan improved.** Expected
+goal difference is a *difference*, so a line of it falling cannot say which side
+moved. Backing the opponent out of it, with the model's own home-advantage term
+(0.27) removed:
+
+| | pre | post | change |
+|---|---|---|---|
+| Jordan's strength | 0.70 | 1.11 | **+0.41** |
+| the opponent's | 0.22 | 1.06 | **+0.84** |
+| the gap between them | +0.48 | +0.02 | −0.45 |
+
+The blue line is notebook 01's trace, sampled at match dates; the orange is who
+was on the other side. The narrowing gap *understates* the hardening, because
+Jordan's own rise is pushing it back open. This is not a scheduling-mix effect —
+holding the venue mix fixed gives +0.25 to +0.98, and opponent strength rises
+inside every venue category.
+
+**And it was partly chosen.** Qualifiers are drawn, so meeting better teams is
+partly a consequence of going further. But the *friendlies* hardened too,
+**+0.24 to −0.39**, and friendlies are arranged. Somebody decided to play better
+opposition.
 
 **Whatever Jordan gained, it gained against everyone equally.** Fitting every
 match rather than binning: the slope is **1.14 in both eras** — change **+0.00,
