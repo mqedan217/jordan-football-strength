@@ -864,44 +864,6 @@ plt.show()
 """)
 
 code("""
-# The fixture list itself: who, what kind, and where.
-fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.0),
-                         gridspec_kw={"width_ratios": [1.5, 1, 1]})
-a = axes[0]
-for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
-    a.hist(mt[mt.era == e].expected_gd, bins=np.arange(-3, 3.01, 0.4),
-           density=True, color=col, alpha=0.55, label=f"{e}-2022")
-a.axvline(0, color=viz.INK_2, lw=1.0)
-a.annotate("\u2190 harder", xy=(-2.9, 0.97), xycoords=("data", "axes fraction"),
-           fontsize=8.5, color=viz.INK_2, va="top", ha="left")
-a.annotate("easier \u2192", xy=(2.9, 0.97), xycoords=("data", "axes fraction"),
-           fontsize=8.5, color=viz.INK_2, va="top", ha="right")
-a.set_xlabel("model expected goal difference")
-a.set_ylabel("density of matches")
-a.set_title("Who Jordan played", fontsize=9.5)
-a.legend(fontsize=8)
-viz.despine(a)
-for ax, col_, ttl in ((axes[1], "kind", "Match type"), (axes[2], "venue", "Venue")):
-    t = pd.crosstab(mt[col_], mt.era, normalize="columns").reindex(columns=["pre", "post"])
-    n_ = pd.crosstab(mt[col_], mt.era).reindex(columns=["pre", "post"])
-    x = np.arange(len(t))
-    for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-        ax.bar(x + off, t[e], width=0.36, color=c, label=f"{e}-2022")
-        for xi_, v, nn in zip(x + off, t[e], n_[e]):
-            ax.annotate(f"{int(nn)}", (xi_, v), xytext=(0, 3), ha="center",
-                        textcoords="offset points", fontsize=7, color=c)
-    ax.set_xticks(x)
-    ax.set_xticklabels(t.index, fontsize=8)
-    ax.set_ylim(0, 1)
-    ax.set_title(ttl, fontsize=9.5)
-    viz.despine(ax)
-axes[1].set_ylabel("share of matches")
-axes[2].legend(fontsize=8)
-fig.suptitle("Numbers on the bars are matches", fontsize=9.5)
-plt.show()
-""")
-
-code("""
 # THE question: given the opponent, how much better is Jordan? Every match, not
 # four bins -- bins of 6 to 37 matches wobble, and the wobble reads as a finding.
 # A fit per era answers both "how much better" (the intercept) and "does it
@@ -1112,6 +1074,12 @@ opponents played a back four.
 🚨 Four post-era matches are still missing and they still lean easy (mean
 expected goal difference +0.99 against −0.07 for the covered ones), so read the
 right-hand panel as a description rather than an estimate.
+
+One structural change is not worth a chart: Jordan plays fewer home matches
+than it used to, **31% to 20%**, with neutral grounds taking up the slack as the
+schedule filled with tournaments. At the model's home advantage of 0.27 goals
+that mix costs about **0.03 goals a match** — real, and negligible beside the 0.84
+the opposition improved by.
 """)
 
 md("""
