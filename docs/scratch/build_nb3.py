@@ -728,8 +728,7 @@ mt["band"] = pd.cut(mt.expected_gd, [-99, -0.5, 0, 0.5, 99], labels=BANDS)
 # counts belong in the tick label: several of these cells are thin, and a
 # reader should see that before reading the bar above it
 _n = pd.crosstab(mt.band, mt.era).reindex(BANDS).reindex(columns=["pre", "post"])
-BAND_LBL = [b.replace(" ", chr(10)) + chr(10) + f"{int(p)} / {int(q)}"
-            for b, p, q in zip(BANDS, _n.pre, _n.post)]
+BAND_LBL = [b.replace(" ", chr(10)) for b in BANDS]
 """)
 
 code("""
@@ -783,6 +782,15 @@ for ax, col_, ttl, ref in ((axes[0], "pts", "Points per match", None),
     for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
         d = g[g.era == e].set_index("band").reindex(BANDS)
         ax.bar(x + off, d[col_].values, width=0.36, color=c, label=f"{e}-2022")
+        # the match count rides on its own bar, in its own colour: four bands x
+        # two eras will not fit in a tick label without overlapping
+        for xi_, v, n_ in zip(x + off, d[col_].values, d["n"].values):
+            if not np.isfinite(v):
+                continue
+            ax.annotate(f"{int(n_)}", (xi_, v),
+                        xytext=(0, 3 if v >= 0 else -10),
+                        ha="center", textcoords="offset points",
+                        fontsize=7, color=c)
     if ref is not None:
         ax.axhline(ref, color=viz.INK_2, lw=1.0)
     ax.set_xticks(x)
@@ -792,8 +800,10 @@ for ax, col_, ttl, ref in ((axes[0], "pts", "Points per match", None),
     ax.grid(axis="x", visible=False)
 axes[0].legend(fontsize=8, loc="upper left")
 axes[0].set_ylabel("points per match")
-fig.suptitle("Opponent strength, and how Jordan did against each band"
-             "   (tick labels give pre / post match counts)", fontsize=10)
+fig.suptitle("Each match sorted by how strong the opponent was, then pre vs post"
+             " within each group\\n"
+             "numbers on the bars are how many matches that bar is built from",
+             fontsize=10)
 plt.show()
 """)
 
