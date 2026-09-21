@@ -578,6 +578,99 @@ Jordan still changes players, it just changes fewer of them, inside a shape that
 no longer changes at all.
 """)
 
+code("""
+
+# Where the players earn their club football. FBref cannot answer this -- its
+# soccerdata reader covers nine leagues and none of the ones Jordan's players
+# are in -- so this comes from Wikipedia tournament squad lists via
+# JordanData/wiki_squads.py: five squads, each row carrying the club and the
+# club's country at the moment that squad was named.
+#
+# Counted per PLAYER per era, not per squad place: a regular named in three
+# squads would otherwise count three times, and that alone flips the forward
+# result from 47%->29% to 56%->56%.
+pe = pd.read_csv(SQUAD / "tournament_player_eras.csv")
+pe["abroad"] = pe.region.ne("Jordan")
+REG = ["Jordan", "Arab / Asia", "Europe"]
+
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
+                         gridspec_kw={"width_ratios": [1, 1.2]})
+a = axes[0]
+rs = (pd.crosstab(pe.region, pe.era, normalize="columns")
+      .reindex(columns=["pre", "post"]).reindex(REG).fillna(0))
+rn = (pd.crosstab(pe.region, pe.era).reindex(columns=["pre", "post"])
+      .reindex(REG).fillna(0))
+x = np.arange(len(REG))
+for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    a.bar(x + off, rs[e], width=0.36, color=col, label=f"{e}-2022")
+    for xi_, v, n_ in zip(x + off, rs[e], rn[e]):
+        a.annotate(f"{int(n_)}", (xi_, v), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=7.5, color=viz.INK_2)
+a.set_xticks(x)
+a.set_xticklabels(REG, fontsize=8.5)
+a.set_ylim(0, 0.85)
+a.set_ylabel("share of player-eras")
+a.set_title("Where they play their club football", fontsize=9.5)
+a.legend(fontsize=8)
+viz.despine(a)
+
+b = axes[1]
+LINES = ["GK", "DF", "MF", "FW"]
+rows = []
+for ln in LINES:
+    m = pe.pos.eq(ln)
+    pa, po = pe[m & pe.era.eq("pre")].abroad, pe[m & pe.era.eq("post")].abroad
+    d = [rng.choice(po.values, len(po)).mean() - rng.choice(pa.values, len(pa)).mean()
+         for _ in range(4000)]
+    lo, hi = np.percentile(d, [2.5, 97.5])
+    rows.append({"line": ln, "diff": po.mean() - pa.mean(), "lo": lo, "hi": hi,
+                 "n_pre": len(pa), "n_post": len(po)})
+ab = pd.DataFrame(rows).iloc[::-1].reset_index(drop=True)
+y = np.arange(len(ab))
+b.hlines(y, ab.lo, ab.hi, color=viz.INK_MUTED, lw=2.4)
+b.scatter(ab["diff"], y, color=viz.ORANGE, s=52, zorder=3)
+b.axvline(0, color=viz.INK_2, lw=1.0)
+b.set_yticks(y)
+b.set_yticklabels([f"{r.line}  ({r.n_pre}/{r.n_post})" for r in ab.itertuples()],
+                  fontsize=8.5)
+b.set_xlabel("change in share playing abroad, post minus pre")
+b.set_title("Every line spans zero (labels give pre/post players)", fontsize=9.5)
+viz.despine(b)
+plt.show()
+
+""")
+
+md("""
+
+🚨 **A measured null, and a thin one.** The share of Jordan's squad playing club
+football abroad goes **27.5% to 35.0%** — a difference of **+0.075, 95% [−0.12,
++0.27]**. Every line spans zero too, on between five and sixteen players a cell.
+Midfield is the suggestive one (**+0.27, [−0.07, +0.62]**) and fits the rest of
+the midfield story, but it cannot be called.
+
+Two things *are* visible. The first is a move into the **Iraqi league** — one
+player-era before 2022, seven after, mostly Al-Shorta — while the Bahraini (4 to
+0) and Kuwaiti (3 to 0) clubs emptied out entirely.
+
+🚨 **The second is the striking one: Europe has been exactly one player, and the
+same player.** Musa Al-Taamari, at APOEL before and Montpellier after. Across
+five squads spanning eleven years Jordan has never had a second European-based
+man in a tournament squad.
+
+That reframes everything above it. **Jordan reached an Asian Cup final and a
+World Cup with a squad roughly two-thirds home-based and one European
+professional.** Whatever the settled XI and the back three are worth, they were
+worth it without the route most improving nations take. Nothing here can say
+what sending players to stronger leagues would do — that is an untested avenue,
+not a measured one — but it is the obvious thing this team has not tried, and
+the one player who did take it is the same man whose scoring rate doubled.
+
+Caveats the figure cannot carry: this is **five tournament squads, not a career
+average**. Friendly call-ups are invisible, and a transfer between tournaments
+cannot be seen.
+
+""")
+
 md("""
 ## 2. The opposition
 
