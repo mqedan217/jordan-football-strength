@@ -506,7 +506,7 @@ settled = pd.DataFrame(res)   # drawn by the next cell
 """)
 
 code("""
-fig, ax = plt.subplots(figsize=(7.6, 3.4))
+fig, ax = plt.subplots(figsize=(7.6, 2.2))
 d = settled.iloc[::-1].reset_index(drop=True)
 y = np.arange(len(d))
 for i, r in d.iterrows():
