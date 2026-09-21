@@ -631,14 +631,18 @@ rn = (pd.crosstab(pe.region, pe.era).reindex(columns=["pre", "post"])
 x = np.arange(len(REG))
 for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
     a.bar(x + off, rs[e], width=0.36, color=col, label=f"{e}-2022")
+    # label the DENOMINATOR too: the bars are shares, the eras hold 51 and 40
+    # player-eras, so the same count of 13 is a different height in each
+    tot_e = int(rn[e].sum())
     for xi_, v, n_ in zip(x + off, rs[e], rn[e]):
-        a.annotate(f"{int(n_)}", (xi_, v), xytext=(0, 3), ha="center",
-                   textcoords="offset points", fontsize=7.5, color=viz.INK_2)
+        a.annotate(f"{int(n_)} of {tot_e}", (xi_, v), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=7, color=viz.INK_2)
 a.set_xticks(x)
 a.set_xticklabels(REG, fontsize=8.5)
 a.set_ylim(0, 0.85)
 a.set_ylabel("share of player-eras")
 a.set_title("Where they play their club football", fontsize=9.5)
+a.set_xlabel("bars are shares of each era, not counts", fontsize=7.5)
 a.legend(fontsize=8)
 viz.despine(a)
 
