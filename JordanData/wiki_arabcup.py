@@ -78,6 +78,34 @@ def fetch_page(title, pause=1.0):
     return r.text
 
 
+# Wikipedia lineups use specific positions where FBref often uses coarse ones.
+# Wing-backs count as defenders here, so a 3-CB + 2-WB side reads as a back five
+# -- which is the same thing as a back three for the only question being asked,
+# and why both are collapsed together downstream.
+POS_BAND = {
+    "GK": "GK",
+    "CB": "DF", "LB": "DF", "RB": "DF", "DF": "DF", "LWB": "DF", "RWB": "DF",
+    "SW": "DF", "WB": "DF",
+    "DM": "MF", "CM": "MF", "AM": "MF", "MF": "MF", "LM": "MF", "RM": "MF",
+    "FW": "FW", "CF": "FW", "LF": "FW", "RF": "FW", "LW": "FW", "RW": "FW",
+    "ST": "FW", "SS": "FW",
+}
+
+
+def shape_from_rows(rows):
+    """`DF-MF-FW` counts of a starting eleven, or None if it is not eleven."""
+    st = [r for r in rows if r.get("role") == "starter"]
+    if len(st) != 11:
+        return None
+    bands = [POS_BAND.get(str(r.get("position", "")).upper()) for r in st]
+    if any(b is None for b in bands):
+        return None
+    n = {b: bands.count(b) for b in ("GK", "DF", "MF", "FW")}
+    if n["GK"] != 1:
+        return None
+    return f"{n['DF']}-{n['MF']}-{n['FW']}"
+
+
 def _clean_name(cell):
     """Display name from the first wiki link in a cell."""
     for target, display in LINK.findall(cell):
@@ -185,6 +213,12 @@ def parse_page(text, team_code="JOR"):
         rows, manager = _parse_lineup(block)
         if not rows:
             continue
+        # The opposition's table is the other one, and it was being discarded.
+        # FBref has no Arab Cup at all, so this is the only source for how these
+        # ten opponents set up.
+        opp_block = tables[1] if side == "team1" else tables[0]
+        opp_rows, opp_manager = _parse_lineup(opp_block)
+        opp_shape = shape_from_rows(opp_rows) if opp_rows else None
 
         gf, ga = (int(sc.group(1)), int(sc.group(2))) if sc else (None, None)
         if side == "team2":
@@ -201,7 +235,11 @@ def parse_page(text, team_code="JOR"):
             "manager": manager,
             "goals_raw": goals.group(1).strip() if goals else None,
             "opp_goals_raw": opp_goals.group(1).strip() if opp_goals else None,
+            "xi_shape": shape_from_rows(rows),
+            "opp_formation": opp_shape,
+            "opp_manager": opp_manager,
             "lineup": rows,
+            "opp_lineup": opp_rows or [],
         })
     return out
 
@@ -226,7 +264,8 @@ def to_frames(matches):
     mrows, lrows = [], []
     for m in matches:
         mid = "ac_" + m["date"].replace("-", "")
-        mrows.append({k: v for k, v in m.items() if k != "lineup"} | {"match_id": mid})
+        mrows.append({k: v for k, v in m.items()
+                      if k not in ("lineup", "opp_lineup")} | {"match_id": mid})
         for r in m["lineup"]:
             lrows.append(r | {"match_id": mid, "date": m["date"],
                               "player_id": pd.NA, "source": "wikipedia"})
@@ -285,7 +324,9 @@ def build():
     mdf, ldf = to_frames(matches)
     mdf.to_csv(OUT / "arabcup_matches.csv", index=False)
     ldf.to_csv(OUT / "arabcup_lineups.csv", index=False)
-    print(f"\narabcup_matches.csv  {len(mdf)} matches")
+    n_of = mdf.opp_formation.notna().sum()
+    print(f"\narabcup_matches.csv  {len(mdf)} matches, "
+          f"{n_of} with a derived opponent formation")
     print(f"arabcup_lineups.csv  {len(ldf)} player rows")
     print(ldf.groupby("role").size().to_string())
 

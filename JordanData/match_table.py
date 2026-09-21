@@ -412,6 +412,27 @@ def build_match_table():
     # METHOD changing. Restricted to 2019 onward the mix is 82% vs 85% and the
     # comparison is safe. Use `formation_source` to check this before trusting
     # any trend, or filter to formation_source == "fbref".
+    # FBref has no Arab Cup at all, so opp_formation was null for those ten
+    # matches -- and they are Jordan's easiest post-era block, so the gap was
+    # correlated with the outcome. The opposition's lineup sits in the same
+    # Wikipedia Football box as Jordan's, so its shape is derivable exactly as
+    # xi_shape is. Provenance is kept separately: this one is DERIVED, FBref's
+    # is REPORTED, and the two agree on the full string only ~69% of the time
+    # (they agree on the size of the BACK LINE essentially always, which is why
+    # back-three analysis is safe across the mix and full-string analysis is not).
+    out["opp_formation_source"] = None
+    if "opp_formation" in out.columns:
+        out.loc[out.opp_formation.notna(), "opp_formation_source"] = "fbref"
+    _acf = SQUAD / "arabcup_matches.csv"
+    if _acf.exists():
+        _ac = pd.read_csv(_acf)
+        if "opp_formation" in _ac.columns:
+            _fill = {m: f for m, f in zip(_ac.match_id, _ac.opp_formation)
+                     if isinstance(f, str)}
+            _miss = out.opp_formation.isna() & out.match_id.isin(_fill)
+            out.loc[_miss, "opp_formation"] = out.loc[_miss, "match_id"].map(_fill)
+            out.loc[_miss, "opp_formation_source"] = "derived_from_wiki_lineup"
+
     out["formation_source"] = None
     out.loc[out.formation.notna(), "formation_source"] = "fbref"
     out.loc[out.formation.isna() & out.xi_shape.notna(),

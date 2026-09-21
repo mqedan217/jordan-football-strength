@@ -706,56 +706,114 @@ cannot be seen.
 md("""
 ## 2. The opposition
 
-Before asking what Jordan did better, ask who Jordan was playing. The model in
-section 0 already adjusts for this, but the adjustment hides something a reader
-needs to see directly: **the fixture list changed as much as the squad did.**
+Before asking what Jordan did better, ask who it was playing. The model in
+section 0 adjusts for this, but the adjustment hides something a reader needs to
+see directly: **the fixture list changed as much as the squad did.**
 
-Four questions:
+Six questions:
 
-1. **Did the opponents get harder?**
-2. **Did the kind of match change** — competitive or friendly, home or neutral?
-3. **Against whom did the results actually improve?** A rise concentrated in one
-   band of opponent is a different claim from a rise across the board.
-4. **Where does Jordan beat the model, and where does it fall short?**
+1. **When did the opponents get harder** — and was it gradual or sudden?
+2. **Was that chosen or earned?** Friendlies are picked; qualifiers are not.
+3. **Given the opponent, how much better is Jordan?**
+4. **Does that gain depend on who it plays** — bigger against weak sides, or the
+   same everywhere?
+5. **Does venue matter**, now that half the fixtures are on neutral ground?
+6. **How does the opposition set up** against Jordan, and did that change?
 """)
 
 code("""
 mt["points"] = mt.result.map({"W": 3, "D": 1, "L": 0})
 mt["kind"] = np.where(mt.tournament == "Friendly", "friendly", "competitive")
-# expected_gd is Jordan minus opponent, so NEGATIVE means the harder fixture.
-BANDS = ["much stronger", "stronger", "weaker", "much weaker"]
-mt["band"] = pd.cut(mt.expected_gd, [-99, -0.5, 0, 0.5, 99], labels=BANDS)
-# counts belong in the tick label: several of these cells are thin, and a
-# reader should see that before reading the bar above it
-_n = pd.crosstab(mt.band, mt.era).reindex(BANDS).reindex(columns=["pre", "post"])
-BAND_LBL = [b.replace(" ", chr(10)) for b in BANDS]
+# expected_gd is Jordan minus opponent: NEGATIVE is the harder fixture.
+mt["opp_bl"] = pd.to_numeric(mt.opp_formation.astype(str).str.split("-").str[0],
+                             errors="coerce")
+mt["opp_line"] = np.where(mt.opp_bl.isin([3, 5]), "back 3 or 5",
+                          np.where(mt.opp_bl == 4, "back 4", None))
+BLK = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
+
+
+def blk_boot(fn, n=3000):
+    # resample six-month blocks within each era; returns the observed
+    # difference and its 95% interval
+    obs = fn(mt[mt.era == "post"]) - fn(mt[mt.era == "pre"])
+    v = []
+    for _ in range(n):
+        s_ = {e: pd.concat([BLK[e][i]
+                            for i in rng.integers(0, len(BLK[e]), len(BLK[e]))])
+              for e in ("pre", "post")}
+        d = fn(s_["post"]) - fn(s_["pre"])
+        if np.isfinite(d):
+            v.append(d)
+    return obs, *np.percentile(v, [2.5, 97.5])
 """)
 
 code("""
+# When did it harden, and was it chosen? Friendlies are arranged; qualifiers are
+# drawn. If only the competitive fixtures got harder, that is a consequence of
+# going further. If the friendlies hardened too, somebody chose it.
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
+                         gridspec_kw={"width_ratios": [1.7, 1]})
+a = axes[0]
+for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
+    d = mt[mt.era == e]
+    a.scatter(d.date, d.expected_gd, s=16, color=col, alpha=0.6, linewidths=0)
+roll = mt.sort_values("date").set_index("date").expected_gd.rolling(12, center=True).mean()
+a.plot(roll.index, roll.values, color=viz.INK, lw=2.0)
+a.axhline(0, color=viz.INK_2, lw=1.0)
+viz.mark_split(a)
+a.annotate("harder", xy=(0.01, 0.06), xycoords="axes fraction", fontsize=8,
+           color=viz.INK_MUTED)
+a.set_ylabel("expected goal difference")
+a.set_title("Opponent strength, match by match (black = 12-match average)",
+            fontsize=9.5)
+viz.despine(a)
+
+b = axes[1]
+x = np.arange(2)
+for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    v = [mt[(mt.era == e) & (mt.kind == k)].expected_gd.mean()
+         for k in ("competitive", "friendly")]
+    b.bar(x + off, v, width=0.36, color=col, label=f"{e}-2022")
+    for xi_, vv in zip(x + off, v):
+        b.annotate(f"{vv:+.2f}", (xi_, vv), xytext=(0, 3), ha="center",
+                   textcoords="offset points", fontsize=8, color=viz.INK_2)
+b.axhline(0, color=viz.INK_2, lw=1.0)
+b.set_xticks(x)
+b.set_xticklabels(["competitive", "friendly"])
+b.set_ylabel("mean expected goal difference")
+b.set_title("Chosen, or earned?", fontsize=9.5)
+b.legend(fontsize=8)
+viz.despine(b)
+plt.show()
+""")
+
+code("""
+# The fixture list itself: who, what kind, and where.
 fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.0),
                          gridspec_kw={"width_ratios": [1.5, 1, 1]})
 a = axes[0]
 for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
-    v = mt[mt.era == e].expected_gd
-    a.hist(v, bins=np.arange(-3, 3.01, 0.4), density=True, color=col,
-           alpha=0.55, label=f"{e}-2022")
+    a.hist(mt[mt.era == e].expected_gd, bins=np.arange(-3, 3.01, 0.4),
+           density=True, color=col, alpha=0.55, label=f"{e}-2022")
 a.axvline(0, color=viz.INK_2, lw=1.0)
-# expected_gd is Jordan minus opponent, so the hard fixtures are to the LEFT
-a.annotate("← harder", xy=(-2.9, 0.97), xycoords=("data", "axes fraction"),
+a.annotate("\u2190 harder", xy=(-2.9, 0.97), xycoords=("data", "axes fraction"),
            fontsize=8.5, color=viz.INK_2, va="top", ha="left")
-a.annotate("easier →", xy=(2.9, 0.97), xycoords=("data", "axes fraction"),
+a.annotate("easier \u2192", xy=(2.9, 0.97), xycoords=("data", "axes fraction"),
            fontsize=8.5, color=viz.INK_2, va="top", ha="right")
 a.set_xlabel("model expected goal difference")
 a.set_ylabel("density of matches")
 a.set_title("Who Jordan played", fontsize=9.5)
 a.legend(fontsize=8)
 viz.despine(a)
-
 for ax, col_, ttl in ((axes[1], "kind", "Match type"), (axes[2], "venue", "Venue")):
     t = pd.crosstab(mt[col_], mt.era, normalize="columns").reindex(columns=["pre", "post"])
+    n_ = pd.crosstab(mt[col_], mt.era).reindex(columns=["pre", "post"])
     x = np.arange(len(t))
-    ax.bar(x - 0.19, t["pre"], width=0.36, color=viz.BLUE, label="pre")
-    ax.bar(x + 0.19, t["post"], width=0.36, color=viz.ORANGE, label="post")
+    for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+        ax.bar(x + off, t[e], width=0.36, color=c, label=f"{e}-2022")
+        for xi_, v, nn in zip(x + off, t[e], n_[e]):
+            ax.annotate(f"{int(nn)}", (xi_, v), xytext=(0, 3), ha="center",
+                        textcoords="offset points", fontsize=7, color=c)
     ax.set_xticks(x)
     ax.set_xticklabels(t.index, fontsize=8)
     ax.set_ylim(0, 1)
@@ -763,63 +821,187 @@ for ax, col_, ttl in ((axes[1], "kind", "Match type"), (axes[2], "venue", "Venue
     viz.despine(ax)
 axes[1].set_ylabel("share of matches")
 axes[2].legend(fontsize=8)
-fig.suptitle("The fixture list changed as much as the squad", fontsize=11)
+fig.suptitle("Numbers on the bars are matches", fontsize=9.5)
 plt.show()
 """)
 
 code("""
-# Did results improve everywhere, or only against certain opposition?
-g = (mt.groupby(["band", "era"], observed=True)
-     .agg(n=("points", "size"), pts=("points", "mean"),
-          gd=("gd", "mean"), above=("gd_above_expected", "mean"))
-     .reset_index())
+# THE question: given the opponent, how much better is Jordan? Every match, not
+# four bins -- bins of 6 to 37 matches wobble, and the wobble reads as a finding.
+# A fit per era answers both "how much better" (the intercept) and "does it
+# depend on the opponent" (the slope).
+fits = {}
+for e in ("pre", "post"):
+    d = mt[mt.era == e]
+    fits[e] = np.polyfit(d.expected_gd, d.gd, 1)      # slope, intercept
 
-fig, axes = plt.subplots(1, 3, figsize=(8.0, 3.2), sharey=False)
-x = np.arange(len(BANDS))
-for ax, col_, ttl, ref in ((axes[0], "pts", "Points per match", None),
-                           (axes[1], "gd", "Goal difference", 0),
-                           (axes[2], "above", "vs the model's expectation", 0)):
+draws = []
+for _ in range(3000):
+    p = {}
+    for e in ("pre", "post"):
+        s_ = pd.concat([BLK[e][i] for i in rng.integers(0, len(BLK[e]), len(BLK[e]))])
+        if s_.expected_gd.nunique() > 2:
+            p[e] = np.polyfit(s_.expected_gd, s_.gd, 1)
+    if len(p) == 2:
+        draws.append([p["post"][0] - p["pre"][0], p["post"][1] - p["pre"][1]])
+draws = np.array(draws)
+d_slope = (fits["post"][0] - fits["pre"][0], *np.percentile(draws[:, 0], [2.5, 97.5]))
+d_int = (fits["post"][1] - fits["pre"][1], *np.percentile(draws[:, 1], [2.5, 97.5]))
+
+fig, ax = plt.subplots(figsize=(7.6, 4.4))
+xs = np.linspace(mt.expected_gd.min() - 0.2, mt.expected_gd.max() + 0.2, 50)
+for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
+    d = mt[mt.era == e]
+    ax.scatter(d.expected_gd, d.gd, s=26, color=col, alpha=0.55, linewidths=0,
+               label=f"{e}-2022  ({len(d)})")
+    ax.plot(xs, np.polyval(fits[e], xs), color=col, lw=2.2)
+ax.plot(xs, xs, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+ax.annotate("exactly as the model expects", xy=(xs[-1], xs[-1]), xytext=(-6, 8),
+            ha="right", textcoords="offset points", fontsize=8,
+            color=viz.INK_MUTED)
+ax.axhline(0, color=viz.INK_2, lw=0.9, zorder=0)
+ax.axvline(0, color=viz.INK_2, lw=0.9, zorder=0)
+ax.set_xlabel("expected goal difference  (harder fixture to the left)")
+ax.set_ylabel("actual goal difference")
+ax.set_title("The lines are parallel: whatever Jordan gained, it gained "
+             "against everyone")
+ax.legend(fontsize=8, loc="upper left")
+ax.annotate(f"slope   {fits['pre'][0]:.2f} \u2192 {fits['post'][0]:.2f}"
+            f"   change {d_slope[0]:+.2f} [{d_slope[1]:+.2f}, {d_slope[2]:+.2f}]"
+            f"\\nintercept {fits['pre'][1]:+.2f} \u2192 {fits['post'][1]:+.2f}"
+            f"   change {d_int[0]:+.2f} [{d_int[1]:+.2f}, {d_int[2]:+.2f}]",
+            xy=(0.98, 0.04), xycoords="axes fraction", ha="right", fontsize=8,
+            color=viz.INK_2)
+viz.despine(ax)
+plt.show()
+""")
+
+code("""
+# Venue and fixture type. Comparing WITHIN an era is clean -- whatever lag the
+# model carries applies to the whole era equally -- so the contrast between
+# venues is fair even though the across-era residual is not.
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2))
+for ax, col_, order in ((axes[0], "venue", ["home", "away", "neutral"]),
+                        (axes[1], "kind", ["competitive", "friendly"])):
+    x = np.arange(len(order))
     for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-        d = g[g.era == e].set_index("band").reindex(BANDS)
-        ax.bar(x + off, d[col_].values, width=0.36, color=c, label=f"{e}-2022")
-        # the match count rides on its own bar, in its own colour: four bands x
-        # two eras will not fit in a tick label without overlapping
-        for xi_, v, n_ in zip(x + off, d[col_].values, d["n"].values):
-            if not np.isfinite(v):
-                continue
-            ax.annotate(f"{int(n_)}", (xi_, v),
-                        xytext=(0, 3 if v >= 0 else -10),
-                        ha="center", textcoords="offset points",
-                        fontsize=7, color=c)
-    if ref is not None:
-        ax.axhline(ref, color=viz.INK_2, lw=1.0)
+        d = mt[mt.era == e]
+        act = [d[d[col_] == k].gd.mean() for k in order]
+        exp = [d[d[col_] == k].expected_gd.mean() for k in order]
+        n_ = [int((d[col_] == k).sum()) for k in order]
+        ax.bar(x + off, act, width=0.36, color=c, label=f"{e}-2022 actual")
+        ax.scatter(x + off, exp, marker="_", s=260, color=viz.INK_2, zorder=4,
+                   label="model expected" if e == "pre" else None)
+        for xi_, v, nn in zip(x + off, act, n_):
+            ax.annotate(f"{nn}", (xi_, v), xytext=(0, 3 if v >= 0 else -10),
+                        ha="center", textcoords="offset points", fontsize=7,
+                        color=c)
+    ax.axhline(0, color=viz.INK_2, lw=1.0)
     ax.set_xticks(x)
-    ax.set_xticklabels(BAND_LBL, fontsize=7.5)
-    ax.set_title(ttl, fontsize=9.5)
+    ax.set_xticklabels(order, fontsize=8.5)
+    ax.set_ylabel("goal difference")
     viz.despine(ax)
-    ax.grid(axis="x", visible=False)
-axes[0].legend(fontsize=8, loc="upper left")
-axes[0].set_ylabel("points per match")
-fig.suptitle("Each match sorted by how strong the opponent was, then pre vs post"
-             " within each group\\n"
-             "numbers on the bars are how many matches that bar is built from",
-             fontsize=10)
+axes[0].set_title("By venue", fontsize=9.5)
+axes[1].set_title("By fixture type", fontsize=9.5)
+axes[0].legend(fontsize=7.5, loc="upper left")
+fig.suptitle("Bars are actual goal difference; dashes are what the model "
+             "expected of those fixtures", fontsize=9.5)
+plt.show()
+""")
+
+code("""
+# How the opposition sets up. The gap that made this unusable is now closed:
+# FBref has no Arab Cup, so opp_formation was null for ten post-era matches and
+# they were Jordan's easiest block. wiki_arabcup now derives the opposition's
+# shape from the same Football box that supplied Jordan's lineup, taking post
+# coverage from 35/45 to 41/45. Four post matches remain uncovered.
+cov = mt.assign(has=mt.opp_formation.notna())
+ol = mt.dropna(subset=["opp_line"])
+
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
+                         gridspec_kw={"width_ratios": [1, 1.25]})
+a = axes[0]
+t = pd.crosstab(ol.opp_line, ol.era, normalize="columns").reindex(columns=["pre", "post"])
+n_ = pd.crosstab(ol.opp_line, ol.era).reindex(columns=["pre", "post"])
+x = np.arange(len(t))
+for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    a.bar(x + off, t[e], width=0.36, color=c, label=f"{e}-2022")
+    for xi_, v, nn in zip(x + off, t[e], n_[e]):
+        a.annotate(f"{int(nn)} of {int(n_[e].sum())}", (xi_, v), xytext=(0, 3),
+                   ha="center", textcoords="offset points", fontsize=7, color=c)
+a.set_xticks(x)
+a.set_xticklabels(t.index, fontsize=8.5)
+a.set_ylim(0, 1.05)
+a.set_ylabel("share of covered matches")
+a.set_title("What the opposition plays", fontsize=9.5)
+a.legend(fontsize=8)
+viz.despine(a)
+
+b = axes[1]
+g = (ol.groupby(["opp_line", "era"], observed=True)
+     .agg(n=("gd", "size"), gd=("gd", "mean"), exp=("expected_gd", "mean"))
+     .reset_index())
+x = np.arange(2)
+for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
+    d = g[g.era == e].set_index("opp_line").reindex(t.index)
+    b.bar(x + off, d.gd.values, width=0.36, color=c, label=f"{e}-2022")
+    b.scatter(x + off, d.exp.values, marker="_", s=260, color=viz.INK_2, zorder=4)
+    for xi_, v, nn in zip(x + off, d.gd.values, d.n.values):
+        if np.isfinite(v):
+            b.annotate(f"{int(nn)}", (xi_, v), xytext=(0, 3 if v >= 0 else -10),
+                       ha="center", textcoords="offset points", fontsize=7, color=c)
+b.axhline(0, color=viz.INK_2, lw=1.0)
+b.set_xticks(x)
+b.set_xticklabels(t.index, fontsize=8.5)
+b.set_ylabel("goal difference")
+b.set_title("How Jordan fares against each (dashes = expected)", fontsize=9.5)
+viz.despine(b)
+fig.suptitle("Arab Cup shapes recovered from Wikipedia; post coverage is now "
+             "41 of 45", fontsize=9.5)
 plt.show()
 """)
 
 md("""
-**The opponents got much harder.** Mean expected goal difference falls from
-**+0.48 to +0.02**, and the share of matches against a clearly stronger side
-goes from **16% to 38%**. The fixture *type* moved with it: competitive matches
-rise from **42% to 71%** of the schedule as friendlies drop away.
+**The opponents got much harder, and it was partly chosen.** Mean expected goal
+difference falls from **+0.48 to +0.02**, and the share of matches against a
+clearly stronger side goes **16% to 38%**. Qualifiers are drawn, so some of that
+is a consequence of going further — but the *friendlies* hardened too, **+0.24 to
+−0.39**, and friendlies are arranged. Somebody decided to play better teams.
 
-That is the context every other number in this notebook sits inside. Jordan's
-raw results barely move; the opposition behind them is not the same.
+**Whatever Jordan gained, it gained against everyone equally.** Fitting every
+match rather than binning: the slope is **1.14 in both eras** — change **+0.00,
+95% [−0.34, +0.48]** — and only the intercept moves, +0.02 to +0.35. Parallel
+lines.
 
-**Where the improvement lives** is the more interesting question, and the bars
-say it is not uniform. Read the counts under each bar before the bars themselves
-— several cells are thin, and this is a description of what happened in them
-rather than an estimate with an interval.
+🚨 **Read the slope, not the intercept.** This fit establishes *uniformity*, not
+improvement: the intercept's own change is **+0.33, 95% [−0.43, +0.86]**, which
+spans zero on twenty-odd six-month blocks. That Jordan improved is notebook 01's
+finding, where the strength model puts it at **+0.717 [+0.203, +1.220]**. What
+this panel adds is that the gain does not depend on who the opponent is.
+
+The bins said otherwise, and were wrong to: cells of six to thirty-seven matches
+wobble enough to look like a pattern, and the continuous fit over all 143 says
+there is none.
+
+A uniform goal-difference gain still converts into *more extra points* against
+weak teams than strong ones, because points are nonlinear in goal difference.
+That is why Jordan looks so much more ruthless against poor sides — 2.14 to 2.67
+points a match — without having improved differentially against them.
+
+**Nobody changes shape for Jordan.** Teams line up against them with a back four
+almost always, and the count of back-three opponents is **8 before 2022 and 8
+after** — identical. The *share* rises only because the denominator shrank.
+
+This was nearly unusable: FBref carries no Arab Cup, so opp_formation was absent
+for ten of the post era's forty-five matches, and they were not a random ten —
+Jordan's easiest block, the one it won most heavily. The opposition's lineup was
+sitting in the same Wikipedia box that already supplied Jordan's, so the shape is
+derivable the same way, and post coverage is now **41 of 45**. All ten Arab Cup
+opponents played a back four.
+
+🚨 Four post-era matches are still missing and they still lean easy (mean
+expected goal difference +0.99 against −0.07 for the covered ones), so read the
+right-hand panel as a description rather than an estimate.
 """)
 
 md("""
