@@ -291,13 +291,14 @@ an interval far too wide to call a change.
 
 Three measurements of one question, each correcting a different flaw in the
 obvious answer. The obvious answer — *Jordan used 16 scorers after 2022 and 32
-before* — is wrong, because the post era has 75 goals against 182. **Richness
-rises with sample size no matter what the underlying diversity is** (Hurlbert
-1971).
+before* — is wrong, because the post era has **75 goals against 140**.
+**Richness rises with sample size no matter what the underlying diversity is**
+(Hurlbert 1971).
 
 The correction is **rarefaction** (Gotelli & Colwell 2001): repeatedly draw 75
 goals from the pre-2022 era and see what a pre-2022 sample *of the same size*
-looks like.
+looks like. (Counts here are goals carrying a scorer id — 140 of 142 before and
+75 of 77 after; the rest are own goals in Jordan's favour.)
 """)
 
 nb.code("""
@@ -486,7 +487,8 @@ the few were. That is notebook 03's finding arriving here in a different costume
 Not who scored but *when*, and what the scoreboard said at the time.
 Reconstructed by `match_state.py` from goal minutes on **both** sides, including
 the ten Arab Cup matches Wikipedia supplied — without which the covered subset
-was not representative (notebook 01, section 8).
+was not representative (notebook 01, section 8). **128 of the window's 143
+matches** carry a reconstructed scoreboard, 90% before 2022 and 89% after.
 """)
 
 nb.code("""
@@ -540,9 +542,9 @@ relationship with the clock. **The conceding column is the outlier: a third of
 every goal Jordan concedes arrives in the last fifteen minutes**, about half
 again what Armatas et al. expect.
 
-This describes all 155 matches, **not** a change across 2022 — the era difference
-does not clear zero. A standing feature, and the clearest thing in this project
-pointing at something to fix.
+This describes **all 128 matches in the window**, not a change across 2022 — the
+era difference does not clear zero. A standing feature, and the clearest thing in
+this project pointing at something to fix.
 
 ### 3.2 Crossing *when* with *in what state*
 
