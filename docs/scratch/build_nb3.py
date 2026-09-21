@@ -864,57 +864,6 @@ plt.show()
 """)
 
 code("""
-# THE question: given the opponent, how much better is Jordan? Every match, not
-# four bins -- bins of 6 to 37 matches wobble, and the wobble reads as a finding.
-# A fit per era answers both "how much better" (the intercept) and "does it
-# depend on the opponent" (the slope).
-fits = {}
-for e in ("pre", "post"):
-    d = mt[mt.era == e]
-    fits[e] = np.polyfit(d.expected_gd, d.gd, 1)      # slope, intercept
-
-draws = []
-for _ in range(3000):
-    p = {}
-    for e in ("pre", "post"):
-        s_ = pd.concat([BLK[e][i] for i in rng.integers(0, len(BLK[e]), len(BLK[e]))])
-        if s_.expected_gd.nunique() > 2:
-            p[e] = np.polyfit(s_.expected_gd, s_.gd, 1)
-    if len(p) == 2:
-        draws.append([p["post"][0] - p["pre"][0], p["post"][1] - p["pre"][1]])
-draws = np.array(draws)
-d_slope = (fits["post"][0] - fits["pre"][0], *np.percentile(draws[:, 0], [2.5, 97.5]))
-d_int = (fits["post"][1] - fits["pre"][1], *np.percentile(draws[:, 1], [2.5, 97.5]))
-
-fig, ax = plt.subplots(figsize=(7.6, 4.4))
-xs = np.linspace(mt.expected_gd.min() - 0.2, mt.expected_gd.max() + 0.2, 50)
-for e, col in (("pre", viz.BLUE), ("post", viz.ORANGE)):
-    d = mt[mt.era == e]
-    ax.scatter(d.expected_gd, d.gd, s=26, color=col, alpha=0.55, linewidths=0,
-               label=f"{e}-2022  ({len(d)})")
-    ax.plot(xs, np.polyval(fits[e], xs), color=col, lw=2.2)
-ax.plot(xs, xs, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
-ax.annotate("exactly as the model expects", xy=(xs[-1], xs[-1]), xytext=(-6, 8),
-            ha="right", textcoords="offset points", fontsize=8,
-            color=viz.INK_MUTED)
-ax.axhline(0, color=viz.INK_2, lw=0.9, zorder=0)
-ax.axvline(0, color=viz.INK_2, lw=0.9, zorder=0)
-ax.set_xlabel("expected goal difference  (harder fixture to the left)")
-ax.set_ylabel("actual goal difference")
-ax.set_title("The lines are parallel: whatever Jordan gained, it gained "
-             "against everyone")
-ax.legend(fontsize=8, loc="upper left")
-ax.annotate(f"slope   {fits['pre'][0]:.2f} \u2192 {fits['post'][0]:.2f}"
-            f"   change {d_slope[0]:+.2f} [{d_slope[1]:+.2f}, {d_slope[2]:+.2f}]"
-            f"\\nintercept {fits['pre'][1]:+.2f} \u2192 {fits['post'][1]:+.2f}"
-            f"   change {d_int[0]:+.2f} [{d_int[1]:+.2f}, {d_int[2]:+.2f}]",
-            xy=(0.98, 0.04), xycoords="axes fraction", ha="right", fontsize=8,
-            color=viz.INK_2)
-viz.despine(ax)
-plt.show()
-""")
-
-code("""
 # Venue and fixture type. Comparing WITHIN an era is clean -- whatever lag the
 # model carries applies to the whole era equally -- so the contrast between
 # venues is fair even though the across-era residual is not.
@@ -1040,25 +989,14 @@ friendly opposition climbs from around +0.4 through the 2010s to **+1.28 in 2025
 and +3.32 in 2026** (Switzerland, Colombia). Somebody decided to play better
 teams, and kept deciding it.
 
-**Whatever Jordan gained, it gained against everyone equally.** Fitting every
-match rather than binning: the slope is **1.14 in both eras** — change **+0.00,
-95% [−0.34, +0.48]** — and only the intercept moves, +0.02 to +0.35. Parallel
-lines.
-
-🚨 **Read the slope, not the intercept.** This fit establishes *uniformity*, not
-improvement: the intercept's own change is **+0.33, 95% [−0.43, +0.86]**, which
-spans zero on twenty-odd six-month blocks. That Jordan improved is notebook 01's
-finding, where the strength model puts it at **+0.717 [+0.203, +1.220]**. What
-this panel adds is that the gain does not depend on who the opponent is.
-
-The bins said otherwise, and were wrong to: cells of six to thirty-seven matches
-wobble enough to look like a pattern, and the continuous fit over all 143 says
-there is none.
-
-A uniform goal-difference gain still converts into *more extra points* against
-weak teams than strong ones, because points are nonlinear in goal difference.
-That is why Jordan looks so much more ruthless against poor sides — 2.14 to 2.67
-points a match — without having improved differentially against them.
+**How much better Jordan actually got, given the opponent, is notebook 01's
+question and is answered there** — the strength model puts the rise at **+0.717,
+95% [+0.203, +1.220]**, and it can say that because it pools the whole
+49,000-match international record. Jordan's own 143 results cannot: fitted at
+match level the improvement is +0.33 with an interval of [−0.43, +0.86]. That is
+a statement about how little information 143 matches carry, not a contradiction.
+Notebook 01 now carries that comparison, along with what the model gets right
+about Jordan's individual matches.
 
 **Nobody changes shape for Jordan.** Teams line up against them with a back four
 almost always, and the count of back-three opponents is **8 before 2022 and 8
