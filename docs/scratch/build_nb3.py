@@ -771,72 +771,111 @@ def blk_boot(fn, n=3000):
 """)
 
 code("""
-# When did it harden, and was it chosen? Friendlies are arranged; qualifiers are
-# drawn. If only the competitive fixtures got harder, that is a consequence of
-# going further. If the friendlies hardened too, somebody chose it.
-fig, axes = plt.subplots(1, 3, figsize=(9.2, 3.2),
-                         gridspec_kw={"width_ratios": [1.9, 1.05, 0.95]})
-a = axes[0]
+
+# Both sides of the subtraction. expected_gd is Jordan's strength minus the
+# opponent's plus home advantage, so a falling line cannot say which side moved.
+fig, ax = plt.subplots(figsize=(7.8, 3.6))
 srt = mt.sort_values("date")
 jr = srt.set_index("date").strength_at_match.rolling(12, center=True).mean()
 orr = srt.set_index("date").opp_str.rolling(12, center=True).mean()
-a.fill_between(jr.index, jr.values, orr.values, where=jr.values >= orr.values,
-               color=viz.BLUE, alpha=0.12, interpolate=True)
-a.fill_between(jr.index, jr.values, orr.values, where=jr.values < orr.values,
-               color=viz.ORANGE, alpha=0.14, interpolate=True)
-a.scatter(srt.date, srt.opp_str, s=12, color=viz.ORANGE, alpha=0.4, linewidths=0)
-a.plot(jr.index, jr.values, color=viz.BLUE, lw=2.3, label="Jordan")
-a.plot(orr.index, orr.values, color=viz.ORANGE, lw=2.3, label="the opponent")
-viz.mark_split(a)
-a.set_ylabel("model strength")
-a.set_title("Both sides of the subtraction", fontsize=9.5)
-a.annotate("12-match averages; the shaded gap is expected goal difference",
-           xy=(0.02, 0.03), xycoords="axes fraction", fontsize=7.5,
-           color=viz.INK_MUTED)
-# the individual opponents run to +-4 and squash the lines that carry the point
-a.set_ylim(-2.2, 3.6)
-a.legend(fontsize=8, loc="upper left")
+ax.fill_between(jr.index, jr.values, orr.values, where=jr.values >= orr.values,
+                color=viz.BLUE, alpha=0.12, interpolate=True)
+ax.fill_between(jr.index, jr.values, orr.values, where=jr.values < orr.values,
+                color=viz.ORANGE, alpha=0.14, interpolate=True)
+ax.scatter(srt.date, srt.opp_str, s=12, color=viz.ORANGE, alpha=0.4, linewidths=0)
+ax.plot(jr.index, jr.values, color=viz.BLUE, lw=2.3, label="Jordan")
+ax.plot(orr.index, orr.values, color=viz.ORANGE, lw=2.3, label="the opponent")
+viz.mark_split(ax)
+ax.set_ylim(-2.2, 3.6)
+ax.set_ylabel("model strength")
+ax.set_title("Both sides of the subtraction")
+ax.annotate("12-match averages; the shaded gap is expected goal difference",
+            xy=(0.02, 0.03), xycoords="axes fraction", fontsize=7.5,
+            color=viz.INK_MUTED)
+ax.legend(fontsize=8, loc="upper left")
+viz.despine(ax)
+plt.show()
+
+""")
+
+code("""
+
+# Why the line saws: the calendar has three modes and they face very different
+# opposition. Split by era as well, because pooling hides that every mode
+# hardened -- the sawtooth and the hardening are separate facts.
+CATS = ["qualifying", "friendly", "finals"]
+fig, ax = plt.subplots(figsize=(7.8, 3.4))
+for i, c_ in enumerate(CATS):
+    for off, e, col in ((-0.18, "pre", viz.BLUE), (0.18, "post", viz.ORANGE)):
+        d = mt[(mt.comp_cat == c_) & (mt.era == e)]
+        if not len(d):
+            continue
+        ax.scatter(np.full(len(d), i + off) + rng.normal(0, 0.045, len(d)),
+                   d.opp_str, s=15, alpha=0.5, color=col, linewidths=0,
+                   label=f"{e}-2022" if i == 0 else None)
+        ax.hlines(d.opp_str.mean(), i + off - 0.15, i + off + 0.15,
+                  color=viz.INK, lw=2.2, zorder=4)
+        ax.annotate(f"{d.opp_str.mean():+.2f}", (i + off, d.opp_str.mean()),
+                    xytext=(0, 7), ha="center", textcoords="offset points",
+                    fontsize=8, color=viz.INK_2)
+        ax.annotate(f"n={len(d)}", (i + off, ax.get_ylim()[0]), xytext=(0, 4),
+                    ha="center", textcoords="offset points", fontsize=7,
+                    color=col)
+ax.axhline(0, color=viz.INK_2, lw=1.0)
+ax.set_xticks(range(len(CATS)))
+ax.set_xticklabels(CATS)
+ax.set_ylabel("opponent strength")
+ax.set_title("Why the line saws \u2014 and every mode got harder")
+ax.legend(fontsize=8, loc="upper left")
+viz.despine(ax)
+ax.grid(axis="x", visible=False)
+plt.show()
+
+""")
+
+code("""
+
+# Chosen, or earned? Qualifiers are drawn; friendlies are arranged. If the
+# friendlies hardened too, somebody decided to play better teams.
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
+                         gridspec_kw={"width_ratios": [1.5, 1]})
+a = axes[0]
+fr = mt[mt.comp_cat == "friendly"]
+yr = fr.groupby(fr.date.dt.year).opp_str.agg(["size", "mean"])
+a.plot(yr.index, yr["mean"], color=viz.ORANGE, lw=2.2)
+a.scatter(yr.index, yr["mean"], color=viz.ORANGE, s=yr["size"] * 5, zorder=3)
+a.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+a.axhline(0, color=viz.INK_2, lw=1.0)
+a.set_ylabel("opponent strength")
+a.set_title("The friendlies Jordan arranged (marker area = matches)",
+            fontsize=9.5)
 viz.despine(a)
 
-# why the orange line saws: the calendar alternates between qualifying groups
-# full of minnows and tournaments full of real teams
 b = axes[1]
-CATS = ["qualifying", "friendly", "finals"]
-for i, c_ in enumerate(CATS):
+rows = []
+for c_ in CATS:
     d = mt[mt.comp_cat == c_]
-    jit = rng.normal(0, 0.07, len(d))
-    b.scatter(np.full(len(d), i) + jit, d.opp_str, s=14, alpha=0.45,
-              color=viz.ORANGE, linewidths=0)
-    b.hlines(d.opp_str.mean(), i - 0.28, i + 0.28, color=viz.INK, lw=2.2)
-    b.annotate(f"{d.opp_str.mean():+.2f}", (i, d.opp_str.mean()), xytext=(0, 6),
-               ha="center", textcoords="offset points", fontsize=8,
-               color=viz.INK_2)
-b.axhline(0, color=viz.INK_2, lw=1.0)
-b.set_xticks(range(len(CATS)))
-b.set_xticklabels([f"{c_}\\n({int((mt.comp_cat == c_).sum())})" for c_ in CATS],
-                  fontsize=8)
-b.set_ylabel("opponent strength")
-b.set_title("Why it saws", fontsize=9.5)
+    x_, y_ = d[d.era == "pre"].opp_str, d[d.era == "post"].opp_str
+    dr = [rng.choice(y_.values, len(y_)).mean() - rng.choice(x_.values, len(x_)).mean()
+          for _ in range(4000)]
+    rows.append({"cat": c_, "diff": y_.mean() - x_.mean(),
+                 "lo": np.percentile(dr, 2.5), "hi": np.percentile(dr, 97.5)})
+ch = pd.DataFrame(rows).iloc[::-1].reset_index(drop=True)
+y = np.arange(len(ch))
+b.hlines(y, ch.lo, ch.hi, color=viz.INK_MUTED, lw=2.4)
+b.scatter(ch["diff"], y, color=viz.ORANGE, s=55, zorder=3)
+b.axvline(0, color=viz.INK_2, lw=1.0)
+for i, r in ch.iterrows():
+    b.annotate(f"{r['diff']:+.2f}", (r["diff"], i), xytext=(0, 9), ha="center",
+               textcoords="offset points", fontsize=8, color=viz.INK_2)
+b.set_yticks(y)
+b.set_yticklabels(ch.cat)
+b.set_ylim(-0.6, len(ch) - 0.4)
+b.set_xlabel("change in opponent strength")
+b.set_title("Every mode, post minus pre", fontsize=9.5)
 viz.despine(b)
-b.grid(axis="x", visible=False)
-
-c = axes[2]
-x = np.arange(2)
-for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-    v = [mt[(mt.era == e) & (mt.kind == k)].expected_gd.mean()
-         for k in ("competitive", "friendly")]
-    c.bar(x + off, v, width=0.36, color=col, label=f"{e}-2022")
-    for xi_, vv in zip(x + off, v):
-        c.annotate(f"{vv:+.2f}", (xi_, vv), xytext=(0, 3), ha="center",
-                   textcoords="offset points", fontsize=8, color=viz.INK_2)
-c.axhline(0, color=viz.INK_2, lw=1.0)
-c.set_xticks(x)
-c.set_xticklabels(["competitive", "friendly"])
-c.set_ylabel("mean expected goal difference")
-c.set_title("Chosen, or earned?", fontsize=9.5)
-c.legend(fontsize=7.5)
-viz.despine(c)
 plt.show()
+
 """)
 
 code("""
@@ -1039,10 +1078,20 @@ Qualifying also carries much the widest spread (sd 1.60 against 0.90 and 0.95),
 because AFC groups put minnows and real sides in the same campaign. Every trough
 in the orange line is a qualifying window.
 
-**And it was partly chosen.** Qualifiers are drawn, so meeting better teams is
-partly a consequence of going further. But the *friendlies* hardened too,
-**+0.24 to −0.39**, and friendlies are arranged. Somebody decided to play better
-opposition.
+**And every mode hardened, chosen and drawn alike:**
+
+| | pre | post | change |
+|---|---|---|---|
+| qualifying (25 → 16) | −0.76 | +0.31 | **+1.07** |
+| friendly (60 → 13) | +0.50 | +1.43 | **+0.93** |
+| finals (13 → 16) | +0.83 | +1.51 | **+0.68** |
+
+Qualifying moved most, and that half is *earned* — reaching the final round of
+World Cup qualifying means Pakistan and Cambodia are replaced by real teams. But
+the friendlies moved almost as much, and friendlies are **arranged**. Jordan's
+friendly opposition climbs from around +0.4 through the 2010s to **+1.28 in 2025
+and +3.32 in 2026** (Switzerland, Colombia). Somebody decided to play better
+teams, and kept deciding it.
 
 **Whatever Jordan gained, it gained against everyone equally.** Fitting every
 match rather than binning: the slope is **1.14 in both eras** — change **+0.00,
