@@ -835,47 +835,32 @@ plt.show()
 
 code("""
 
-# Chosen, or earned? Qualifiers are drawn; friendlies are arranged. If the
-# friendlies hardened too, somebody decided to play better teams.
-fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
-                         gridspec_kw={"width_ratios": [1.5, 1]})
-a = axes[0]
+# Chosen, or earned? Qualifiers are drawn; friendlies are arranged. The three
+# modes' pre/post means are already on the figure above, so this one does the
+# thing only it can: the shape of the friendly selection over time.
+fig, ax = plt.subplots(figsize=(7.8, 3.6))
 fr = mt[mt.comp_cat == "friendly"]
 yr = fr.groupby(fr.date.dt.year).opp_str.agg(["size", "mean"])
-a.plot(yr.index, yr["mean"], color=viz.ORANGE, lw=2.2)
-a.scatter(yr.index, yr["mean"], color=viz.ORANGE, s=yr["size"] * 5, zorder=3)
-a.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
-a.axhline(0, color=viz.INK_2, lw=1.0)
-a.set_ylabel("opponent strength")
-a.set_title("The friendlies Jordan arranged (marker area = matches)",
-            fontsize=9.5)
-viz.despine(a)
-
-b = axes[1]
-rows = []
-for c_ in CATS:
-    d = mt[mt.comp_cat == c_]
-    x_, y_ = d[d.era == "pre"].opp_str, d[d.era == "post"].opp_str
-    dr = [rng.choice(y_.values, len(y_)).mean() - rng.choice(x_.values, len(x_)).mean()
-          for _ in range(4000)]
-    rows.append({"cat": c_, "diff": y_.mean() - x_.mean(),
-                 "lo": np.percentile(dr, 2.5), "hi": np.percentile(dr, 97.5)})
-ch = pd.DataFrame(rows).iloc[::-1].reset_index(drop=True)
-y = np.arange(len(ch))
-b.hlines(y, ch.lo, ch.hi, color=viz.INK_MUTED, lw=2.4)
-b.scatter(ch["diff"], y, color=viz.ORANGE, s=55, zorder=3)
-b.axvline(0, color=viz.INK_2, lw=1.0)
-for i, r in ch.iterrows():
-    b.annotate(f"{r['diff']:+.2f}", (r["diff"], i), xytext=(0, 9), ha="center",
-               textcoords="offset points", fontsize=8, color=viz.INK_2)
-b.set_yticks(y)
-b.set_yticklabels(ch.cat)
-b.set_ylim(-0.6, len(ch) - 0.4)
-b.set_xlabel("change in opponent strength")
-b.set_title("Every mode, post minus pre", fontsize=9.5)
-viz.despine(b)
+ax.plot(yr.index, yr["mean"], color=viz.ORANGE, lw=2.2, zorder=2)
+ax.scatter(yr.index, yr["mean"], color=viz.ORANGE, s=yr["size"] * 6, zorder=3)
+ax.scatter(fr.date.dt.year + rng.normal(0, 0.10, len(fr)), fr.opp_str, s=13,
+           color=viz.ORANGE, alpha=0.35, linewidths=0, zorder=1)
+# name the hardest friendly of each era, so the trend is a fixture and not a
+# number: these are the games somebody chose to arrange
+for _, r in fr.nlargest(4, "opp_str").iterrows():
+    ax.annotate(r.opponent, (r.date.year, r.opp_str), xytext=(6, 2),
+                textcoords="offset points", fontsize=7.5, color=viz.INK_2)
+ax.axvline(CUT.year + 0.5, color=viz.INK_MUTED, lw=1.0, ls=(0, (4, 3)))
+ax.axhline(0, color=viz.INK_2, lw=1.0)
+ax.set_ylabel("opponent strength")
+ax.set_xlabel("year")
+ax.set_title("The friendlies Jordan arranged")
+ax.annotate("line and large markers are the yearly mean (area = matches); "
+            "faint dots are individual friendlies",
+            xy=(0.02, 0.94), xycoords="axes fraction", fontsize=7.5,
+            color=viz.INK_MUTED, va="top")
+viz.despine(ax)
 plt.show()
-
 """)
 
 code("""
