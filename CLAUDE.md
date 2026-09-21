@@ -666,6 +666,74 @@ Window 2015+, split 2022-07-01, **143 matches: 98 pre / 45 post**. Every code
 cell recomputes its own numbers, and `rng` is seeded in `PRELUDE`, so a rebuild
 reproduces the figures exactly.
 
+### 🔧 Open work list — read this before touching the notebooks (2026-09-21)
+
+A full cold read of all five notebooks produced this. It is ranked by how much
+each would change what the project actually says. **Numbers below are already
+computed — do not re-derive them.**
+
+**The diagnosis, in one line:** the project measures everything in shares and
+rates and never converts back to goals, so a reader is never given the chance to
+add anything up. It describes the period well; it does not yet explain it.
+
+**1. Build the goals-per-match accounting figure (notebook 04).** The largest
+gap. In shares, "the goals came from a narrower group" is a mild finding. In
+goals per match it is the project's sharpest result:
+
+| goals per match | pre | post | |
+|---|---|---|---|
+| Olwan + Al-Naimat + Al-Taamari | 0.235 | **1.067** | +0.83 |
+| everyone else | 1.194 | **0.600** | **−0.59** |
+| Jordan total | 1.449 | 1.756 | +0.31 |
+
+Three players account for **more than the entire increase**, and the rest of the
+team's scoring nearly halved. That is the fragility warning in the summary
+("top-3 share is the number to watch") made concrete, and normalising into shares
+is exactly what hides it.
+
+**2. Restore the `gf_above_expected` appendix, dropped in the restructure.**
+Nowhere in five notebooks does Jordan simply score more, and it is the plainest
+statement of the attacking rise: goals for **1.449 -> 1.756** while the model's
+expectation went **1.376 -> 1.338**. The caution that goes with it (the residual
+is a model-lag statistic, not an improvement measure — see the 🚨 section above)
+currently appears in no notebook at all. Both halves go back, together.
+
+**3. Say out loud that the two halves do not meet.** Notebook 02 establishes the
+improvement was attacking and that defence did not move; notebook 04 then spends
+its largest section on a *defensive* problem. Both are correct — the late
+conceding is a standing feature, not a change — but no notebook reconciles them,
+so it reads as though the project forgot its own headline.
+
+**4. Name "the opponents got harder" as a candidate cause, not just a confound.**
+It is the largest single effect in the data (+0.84 against Jordan's +0.41) and
+the friendly half was *chosen*. Arranging Switzerland instead of Cambodia is a
+plausible mechanism for improving. Notebook 03 currently treats it only as
+something to adjust away.
+
+**5. Show the manager.** 15 spells, currently one row in an exclusions table in
+notebook 05. Even as "here is what cannot be separated", the spells should be
+drawn against the strength trace so the reader sees *why*.
+
+**6. Plot XI age.** A 2021 rebuild followed by a settled side — the obvious
+question is whether they got younger. Listed in notebook 05 as never built; it
+belongs as a hole in notebook 03.
+
+**7. Convert the level-scoreline cost into the project's own currency.** 17
+points across 36 matches is given; what that is worth in expected goal difference
+is not, and expected GD is the unit everything else uses.
+
+**Smaller, all confirmed by looking at the rendered figures:**
+
+- Notebook 01's goal-reconciliation chart is now a *nothing happened* chart —
+  99% reconcile, both bars the same length. Its content is one sentence.
+- Column completeness opens with 20 identical 100% bars.
+- The strength trace's 95% bands overlap heavily between 2015 and 2026, which
+  invites exactly the wrong reading. The caption needs "do not read overlapping
+  bands as no difference" **at the point of contact**, not two cells earlier.
+- Notebook 01 front-loads five sections of scepticism before anything is learned.
+- Cosmetic: the provenance chart clips a label; notebook 05's squad-region figure
+  stacks annotation, axis label and legend on top of each other.
+
 ### What notebook 04 establishes (was notebook 03, 2026-09-14)
 
 **Supported:**
