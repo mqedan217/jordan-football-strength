@@ -487,11 +487,13 @@ def block_boot(fn, nb=600):
     lo, hi = np.percentile(vals, [2.5, 97.5])
     return obs, lo, hi
 
+# Two measures, not four. Appearance rate is familiarity at player level
+# (r = 0.99, and it cannot be exceeded by construction), and midfielder share of
+# goals belongs to section 3, where it is tested against the outfield slots
+# rather than just stated.
 MEASURES = [
-    ("midfielder share of goals", mf_share, 600),
     ("minutes: top-11 share", top11, 600),
     ("familiarity rate (pairs)", lambda d: windowed(d, "fam"), 600),
-    ("appearance rate (starters)", lambda d: windowed(d, "caps"), 600),
 ]
 res = []
 for lab, fn, nb in MEASURES:
@@ -566,10 +568,9 @@ plt.show()
 """)
 
 md("""
-All four settledness measures clear zero, but they are **three** findings, not
-four: familiarity and appearance rate are the same construction at pair and
-player level, tracking each other at r = 0.99, and a measure agreeing with itself
-is not corroboration.
+**Both clear zero.** The top eleven take **44% to 69%** of all playing time, and
+the average pair in the XI has started **0.15 to 0.37** of the previous two years
+together.
 
 Turnover says the same thing from the other side — the eleven that starts is
 closer to the eleven that started last time. Note it does **not** fall to zero:
