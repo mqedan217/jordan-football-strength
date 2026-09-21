@@ -278,6 +278,48 @@ depended on them. Dropped. Questions about who scored are answerable in
 **shares and counts**, which need no expectation at all — that is what notebook
 03 uses.
 
+### 🚨 `Pos` is a team-sheet label, not a player's role
+
+`appearances.Pos` is the position printed on **that match's** team sheet, and
+`goals.scorer_position` is derived from it. It is not the player's role, and it
+moves under you in two separate ways.
+
+**It reassigns individuals match to match.** Ali Olwan — a striker by every other
+measure — supplies **five of the eighteen** post-2022 "midfield" open-play goals,
+and ten of the eighteen come from men whose usual position is forward. Classify
+each goal by the scorer's **modal** position across his whole record instead:
+
+| MF share of open-play goals | pre | post | change |
+|---|---|---|---|
+| team-sheet label | 0.194 | 0.340 | **+0.146** |
+| scorer's modal position | 0.113 | 0.151 | **+0.038** |
+
+Forwards: −0.146 by label, **−0.022** by modal position. Nothing moved between
+the lines. ❌ **The "more goals from midfield" finding is retired** — it was this
+artefact, and it had been reported as supported with an interval.
+
+**The same relabelling contaminates the XI composition.** `n_mf` comes from the
+same column, so both halves of "midfielders went from 32% to 43% of outfield
+slots" carry it. By modal position the post-2022 XI has *fewer* midfielders
+(0.272 → 0.227) and more defenders (4.29 → 4.59), which is what a back three is:
+full-backs became wing-backs and were written down as LM and RM. "A back three
+puts more midfielders on the pitch, so more midfield goals" counted one
+relabelling twice.
+
+**And the vocabulary itself drifted.** Specific labels (CB, LB, DM, CM, LWB...)
+are **12.5%** of starter rows in 2015 and about **80%** from 2019 on, against
+coarse DF/MF/FW. So even a modal-position analysis is comparing a
+coarsely-labelled early era with a finely-labelled later one.
+
+✅ **The formation finding is unaffected.** It rests on the size of the back line,
+where FBref's reported formation and the independently derived `xi_shape` agree
+in **94 of 94** matches that carry both. Back three or five, 20% → 90%.
+
+🚨 Section 0's split-date sweep had already flagged midfielder share as the one
+measure that could not locate a date — as large at a 2018 cut as at 2022. That is
+what a labelling drift looks like, and the guard fired before the data check did.
+Take that signal seriously next time.
+
 ### 🚨 Never key players by name
 
 Arabic names get re-transliterated between seasons. Name-keying invents debuts
@@ -591,7 +633,6 @@ drift from the output.
 
 | | estimate | 95% |
 |---|---|---|
-| midfielder share of goals | +0.148 | [+0.039, +0.315] |
 | minutes: top-11 share | +0.247 | [+0.135, +0.351] |
 | familiarity rate (pairs) | +0.217 | [+0.113, +0.337] |
 | appearance rate (starters) | +0.209 | [+0.106, +0.319] |

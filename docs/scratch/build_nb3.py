@@ -414,8 +414,13 @@ line in **every match where both exist**, and each source on its own gives the
 same story (0.10 → 0.89 reported, 0.20 → 0.90 derived).
 
 It matters beyond itself, because a fixed shape makes a fixed eleven much easier
-to pick — and because it puts more midfielders on the pitch, which is going to
-turn up again in section 3.
+to pick.
+
+🚨 It does **not** put more midfielders on the pitch, whatever the team sheets
+say. By each player's usual position the post-2022 XI carries *fewer*
+midfielders (0.27 to 0.23 of the outfield) and more defenders (4.29 to 4.59),
+which is what a back three is. The per-match labels say the opposite only
+because full-backs became wing-backs and were written down as LM and RM.
 """)
 
 code("""
@@ -1070,60 +1075,27 @@ plt.show()
 """)
 
 code("""
+# WHERE the goals come from -- and a trap that nearly cost a finding.
+# scorer_position is the position on THAT MATCH'S team sheet, not the player's
+# role. Ali Olwan, a striker, supplies five of the eighteen post-2022 "midfield"
+# open-play goals. Classify instead by each scorer's modal position across his
+# whole record, and the midfield rise all but disappears.
+_ja = ja.dropna(subset=["player_id"])
+MODAL = _ja.groupby("player_id").Pos.agg(
+    lambda s: s.mode().iloc[0] if s.notna().any() else None)
+BAND = {"GK": "GK", "CB": "DF", "LB": "DF", "RB": "DF", "DF": "DF",
+        "LWB": "DF", "RWB": "DF", "SW": "DF", "DM": "MF", "CM": "MF",
+        "AM": "MF", "MF": "MF", "LM": "MF", "RM": "MF"}
+band = lambda p: BAND.get(str(p).split(",")[0], "FW") if pd.notna(p) else None
+op = gj[~gj.type.eq("penalty_goal")].copy()
+op["modal_band"] = op.scorer_player_id.map(MODAL).map(band)
+op = op.dropna(subset=["modal_band", "scorer_position"])
 
-# What kind of goals? Penalties and own goals flatter a scoring record, so the
-# open-play count is the one worth carrying forward.
-# the FULL goals frame, not gj: an own goal for Jordan is scored by an opponent
-# and so carries no Jordan player id, which would zero that bar out
-gt = goals.assign(t=goals.type.fillna("open play"))
-ORD = ["goal", "penalty_goal", "own_goal_for"]
-kinds = (pd.crosstab(gt.t, gt.era, normalize="columns")
-         .reindex(columns=["pre", "post"]).reindex(ORD).fillna(0))
-cnt = (pd.crosstab(gt.t, gt.era).reindex(columns=["pre", "post"])
-       .reindex(ORD).fillna(0))
-kinds.index = cnt.index = ["open play", "penalty", "own goal for"]
-
-fig, ax = plt.subplots(figsize=(7.0, 2.9))
-x = np.arange(len(kinds))
-tot = gt.groupby("era").size().reindex(["pre", "post"])
-for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-    ax.bar(x + off, kinds[e], width=0.36, color=col, label=f"{e}-2022")
-    for xi_, v, n_ in zip(x + off, kinds[e], cnt[e]):
-        ax.annotate(f"{int(n_)}", (xi_, v), xytext=(0, 3), ha="center",
-                    textcoords="offset points", fontsize=7.5, color=viz.INK_2)
-# an interval on the penalty share, since that is the one people read into
-for i, (off, e) in enumerate(((-0.19, "pre"), (0.19, "post"))):
-    p_ = kinds.loc["penalty", e]
-    lo, hi = np.percentile([rng.binomial(int(tot[e]), p_) / tot[e]
-                            for _ in range(4000)], [2.5, 97.5])
-    ax.vlines(1 + off, lo, hi, color=viz.INK_2, lw=1.3)
-ax.set_xticks(x)
-ax.set_xticklabels(kinds.index)
-ax.set_ylabel("share of goals")
-ax.set_ylim(0, 1.0)
-ax.set_title("What kind of goals (bar labels are counts; interval on penalties)",
-             fontsize=9.5)
-ax.legend(fontsize=8)
-viz.despine(ax)
-plt.show()
-
-""")
-
-code("""
-
-# WHERE the goals come from, open play only. The right panel is the test: a back
-# three puts more midfielders on the pitch, so their share of the goals should
-# rise for free. Slots first, then goals, then the ratio between them.
-op = gj[~gj.type.eq("penalty_goal")]
-pos = (pd.crosstab(op.scorer_position, op.era, normalize="columns")
-       .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
-slots = (mt.groupby("era")[["n_df", "n_mf", "n_fw"]].sum()
-         .reindex(["pre", "post"]))
-slots = slots.div(slots.sum(axis=1), axis=0)
-
-fig, axes = plt.subplots(1, 2, figsize=(7.8, 3.2),
+fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.3),
                          gridspec_kw={"width_ratios": [1.15, 1]})
 a = axes[0]
+pos = (pd.crosstab(op.modal_band, op.era, normalize="columns")
+       .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
 x = np.arange(len(pos))
 for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
     a.bar(x + off, pos[e], width=0.36, color=col, label=f"{e}-2022")
@@ -1132,38 +1104,33 @@ for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
                    textcoords="offset points", fontsize=7.5, color=viz.INK_2)
 a.set_xticks(x)
 a.set_xticklabels(pos.index)
-a.set_ylim(0, pos.values.max() * 1.25)
+a.set_ylim(0, 1.0)
 a.set_ylabel("share of open-play goals")
-a.set_title("Which positions score", fontsize=9.5)
+a.set_title("By the scorer's usual position", fontsize=9.5)
 a.legend(fontsize=8)
 viz.despine(a)
 
 b = axes[1]
-mf_slot = slots.n_mf
-mf_goal = pos.loc["MF"]
-xx = np.arange(2)
-b.bar(xx - 0.19, mf_slot.values, width=0.36, color=viz.INK_MUTED,
-      label="share of outfield slots")
-b.bar(xx + 0.19, mf_goal.values, width=0.36, color=viz.AQUA,
-      label="share of open-play goals")
-for i in range(2):
-    b.annotate(f"{mf_slot.iloc[i]:.2f}", (xx[i] - 0.19, mf_slot.iloc[i]),
-               xytext=(0, 3), ha="center", textcoords="offset points",
-               fontsize=7.5, color=viz.INK_2)
-    b.annotate(f"{mf_goal.iloc[i]:.2f}", (xx[i] + 0.19, mf_goal.iloc[i]),
-               xytext=(0, 3), ha="center", textcoords="offset points",
-               fontsize=7.5, color=viz.INK_2)
-    b.annotate(f"goals per slot {mf_goal.iloc[i] / mf_slot.iloc[i]:.2f}",
-               (xx[i], 0), xytext=(0, -26), ha="center",
-               textcoords="offset points", fontsize=7.5, color=viz.INK_MUTED)
-b.set_xticks(xx)
-b.set_xticklabels(["pre-2022", "post-2022"])
-b.set_ylim(0, 0.62)
-b.set_title("Midfielders: on the pitch vs on the scoresheet", fontsize=9.5)
-b.legend(fontsize=7.5, loc="upper left")
+lab = (pd.crosstab(op.scorer_position, op.era, normalize="columns")
+       .reindex(columns=["pre", "post"]).reindex(["FW", "MF", "DF"]).fillna(0))
+for i_, (nm, tab) in enumerate((("team-sheet\\nlabel", lab),
+                                ("usual\\nposition", pos))):
+    v = [tab.loc["MF", "pre"], tab.loc["MF", "post"]]
+    b.plot([i_ - 0.14, i_ + 0.14], v, color=viz.INK_MUTED, lw=2.0, zorder=1)
+    b.scatter([i_ - 0.14], [v[0]], color=viz.BLUE, s=70, zorder=3)
+    b.scatter([i_ + 0.14], [v[1]], color=viz.ORANGE, s=70, zorder=3)
+    b.annotate(f"{v[1] - v[0]:+.3f}", (i_, max(v)), xytext=(0, 10),
+               ha="center", textcoords="offset points", fontsize=9,
+               color=viz.INK_2)
+b.set_xticks([0, 1])
+b.set_xticklabels(["team-sheet label", "usual position"], fontsize=8.5)
+b.set_xlim(-0.5, 1.5)
+b.set_ylim(0, 0.45)
+b.set_ylabel("midfield share of open-play goals")
+b.set_title("The same measure, two ways of asking", fontsize=9.5)
 viz.despine(b)
+b.grid(axis="x", visible=False)
 plt.show()
-
 """)
 
 md("""
@@ -1176,20 +1143,29 @@ moved too: Al-Taamari **doubles**, 0.27 to 0.53 goals per 90, and Olwan and
 Al-Naimat both improve on an already decent number. Mahmoud Al-Mardi is the
 counter-example, taking a large share of the minutes while his rate drifts down.
 
-**The scoring is not propped up by penalties**, though the share does rise —
-9.9% to 14.3%, on 14 and 11 goals, an interval far too wide to call a change.
+🚨 **The midfield finding was a labelling artefact, and it is retired.**
+`scorer_position` is the position printed on *that match's* team sheet, not the
+player's role. Ali Olwan — a striker on every other measure — supplies **five of
+the eighteen** post-2022 midfield open-play goals, and ten of the eighteen come
+from men whose usual position is forward.
 
-**And the penalties are not what put midfielders on the scoresheet.**
-Midfielders take about half the spot kicks in *both* eras, and the midfield share
-of **open-play** goals rises **+0.146, 95% [+0.045, +0.332]** against +0.148
-[+0.038, +0.329] for all goals — the same number. Penalties explain none of it,
-which is why the position figure drops them.
+| MF share of open-play goals | pre | post | change |
+|---|---|---|---|
+| team-sheet label | 0.194 | 0.340 | **+0.146** |
+| scorer's usual position | 0.113 | 0.151 | **+0.038** |
 
-**What does explain part of it is the formation.** Section 1's back three puts
-more midfielders on the pitch: they go from **32%** of the outfield to **43%**.
-But that is not the whole story either — their goals per outfield slot rises
-**0.60 → 0.80**. More midfielders, *and* each one scoring more often than a
-midfielder used to. Both, not either.
+Forwards are flat on the honest measure too — 0.758 to 0.736, a change of
+**−0.022** against the **−0.146** the labels imply. **Nothing moved between the
+lines.**
+
+The slots half of the old story was the same relabelling: by usual position the
+post-2022 XI carries *fewer* midfielders, 0.27 to 0.23 of the outfield, and more
+defenders. "A back three puts more midfielders on the pitch, so more midfield
+goals" was one relabelling counted twice.
+
+Section 0's split-date sweep had already flagged this measure as the only one
+that could not locate a date — as large at a 2018 cut as at 2022. That is what a
+vocabulary drift looks like, and the guard fired before the data check did.
 """)
 
 code("""
@@ -2051,10 +2027,10 @@ md("""
 |---|---|---|
 | **Supported** | a more settled team | minutes top-11 **+0.247** [+0.135, +0.351]; familiarity **+0.217** [+0.113, +0.337] |
 | | the goals narrowed with it | outside the rarefied pre-2022 range — but **entirely explained** by the minutes, ratio to minutes-implied 2.14 → 2.13 |
-| | more goals from midfield | **+0.148** [+0.039, +0.315] — but it cannot locate a date (section 0) |
 | **Unchanged** | late conceding | a third of goals against in the last fifteen minutes, both eras |
 | | level scorelines | shortfall −0.50 pre, −0.41 post; change **+0.09** [−0.36, +0.77] |
-| **Not established** | dependence on one player | top-1 share sits *inside* the rarefied range |
+| **Not established** | more goals from midfield | +0.148 [+0.039, +0.315] on team-sheet labels, **+0.038** on the scorer's usual position — a labelling artefact (section 3) |
+| | dependence on one player | top-1 share sits *inside* the rarefied range |
 | | game management, keeper, discipline, margins | every interval spans zero |
 
 ### So how did the results get better?
