@@ -740,6 +740,18 @@ mt["venue_eff"] = np.where(mt.venue == "home", mt.adv,
                            np.where(mt.venue == "away", -mt.adv, 0.0))
 mt["opp_str"] = mt.strength_at_match - (mt.expected_gd - mt.venue_eff)
 
+
+def _comp_cat(t):
+    # the calendar has three modes and they face very different opposition
+    if "qualification" in str(t):
+        return "qualifying"
+    if str(t).startswith("Friendl"):
+        return "friendly"
+    return "finals"
+
+
+mt["comp_cat"] = mt.tournament.map(_comp_cat)
+
 BLK = {e: [d for _, d in mt[mt.era == e].groupby("blk")] for e in ("pre", "post")}
 
 
@@ -762,8 +774,8 @@ code("""
 # When did it harden, and was it chosen? Friendlies are arranged; qualifiers are
 # drawn. If only the competitive fixtures got harder, that is a consequence of
 # going further. If the friendlies hardened too, somebody chose it.
-fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
-                         gridspec_kw={"width_ratios": [1.7, 1]})
+fig, axes = plt.subplots(1, 3, figsize=(9.2, 3.2),
+                         gridspec_kw={"width_ratios": [1.9, 1.05, 0.95]})
 a = axes[0]
 srt = mt.sort_values("date")
 jr = srt.set_index("date").strength_at_match.rolling(12, center=True).mean()
@@ -786,22 +798,44 @@ a.set_ylim(-2.2, 3.6)
 a.legend(fontsize=8, loc="upper left")
 viz.despine(a)
 
+# why the orange line saws: the calendar alternates between qualifying groups
+# full of minnows and tournaments full of real teams
 b = axes[1]
+CATS = ["qualifying", "friendly", "finals"]
+for i, c_ in enumerate(CATS):
+    d = mt[mt.comp_cat == c_]
+    jit = rng.normal(0, 0.07, len(d))
+    b.scatter(np.full(len(d), i) + jit, d.opp_str, s=14, alpha=0.45,
+              color=viz.ORANGE, linewidths=0)
+    b.hlines(d.opp_str.mean(), i - 0.28, i + 0.28, color=viz.INK, lw=2.2)
+    b.annotate(f"{d.opp_str.mean():+.2f}", (i, d.opp_str.mean()), xytext=(0, 6),
+               ha="center", textcoords="offset points", fontsize=8,
+               color=viz.INK_2)
+b.axhline(0, color=viz.INK_2, lw=1.0)
+b.set_xticks(range(len(CATS)))
+b.set_xticklabels([f"{c_}\\n({int((mt.comp_cat == c_).sum())})" for c_ in CATS],
+                  fontsize=8)
+b.set_ylabel("opponent strength")
+b.set_title("Why it saws", fontsize=9.5)
+viz.despine(b)
+b.grid(axis="x", visible=False)
+
+c = axes[2]
 x = np.arange(2)
 for off, e, col in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
     v = [mt[(mt.era == e) & (mt.kind == k)].expected_gd.mean()
          for k in ("competitive", "friendly")]
-    b.bar(x + off, v, width=0.36, color=col, label=f"{e}-2022")
+    c.bar(x + off, v, width=0.36, color=col, label=f"{e}-2022")
     for xi_, vv in zip(x + off, v):
-        b.annotate(f"{vv:+.2f}", (xi_, vv), xytext=(0, 3), ha="center",
+        c.annotate(f"{vv:+.2f}", (xi_, vv), xytext=(0, 3), ha="center",
                    textcoords="offset points", fontsize=8, color=viz.INK_2)
-b.axhline(0, color=viz.INK_2, lw=1.0)
-b.set_xticks(x)
-b.set_xticklabels(["competitive", "friendly"])
-b.set_ylabel("mean expected goal difference")
-b.set_title("Chosen, or earned?", fontsize=9.5)
-b.legend(fontsize=8)
-viz.despine(b)
+c.axhline(0, color=viz.INK_2, lw=1.0)
+c.set_xticks(x)
+c.set_xticklabels(["competitive", "friendly"])
+c.set_ylabel("mean expected goal difference")
+c.set_title("Chosen, or earned?", fontsize=9.5)
+c.legend(fontsize=7.5)
+viz.despine(c)
 plt.show()
 """)
 
@@ -996,6 +1030,14 @@ was on the other side. The narrowing gap *understates* the hardening, because
 Jordan's own rise is pushing it back open. This is not a scheduling-mix effect —
 holding the venue mix fixed gives +0.25 to +0.98, and opponent strength rises
 inside every venue category.
+
+**The jaggedness is the calendar, not noise.** Jordan's schedule runs in three
+modes and they face completely different opposition: qualifying groups average
+**−0.34** and reach down to Pakistan at −3.99 and Cambodia at −3.73; friendlies
+average +0.66; finals average **+1.20** and reach up to Argentina at +3.79.
+Qualifying also carries much the widest spread (sd 1.60 against 0.90 and 0.95),
+because AFC groups put minnows and real sides in the same campaign. Every trough
+in the orange line is a qualifying window.
 
 **And it was partly chosen.** Qualifiers are drawn, so meeting better teams is
 partly a consequence of going further. But the *friendlies* hardened too,
