@@ -506,24 +506,41 @@ settled = pd.DataFrame(res)   # drawn by the next cell
 """)
 
 code("""
-fig, ax = plt.subplots(figsize=(7.6, 2.2))
+# Levels, not just the change. Both measures are shares on the same scale and
+# both mean the same thing at 1.0 -- the identical eleven, every match -- so one
+# axis carries them, and the interval rides along as text rather than as the
+# whole chart.
+fig, ax = plt.subplots(figsize=(7.8, 2.4))
 d = settled.iloc[::-1].reset_index(drop=True)
 y = np.arange(len(d))
+ax.hlines(y, d.pre, d.post, color=viz.GRID, lw=3.0, zorder=1,
+          capstyle="round")
+ax.scatter(d.pre, y, color=viz.BLUE, s=70, zorder=3, label="pre-2022")
+ax.scatter(d.post, y, color=viz.ORANGE, s=70, zorder=3, label="post-2022")
 for i, r in d.iterrows():
-    col = viz.ORANGE if r.excludes_0 else viz.INK_MUTED
-    ax.plot([r.lo, r.hi], [i, i], color=col, lw=2.4, solid_capstyle="round")
-    ax.plot(r["diff"], i, "o", color=col, ms=7, zorder=3)
-    ax.annotate(f"{r['diff']:+.2f}", xy=(r["diff"], i), xytext=(0, 9),
-                textcoords="offset points", ha="center", fontsize=8, color=col)
-ax.axvline(0, color=viz.INK_2, lw=1.0, zorder=0)
-ax.set_yticks(y); ax.set_yticklabels(d.measure)
-ax.set_xlabel("change, pre-2022 to post-2022  (95% block-bootstrap interval)")
+    ax.annotate(f"{r.pre:.2f}", (r.pre, i), xytext=(0, 10), ha="center",
+                textcoords="offset points", fontsize=8, color=viz.BLUE)
+    ax.annotate(f"{r.post:.2f}", (r.post, i), xytext=(0, 10), ha="center",
+                textcoords="offset points", fontsize=8, color=viz.ORANGE)
+    ax.annotate(f"{r['diff']:+.2f}  [{r.lo:+.2f}, {r.hi:+.2f}]",
+                (1.0, i), xytext=(8, 0), va="center",
+                textcoords="offset points", fontsize=8, color=viz.INK_2)
+ax.set_yticks(y)
+# labels must follow the (reversed) frame, not a hardcoded list -- getting this
+# wrong silently puts the minutes number on the familiarity row
+NICE = {"minutes: top-11 share": "minutes to the top eleven",
+        "familiarity rate (pairs)": "pairs who had started together"}
+ax.set_yticklabels([NICE.get(m, m) for m in d.measure])
+ax.set_xlim(0, 1.0)
+ax.set_ylim(-0.6, len(d) - 0.4)
+ax.set_xlabel("share   (1.0 would be the identical eleven, every match)")
 ax.set_title("A narrower, more settled team")
-ax.annotate(f"windowed rates cover {XI_COVER[0]} of {XI_COVER[1]} matches with a "
-            f"recorded XI", xy=(0, -0.26), xycoords="axes fraction", fontsize=8,
-            color=viz.INK_MUTED)
+ax.legend(fontsize=8, loc="upper left", ncol=2)
+ax.annotate(f"windowed rates cover {XI_COVER[0]} of {XI_COVER[1]} matches "
+            f"with a recorded XI", xy=(0, -0.42), xycoords="axes fraction",
+            fontsize=7.5, color=viz.INK_MUTED)
 viz.despine(ax)
-ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True)
+ax.grid(axis="y", visible=False)
 plt.show()
 """)
 
@@ -576,6 +593,17 @@ Turnover says the same thing from the other side — the eleven that starts is
 closer to the eleven that started last time. Note it does **not** fall to zero:
 Jordan still changes players, it just changes fewer of them, inside a shape that
 no longer changes at all.
+""")
+
+md("""
+### Where they play their club football
+
+The squad narrowed and settled. A different question about the same men: **where
+do they earn their living, and did that move?**
+
+FBref cannot answer it — its reader covers nine leagues, none of them Jordanian,
+Gulf or Asian. This comes from five Wikipedia tournament squad lists, each row
+carrying the club and the club's country at the moment the squad was named.
 """)
 
 code("""
