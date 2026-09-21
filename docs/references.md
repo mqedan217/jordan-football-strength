@@ -77,7 +77,7 @@ resamples — follows standard practice for comparing dependent estimates.
 
 ## Concentration and diversity
 
-Used in notebook 03 to ask whether the goals came from fewer players.
+Used in notebook 04 to ask whether the goals came from fewer players.
 
 - **Gotelli, N. J. & Colwell, R. K. (2001).** [Quantifying biodiversity:
   procedures and pitfalls in the measurement and comparison of species
@@ -104,7 +104,8 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   *Journal of Big Data*, 12.
   [doi:10.1186/s40537-025-01239-x](https://link.springer.com/article/10.1186/s40537-025-01239-x).
   Defines team familiarity as pairwise prior appearances together, aggregated
-  over the team. This project's `fam_rate` is that measure, restricted to a
+  over the team. Used in notebook 03, §1.3. This project's `fam_rate` is that
+  measure, restricted to a
   24-month lookback and divided by matches available in the window — raw
   pairwise counts accumulate with time and FBref's coverage starts in 2011, so
   the unadjusted version rises for reasons that have nothing to do with Jordan.
@@ -122,10 +123,13 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   Measures stability as the share of players recruited within a year, and puts
   champions near 25%. A club-transfer metric with no direct national-team
   analogue, cited for the shape of the relationship, not the threshold.
+  Used in notebook 05, §3, as the caution against reading "send players abroad"
+  off a null: moving players abroad reduces the availability and continuity that
+  notebook 03 found most clearly went up.
 
 ## Match state and goal timing
 
-`match_state.py`, and the timing section of notebook 03.
+`match_state.py`, and part 3 of notebook 04.
 
 - **Lago-Peñas, C. & Gómez-López, M. (2014).** [How important is it to score a
   goal? The influence of the scoreline on match
@@ -134,7 +138,7 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   Match status drives possession and territory: teams that go behind take on
   more of the ball. This is why the possession figures in this project are
   descriptive only — a low possession share may be the scoreline, not a style.
-  It is also why notebook 03's level-scoreline expectation is qualified: a
+  It is also why notebook 04's level-scoreline expectation is qualified: a
   Poisson simulation at a constant rate is state-blind by construction, and
   match status is precisely what it ignores.
 - **Armatas, V., Yiannakos, A., Skoufas, D. & Papadopoulou, S. (2009).**
@@ -144,7 +148,7 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   window**. Any era difference in Jordan's scoring or conceding profile has to
   be read against that baseline rather than against a flat expectation.
 
-  🚨 These two between them motivate the qualification on notebook 03's
+  🚨 These two between them motivate the qualification on notebook 04's
   level-scoreline shortfall, but they do not carry it. Neither paper reports a
   late-goal rate conditioned on being level at the 75th minute specifically, so
   the argument is made on Jordan's own data instead: the model predicts 0.38
@@ -152,7 +156,9 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   calibration check, not the literature, for the size of the effect.
 - **Myers, B. R. (2012).** A proposed decision rule for the timing of soccer
   substitutions. *Journal of Quantitative Analysis in Sports*, 8(1).
-  The 58/73/79-minute rule. **Not applied here** — see below.
+  The 58/73/79-minute rule. **Not applied here** — see below. Both papers are
+  cited in notebook 05, §2, as the reason substitutions were excluded rather
+  than tested.
 - **Silva, R. M. & Swartz, T. B. (2016).** [Analysis of substitution times in
   soccer](https://www.sfu.ca/~tswartz/papers/substitution.pdf).
   *Journal of Quantitative Analysis in Sports*.
@@ -164,7 +170,7 @@ Used in notebook 03 to ask whether the goals came from fewer players.
 ## Design
 
 - **Placebo tests.** The strength model is run on Iraq, Syria and UAE over the
-  same window (notebook 01, §3), and the competitive-match DiD is run across
+  same window (notebook 02, §3), and the competitive-match DiD is run across
   161 teams (`importance.py`). The second one is what ruled out the "turns up
   when it matters" claim: the cross-team spread of the effect (sd 0.735) is
   indistinguishable from within-team estimation noise (sd 0.758).
@@ -172,6 +178,18 @@ Used in notebook 03 to ask whether the goals came from fewer players.
   friendly split and is reported as *not established*, because the estimate
   grows monotonically with the split date — a sign the parallel-trends
   assumption does not hold here.
+
+---
+
+## Where each reference is used, by notebook
+
+| notebook | leans on |
+|---|---|
+| **01 the data** | no methods; the data-source table at the top of this file |
+| **02 the strength model** | Maher (1982), Dixon & Coles (1997), Baio & Blangiardo (2010), Hoerl & Kennard (1970), Efron & Morris (1975), Gneiting & Raftery (2007), Efron (1979), Künsch (1989) |
+| **03 the squad and the opposition** | Künsch (1989); *Journal of Big Data* (2025) shared experience; van Vugt et al.; CIES Football Observatory |
+| **04 the goals** | Gotelli & Colwell (2001), Hurlbert (1971), HHI; Armatas et al. (2009); Lago-Peñas & Gómez-López (2014); Künsch (1989) |
+| **05 how Jordan can improve** | Lago-Peñas & Gómez-López (2014); Myers (2012) and Silva & Swartz (2016), both as exclusions; CIES and van Vugt as the caution on moving players abroad |
 
 ---
 

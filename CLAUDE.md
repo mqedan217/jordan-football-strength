@@ -7,12 +7,16 @@ first World Cup qualification. The question is whether that shift is real once
 opponent quality is controlled for, and if so, whether it coincides with a
 change in squad composition.
 
-Two halves:
+Two halves, **both now built**:
 
-1. **Strength model (built, working).** Opponent-adjusted team strength over
-   time from scores alone. Establishes whether and when a shift happened.
-2. **Squad layer (not built).** Per-match lineups from FBref, used to measure
-   squad turnover, minutes concentration, and age profile across the shift.
+1. **Strength model.** Opponent-adjusted team strength over time from scores
+   alone. Establishes whether and when a shift happened.
+2. **Squad layer.** Per-match lineups, goals with minutes, and a reconstructed
+   scoreboard, used to measure turnover, minutes concentration, who scored and
+   when.
+
+Told across five notebooks, which are **build output** — see "The notebooks are
+BUILD OUTPUT" below before editing anything in `notebooks/`.
 
 The claim at the end should be a coincidence-with-uncertainty, not a causal
 one. See "Limitations" — this design cannot identify a cause.
@@ -315,8 +319,8 @@ coarsely-labelled early era with a finely-labelled later one.
 where FBref's reported formation and the independently derived `xi_shape` agree
 in **94 of 94** matches that carry both. Back three or five, 20% → 90%.
 
-🚨 Section 0's split-date sweep had already flagged midfielder share as the one
-measure that could not locate a date — as large at a 2018 cut as at 2022. That is
+🚨 The split-date sweep (notebook 02, §5) had already flagged midfielder share as
+the one measure that could not locate a date — as large at a 2018 cut as at 2022. That is
 what a labelling drift looks like, and the guard fired before the data check did.
 Take that signal seriously next time.
 
@@ -595,7 +599,7 @@ reads +0.293 post against +0.126 pre.
   ❌ **Bootstrapped, and it does not survive.** On the 2015+ window the
   trailing/level ratio difference is +0.19, 95% [-1.01, +0.99], resting on 24
   goals scored while trailing in eleven years. The point estimates tell a good
-  story and the interval cannot carry it. Reported in notebook 03 as a null.
+  story and the interval cannot carry it. Reported in notebook 05 as a null.
 - **Blowouts did not change.** Win by 3+ −0.008 [−0.152, +0.124]; lose by 3+
   −0.002 [−0.068, +0.097]; margin sd 2.34 -> 2.36. What changed is total goals
   per match, **2.50 -> 3.05 [+0.08, +1.04]** — games got more open.
@@ -617,17 +621,52 @@ it into `JordanData/` before relying on it.
 reports with no event feed. Coverage is now balanced across eras, so this is
 noise rather than bias, but it caps n at 40 post-2022.
 
-### Notebook 03 — where the goals came from (2026-09-14)
+### 🚨 The notebooks are BUILD OUTPUT (restructured 2026-09-21)
 
-`notebooks/03_where_the_goals_came_from.ipynb`, built by
-`docs/scratch/build_nb3.py`, **51 cells and 6 figures**. It opens with `## 0. Is
-2022 real?` (the split-date sweep above), closes with **`## What we can still
-improve`**, and the `gf_above_expected` caveat that used to open it is now an
-appendix. The shared measure functions (`top11`, `mf_share`, `top3_share`,
-`fam_rate`/`caps_rate`, `windowed`) are defined once in section 0 and reused by
-sections 1 and 3 — do not redefine them. Window 2015+, split 2022-07-01, 98 pre / 45
-post matches. Every code cell recomputes its own numbers so the prose cannot
-drift from the output.
+**Never edit a `.ipynb`.** Every notebook is generated from a script in
+`docs/build/`, and the next rebuild discards anything typed into the notebook.
+
+```
+python docs/build/build_all.py      # rebuilds all five
+```
+
+| script | notebook | cells | figures |
+|---|---|---|---|
+| `build_nb1_data.py` | `01_the_data` | 26 | 7 |
+| `build_nb2_strength.py` | `02_the_strength_model` | 42 | 12 |
+| `build_nb3_squad.py` | `03_the_squad_and_the_opposition` | 29 | 9 |
+| `build_nb4_goals.py` | `04_the_goals` | 51 | 17 |
+| `build_nb5_improve.py` | `05_how_jordan_can_improve` | 18 | 5 |
+
+`docs/build/nbkit.py` holds the `Nb` class and the two shared cell bodies
+(`PRELUDE`, `LOAD_SQUAD`). **Add a figure with `nb.figure(caption, code)`, never
+`nb.code`** — `figure()` writes the caption cell and the plot cell as a pair, and
+`write()` raises if any `plt.show()` is not preceded by a markdown cell. That is
+how "every plot has a markdown cell saying concisely what is plotted" is
+enforced rather than remembered.
+
+**Only two text outputs exist in the whole project, both deliberate receipts:**
+one match printed end to end (nb 01 §9) and one model fit printed from
+parameters to a strength number (nb 02 §1.4). Everything else is a figure. Keep
+it that way.
+
+The story order is data -> shift -> squad -> goals -> what is left:
+
+1. **01 the data** — provenance, coverage, the traps, what the data forbids
+2. **02 the strength model** — the model, the divergence, the placebo, the
+   calibration, and **where the cut comes from** (the 2021 rebuild arc + the
+   split-date sweep)
+3. **03 the squad and the opposition** — formation, settledness, club leagues;
+   then who Jordan played and how that changed
+4. **04 the goals** — who scored, how few, and when/in what state
+5. **05 how Jordan can improve** — the margin, the nulls, the untested Europe
+   route, a power calculation, and what cannot be known
+
+Window 2015+, split 2022-07-01, **143 matches: 98 pre / 45 post**. Every code
+cell recomputes its own numbers, and `rng` is seeded in `PRELUDE`, so a rebuild
+reproduces the figures exactly.
+
+### What notebook 04 establishes (was notebook 03, 2026-09-14)
 
 **Supported:**
 
@@ -653,14 +692,23 @@ players who were already in it, not a new generation arriving. Earlier notes in
 this file described a replacement; that was an artefact of using the 2011+
 window, where Al-Taamari's pre-2022 share looks smaller.
 
-Nulls reported as nulls: match state, heavy wins and defeats, goalkeeper,
-discipline, and the state scoring rates.
+Nulls reported as nulls, now collected in **notebook 05 §2**: match state, heavy
+wins and defeats, goalkeeper, discipline, and the state scoring rates.
+
+🚨 **Stale numbers corrected during the restructure.** The old notebook 02 said
+"since 2015 that gives 156 matches, of which 136 (87%) yield a full starting XI"
+and "the six matches that do not reconcile"; recomputed it is **143 matches, 138
+with a full XI (97%)**, and **172 of 174 reconcile**, with **3** goals absent
+from every source rather than 14. The old notebook 01 said Jordan's effective
+sample was "roughly 20-25 matches"; it is about **40**. Assist coverage on
+open-play goals is **37% -> 59%**, not the 35% -> 70% notebook 03 carried.
 
 ### ✅ 2022 survives a split-date sweep — except one measure (2026-09-16)
 
-Notebook 03 rested entirely on 2022-07-01 and never tested it, in a project that
+The analysis rested entirely on 2022-07-01 and never tested it, in a project that
 had already disqualified the competitive/friendly DiD for growing monotonically
-with the cut. It now opens with the check (`## 0. Is 2022 real?`): slide the cut
+with the cut. Notebook 02 now closes with the check (`## 5. Where the cut comes
+from`): slide the cut
 every six months 2018-2024, recompute, and read the shape. A **change** ramps and
 then plateaus; a **trend being sliced** keeps climbing.
 
@@ -680,7 +728,7 @@ at a 2018 cut (+0.159) as at 2022 (+0.148), sags in between, and peaks at the
 final cut where only 27 matches remain post. Its pre/post interval still excludes
 zero — the post-2022 team really does score more from midfield — but that is a
 statement about two groups, **not** evidence of a change in mid-2022. It is the
-weakest of the four "supported" measures in notebook 03; do not lead with it.
+weakest of the four "supported" measures; do not lead with it.
 
 The defensible claim is **"no later than early 2022"**, not July 2022: the
 plateau is already reached at the 2022-01 cut, and at ~15 matches a year those
@@ -732,7 +780,7 @@ reaches the 75th minute leading in 47% of matches in BOTH eras and level in
 about a quarter — while the opposition got much harder (mean expected GD across
 all matches +0.48 -> +0.02, and among matches reaching 75' level, +0.50 ->
 -0.41). Holding the same scoreboard positions against much better teams IS the
-improvement; it is notebook 01's headline in a different register. The
+improvement; it is notebook 02's headline in a different register. The
 conversion from those positions did not improve at all.
 
 Opponent-adjusted, because that check has caught several claims in this project:

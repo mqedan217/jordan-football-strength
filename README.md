@@ -9,12 +9,33 @@ coincides with a change in squad composition.
 scheduling all move together, and with ~15 matches a year there is no design
 here that separates them. Everything below is coincidence with uncertainty.
 
+## The five notebooks
+
+Read in order; each one answers a question the last one raises. They are
+**build output** — regenerate with `python docs/build/build_all.py`, and edit
+the scripts in `docs/build/`, never the `.ipynb`.
+
+| | | |
+|---|---|---|
+| [`01_the_data`](notebooks/01_the_data.ipynb) | What exists, how complete it is, and what it forbids | 7 figures |
+| [`02_the_strength_model`](notebooks/02_the_strength_model.ipynb) | Did the results actually shift, and when? | 12 figures |
+| [`03_the_squad_and_the_opposition`](notebooks/03_the_squad_and_the_opposition.ipynb) | Who was picked, and who they played | 9 figures |
+| [`04_the_goals`](notebooks/04_the_goals.ipynb) | Who scored, how few, and when | 17 figures |
+| [`05_how_jordan_can_improve`](notebooks/05_how_jordan_can_improve.ipynb) | What did not change, and what is still untested | 5 figures |
+
+Every figure is introduced by a markdown cell saying concisely what is plotted;
+the build refuses to emit a notebook where one is missing. There are exactly two
+non-graphical outputs in the whole project, both deliberate receipts: one match
+printed end to end, and one model fit printed from parameters to a strength
+number.
+
 ## The headline
 
 2026 is simultaneously Jordan's **worst raw goal difference** and the model's
-**highest strength estimate**. Both are correct — the 2026 opponents were
-Argentina, Austria, Algeria, Switzerland and Colombia, and Jordan lost all five
-narrowly. Raw results say collapse; opponent adjustment says otherwise.
+**highest strength estimate**. Both are correct — the seven 2026 opponents were
+Costa Rica, Nigeria, Switzerland, Colombia, Austria, Algeria and Argentina, and
+Jordan drew two and lost five, mostly narrowly. Raw results say collapse;
+opponent adjustment says otherwise.
 
 | year | raw GD/match | model strength | 95% CI |
 |------|--------------|----------------|--------|
@@ -50,6 +71,35 @@ teams the spread of that statistic (sd 0.735) is *smaller* than the average
 within-team estimation noise (sd 0.758). Between-team variation is
 indistinguishable from zero, so no team is separable from any other on this
 measure. Report it as a description of 57 matches, not a trait.
+
+## What the squad layer adds
+
+**Supported.** Jordan abandoned the back four — a back three or five in 20% of
+pre-2022 matches and 90% after, **+0.70 [+0.40, +0.86]**, and the largest single
+move in the data. Minutes concentrated on the top eleven (**+0.25 [+0.13,
++0.35]**) and the XI became more familiar (**+0.22 [+0.12, +0.34]**). The goals
+came from a narrower group — distinct scorers, top-3 share and HHI all outside a
+rarefied pre-2022 range. And the opposition got **harder twice as fast as Jordan
+improved**, in every mode of the calendar, friendlies included.
+
+**The one actionable finding.** From a level scoreline at the 75th minute, the
+late goals go one way: of 25 goals after the 75th in the 36 matches Jordan
+reached that point level, Jordan **scored 6 and conceded 19** — a share of
+**0.240 [0.048, 0.419]** against a model-implied 0.539, and stable in both eras.
+A general "level matches are busy late" effect predicts volume, not direction.
+
+**Retired.** "More goals from midfield" was reported with an interval and is
+**wrong**: `Pos` is the position on that match's team sheet, and full-backs
+became wing-backs written down as LM and RM. By the scorer's usual position the
+change is +0.038, not +0.146.
+
+**Not supported.** That Jordan is a one-man team (top-1 share sits *inside* the
+rarefied range); that the narrowing is about scoring at all (2.4× more
+concentrated than the minutes imply — the same multiple in both eras); that game
+management, the goalkeeper, discipline or margins changed.
+
+**Never tried.** Across five tournament squads in eleven years, Jordan has had
+exactly **one** European-based player, and it is the same man twice.
 
 ## Method
 
@@ -92,7 +142,14 @@ python importance.py      # competitive/friendly difference-in-differences
 
 python fbref_fetch.py     # squad layer: scrape (slow, resumable, cached)
 python fbref_parse.py     # HTML -> tidy tables
-python squad_features.py  # turnover, minutes concentration, age, debuts
+python wiki_arabcup.py    # the 10 Arab Cup matches FBref does not carry
+python wiki_squads.py     # tournament squad lists: clubs and club countries
+python merge_sources.py   # combine, with provenance
+python match_table.py     # flatten to match and goal grain
+python match_state.py     # reconstruct the scoreboard through each match
+
+cd ..
+python docs/build/build_all.py   # regenerate the five notebooks
 ```
 
 `fbref_fetch.py` waits 12–25s between pages and rests every 20. It never
@@ -117,9 +174,17 @@ re-run to resume.
   biased downward.
 - **Team names are normalised to current names** in the source data, so
   historical matches appear under modern country names. Harmless for 2015+.
-- **The placebo is not yet run.** Comparing Jordan against Iraq, Palestine,
-  Oman and Bahrain requires scraping those squads too; until then, no claim
-  that a squad pattern is distinctive to Jordan is supportable.
+- **The placebo is run for strength, not for the squad.** Notebook 02 runs the
+  model on Iraq, Syria and UAE, and only Jordan's rise clears zero. Notebooks
+  03–04 do nothing of the kind: every measure there is Jordan against its own
+  past, so anything really about international football in the 2020s would look
+  identical. **This is the largest hole in the analysis**, and it costs ~600
+  uncached match reports to close.
+- **Power is the binding constraint.** With 45 post-2022 matches, a two-era
+  comparison can only resolve differences of about **0.6 goals a match**
+  (notebook 05, §4.2). That is why the rise itself needed a model pooling 49,000
+  matches, and why so much of notebook 04 is nulls with wide intervals. More
+  *teams* would help; more *years* would not, at fifteen matches a year.
 
 ## Data
 
