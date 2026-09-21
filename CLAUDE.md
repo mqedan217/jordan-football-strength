@@ -422,6 +422,42 @@ similarity score, **unconfirmed**. Do not merge these rows into the main
 appearances table until a human sets `confirmed`. A close string is not proof,
 and a wrong accept invents a player history.
 
+### 🚫 Opponent formation — recovered in full, and it supports nothing (2026-09-21)
+
+Do not re-explore. The coverage problem was real and is now fixed; the data
+underneath simply has no signal.
+
+**The gap, and why it mattered.** FBref carries no Arab Cup, so `opp_formation`
+was null for ten of the post-era's forty-five matches — and not a random ten:
+covered post matches averaged expected GD −0.07 and actual +0.09, the uncovered
+ones **+0.35 and +1.40**. Jordan's easiest block, won most heavily. Same failure
+mode as possession and as the match-state feed.
+
+**Fixed.** `wiki_arabcup.parse_page` was already splitting BOTH lineup tables out
+of each Wikipedia `Football box` and discarding the opposition's. It now keeps it
+and derives the shape exactly as `xi_shape` is derived; `match_table` merges it
+and records provenance in **`opp_formation_source`** (`fbref` vs
+`derived_from_wiki_lineup`), because a derived shape and a reported one are not
+the same measurement. Post coverage **35/45 → 41/45**, pre 58/98 → 62/98.
+
+**What it supports — two sentences, no figure:**
+- Teams play a back four against Jordan about five times in six (87 of 103).
+- The count of back-three opponents is **8 before 2022 and 8 after** — identical;
+  only the denominator moved. And Jordan does not adapt: a back three in **44%**
+  of matches against a back three, **43%** against a back four.
+
+**What it does NOT support, tested rather than assumed.** Pooling both eras for
+power, Jordan's result relative to expectation differs between the two shapes by
+**−0.25, 95% [−1.16, +0.68]**. By full formation string the cells hold 6 to 30
+matches with residuals bouncing between −0.60 and +1.01. An earlier era-split
+version looked like a finding and was not: the eight post-era back-three fixtures
+include **Pakistan 7-0, which alone was 78% of that bar**, and "back three" meant
+Hong Kong and Singapore before 2022 and Serbia and Switzerland after.
+
+🚨 The general lesson, which this project keeps relearning: a cell of eight
+matches will always show something. Check what one result contributes before
+reporting a difference between small groups.
+
 ### 🚫 Possession — checked exhaustively, NOT obtainable (2026-09-11)
 
 Do not re-explore. Possession exists for **27 of 174** matches and cannot be

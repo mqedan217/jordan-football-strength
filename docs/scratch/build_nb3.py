@@ -710,15 +710,14 @@ Before asking what Jordan did better, ask who it was playing. The model in
 section 0 adjusts for this, but the adjustment hides something a reader needs to
 see directly: **the fixture list changed as much as the squad did.**
 
-Six questions:
+Five questions:
 
 1. **When did the opponents get harder** — and was it gradual or sudden?
 2. **Was that chosen or earned?** Friendlies are picked; qualifiers are not.
 3. **Given the opponent, how much better is Jordan?**
 4. **Does that gain depend on who it plays** — bigger against weak sides, or the
    same everywhere?
-5. **Does venue matter**, now that half the fixtures are on neutral ground?
-6. **How does the opposition set up** against Jordan, and did that change?
+5. **How does the opposition set up** against Jordan, and did that change?
 """)
 
 code("""
@@ -863,91 +862,6 @@ viz.despine(ax)
 plt.show()
 """)
 
-code("""
-# Venue and fixture type. Comparing WITHIN an era is clean -- whatever lag the
-# model carries applies to the whole era equally -- so the contrast between
-# venues is fair even though the across-era residual is not.
-fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2))
-for ax, col_, order in ((axes[0], "venue", ["home", "away", "neutral"]),
-                        (axes[1], "kind", ["competitive", "friendly"])):
-    x = np.arange(len(order))
-    for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-        d = mt[mt.era == e]
-        act = [d[d[col_] == k].gd.mean() for k in order]
-        exp = [d[d[col_] == k].expected_gd.mean() for k in order]
-        n_ = [int((d[col_] == k).sum()) for k in order]
-        ax.bar(x + off, act, width=0.36, color=c, label=f"{e}-2022 actual")
-        ax.scatter(x + off, exp, marker="_", s=260, color=viz.INK_2, zorder=4,
-                   label="model expected" if e == "pre" else None)
-        for xi_, v, nn in zip(x + off, act, n_):
-            ax.annotate(f"{nn}", (xi_, v), xytext=(0, 3 if v >= 0 else -10),
-                        ha="center", textcoords="offset points", fontsize=7,
-                        color=c)
-    ax.axhline(0, color=viz.INK_2, lw=1.0)
-    ax.set_xticks(x)
-    ax.set_xticklabels(order, fontsize=8.5)
-    ax.set_ylabel("goal difference")
-    viz.despine(ax)
-axes[0].set_title("By venue", fontsize=9.5)
-axes[1].set_title("By fixture type", fontsize=9.5)
-axes[0].legend(fontsize=7.5, loc="upper left")
-fig.suptitle("Bars are actual goal difference; dashes are what the model "
-             "expected of those fixtures", fontsize=9.5)
-plt.show()
-""")
-
-code("""
-# How the opposition sets up. The gap that made this unusable is now closed:
-# FBref has no Arab Cup, so opp_formation was null for ten post-era matches and
-# they were Jordan's easiest block. wiki_arabcup now derives the opposition's
-# shape from the same Football box that supplied Jordan's lineup, taking post
-# coverage from 35/45 to 41/45. Four post matches remain uncovered.
-cov = mt.assign(has=mt.opp_formation.notna())
-ol = mt.dropna(subset=["opp_line"])
-
-fig, axes = plt.subplots(1, 2, figsize=(8.0, 3.2),
-                         gridspec_kw={"width_ratios": [1, 1.25]})
-a = axes[0]
-t = pd.crosstab(ol.opp_line, ol.era, normalize="columns").reindex(columns=["pre", "post"])
-n_ = pd.crosstab(ol.opp_line, ol.era).reindex(columns=["pre", "post"])
-x = np.arange(len(t))
-for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-    a.bar(x + off, t[e], width=0.36, color=c, label=f"{e}-2022")
-    for xi_, v, nn in zip(x + off, t[e], n_[e]):
-        a.annotate(f"{int(nn)} of {int(n_[e].sum())}", (xi_, v), xytext=(0, 3),
-                   ha="center", textcoords="offset points", fontsize=7, color=c)
-a.set_xticks(x)
-a.set_xticklabels(t.index, fontsize=8.5)
-a.set_ylim(0, 1.05)
-a.set_ylabel("share of covered matches")
-a.set_title("What the opposition plays", fontsize=9.5)
-a.legend(fontsize=8)
-viz.despine(a)
-
-b = axes[1]
-g = (ol.groupby(["opp_line", "era"], observed=True)
-     .agg(n=("gd", "size"), gd=("gd", "mean"), exp=("expected_gd", "mean"))
-     .reset_index())
-x = np.arange(2)
-for off, e, c in ((-0.19, "pre", viz.BLUE), (0.19, "post", viz.ORANGE)):
-    d = g[g.era == e].set_index("opp_line").reindex(t.index)
-    b.bar(x + off, d.gd.values, width=0.36, color=c, label=f"{e}-2022")
-    b.scatter(x + off, d.exp.values, marker="_", s=260, color=viz.INK_2, zorder=4)
-    for xi_, v, nn in zip(x + off, d.gd.values, d.n.values):
-        if np.isfinite(v):
-            b.annotate(f"{int(nn)}", (xi_, v), xytext=(0, 3 if v >= 0 else -10),
-                       ha="center", textcoords="offset points", fontsize=7, color=c)
-b.axhline(0, color=viz.INK_2, lw=1.0)
-b.set_xticks(x)
-b.set_xticklabels(t.index, fontsize=8.5)
-b.set_ylabel("goal difference")
-b.set_title("How Jordan fares against each (dashes = expected)", fontsize=9.5)
-viz.despine(b)
-fig.suptitle("Arab Cup shapes recovered from Wikipedia; post coverage is now "
-             "41 of 45", fontsize=9.5)
-plt.show()
-""")
-
 md("""
 **The opponents got much harder — twice as fast as Jordan improved.** Expected
 goal difference is a *difference*, so a line of it falling cannot say which side
@@ -998,26 +912,24 @@ a statement about how little information 143 matches carry, not a contradiction.
 Notebook 01 now carries that comparison, along with what the model gets right
 about Jordan's individual matches.
 
-**Nobody changes shape for Jordan.** Teams line up against them with a back four
-almost always, and the count of back-three opponents is **8 before 2022 and 8
-after** — identical. The *share* rises only because the denominator shrank.
+**Nobody changes shape for Jordan, and Jordan changes shape for nobody** — and
+that is the whole of what the formation data supports, so it gets a paragraph
+rather than a chart. Teams line up in a back four about five times in six (87 of
+103 covered matches), the count of back-three opponents is **8 before 2022 and 8
+after**, and Jordan picks a back three in **44%** of matches against a back three
+and **43%** against a back four.
 
-This was nearly unusable: FBref carries no Arab Cup, so opp_formation was absent
-for ten of the post era's forty-five matches, and they were not a random ten —
-Jordan's easiest block, the one it won most heavily. The opposition's lineup was
-sitting in the same Wikipedia box that already supplied Jordan's, so the shape is
-derivable the same way, and post coverage is now **41 of 45**. All ten Arab Cup
-opponents played a back four.
+🚨 **Anything beyond that is out of reach, and was worth establishing rather than
+assuming.** Pooling both eras for power, Jordan's result relative to expectation
+differs between the two shapes by **−0.25, 95% [−1.16, +0.68]**; broken down by
+full formation the cells hold six to thirty matches and the residuals bounce
+between −0.60 and +1.01. There is no performance story here at any resolution
+this record can reach.
 
-🚨 Four post-era matches are still missing and they still lean easy (mean
-expected goal difference +0.99 against −0.07 for the covered ones), so read the
-right-hand panel as a description rather than an estimate.
-
-One structural change is not worth a chart: Jordan plays fewer home matches
-than it used to, **31% to 20%**, with neutral grounds taking up the slack as the
-schedule filled with tournaments. At the model's home advantage of 0.27 goals
-that mix costs about **0.03 goals a match** — real, and negligible beside the 0.84
-the opposition improved by.
+Recovering the Arab Cup shapes was still necessary. FBref carries no Arab Cup, so
+opp_formation was absent for ten post-era matches — and not a random ten, but
+Jordan's easiest block. Without them the 8-versus-8 count could not have been
+trusted either.
 """)
 
 md("""
