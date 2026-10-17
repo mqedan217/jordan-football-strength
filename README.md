@@ -1,5 +1,7 @@
 # Jordan National Team — team strength and squad composition, 2015–2026
 
+> **Status: work in progress.** The dataset is final through Jordan's match on 27 June 2026 (174 matches with full team sheets, 488 results overall); the two matches played since then are not yet included. The analysis and figures are still being revised.
+
 Jordan's results improved sharply from around mid-2022: a 2023 Asian Cup final
 and a first World Cup qualification. This project asks whether that shift is
 real once opponent quality is controlled for, when it happened, and whether it
